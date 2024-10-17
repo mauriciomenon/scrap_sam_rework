@@ -1,5 +1,6 @@
 from playwright.sync_api import sync_playwright
 
+
 class SAMNavigator:
     def __init__(self, page):
         self.page = page
@@ -9,13 +10,21 @@ class SAMNavigator:
         try:
             # Acesse a página de login
             self.page.goto("https://apps.itaipu.gov.br/SAM/NoPermission.aspx")
-            
+
             # Preencher campos de login
-            self.page.fill("input[name='OutSystemsUIWeb_wt15$block$wtLogin$wt18$wtUsername$wtUserNameInput']", username)
-            self.page.fill("input[name='OutSystemsUIWeb_wt15$block$wtLogin$wt18$wtPassword$wtPasswordInput']", password)
-            
+            self.page.fill(
+                "input[name='OutSystemsUIWeb_wt15$block$wtLogin$wt18$wtUsername$wtUserNameInput']",
+                username,
+            )
+            self.page.fill(
+                "input[name='OutSystemsUIWeb_wt15$block$wtLogin$wt18$wtPassword$wtPasswordInput']",
+                password,
+            )
+
             # Clicar no botão de login
-            self.page.click("input[name='OutSystemsUIWeb_wt15$block$wtLogin$wt18$wtAction$wt12']")
+            self.page.click(
+                "input[name='OutSystemsUIWeb_wt15$block$wtLogin$wt18$wtAction$wt12']"
+            )
             print("Login realizado com sucesso.")
         except Exception as e:
             print(f"Erro no login: {e}")
@@ -37,7 +46,10 @@ class SAMNavigator:
         """Aguarda o campo 'Setor Executor' estar disponível e pronto para interação."""
         try:
             # Usar o seletor específico para aguardar o campo 'Setor Executor'
-            self.page.wait_for_selector("input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wt22_wtSSADashboardFilter_SectorExecutor", timeout=20000)
+            self.page.wait_for_selector(
+                "input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wt22_wtSSADashboardFilter_SectorExecutor",
+                timeout=20000,
+            )
             print("Campo 'Setor Executor' encontrado.")
         except Exception as e:
             print(f"Erro ao esperar pelo campo 'Setor Executor': {e}")
@@ -46,7 +58,10 @@ class SAMNavigator:
         """Preenche o campo 'Setor Executor' com o valor fornecido."""
         try:
             # Preencher o campo de setor executor com o valor especificado
-            self.page.fill("input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wt22_wtSSADashboardFilter_SectorExecutor", executor_setor_value)
+            self.page.fill(
+                "input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wt22_wtSSADashboardFilter_SectorExecutor",
+                executor_setor_value,
+            )
             print(f"Campo 'Setor Executor' preenchido com: {executor_setor_value}")
         except Exception as e:
             print(f"Erro ao preencher o campo: {e}")
@@ -55,10 +70,64 @@ class SAMNavigator:
         """Clica no botão de pesquisa (lupa)."""
         try:
             # Aguardar até que o botão de pesquisa esteja disponível e clicar
-            self.page.click("a#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wt22_OutSystemsUIWeb_wt60_block_wtWidget_wtSearchButton")
+            self.page.click(
+                "a#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wt22_OutSystemsUIWeb_wt60_block_wtWidget_wtSearchButton"
+            )
             print("Lupa de pesquisa clicada.")
         except Exception as e:
             print(f"Erro ao clicar na lupa: {e}")
+
+    def generate_report(self):
+        """Gera o relatório, selecionando os campos e exportando para Excel."""
+        try:
+            # Selecionar "Relatório com Detalhes"
+            self.page.click("text=Relatório com Detalhes")
+
+            # Selecionar os campos específicos
+            self.page.check(
+                "input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wtListRecordsOptions_ctl00_OutSystemsUIWeb_wt21_block_wtContent_wt14"
+            )  # Informação Básica
+            self.page.check(
+                "input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wtListRecordsOptions_ctl04_OutSystemsUIWeb_wt21_block_wtContent_wt14"
+            )  # Programação
+            self.page.check(
+                "input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wtListRecordsOptions_ctl08_OutSystemsUIWeb_wt21_block_wtContent_wt14"
+            )  # Documentos
+            self.page.check(
+                "input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wtListRecordsOptions_ctl02_OutSystemsUIWeb_wt21_block_wtContent_wt14"
+            )  # Planejamento
+            self.page.check(
+                "input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wtListRecordsOptions_ctl06_OutSystemsUIWeb_wt21_block_wtContent_wt14"
+            )  # Execução
+            self.page.check(
+                "input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wtListRecordsOptions_ctl10_OutSystemsUIWeb_wt21_block_wtContent_wt14"
+            )  # Derivadas
+
+            # Certifique-se de que o campo APR não está selecionado
+            self.page.uncheck(
+                "input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wtListRecordsOptions_ctl12_OutSystemsUIWeb_wt21_block_wtContent_wt14"
+            )  # APR
+
+            # Tentar exibir o dropdown se ele estiver oculto
+            dropdown_selector = "#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMenuDropdown_wtConditionalMenu_IguazuTheme_wt31_block_OutSystemsUIWeb_wt6_block_wtButtonDropdownWrapper .dropdown-icon"
+
+            # Forçar visibilidade via JavaScript
+            self.page.evaluate(
+                'document.querySelector("#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMenuDropdown_wtConditionalMenu_IguazuTheme_wt31_block_OutSystemsUIWeb_wt6_block_wtButtonDropdownWrapper").classList.remove("is--hidden")'
+            )
+
+            # Clicar nos três pontos (dropdown) para abrir o menu
+            self.page.click(dropdown_selector)
+            print("Menu de exportação aberto.")
+
+            # Clicar na opção "Exportar para Excel"
+            self.page.click(
+                "#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMenuDropdown_wtConditionalMenu_IguazuTheme_wt31_block_OutSystemsUIWeb_wt6_block_wtDropdownList_wtDropdownList_wtLink_ExportToExcel > span"
+            )
+            print("Relatório exportado para Excel.")
+        except Exception as e:
+            print(f"Erro ao gerar o relatório: {e}")
+
 
 def run(playwright):
     browser = playwright.chromium.launch(headless=False)
@@ -82,11 +151,13 @@ def run(playwright):
     # Clicar na lupa para gerar o relatório
     navigator.click_search()
 
-    # Manter o navegador aberto para visualização
-    # browser.close()
+    # Gerar e exportar o relatório para Excel
+    navigator.generate_report()
+
     # Manter o navegador aberto para visualização
     page.wait_for_timeout(30000)
     input("Pressione Enter para fechar o navegador...")
+
 
 with sync_playwright() as playwright:
     run(playwright)
