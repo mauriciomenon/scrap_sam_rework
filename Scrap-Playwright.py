@@ -109,7 +109,7 @@ class SAMNavigator:
             )  # APR
 
             print("Opções de relatório selecionadas.")
-            
+
             """Exibe o menu de exportação e seleciona a opção 'Exportar para Excel'."""
             # Tentar exibir o dropdown se ele estiver oculto
             dropdown_selector = "#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMenuDropdown_wtConditionalMenu_IguazuTheme_wt31_block_OutSystemsUIWeb_wt6_block_wtButtonDropdownWrapper .dropdown-icon"
@@ -122,25 +122,30 @@ class SAMNavigator:
             # Clicar nos três pontos (dropdown) para abrir o menu
             self.page.click(dropdown_selector)
             print("Menu de exportação aberto.")
-            
+
         except Exception as e:
             print(f"Erro ao selecionar as opções do relatório: {e}")
 
     def export_to_excel(self):
         try:
-            # Aguardar a opção "Exportar para Excel" estar visível usando o XPath fornecido
-            export_selector = '//*[contains(concat( " ", @class, " " ), concat( " ", "iguazu-ico-size-double", " " ))] | //*[(@id = "SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMenuDropdown_wtConditionalMenu_IguazuTheme_wt31_block_OutSystemsUIWeb_wt6_block_wtDropdownList_wtDropdownList_wtLink_ExportToExcel")]//span'
-            self.page.wait_for_selector(export_selector, timeout=5000)
-
-            # Clicar na opção "Exportar para Excel"
-            self.page.click(export_selector)
-            print("Relatório exportado para Excel.")
+            # Executar a função __doPostBack diretamente via JavaScript
+            self.page.evaluate(
+                """__doPostBack('SAMTemplateAssets_wt93$block$IguazuTheme_wt30$block$wtMenuDropdown$wtConditionalMenu$IguazuTheme_wt31$block$OutSystemsUIWeb_wt6$block$wtDropdownList$wtDropdownList$wtLink_ExportToExcel','')"""
+            )
+            print("Relatório exportado para Excel via __doPostBack.")
         except Exception as e:
             print(f"Erro ao exportar o relatório: {e}")
+
 
 def run(playwright):
     browser = playwright.chromium.launch(headless=False)
     page = browser.new_page()
+
+    # Definir o tamanho da viewport (opcional)
+    page.set_viewport_size({"width": 1280, "height": 800})
+
+    # Definir o zoom para 75% via JavaScript
+    page.evaluate("document.body.style.zoom='0.75'")
 
     # Instanciar a classe SAMNavigator
     navigator = SAMNavigator(page)
@@ -167,7 +172,7 @@ def run(playwright):
     navigator.export_to_excel()
 
     # Manter o navegador aberto para visualização
-    page.wait_for_timeout(30000)
+    page.wait_for_timeout(15000)
     input("Pressione Enter para fechar o navegador...")
 
 
