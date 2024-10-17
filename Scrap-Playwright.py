@@ -77,8 +77,8 @@ class SAMNavigator:
         except Exception as e:
             print(f"Erro ao clicar na lupa: {e}")
 
-    def generate_report(self):
-        """Gera o relatório, selecionando os campos e exportando para Excel."""
+    def select_report_options(self):
+        """Seleciona os detalhes do relatório e marca as opções desejadas."""
         try:
             # Selecionar "Relatório com Detalhes"
             self.page.click("text=Relatório com Detalhes")
@@ -108,6 +108,9 @@ class SAMNavigator:
                 "input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wtListRecordsOptions_ctl12_OutSystemsUIWeb_wt21_block_wtContent_wt14"
             )  # APR
 
+            print("Opções de relatório selecionadas.")
+            
+            """Exibe o menu de exportação e seleciona a opção 'Exportar para Excel'."""
             # Tentar exibir o dropdown se ele estiver oculto
             dropdown_selector = "#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMenuDropdown_wtConditionalMenu_IguazuTheme_wt31_block_OutSystemsUIWeb_wt6_block_wtButtonDropdownWrapper .dropdown-icon"
 
@@ -119,21 +122,21 @@ class SAMNavigator:
             # Clicar nos três pontos (dropdown) para abrir o menu
             self.page.click(dropdown_selector)
             print("Menu de exportação aberto.")
+            
+        except Exception as e:
+            print(f"Erro ao selecionar as opções do relatório: {e}")
 
-            # Aguardar a opção "Exportar para Excel" estar visível
-            self.page.wait_for_selector(
-                "#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMenuDropdown_wtConditionalMenu_IguazuTheme_wt31_block_OutSystemsUIWeb_wt6_block_wtDropdownList_wtDropdownList_wtLink_ExportToExcel",
-                timeout=5000,
-            )
+    def export_to_excel(self):
+        try:
+            # Aguardar a opção "Exportar para Excel" estar visível usando o XPath fornecido
+            export_selector = '//*[contains(concat( " ", @class, " " ), concat( " ", "iguazu-ico-size-double", " " ))] | //*[(@id = "SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMenuDropdown_wtConditionalMenu_IguazuTheme_wt31_block_OutSystemsUIWeb_wt6_block_wtDropdownList_wtDropdownList_wtLink_ExportToExcel")]//span'
+            self.page.wait_for_selector(export_selector, timeout=5000)
 
             # Clicar na opção "Exportar para Excel"
-            self.page.click(
-                "#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMenuDropdown_wtConditionalMenu_IguazuTheme_wt31_block_OutSystemsUIWeb_wt6_block_wtDropdownList_wtDropdownList_wtLink_ExportToExcel > span"
-            )
+            self.page.click(export_selector)
             print("Relatório exportado para Excel.")
         except Exception as e:
-            print(f"Erro ao gerar o relatório: {e}")
-
+            print(f"Erro ao exportar o relatório: {e}")
 
 def run(playwright):
     browser = playwright.chromium.launch(headless=False)
@@ -157,13 +160,17 @@ def run(playwright):
     # Clicar na lupa para gerar o relatório
     navigator.click_search()
 
-    # Gerar e exportar o relatório para Excel
-    navigator.generate_report()
+    # Selecionar as opções do relatório
+    navigator.select_report_options()
+
+    # Exportar para Excel
+    navigator.export_to_excel()
 
     # Manter o navegador aberto para visualização
     page.wait_for_timeout(30000)
     input("Pressione Enter para fechar o navegador...")
 
 
+# Executar o código usando Playwright
 with sync_playwright() as playwright:
     run(playwright)
