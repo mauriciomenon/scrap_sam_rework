@@ -1,4 +1,5 @@
 from playwright.sync_api import sync_playwright
+import os
 
 
 class SAMNavigator:
@@ -78,7 +79,6 @@ class SAMNavigator:
             print(f"Erro ao clicar na lupa: {e}")
 
     def select_report_options(self):
-        """Seleciona os detalhes do relatório e marca as opções desejadas."""
         try:
             # Selecionar "Relatório com Detalhes"
             self.page.click("text=Relatório com Detalhes")
@@ -110,42 +110,80 @@ class SAMNavigator:
 
             print("Opções de relatório selecionadas.")
 
-            """Exibe o menu de exportação e seleciona a opção 'Exportar para Excel'."""
-            # Tentar exibir o dropdown se ele estiver oculto
-            dropdown_selector = "#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMenuDropdown_wtConditionalMenu_IguazuTheme_wt31_block_OutSystemsUIWeb_wt6_block_wtButtonDropdownWrapper .dropdown-icon"
-
-            # Forçar visibilidade via JavaScript
-            self.page.evaluate(
-                'document.querySelector("#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMenuDropdown_wtConditionalMenu_IguazuTheme_wt31_block_OutSystemsUIWeb_wt6_block_wtButtonDropdownWrapper").classList.remove("is--hidden")'
-            )
-
-            # Clicar nos três pontos (dropdown) para abrir o menu
-            self.page.click(dropdown_selector)
-            print("Menu de exportação aberto.")
-
         except Exception as e:
             print(f"Erro ao selecionar as opções do relatório: {e}")
+            self.page.screenshot(path="select_options_error.png")
+            print("Screenshot de erro salvo como 'select_options_error.png'")
+
 
     def export_to_excel(self):
         try:
-            # Executar a função __doPostBack diretamente via JavaScript
-            self.page.evaluate(
-                """__doPostBack('SAMTemplateAssets_wt93$block$IguazuTheme_wt30$block$wtMenuDropdown$wtConditionalMenu$IguazuTheme_wt31$block$OutSystemsUIWeb_wt6$block$wtDropdownList$wtDropdownList$wtLink_ExportToExcel','')"""
+            # Aguardar para garantir que a página esteja estável
+            self.page.wait_for_load_state("networkidle")
+
+            # Usar JavaScript para clicar diretamente na opção "Exportar para Excel"
+            click_success = self.page.evaluate(
+                """
+                () => {
+                    const exportButtons = Array.from(document.querySelectorAll('a span'))
+                        .filter(span => span.textContent.includes('Exportar para Excel'));
+                    if (exportButtons.length > 0) {
+                        exportButtons[0].click();
+                        return true;
+                    }
+                    return false;
+                }
+            """
             )
-            print("Relatório exportado para Excel via __doPostBack.")
+
+            if click_success:
+                print("Clique na opção 'Exportar para Excel' realizado via JavaScript.")
+            else:
+                print("Não foi possível encontrar a opção 'Exportar para Excel'.")
+                self.page.screenshot(path="export_option_not_found.png")
+                print("Screenshot salvo como 'export_option_not_found.png'")
+                return
+
+            # Configurar o caminho de download
+            download_path = os.path.join(os.getcwd(), "downloads")
+            os.makedirs(download_path, exist_ok=True)
+
+            # Aguardar o download iniciar
+            try:
+                with self.page.expect_download(timeout=30000) as download_info:
+                    # Aguardar um pouco para garantir que o download comece
+                    self.page.wait_for_timeout(5000)
+
+                download = download_info.value
+                print(f"Download iniciado: {download.suggested_filename}")
+
+                # Salvar o arquivo
+                download_file_path = os.path.join(
+                    download_path, download.suggested_filename
+                )
+                download.save_as(download_file_path)
+                print(f"Arquivo Excel salvo como: {download_file_path}")
+            except Exception as e:
+                print(f"Erro durante o download: {e}")
+                self.page.screenshot(path="download_error.png")
+                print("Screenshot salvo como 'download_error.png'")
+
         except Exception as e:
-            print(f"Erro ao exportar o relatório: {e}")
+            print(f"Erro geral ao exportar o relatório: {e}")
+            self.page.screenshot(path="general_export_error.png")
+            print("Screenshot de erro geral salvo como 'general_export_error.png'")
+
+        # Verificação adicional para garantir que o download foi iniciado
+        files_in_download_folder = os.listdir(download_path)
+        if files_in_download_folder:
+            print(f"Arquivos na pasta de download: {files_in_download_folder}")
+        else:
+            print("Nenhum arquivo encontrado na pasta de download.")
 
 
 def run(playwright):
     browser = playwright.chromium.launch(headless=False)
     page = browser.new_page()
-
-    # Definir o tamanho da viewport (opcional)
-    page.set_viewport_size({"width": 1280, "height": 800})
-
-    # Definir o zoom para 75% via JavaScript
-    page.evaluate("document.body.style.zoom='0.75'")
 
     # Instanciar a classe SAMNavigator
     navigator = SAMNavigator(page)
@@ -165,6 +203,9 @@ def run(playwright):
     # Clicar na lupa para gerar o relatório
     navigator.click_search()
 
+    # Aguardar para garantir que o relatório seja gerado
+    page.wait_for_load_state('networkidle')
+
     # Selecionar as opções do relatório
     navigator.select_report_options()
 
@@ -172,7 +213,7 @@ def run(playwright):
     navigator.export_to_excel()
 
     # Manter o navegador aberto para visualização
-    page.wait_for_timeout(15000)
+    page.wait_for_timeout(10000)
     input("Pressione Enter para fechar o navegador...")
 
 
