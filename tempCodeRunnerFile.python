@@ -1,0 +1,70 @@
+
+# -*- coding: utf-8 -*-
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoAlertPresentException
+import unittest, time, re
+
+class UntitledTestCase(unittest.TestCase):
+    def setUp(self):
+        self.driver = webdriver.Chrome(executable_path=r'')
+        self.driver.implicitly_wait(30)
+        self.base_url = "https://www.google.com/"
+        self.verificationErrors = []
+        self.accept_next_alert = True
+    
+    def test_untitled_test_case(self):
+        driver = self.driver
+        #ERROR: Caught exception [unknown command []]
+        driver.find_element_by_xpath("//a[@id='SAMTemplateAssets_wt80_block_IguazuTheme_wt30_block_wtMenu_wtMenu_SAM_SMA_CW_wt135_block_RichWidgets_wtReports_block_wtMenuItem_wt169']/span").click()
+        driver.get("https://apps.itaipu.gov.br/SAM_SMA_Reports/Reports.aspx")
+        driver.find_element_by_id("SAMTemplateAssets_wt39_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_OutSystemsUIWeb_wt107_block_wtColumn1_OutSystemsUIWeb_wt159_block_wtBulletsItems_OutSystemsUIWeb_wt112_block_wtContent_wt85").click()
+        driver.get("https://apps.itaipu.gov.br/SAM_SMA_Reports/PendingGeneralSSAs.aspx")
+        driver.find_element_by_id("SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wt22_wtEmissionDate_input").clear()
+        driver.find_element_by_id("SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wt22_wtEmissionDate_input").send_keys("22/10/2024")
+        driver.find_element_by_xpath("//div[@id='SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_OutSystemsUIWeb_wt5_block_wtContent']/div[2]/span").click()
+        driver.find_element_by_id("SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wtListRecordsOptions_ctl04_OutSystemsUIWeb_wt21_block_wtContent_wt14").click()
+        driver.find_element_by_id("SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wtListRecordsOptions_ctl08_OutSystemsUIWeb_wt21_block_wtContent_wt14").click()
+        driver.find_element_by_id("SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wtListRecordsOptions_ctl02_OutSystemsUIWeb_wt21_block_wtContent_wt14").click()
+        driver.find_element_by_id("SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wtListRecordsOptions_ctl06_OutSystemsUIWeb_wt21_block_wtContent_wt14").click()
+        driver.find_element_by_id("SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wtListRecordsOptions_ctl10_OutSystemsUIWeb_wt21_block_wtContent_wt14").click()
+        driver.find_element_by_id("SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wt22_wtSSADashboardFilter_SectorExecutor").click()
+        driver.find_element_by_id("SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wt22_wtSSADashboardFilter_SectorExecutor").clear()
+        driver.find_element_by_id("SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wt22_wtSSADashboardFilter_SectorExecutor").send_keys("IEE3")
+        driver.find_element_by_xpath("//a[@id='SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wt22_OutSystemsUIWeb_wt60_block_wtWidget_wtSearchButton']/span").click()
+        driver.find_element_by_xpath("//div[@id='SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMenuDropdown_wtConditionalMenu_IguazuTheme_wt31_block_OutSystemsUIWeb_wt6_block_wtPrompt']/div/i").click()
+        driver.find_element_by_xpath("//a[@id='SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMenuDropdown_wtConditionalMenu_IguazuTheme_wt31_block_OutSystemsUIWeb_wt6_block_wtDropdownList_wtDropdownList_wtLink_ExportToExcel']/span").click()
+    
+    def is_element_present(self, how, what):
+        try: self.driver.find_element(by=how, value=what)
+        except NoSuchElementException as e: return False
+        return True
+    
+    def is_alert_present(self):
+        try: self.driver.switch_to_alert()
+        except NoAlertPresentException as e: return False
+        return True
+    
+    def close_alert_and_get_its_text(self):
+        try:
+            alert = self.driver.switch_to_alert()
+            alert_text = alert.text
+            if self.accept_next_alert:
+                alert.accept()
+            else:
+                alert.dismiss()
+            return alert_text
+        finally: self.accept_next_alert = True
+    
+    def tearDown(self):
+        self.driver.quit()
+        self.assertEqual([], self.verificationErrors)
+
+if __name__ == "__main__":
+    unittest.main()
+
+
+
