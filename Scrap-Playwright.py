@@ -181,97 +181,31 @@ class SAMNavigator:
             print("Nenhum arquivo encontrado na pasta de download.")
     '''
 
-
     def wait_for_loading_complete(self):
-        """
-        Aguarda o carregamento completo, considerando múltiplas requisições assíncronas do OutSystems.
-        Inclui timeouts adequados para operações longas.
-        """
+        """Aguarda a barra de progresso aparecer e depois desaparecer."""
         try:
             loading_bar_id = "SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wt31_OutSystemsUIWeb_wt2_block_RichWidgets_wt15_block_wtdivWait"
-            print("Iniciando monitoramento de carregamento...")
-            
-            # Aumentar o timeout padrão para 5 minutos
-            self.page.set_default_timeout(300000)  # 5 minutos em milissegundos
-            
-            max_wait_time = 300  # Tempo máximo total de espera (5 minutos)
-            stability_time = 5    # Tempo de estabilidade necessário (5 segundos)
-            start_time = self.page.evaluate("() => Date.now()")
-            
-            while True:
-                # Verificar se excedeu o tempo máximo
-                current_time = self.page.evaluate("() => Date.now()")
-                if (current_time - start_time) > (max_wait_time * 1000):
-                    print("Tempo máximo de espera excedido!")
-                    return False
-                
-                # Verificar se a barra está visível com timeout aumentado
-                try:
-                    is_loading = self.page.locator(f"#{loading_bar_id}").is_visible()
-                    
-                    if is_loading:
-                        print("Barra de progresso detectada, aguardando...")
-                        # Usar timeout explícito maior para wait_for_selector
-                        self.page.wait_for_selector(f"#{loading_bar_id}", state="hidden", timeout=300000)
-                        print("Barra de progresso desapareceu.")
-                        start_time = self.page.evaluate("() => Date.now()")
-                    else:
-                        print(f"Verificando estabilidade por {stability_time} segundos...")
-                        self.page.wait_for_timeout(stability_time * 1000)
-                        
-                        if not self.page.locator(f"#{loading_bar_id}").is_visible():
-                            print("Página estável, carregamento concluído.")
-                            # Verificação final do estado da rede com timeout aumentado
-                            self.page.wait_for_load_state("networkidle", timeout=300000)
-                            return True
-                        else:
-                            print("Barra reapareceu durante verificação de estabilidade, continuando monitoramento...")
-                            continue
-                            
-                except Exception as wait_error:
-                    print(f"Erro durante verificação de visibilidade/espera: {wait_error}")
-                    continue
+            print("Verificando carregamento da página...")
+
+            # Aguardar a barra de progresso desaparecer
+            self.page.wait_for_selector(f"#{loading_bar_id}", state="hidden")
+            print("Barra de progresso desapareceu.")
+
+            # Aguardar a rede estabilizar
+            self.page.wait_for_load_state("networkidle")
+            return True
 
         except Exception as e:
-            print(f"Erro ao monitorar carregamento: {e}")
+            print(f"Erro ao aguardar carregamento: {e}")
             return False
-        finally:
-            # Restaurar o timeout padrão
-            self.page.set_default_timeout(30000)
-
-    def handle_download(self):
-        """Gerencia o processo de download."""
-        try:
-            download_path = os.path.join(os.getcwd(), "Downloads")
-            os.makedirs(download_path, exist_ok=True)
-
-            with self.page.expect_download() as download_promise:
-                # Clicar no botão de exportação
-                export_button_xpath = "//div[@id='SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMenuDropdown_wtConditionalMenu_IguazuTheme_wt31_block_OutSystemsUIWeb_wt6_block_wtPrompt']/div/i"
-                self.page.click(f"xpath={export_button_xpath}")
-
-                # Aguardar o download iniciar
-                download = download_promise.value
-                print(f"Download iniciado: {download.suggested_filename}")
-
-                # Salvar o arquivo
-                download_file_path = os.path.join(download_path, download.suggested_filename)
-                download.save_as(download_file_path)
-
-                # Verificar o arquivo
-                if os.path.exists(download_file_path) and os.path.getsize(download_file_path) > 0:
-                    print(f"Download concluído: {download_file_path}")
-                    return True, download_file_path
-                else:
-                    print("Arquivo de download não encontrado ou vazio")
-                    return False, None
 
         except Exception as e:
             print(f"Erro durante o download: {e}")
             return False, None
 
+
     def export_to_excel(self):
-        """Exporta o relatório para Excel."""
+        """Exporta o relatório para Excel, priorizando o método JavaScript."""
         try:
             print("Aguardando carregamento completo após seleção dos filtros...")
 
@@ -282,73 +216,125 @@ class SAMNavigator:
 
             print("Página carregada completamente, prosseguindo com a exportação...")
 
-            # XPath para o botão de três pontos
-            three_dots_xpath = "//div[@id='SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMenuDropdown_wtConditionalMenu_IguazuTheme_wt31_block_OutSystemsUIWeb_wt6_block_wtPrompt']/div/i"
+            # Configurar o caminho de download
+            download_path = os.path.join(os.getcwd(), "Downloads")
+            os.makedirs(download_path, exist_ok=True)
 
-            # Aguardar e clicar no botão de três pontos
+            # Aumentar timeout padrão temporariamente
+            self.page.set_default_timeout(60000)
+
+            # Primeiro método: Usando cliques diretos (invertendo a ordem dos métodos)
             try:
-                self.page.wait_for_selector(
-                    f"xpath={three_dots_xpath}", state="visible", timeout=10000
-                )
-                self.page.click(f"xpath={three_dots_xpath}")
-                print("Menu de exportação aberto via três pontos.")
+                print("Tentando método com cliques diretos...")
 
-                # Aguardar um momento para o menu aparecer
-                self.page.wait_for_selector(
-                    "text=Exportar para Excel", state="visible", timeout=5000
-                )
+                # XPath para o botão de três pontos
+                three_dots_xpath = "//div[@id='SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMenuDropdown_wtConditionalMenu_IguazuTheme_wt31_block_OutSystemsUIWeb_wt6_block_wtPrompt']/div/i"
 
-                # Iniciar o processo de download
-                success, file_path = self.handle_download()
+                print("Aguardando botão de três pontos ficar visível...")
 
-                if success:
-                    print(
-                        f"Exportação concluída com sucesso. Arquivo salvo em: {file_path}"
-                    )
-                    return True
-                else:
-                    print("Falha na exportação do arquivo.")
-                    return False
+                # Configurar evento de download antes de qualquer clique
+                with self.page.expect_download(timeout=60000) as download_promise:
+                    # Clicar no botão de três pontos
+                    self.page.click(f"xpath={three_dots_xpath}")
+                    print("Clicado no botão de três pontos.")
 
-            except Exception as e:
-                print(f"Erro ao usar XPath para exportar: {e}")
+                    # Aguardar o menu aparecer
+                    self.page.wait_for_selector("text=Exportar para Excel", state="visible")
+                    print("Opção 'Exportar para Excel' visível.")
 
-                # Fallback usando JavaScript
+                    # Clicar na opção de exportar
+                    self.page.click("text=Exportar para Excel", timeout=10000)
+                    print("Clicado em 'Exportar para Excel'")
+
+                    try:
+                        # Aguardar o download iniciar
+                        print("Aguardando início do download...")
+                        download = download_promise.value
+                        print(f"Download iniciado: {download.suggested_filename}")
+
+                        # Salvar o arquivo
+                        download_file_path = os.path.join(
+                            download_path, download.suggested_filename
+                        )
+                        download.save_as(download_file_path)
+                        print(f"Download concluído: {download_file_path}")
+                        return True
+                    except Exception as download_error:
+                        print(f"Erro durante o download: {download_error}")
+                        raise
+
+            except Exception as click_e:
+                print(f"Erro no método de clique direto: {click_e}")
+                self.page.screenshot(path="click_error.png")
+
+                # Método alternativo: JavaScript
                 print("Tentando método alternativo via JavaScript...")
-                with self.page.expect_download() as download_promise:
-                    click_success = self.page.evaluate(
-                        """
-                        () => {
-                            const exportButtons = Array.from(document.querySelectorAll('a span'))
-                                .filter(span => span.textContent.includes('Exportar para Excel'));
-                            if (exportButtons.length > 0) {
-                                exportButtons[0].click();
-                                return true;
+                try:
+                    with self.page.expect_download(timeout=60000) as download_promise:
+                        success = self.page.evaluate(
+                            """
+                            () => {
+                                // Tentar abrir o menu se estiver fechado
+                                const dropdown = document.querySelector('[class*="dropdown"]');
+                                if (dropdown) {
+                                    dropdown.classList.add('show', 'open');
+                                }
+                                
+                                // Encontrar e clicar no botão de exportação
+                                const links = Array.from(document.querySelectorAll('a'));
+                                const exportButton = links.find(link => 
+                                    link.textContent.includes('Exportar para Excel') || 
+                                    link.innerText.includes('Exportar para Excel')
+                                );
+                                
+                                if (exportButton) {
+                                    console.log('Botão de exportação encontrado');
+                                    exportButton.click();
+                                    return true;
+                                }
+                                console.log('Botão de exportação não encontrado');
+                                return false;
                             }
-                            return false;
-                        }
-                    """
-                    )
+                        """
+                        )
 
-                    if click_success:
-                        success, file_path = self.handle_download()
                         if success:
+                            download = download_promise.value
+                            download_file_path = os.path.join(
+                                download_path, download.suggested_filename
+                            )
+                            download.save_as(download_file_path)
                             print(
-                                f"Exportação via JavaScript concluída com sucesso. Arquivo salvo em: {file_path}"
+                                f"Download via JavaScript concluído: {download_file_path}"
                             )
                             return True
+                        else:
+                            print(
+                                "JavaScript não conseguiu encontrar o botão de exportação"
+                            )
+                            return False
 
-                print("Falha em todas as tentativas de exportação.")
-                return False
+                except Exception as js_e:
+                    print(f"Erro no método JavaScript: {js_e}")
+                    self.page.screenshot(path="js_error.png")
+                    return False
 
         except Exception as e:
             print(f"Erro geral ao exportar o relatório: {e}")
+            self.page.screenshot(path="general_error.png")
             return False
+
+        finally:
+            # Restaurar timeout padrão
+            self.page.set_default_timeout(30000)
 
 
 def run(playwright):
     browser = playwright.chromium.launch(headless=False)
     page = browser.new_page()
+
+    # Configurar download automático
+    page.set_default_timeout(60000)  # 60 segundos global
 
     # Instanciar a classe SAMNavigator
     navigator = SAMNavigator(page)
@@ -371,8 +357,10 @@ def run(playwright):
     # Aguardar para garantir que o relatório seja gerado
     page.wait_for_load_state('networkidle')
 
-    # Selecionar as opções do relatório
+    # Após select_report_options, adicionar uma espera extra
     navigator.select_report_options()
+    page.wait_for_load_state("networkidle")
+    page.wait_for_timeout(5000)  # Dar tempo extra para estabilizar
 
     # Exportar para Excel
     navigator.export_to_excel()
