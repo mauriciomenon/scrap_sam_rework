@@ -134,7 +134,7 @@ class SAMNavigator:
         self._safe_action(_do_search, "Erro ao realizar pesquisa", "search_error")
 
     def select_report_options(self):
-        """Seleciona opções do relatório com verificação ajustada."""
+        """Seleciona opções do relatório e faz a exportação."""
         try:
             print("Selecionando 'Relatório com Detalhes'...")
             self.page.click("text=Relatório com Detalhes")
@@ -146,13 +146,10 @@ class SAMNavigator:
             )
 
             if not self.wait_for_loading_complete(timeout=90000):
-                raise Exception(
-                    "Timeout aguardando carregamento após selecionar relatório detalhado"
-                )
+                raise Exception("Timeout aguardando carregamento após selecionar relatório detalhado")
 
-            # Mantido o JavaScript original dos checkboxes
-            success = self.page.evaluate(
-                """() => {
+            # Mantido o JavaScript original dos checkboxes (sem alteração)
+            success = self.page.evaluate("""() => {
                 try {
                     const checkboxesToCheck = ['ctl00', 'ctl04', 'ctl08', 'ctl02', 'ctl06', 'ctl10'];
                     const checkboxesToUncheck = ['ctl12'];
@@ -193,25 +190,36 @@ class SAMNavigator:
                     console.error('Erro ao selecionar checkboxes:', error);
                     return false;
                 }
-            }"""
-            )
+            }""")
 
             if not success:
                 raise Exception("Falha ao selecionar opções via JavaScript")
 
             self.page.wait_for_timeout(1000)
 
-            # Usa verificação específica para pós-checkboxes
-            if not self.wait_for_loading_complete(timeout=30000, after_checkboxes=True):
-                print("Aviso: Tempo excedido após checkboxes, mas continuando...")
-                self.page.wait_for_timeout(3000)  # Espera adicional de segurança
+            # Espera completa após os checkboxes
+            print("Aguardando carregamento completo após configurar checkboxes...")
+            max_attempts = 5
+            for attempt in range(max_attempts):
+                if self.wait_for_loading_complete(timeout=90000):
+                    print("Carregamento completo confirmado, prosseguindo com exportação...")
+                    break
+                print(f"Tentativa {attempt + 1}/{max_attempts} de verificar carregamento...")
+                self.page.wait_for_timeout(5000)
+            else:
+                raise Exception(
+                    "Não foi possível confirmar carregamento completo após checkboxes"
+                )
 
             print("Todas as opções do relatório foram configuradas corretamente.")
+
+            # Executa a exportação e retorna seu resultado
+            return self.export_to_excel()
 
         except Exception as e:
             print(f"Erro ao configurar opções do relatório: {e}")
             self.page.screenshot(path="report_options_error.png")
-            raise
+            return False
 
     def verify_selections(self):
         """Verifica se todas as opções foram selecionadas corretamente."""
@@ -316,11 +324,11 @@ class SAMNavigator:
         """Exporta o relatório para Excel com clique otimizado."""
         try:
             print("Iniciando processo de exportação...")
-            
+
             # Primeira espera
             print("Aguardando estabilização inicial da página...")
             self.page.wait_for_timeout(3000)
-            
+
             # Configura timeout maior para esta operação
             self.page.set_default_timeout(90000)
 
@@ -366,7 +374,7 @@ class SAMNavigator:
                             });
                         }
                     """)
-                    
+
                     if not success:
                         raise Exception("Não foi possível clicar no menu")
 
@@ -440,7 +448,7 @@ class SAMNavigator:
             except Exception as click_e:
                 print(f"Erro no método de clique: {click_e}")
                 self.page.screenshot(path="click_error.png")
-                
+
                 # Fallback para o método JavaScript anterior
                 print("Tentando método alternativo de JavaScript...")
                 return self._export_via_javascript()
@@ -489,7 +497,7 @@ class SAMNavigator:
                         });
                     }
                 """)
-                
+
                 if success:
                     download = download_promise.value
                     download_file_path = os.path.join(
@@ -501,7 +509,7 @@ class SAMNavigator:
                 else:
                     print("JavaScript não conseguiu completar a exportação")
                     return False
-                    
+
         except Exception as js_e:
             print(f"Erro no método JavaScript: {js_e}")
             self.page.screenshot(path="js_error.png")
@@ -522,11 +530,13 @@ def run(username: str, password: str, setor: str):
             navigator.wait_for_filter_field()
             navigator.fill_filter(setor)
             navigator.click_search()
-            navigator.select_report_options()
-            success = navigator.export_to_excel()
 
-            if not success:
-                print("Falha na exportação do relatório")
+            # Alteramos para usar o retorno do select_report_options
+            if navigator.select_report_options():
+                print("Relatório configurado com sucesso.")
+            else:
+                print("Falha na configuração do relatório")
+                return
 
             input("Pressione Enter para fechar o navegador...")
 
