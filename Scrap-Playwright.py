@@ -1,5 +1,12 @@
+# ATENCAO: a exportacao do menu de relatorio simples gera um arquivo igual ao relatorio "completo" com detalhes
+# e filtros habilitados. A unica diferenca e a apresentacao na tela dos dados. Trata-se de um codigo de 
+# aprendizado e logicamente selecionar somente esta opcao o tornara muito mais rapido.
+# Objetivo: codigo generico reaproveitavel com tratamento de erro de requisicoes ao SAM
+
 from playwright.sync_api import sync_playwright
 import os
+from datetime import datetime
+import time
 
 
 class SAMNavigator:
@@ -7,7 +14,6 @@ class SAMNavigator:
         self.page = page
 
     def login(self, username, password):
-        """Realiza login no sistema com o usuário e senha fornecidos."""
         try:
             # Acesse a página de login
             self.page.goto("https://apps.itaipu.gov.br/SAM/NoPermission.aspx")
@@ -44,142 +50,214 @@ class SAMNavigator:
             print(f"Erro ao navegar: {e}")
 
     def wait_for_filter_field(self):
-        """Aguarda o campo 'Setor Executor' estar disponível e pronto para interação."""
-        try:
-            # Usar o seletor específico para aguardar o campo 'Setor Executor'
-            self.page.wait_for_selector(
-                "input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wt22_wtSSADashboardFilter_SectorExecutor",
-                timeout=20000,
-            )
-            print("Campo 'Setor Executor' encontrado.")
-        except Exception as e:
-            print(f"Erro ao esperar pelo campo 'Setor Executor': {e}")
+        """Aguarda o campo 'Setor Executor' com retry."""
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                self.page.wait_for_selector(
+                    "input[id*='SectorExecutor']", state="visible", timeout=20000
+                )
+                print("Campo 'Setor Executor' encontrado.")
+                return True
+            except Exception as e:
+                if attempt == max_retries - 1:
+                    print(f"Erro ao localizar campo 'Setor Executor': {e}")
+                    self.page.screenshot(path="filter_field_error.png")
+                    raise
+                time.sleep(2)
 
     def fill_filter(self, executor_setor_value):
-        """Preenche o campo 'Setor Executor' com o valor fornecido."""
+        """Preenche o filtro com verificação."""
         try:
-            # Preencher o campo de setor executor com o valor especificado
-            self.page.fill(
-                "input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wt22_wtSSADashboardFilter_SectorExecutor",
-                executor_setor_value,
+            input_selector = "input[id*='SectorExecutor']"
+            self.page.wait_for_selector(input_selector, state="visible")
+            self.page.fill(input_selector, executor_setor_value)
+
+            # Verificar se o valor foi preenchido corretamente
+            actual_value = self.page.evaluate(
+                """(selector) => {
+                return document.querySelector(selector).value;
+            }""",
+                input_selector,
             )
-            print(f"Campo 'Setor Executor' preenchido com: {executor_setor_value}")
+
+            if actual_value != executor_setor_value:
+                raise ValueError(
+                    f"Valor preenchido ({actual_value}) diferente do esperado ({executor_setor_value})"
+                )
+
+            print(f"Filtro preenchido com: {executor_setor_value}")
+
         except Exception as e:
-            print(f"Erro ao preencher o campo: {e}")
+            print(f"Erro ao preencher filtro: {e}")
+            self.page.screenshot(path="fill_filter_error.png")
+            raise
 
     def click_search(self):
-        """Clica no botão de pesquisa (lupa)."""
+        """Clica no botão de pesquisa com verificação de resultado."""
         try:
-            # Aguardar até que o botão de pesquisa esteja disponível e clicar
-            self.page.click(
-                "a#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wt22_OutSystemsUIWeb_wt60_block_wtWidget_wtSearchButton"
-            )
-            print("Lupa de pesquisa clicada.")
-        except Exception as e:
-            print(f"Erro ao clicar na lupa: {e}")
+            search_button = "a[id*='SearchButton']"
+            self.page.wait_for_selector(search_button, state="visible")
+            self.page.click(search_button)
 
+            # Aguardar resultado da pesquisa
+            self.wait_for_loading_complete()
+            print("Pesquisa realizada com sucesso.")
+
+        except Exception as e:
+            print(f"Erro ao realizar pesquisa: {e}")
+            self.page.screenshot(path="search_error.png")
+            raise
+
+    '''
+    # Metodo original que seleciona os 4 checkboxes, ja melhorou o antigo usava id
+    # Outsystem manda uma requisicao para cada check entao mudar para JS
     def select_report_options(self):
+        """Seleciona opções do relatório com verificação."""
+        checkboxes = {
+            "Informação Básica": "input[id*='ctl00'][id*='wtContent']",
+            "Programação": "input[id*='ctl04'][id*='wtContent']",
+            "Documentos": "input[id*='ctl08'][id*='wtContent']",
+            "Planejamento": "input[id*='ctl02'][id*='wtContent']",
+            "Execução": "input[id*='ctl06'][id*='wtContent']",
+            "Derivadas": "input[id*='ctl10'][id*='wtContent']"
+        }
+        
         try:
             # Selecionar "Relatório com Detalhes"
             self.page.click("text=Relatório com Detalhes")
-
-            # Selecionar os campos específicos
-            self.page.check(
-                "input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wtListRecordsOptions_ctl00_OutSystemsUIWeb_wt21_block_wtContent_wt14"
-            )  # Informação Básica
-            self.page.check(
-                "input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wtListRecordsOptions_ctl04_OutSystemsUIWeb_wt21_block_wtContent_wt14"
-            )  # Programação
-            self.page.check(
-                "input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wtListRecordsOptions_ctl08_OutSystemsUIWeb_wt21_block_wtContent_wt14"
-            )  # Documentos
-            self.page.check(
-                "input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wtListRecordsOptions_ctl02_OutSystemsUIWeb_wt21_block_wtContent_wt14"
-            )  # Planejamento
-            self.page.check(
-                "input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wtListRecordsOptions_ctl06_OutSystemsUIWeb_wt21_block_wtContent_wt14"
-            )  # Execução
-            self.page.check(
-                "input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wtListRecordsOptions_ctl10_OutSystemsUIWeb_wt21_block_wtContent_wt14"
-            )  # Derivadas
-
-            # Certifique-se de que o campo APR não está selecionado
-            self.page.uncheck(
-                "input#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMainContent_wtMainContent_SAM_SMA_CW_wt90_block_wtListRecordsOptions_ctl12_OutSystemsUIWeb_wt21_block_wtContent_wt14"
-            )  # APR
-
-            print("Opções de relatório selecionadas.")
-
+            
+            # Selecionar cada checkbox
+            for name, selector in checkboxes.items():
+                try:
+                    self.page.wait_for_selector(selector, timeout=5000)
+                    self.page.check(selector)
+                    print(f"Opção '{name}' selecionada.")
+                except Exception as e:
+                    print(f"Erro ao selecionar '{name}': {e}")
+                    raise
+            
+            # Garantir que APR está desmarcado
+            apr_selector = "input[id*='ctl12'][id*='wtContent']"
+            self.page.uncheck(apr_selector)
+            
+            # Verificar seleções
+            self.verify_selections(checkboxes)
+            print("Todas as opções do relatório foram configuradas corretamente.")
+            
         except Exception as e:
-            print(f"Erro ao selecionar as opções do relatório: {e}")
-            self.page.screenshot(path="select_options_error.png")
-            print("Screenshot de erro salvo como 'select_options_error.png'")
-
+            print(f"Erro ao configurar opções do relatório: {e}")
+            self.page.screenshot(path="report_options_error.png")
+            raise       
     '''
-    def export_to_excel(self):
-        try:
-            # Aguardar para garantir que a página esteja estável
-            self.page.wait_for_load_state("networkidle")
 
-            # Usar JavaScript para clicar diretamente na opção "Exportar para Excel"
-            click_success = self.page.evaluate(
-                """
-                () => {
-                    const exportButtons = Array.from(document.querySelectorAll('a span'))
-                        .filter(span => span.textContent.includes('Exportar para Excel'));
-                    if (exportButtons.length > 0) {
-                        exportButtons[0].click();
-                        return true;
-                    }
+
+    def select_report_options(self):
+        """Seleciona opções do relatório usando JavaScript e força uma atualização final."""
+        try:
+            print("Selecionando 'Relatório com Detalhes'...")
+            self.page.click("text=Relatório com Detalhes")
+
+            print("Aguardando elementos carregarem...")
+            self.page.wait_for_timeout(2000)
+            self.page.wait_for_selector(
+                "input[id*='ctl00'][id*='wtContent']", state="visible", timeout=10000
+            )
+            self.wait_for_loading_complete()
+
+            # JavaScript modificado para incluir eventos necessários
+            success = self.page.evaluate(
+                """() => {
+                try {
+                    const checkboxesToCheck = ['ctl00', 'ctl04', 'ctl08', 'ctl02', 'ctl06', 'ctl10'];
+                    const checkboxesToUncheck = ['ctl12'];
+                    
+                    const triggerEvents = (element) => {
+                        // Eventos que o sistema espera quando um checkbox é alterado
+                        const events = ['change', 'click', 'input'];
+                        events.forEach(eventType => {
+                            const event = new Event(eventType, { bubbles: true, cancelable: true });
+                            element.dispatchEvent(event);
+                        });
+                    };
+                    
+                    const handleCheckboxes = (idList, checked) => {
+                        idList.forEach(id => {
+                            const checkbox = document.querySelector(`input[id*='${id}'][id*='wtContent']`);
+                            if (checkbox) {
+                                // Primeiro garantir que está desmarcado
+                                checkbox.checked = false;
+                                triggerEvents(checkbox);
+                                
+                                // Se devemos marcar, fazemos após um pequeno delay
+                                if (checked) {
+                                    setTimeout(() => {
+                                        checkbox.checked = true;
+                                        triggerEvents(checkbox);
+                                    }, 100);
+                                }
+                            }
+                        });
+                    };
+                    
+                    // Desmarcar todos primeiro
+                    handleCheckboxes([...checkboxesToCheck, ...checkboxesToUncheck], false);
+                    
+                    // Marcar os que devem ser marcados
+                    setTimeout(() => {
+                        handleCheckboxes(checkboxesToCheck, true);
+                    }, 200);
+                    
+                    return true;
+                } catch (error) {
+                    console.error('Erro ao selecionar checkboxes:', error);
                     return false;
                 }
-            """
+            }"""
             )
 
-            if click_success:
-                print("Clique na opção 'Exportar para Excel' realizado via JavaScript.")
-            else:
-                print("Não foi possível encontrar a opção 'Exportar para Excel'.")
-                self.page.screenshot(path="export_option_not_found.png")
-                print("Screenshot salvo como 'export_option_not_found.png'")
-                return
+            if not success:
+                raise Exception("Falha ao selecionar opções via JavaScript")
 
-            # Configurar o caminho de download
-            download_path = os.path.join(os.getcwd(), "downloads")
-            os.makedirs(download_path, exist_ok=True)
+            # Aguardar um pouco para todas as alterações serem processadas
+            self.page.wait_for_timeout(1000)
+            self.wait_for_loading_complete()
 
-            # Aguardar o download iniciar
-            try:
-                with self.page.expect_download(timeout=30000) as download_info:
-                    # Aguardar um pouco para garantir que o download comece
-                    self.page.wait_for_timeout(5000)
+            # Verifica se todas as seleções foram aplicadas corretamente
+            self.verify_selections(
+                {
+                    "Informação Básica": "input[id*='ctl00'][id*='wtContent']",
+                    "Programação": "input[id*='ctl04'][id*='wtContent']",
+                    "Documentos": "input[id*='ctl08'][id*='wtContent']",
+                    "Planejamento": "input[id*='ctl02'][id*='wtContent']",
+                    "Execução": "input[id*='ctl06'][id*='wtContent']",
+                    "Derivadas": "input[id*='ctl10'][id*='wtContent']",
+                }
+            )
 
-                download = download_info.value
-                print(f"Download iniciado: {download.suggested_filename}")
-
-                # Salvar o arquivo
-                download_file_path = os.path.join(
-                    download_path, download.suggested_filename
-                )
-                download.save_as(download_file_path)
-                print(f"Arquivo Excel salvo como: {download_file_path}")
-            except Exception as e:
-                print(f"Erro durante o download: {e}")
-                self.page.screenshot(path="download_error.png")
-                print("Screenshot salvo como 'download_error.png'")
+            print("Todas as opções do relatório foram configuradas corretamente.")
 
         except Exception as e:
-            print(f"Erro geral ao exportar o relatório: {e}")
-            self.page.screenshot(path="general_export_error.png")
-            print("Screenshot de erro geral salvo como 'general_export_error.png'")
+            print(f"Erro ao configurar opções do relatório: {e}")
+            self.page.screenshot(path="report_options_error.png")
+            raise
 
-        # Verificação adicional para garantir que o download foi iniciado
-        files_in_download_folder = os.listdir(download_path)
-        if files_in_download_folder:
-            print(f"Arquivos na pasta de download: {files_in_download_folder}")
-        else:
-            print("Nenhum arquivo encontrado na pasta de download.")
-    '''
+    def verify_selections(self, checkboxes):
+        """Verifica se todas as opções foram selecionadas corretamente."""
+        for name, selector in checkboxes.items():
+            try:
+                # Usar evaluate para verificar o estado do checkbox
+                is_checked = self.page.evaluate("""(selector) => {
+                    const element = document.querySelector(selector);
+                    return element ? element.checked : false;
+                }""", selector)
+
+                if not is_checked:
+                    raise ValueError(f"Checkbox '{name}' não está selecionado como esperado")
+
+            except Exception as e:
+                print(f"Erro ao verificar seleção de '{name}': {e}")
+                raise   
 
     def wait_for_loading_complete(self):
         """Aguarda a barra de progresso aparecer e depois desaparecer."""
@@ -202,7 +280,6 @@ class SAMNavigator:
         except Exception as e:
             print(f"Erro durante o download: {e}")
             return False, None
-
 
     def export_to_excel(self):
         """Exporta o relatório para Excel, priorizando o método JavaScript."""
@@ -233,7 +310,7 @@ class SAMNavigator:
                 print("Aguardando botão de três pontos ficar visível...")
 
                 # Configurar evento de download antes de qualquer clique
-                with self.page.expect_download(timeout=60000) as download_promise:
+                with self.page.expect_download(timeout=70000) as download_promise:
                     # Clicar no botão de três pontos
                     self.page.click(f"xpath={three_dots_xpath}")
                     print("Clicado no botão de três pontos.")
@@ -243,7 +320,7 @@ class SAMNavigator:
                     print("Opção 'Exportar para Excel' visível.")
 
                     # Clicar na opção de exportar
-                    self.page.click("text=Exportar para Excel", timeout=10000)
+                    self.page.click("text=Exportar para Excel", timeout=30000)
                     print("Clicado em 'Exportar para Excel'")
 
                     try:
@@ -270,7 +347,7 @@ class SAMNavigator:
                 # Método alternativo: JavaScript
                 print("Tentando método alternativo via JavaScript...")
                 try:
-                    with self.page.expect_download(timeout=60000) as download_promise:
+                    with self.page.expect_download(timeout=75000) as download_promise:
                         success = self.page.evaluate(
                             """
                             () => {
