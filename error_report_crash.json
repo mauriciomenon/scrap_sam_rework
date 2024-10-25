@@ -1,0 +1,21 @@
+{
+  "timestamp": "2024-10-25T15:02:50.694720",
+  "summary": {
+    "network_errors": 14,
+    "console_errors": 15,
+    "error_types": {
+      "http_4xx": 14,
+      "http_5xx": 0,
+      "console_errors": 15,
+      "console_warnings": 0
+    }
+  },
+  "network_errors": [
+    {
+      "timestamp": "2024-10-25T15:00:31.477973",
+      "url": "https://apps.itaipu.gov.br/SAM/undefined",
+      "status": 404,
+      "method": "GET",
+      "error_type": "HTTP_404",
+      "details": "Not Found",
+      "severity": 

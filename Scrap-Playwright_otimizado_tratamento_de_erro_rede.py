@@ -1,8 +1,264 @@
-from playwright.sync_api import sync_playwright, Page
+from playwright.sync_api import sync_playwright, Page, Response, ConsoleMessage, Dialog
 import os
 from datetime import datetime
 import time
-from typing import Dict, Optional
+from typing import Dict, Optional, List, Union
+import logging
+import json
+from dataclasses import dataclass
+from enum import Enum
+import traceback
+
+class ErrorSeverity(Enum):
+    INFO = "INFO"
+    WARNING = "WARNING"
+    ERROR = "ERROR"
+    CRITICAL = "CRITICAL"
+
+@dataclass
+class NetworkError:
+    timestamp: str
+    url: str
+    status: int
+    method: str
+    error_type: str
+    details: str
+    severity: ErrorSeverity
+
+@dataclass
+class ConsoleError:
+    timestamp: str
+    type: str
+    text: str
+    location: str
+    stack_trace: Optional[str]
+    severity: ErrorSeverity
+
+class ErrorTracker:
+    """Sistema de monitoramento e tratamento de erros."""
+    def __init__(self, page: Page):
+        self.page = page
+        self.network_errors: List[NetworkError] = []
+        self.console_errors: List[ConsoleError] = []
+        self.setup_logging()
+        self.setup_error_handlers()
+
+    def setup_logging(self):
+        """Configura o sistema de logging."""
+        logging.basicConfig(
+            level=logging.INFO,
+            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+            handlers=[
+                logging.FileHandler('error_tracking.log'),
+                logging.StreamHandler()
+            ]
+        )
+        self.logger = logging.getLogger('ErrorTracker')
+
+    def setup_error_handlers(self):
+        """Configura os handlers de erro para a página."""
+        self.page.on("response", self.handle_response)
+        self.page.on("console", self.handle_console_message)
+        self.page.on("pageerror", self.handle_page_error)
+        self.page.on("dialog", self.handle_dialog)
+        self.page.on("requestfailed", self.handle_request_failed)
+
+    def handle_response(self, response: Response):
+        """Processa respostas HTTP."""
+        status = response.status
+        url = response.url
+        severity = self.get_http_severity(status)
+
+        if status >= 400:
+            error = NetworkError(
+                timestamp=datetime.now().isoformat(),
+                url=url,
+                status=status,
+                method=response.request.method,
+                error_type=f"HTTP_{status}",
+                details=self.get_status_description(status),
+                severity=severity
+            )
+            self.network_errors.append(error)
+            self.log_error(error)
+            self.handle_specific_http_error(status, url)
+
+    def handle_console_message(self, msg: ConsoleMessage):
+        """Processa mensagens do console."""
+        if msg.type in ['error', 'warning']:
+            severity = ErrorSeverity.ERROR if msg.type == 'error' else ErrorSeverity.WARNING
+            error = ConsoleError(
+                timestamp=datetime.now().isoformat(),
+                type=msg.type,
+                text=msg.text,
+                location=msg.location['url'] if msg.location else 'Unknown',
+                stack_trace=self.get_stack_trace(msg),
+                severity=severity
+            )
+            self.console_errors.append(error)
+            self.log_error(error)
+
+    def handle_specific_http_error(self, status: int, url: str):
+        """Implementa ações específicas para diferentes códigos HTTP."""
+        retry_statuses = [408, 429, 500, 502, 503, 504]
+        max_retries = 3
+
+        if status in retry_statuses:
+            for attempt in range(max_retries):
+                self.logger.warning(f"Tentativa {attempt + 1} de {max_retries} para URL: {url}")
+                try:
+                    # Espera exponencial entre tentativas
+                    wait_time = (2 ** attempt) * 1000  # ms
+                    self.page.wait_for_timeout(wait_time)
+
+                    # Tenta recarregar a página
+                    if url == self.page.url:
+                        self.page.reload()
+                    return
+                except Exception as e:
+                    self.logger.error(f"Erro na tentativa {attempt + 1}: {e}")
+
+            self.logger.critical(f"Todas as tentativas falharam para URL: {url}")
+
+    def handle_page_error(self, error):
+        """Processa erros não capturados da página."""
+        self.logger.error(f"Erro não capturado na página: {error}")
+
+    def handle_dialog(self, dialog: Dialog):
+        """Processa diálogos inesperados."""
+        self.logger.warning(f"Diálogo detectado: {dialog.message}")
+        if dialog.type in ['alert', 'confirm']:
+            dialog.accept()
+        elif dialog.type == 'prompt':
+            dialog.dismiss()
+
+
+    def handle_request_failed(self, request):
+        """Processa requisições que falharam."""
+        try:
+            # Verifica se request é um objeto ou string
+            if hasattr(request, "failure") and callable(request.failure):
+                error = request.failure()
+            else:
+                error = str(request)  # Se for string, usa diretamente
+
+            url = request.url if hasattr(request, "url") else "URL desconhecida"
+            method = request.method if hasattr(request, "method") else "unknown"
+
+            self.logger.error(f"Requisição falhou: {url}\nErro: {error}")
+
+            # Registra erro na lista de network_errors
+            error_entry = NetworkError(
+                timestamp=datetime.now().isoformat(),
+                url=url,
+                status=0,  # Código 0 para falhas de rede
+                method=method,
+                error_type="REQUEST_FAILED",
+                details=str(error),
+                severity=ErrorSeverity.ERROR,
+            )
+            self.network_errors.append(error_entry)
+
+        except Exception as e:
+            self.logger.error(
+                f"Erro ao processar falha de requisição: {e}\n{traceback.format_exc()}"
+            )
+
+    def get_http_severity(self, status: int) -> ErrorSeverity:
+        """Determina a severidade baseada no código HTTP."""
+        if status < 400:
+            return ErrorSeverity.INFO
+        elif status < 500:
+            return ErrorSeverity.WARNING
+        else:
+            return ErrorSeverity.ERROR
+
+    def get_status_description(self, status: int) -> str:
+        """Retorna descrição para códigos HTTP comuns."""
+        descriptions = {
+            400: "Bad Request",
+            401: "Unauthorized",
+            403: "Forbidden",
+            404: "Not Found",
+            408: "Request Timeout",
+            429: "Too Many Requests",
+            500: "Internal Server Error",
+            502: "Bad Gateway",
+            503: "Service Unavailable",
+            504: "Gateway Timeout"
+        }
+        return descriptions.get(status, f"Unknown Status: {status}")
+
+    def get_stack_trace(self, msg: ConsoleMessage) -> Optional[str]:
+        """Extrai stack trace de mensagens de console quando disponível."""
+        try:
+            if hasattr(msg, 'stack'):
+                return msg.stack
+            return None
+        except:
+            return None
+
+    def log_error(self, error: Union[NetworkError, ConsoleError]):
+        """Registra erros no log com formato apropriado."""
+        if isinstance(error, NetworkError):
+            self.logger.error(
+                f"Network Error: {error.error_type} - {error.url} - Status: {error.status}"
+            )
+        else:
+            self.logger.error(
+                f"Console Error: {error.type} - {error.text} - Location: {error.location}"
+            )
+
+    def get_error_summary(self) -> Dict:
+        """Gera um resumo dos erros encontrados."""
+        return {
+            "network_errors": len(self.network_errors),
+            "console_errors": len(self.console_errors),
+            "error_types": {
+                "http_4xx": len([e for e in self.network_errors if 400 <= e.status < 500]),
+                "http_5xx": len([e for e in self.network_errors if e.status >= 500]),
+                "console_errors": len([e for e in self.console_errors if e.type == 'error']),
+                "console_warnings": len([e for e in self.console_errors if e.type == 'warning'])
+            }
+        }
+
+    def save_error_report(self, filename: str = "error_report.json"):
+        """Salva um relatório detalhado dos erros em formato JSON."""
+
+        def convert_error_to_dict(error):
+            """Converte um erro em dicionário serializável."""
+            error_dict = vars(error).copy()
+            if "severity" in error_dict:
+                error_dict["severity"] = error_dict[
+                    "severity"
+                ].value  # Converte Enum para string
+            return error_dict
+
+        report = {
+            "timestamp": datetime.now().isoformat(),
+            "summary": self.get_error_summary(),
+            "network_errors": [
+                convert_error_to_dict(error) for error in self.network_errors
+            ],
+            "console_errors": [
+                convert_error_to_dict(error) for error in self.console_errors
+            ],
+        }
+
+        with open(filename, "w", encoding="utf-8") as f:
+            json.dump(report, f, indent=2, ensure_ascii=False)
+            
+    def print_error_summary(self):
+        """Imprime um resumo dos erros em formato legível."""
+        summary = self.get_error_summary()
+        print("\nResumo de Erros:")
+        print(f"Total de erros de rede: {summary['network_errors']}")
+        print(f"Total de erros de console: {summary['console_errors']}")
+        print("\nTipos de erro:")
+        print(f"- Erros 4xx: {summary['error_types']['http_4xx']}")
+        print(f"- Erros 5xx: {summary['error_types']['http_5xx']}")
+        print(f"- Erros de console: {summary['error_types']['console_errors']}")
+        print(f"- Avisos de console: {summary['error_types']['console_warnings']}")
 
 
 class SAMLocators:
@@ -32,7 +288,6 @@ class SAMLocators:
         "export_excel": "text=Exportar para Excel",
     }
 
-    # Mantemos os IDs dos checkboxes exatamente como estavam
     CHECKBOXES = {
         "info_basica": "input[id*='ctl00'][id*='wtContent']",
         "programacao": "input[id*='ctl04'][id*='wtContent']",
@@ -43,25 +298,35 @@ class SAMLocators:
         "apr": "input[id*='ctl12'][id*='wtContent']",
     }
 
-
 class SAMNavigator:
     def __init__(self, page: Page):
         self.page = page
         self.locators = SAMLocators()
         self.download_path = os.path.join(os.getcwd(), "Downloads")
         os.makedirs(self.download_path, exist_ok=True)
+        self.error_tracker = ErrorTracker(page)
 
     def _safe_action(
-        self, action_fn, error_msg: str, screenshot_name: Optional[str] = None
+        self, action_fn, error_msg: str, screenshot_name: Optional[str] = None,
+        retry_count: int = 3
     ):
         """Wrapper para executar ações com tratamento de erro padronizado."""
-        try:
-            return action_fn()
-        except Exception as e:
-            print(f"{error_msg}: {e}")
-            if screenshot_name:
-                self.page.screenshot(path=f"{screenshot_name}.png")
-            raise
+        for attempt in range(retry_count):
+            try:
+                return action_fn()
+            except Exception as e:
+                self.error_tracker.logger.error(
+                    f"Tentativa {attempt + 1}/{retry_count}: {error_msg}: {e}\n{traceback.format_exc()}"
+                )
+                if screenshot_name:
+                    self.page.screenshot(path=f"{screenshot_name}_{attempt}.png")
+
+                if attempt == retry_count - 1:
+                    raise
+
+                # Espera exponencial entre tentativas
+                wait_time = (2 ** attempt) * 1000
+                self.page.wait_for_timeout(wait_time)
 
     def login(self, username: str, password: str):
         def _do_login():
@@ -84,22 +349,20 @@ class SAMNavigator:
 
     def wait_for_filter_field(self):
         """Aguarda o campo 'Setor Executor' com retry."""
-        max_retries = 3
-        for attempt in range(max_retries):
-            try:
-                self.page.wait_for_selector(
-                    self.locators.FILTER["setor_executor"],
-                    state="visible",
-                    timeout=20000,
-                )
-                print("Campo 'Setor Executor' encontrado.")
-                return True
-            except Exception as e:
-                if attempt == max_retries - 1:
-                    print(f"Erro ao localizar campo 'Setor Executor': {e}")
-                    self.page.screenshot(path="filter_field_error.png")
-                    raise
-                time.sleep(2)
+        def _wait_for_field():
+            self.page.wait_for_selector(
+                self.locators.FILTER["setor_executor"],
+                state="visible",
+                timeout=20000,
+            )
+            print("Campo 'Setor Executor' encontrado.")
+            return True
+
+        return self._safe_action(
+            _wait_for_field,
+            "Erro ao localizar campo 'Setor Executor'",
+            "filter_field_error"
+        )
 
     def fill_filter(self, executor_setor_value: str):
         def _do_fill():
@@ -122,134 +385,6 @@ class SAMNavigator:
             print(f"Filtro preenchido com: {executor_setor_value}")
 
         self._safe_action(_do_fill, "Erro ao preencher filtro", "fill_filter_error")
-
-    def click_search(self):
-        def _do_search():
-            search_button = self.locators.FILTER["search_button"]
-            self.page.wait_for_selector(search_button, state="visible")
-            self.page.click(search_button)
-            self.wait_for_loading_complete()
-            print("Pesquisa realizada com sucesso.")
-
-        self._safe_action(_do_search, "Erro ao realizar pesquisa", "search_error")
-
-    def select_report_options(self):
-        """Seleciona opções do relatório e faz a exportação."""
-        try:
-            print("Selecionando 'Relatório com Detalhes'...")
-            self.page.click("text=Relatório com Detalhes")
-
-            print("Aguardando elementos carregarem...")
-            self.page.wait_for_timeout(2000)
-            self.page.wait_for_selector(
-                "input[id*='ctl00'][id*='wtContent']", state="visible", timeout=10000
-            )
-
-            if not self.wait_for_loading_complete(timeout=90000):
-                raise Exception(
-                    "Timeout aguardando carregamento após selecionar relatório detalhado"
-                )
-
-            # Mantido o JavaScript original dos checkboxes (sem alteração)
-            success = self.page.evaluate(
-                """() => {
-                try {
-                    const checkboxesToCheck = ['ctl00', 'ctl04', 'ctl08', 'ctl02', 'ctl06', 'ctl10'];
-                    const checkboxesToUncheck = ['ctl12'];
-                    
-                    const triggerEvents = (element) => {
-                        const events = ['change', 'click', 'input'];
-                        events.forEach(eventType => {
-                            const event = new Event(eventType, { bubbles: true, cancelable: true });
-                            element.dispatchEvent(event);
-                        });
-                    };
-                    
-                    const handleCheckboxes = (idList, checked) => {
-                        idList.forEach(id => {
-                            const checkbox = document.querySelector(`input[id*='${id}'][id*='wtContent']`);
-                            if (checkbox) {
-                                checkbox.checked = false;
-                                triggerEvents(checkbox);
-                                
-                                if (checked) {
-                                    setTimeout(() => {
-                                        checkbox.checked = true;
-                                        triggerEvents(checkbox);
-                                    }, 100);
-                                }
-                            }
-                        });
-                    };
-                    
-                    handleCheckboxes([...checkboxesToCheck, ...checkboxesToUncheck], false);
-                    
-                    setTimeout(() => {
-                        handleCheckboxes(checkboxesToCheck, true);
-                    }, 200);
-                    
-                    return true;
-                } catch (error) {
-                    console.error('Erro ao selecionar checkboxes:', error);
-                    return false;
-                }
-            }"""
-            )
-
-            if not success:
-                raise Exception("Falha ao selecionar opções via JavaScript")
-
-            self.page.wait_for_timeout(1000)
-
-            # Espera completa após os checkboxes
-            print("Aguardando carregamento completo após configurar checkboxes...")
-            max_attempts = 5
-            for attempt in range(max_attempts):
-                if self.wait_for_loading_complete(timeout=90000):
-                    print(
-                        "Carregamento completo confirmado, prosseguindo com exportação..."
-                    )
-                    break
-                print(
-                    f"Tentativa {attempt + 1}/{max_attempts} de verificar carregamento..."
-                )
-                self.page.wait_for_timeout(5000)
-            else:
-                raise Exception(
-                    "Não foi possível confirmar carregamento completo após checkboxes"
-                )
-
-            print("Todas as opções do relatório foram configuradas corretamente.")
-
-            # Executa a exportação e retorna seu resultado
-            return self.export_to_excel()
-
-        except Exception as e:
-            print(f"Erro ao configurar opções do relatório: {e}")
-            self.page.screenshot(path="report_options_error.png")
-            return False
-
-    def verify_selections(self):
-        """Verifica se todas as opções foram selecionadas corretamente."""
-        for name, selector in self.locators.CHECKBOXES.items():
-            if name != "apr":  # Não verificamos APR pois deve estar desmarcado
-                try:
-                    is_checked = self.page.evaluate(
-                        """(selector) => {
-                        const element = document.querySelector(selector);
-                        return element ? element.checked : false;
-                    }""",
-                        selector,
-                    )
-
-                    if not is_checked:
-                        raise ValueError(
-                            f"Checkbox '{name}' não está selecionado como esperado"
-                        )
-
-                except Exception as e:
-                    print(f"Erro ao verificar seleção de '{name}': {e}")
-                    raise
 
     def wait_for_loading_complete(
         self, timeout: int = 60000, after_checkboxes: bool = False
@@ -338,6 +473,136 @@ class SAMNavigator:
             print(f"Erro ao aguardar carregamento: {e}")
             return False
 
+    def click_search(self):
+        """Clica no botão de pesquisa e aguarda o carregamento."""
+
+        def _do_search():
+            search_button = self.locators.FILTER["search_button"]
+            self.page.wait_for_selector(search_button, state="visible")
+            self.page.click(search_button)
+            self.wait_for_loading_complete()
+            print("Pesquisa realizada com sucesso.")
+
+        self._safe_action(_do_search, "Erro ao realizar pesquisa", "search_error")
+
+    def select_report_options(self):
+        """Seleciona opções do relatório e faz a exportação."""
+        try:
+            print("Selecionando 'Relatório com Detalhes'...")
+            self.page.click("text=Relatório com Detalhes")
+
+            print("Aguardando elementos carregarem...")
+            self.page.wait_for_timeout(2000)
+            self.page.wait_for_selector(
+                "input[id*='ctl00'][id*='wtContent']", state="visible", timeout=10000
+            )
+
+            if not self.wait_for_loading_complete(timeout=90000):
+                raise Exception(
+                    "Timeout aguardando carregamento após selecionar relatório detalhado"
+                )
+
+            # Mantido o JavaScript original dos checkboxes (sem alteração)
+            success = self.page.evaluate(
+                """() => {
+                    try {
+                        const checkboxesToCheck = ['ctl00', 'ctl04', 'ctl08', 'ctl02', 'ctl06', 'ctl10'];
+                        const checkboxesToUncheck = ['ctl12'];
+                        
+                        const triggerEvents = (element) => {
+                            const events = ['change', 'click', 'input'];
+                            events.forEach(eventType => {
+                                const event = new Event(eventType, { bubbles: true, cancelable: true });
+                                element.dispatchEvent(event);
+                            });
+                        };
+                        
+                        const handleCheckboxes = (idList, checked) => {
+                            idList.forEach(id => {
+                                const checkbox = document.querySelector(`input[id*='${id}'][id*='wtContent']`);
+                                if (checkbox) {
+                                    checkbox.checked = false;
+                                    triggerEvents(checkbox);
+                                    
+                                    if (checked) {
+                                        setTimeout(() => {
+                                            checkbox.checked = true;
+                                            triggerEvents(checkbox);
+                                        }, 100);
+                                    }
+                                }
+                            });
+                        };
+                        
+                        handleCheckboxes([...checkboxesToCheck, ...checkboxesToUncheck], false);
+                        
+                        setTimeout(() => {
+                            handleCheckboxes(checkboxesToCheck, true);
+                        }, 200);
+                        
+                        return true;
+                    } catch (error) {
+                        console.error('Erro ao selecionar checkboxes:', error);
+                        return false;
+                    }
+                }"""
+            )
+
+            if not success:
+                raise Exception("Falha ao selecionar opções via JavaScript")
+
+            self.page.wait_for_timeout(1000)
+
+            # Espera completa após os checkboxes
+            print("Aguardando carregamento completo após configurar checkboxes...")
+            max_attempts = 5
+            for attempt in range(max_attempts):
+                if self.wait_for_loading_complete(timeout=90000):
+                    print(
+                        "Carregamento completo confirmado, prosseguindo com exportação..."
+                    )
+                    break
+                print(
+                    f"Tentativa {attempt + 1}/{max_attempts} de verificar carregamento..."
+                )
+                self.page.wait_for_timeout(5000)
+            else:
+                raise Exception(
+                    "Não foi possível confirmar carregamento completo após checkboxes"
+                )
+
+            print("Todas as opções do relatório foram configuradas corretamente.")
+
+            # Executa a exportação e retorna seu resultado
+            return self.export_to_excel()
+
+        except Exception as e:
+            print(f"Erro ao configurar opções do relatório: {e}")
+            self.page.screenshot(path="report_options_error.png")
+            return False
+
+    def verify_selections(self):
+        """Verifica se todas as opções foram selecionadas corretamente."""
+        for name, selector in self.locators.CHECKBOXES.items():
+            if name != "apr":  # Não verificamos APR pois deve estar desmarcado
+                try:
+                    is_checked = self.page.evaluate(
+                        """(selector) => {
+                            const element = document.querySelector(selector);
+                            return element ? element.checked : false;
+                        }""",
+                        selector,
+                    )
+
+                    if not is_checked:
+                        raise ValueError(
+                            f"Checkbox '{name}' não está selecionado como esperado"
+                        )
+
+                except Exception as e:
+                    print(f"Erro ao verificar seleção de '{name}': {e}")
+                    raise
+
     def export_to_excel(self):
         """Exporta o relatório para Excel com clique otimizado."""
         try:
@@ -414,10 +679,10 @@ class SAMNavigator:
                                 const rect = element.getBoundingClientRect();
                                 const style = window.getComputedStyle(element);
                                 return rect.width > 0 && 
-                                       rect.height > 0 && 
-                                       style.display !== 'none' && 
-                                       style.visibility !== 'hidden' &&
-                                       element.offsetParent !== null;
+                                    rect.height > 0 && 
+                                    style.display !== 'none' && 
+                                    style.visibility !== 'hidden' &&
+                                    element.offsetParent !== null;
                             };
                             
                             const visibleButton = exportLinks.find(isVisible);
@@ -543,10 +808,13 @@ class SAMNavigator:
 
 
 def run(username: str, password: str, setor: str):
-    """Função principal com parâmetros configuráveis."""
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)
-        page = browser.new_page()
+        context = browser.new_context()
+        page = context.new_page()
+
+        page.set_viewport_size({"width": 1920, "height": 1080})
+        page.set_default_timeout(30000)
 
         navigator = SAMNavigator(page)
 
@@ -557,14 +825,28 @@ def run(username: str, password: str, setor: str):
             navigator.fill_filter(setor)
             navigator.click_search()
 
-            # Alteramos para usar o retorno do select_report_options
             if navigator.select_report_options():
                 print("Relatório configurado com sucesso.")
             else:
                 print("Falha na configuração do relatório")
                 return
 
+            # Usa o novo método para imprimir resumo
+            navigator.error_tracker.print_error_summary()
+
+            # Salva relatório detalhado
+            navigator.error_tracker.save_error_report()
+
             input("Pressione Enter para fechar o navegador...")
+
+        except Exception as e:
+            print(f"Erro durante a execução: {e}")
+            traceback.print_exc()
+
+            try:
+                navigator.error_tracker.save_error_report("error_report_crash.json")
+            except Exception as save_error:
+                print(f"Não foi possível salvar o relatório de erros: {save_error}")
 
         finally:
             browser.close()
