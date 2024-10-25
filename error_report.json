@@ -1,18 +1,18 @@
 {
-  "timestamp": "2024-10-25T15:27:57.593503",
+  "timestamp": "2024-10-25T15:40:56.120408",
   "summary": {
-    "network_errors": 16,
-    "console_errors": 15,
+    "network_errors": 20,
+    "console_errors": 18,
     "error_types": {
-      "http_4xx": 14,
+      "http_4xx": 17,
       "http_5xx": 0,
-      "console_errors": 15,
+      "console_errors": 18,
       "console_warnings": 0
     }
   },
   "network_errors": [
     {
-      "timestamp": "2024-10-25T15:25:39.149816",
+      "timestamp": "2024-10-25T15:38:25.476134",
       "url": "https://apps.itaipu.gov.br/SAM/undefined",
       "status": 404,
       "method": "GET",
@@ -21,7 +21,7 @@
       "severity": "WARNING"
     },
     {
-      "timestamp": "2024-10-25T15:25:39.425886",
+      "timestamp": "2024-10-25T15:38:25.857907",
       "url": "https://apps.itaipu.gov.br/SAM/undefined",
       "status": 404,
       "method": "GET",
@@ -30,25 +30,7 @@
       "severity": "WARNING"
     },
     {
-      "timestamp": "2024-10-25T15:25:40.541430",
-      "url": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js",
-      "status": 404,
-      "method": "GET",
-      "error_type": "HTTP_404",
-      "details": "Not Found",
-      "severity": "WARNING"
-    },
-    {
-      "timestamp": "2024-10-25T15:25:40.543612",
-      "url": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js",
-      "status": 404,
-      "method": "GET",
-      "error_type": "HTTP_404",
-      "details": "Not Found",
-      "severity": "WARNING"
-    },
-    {
-      "timestamp": "2024-10-25T15:25:40.551799",
+      "timestamp": "2024-10-25T15:38:26.754874",
       "url": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js",
       "status": 404,
       "method": "GET",
@@ -57,16 +39,7 @@
       "severity": "WARNING"
     },
     {
-      "timestamp": "2024-10-25T15:25:41.597141",
-      "url": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js",
-      "status": 404,
-      "method": "GET",
-      "error_type": "HTTP_404",
-      "details": "Not Found",
-      "severity": "WARNING"
-    },
-    {
-      "timestamp": "2024-10-25T15:25:41.598949",
+      "timestamp": "2024-10-25T15:38:26.756128",
       "url": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js",
       "status": 404,
       "method": "GET",
@@ -75,7 +48,7 @@
       "severity": "WARNING"
     },
     {
-      "timestamp": "2024-10-25T15:25:41.600672",
+      "timestamp": "2024-10-25T15:38:26.757104",
       "url": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js",
       "status": 404,
       "method": "GET",
@@ -84,16 +57,43 @@
       "severity": "WARNING"
     },
     {
-      "timestamp": "2024-10-25T15:25:42.314920",
-      "url": "https://apps.itaipu.gov.br/SAM_SMA/SSAHome.aspx?_ts=1729880741879",
+      "timestamp": "2024-10-25T15:38:27.558594",
+      "url": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js",
+      "status": 404,
+      "method": "GET",
+      "error_type": "HTTP_404",
+      "details": "Not Found",
+      "severity": "WARNING"
+    },
+    {
+      "timestamp": "2024-10-25T15:38:27.560309",
+      "url": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js",
+      "status": 404,
+      "method": "GET",
+      "error_type": "HTTP_404",
+      "details": "Not Found",
+      "severity": "WARNING"
+    },
+    {
+      "timestamp": "2024-10-25T15:38:27.570508",
+      "url": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js",
+      "status": 404,
+      "method": "GET",
+      "error_type": "HTTP_404",
+      "details": "Not Found",
+      "severity": "WARNING"
+    },
+    {
+      "timestamp": "2024-10-25T15:38:28.171968",
+      "url": "https://apps.itaipu.gov.br/SAM_SMA/SSAHome.aspx?_ts=1729881507727",
       "status": 0,
       "method": "POST",
       "error_type": "REQUEST_FAILED",
-      "details": "<Request url='https://apps.itaipu.gov.br/SAM_SMA/SSAHome.aspx?_ts=1729880741879' method='POST'>",
+      "details": "<Request url='https://apps.itaipu.gov.br/SAM_SMA/SSAHome.aspx?_ts=1729881507727' method='POST'>",
       "severity": "ERROR"
     },
     {
-      "timestamp": "2024-10-25T15:25:42.623479",
+      "timestamp": "2024-10-25T15:38:28.476003",
       "url": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js",
       "status": 404,
       "method": "GET",
@@ -102,7 +102,7 @@
       "severity": "WARNING"
     },
     {
-      "timestamp": "2024-10-25T15:25:42.625618",
+      "timestamp": "2024-10-25T15:38:28.477003",
       "url": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js",
       "status": 404,
       "method": "GET",
@@ -111,7 +111,7 @@
       "severity": "WARNING"
     },
     {
-      "timestamp": "2024-10-25T15:25:42.628265",
+      "timestamp": "2024-10-25T15:38:28.477934",
       "url": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js",
       "status": 404,
       "method": "GET",
@@ -120,7 +120,7 @@
       "severity": "WARNING"
     },
     {
-      "timestamp": "2024-10-25T15:25:47.578322",
+      "timestamp": "2024-10-25T15:38:33.697529",
       "url": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js",
       "status": 404,
       "method": "GET",
@@ -129,7 +129,7 @@
       "severity": "WARNING"
     },
     {
-      "timestamp": "2024-10-25T15:25:47.580688",
+      "timestamp": "2024-10-25T15:38:33.698955",
       "url": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js",
       "status": 404,
       "method": "GET",
@@ -138,7 +138,7 @@
       "severity": "WARNING"
     },
     {
-      "timestamp": "2024-10-25T15:25:47.582270",
+      "timestamp": "2024-10-25T15:38:33.700747",
       "url": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js",
       "status": 404,
       "method": "GET",
@@ -147,7 +147,43 @@
       "severity": "WARNING"
     },
     {
-      "timestamp": "2024-10-25T15:27:57.051067",
+      "timestamp": "2024-10-25T15:40:22.427807",
+      "url": "https://apps.itaipu.gov.br/SAM_SMA_Reports/PendingGeneralSSAs.aspx?_ts=1729881601070",
+      "status": 0,
+      "method": "POST",
+      "error_type": "REQUEST_FAILED",
+      "details": "<Request url='https://apps.itaipu.gov.br/SAM_SMA_Reports/PendingGeneralSSAs.aspx?_ts=1729881601070' method='POST'>",
+      "severity": "ERROR"
+    },
+    {
+      "timestamp": "2024-10-25T15:40:22.938015",
+      "url": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js",
+      "status": 404,
+      "method": "GET",
+      "error_type": "HTTP_404",
+      "details": "Not Found",
+      "severity": "WARNING"
+    },
+    {
+      "timestamp": "2024-10-25T15:40:22.939758",
+      "url": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js",
+      "status": 404,
+      "method": "GET",
+      "error_type": "HTTP_404",
+      "details": "Not Found",
+      "severity": "WARNING"
+    },
+    {
+      "timestamp": "2024-10-25T15:40:22.941094",
+      "url": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js",
+      "status": 404,
+      "method": "GET",
+      "error_type": "HTTP_404",
+      "details": "Not Found",
+      "severity": "WARNING"
+    },
+    {
+      "timestamp": "2024-10-25T15:40:55.695547",
       "url": "https://apps.itaipu.gov.br/SAM_SMA_Reports/PendingGeneralSSAs.aspx",
       "status": 0,
       "method": "POST",
@@ -158,7 +194,7 @@
   ],
   "console_errors": [
     {
-      "timestamp": "2024-10-25T15:25:39.150968",
+      "timestamp": "2024-10-25T15:38:25.477090",
       "type": "error",
       "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
       "location": "https://apps.itaipu.gov.br/SAM/undefined",
@@ -166,7 +202,7 @@
       "severity": "ERROR"
     },
     {
-      "timestamp": "2024-10-25T15:25:39.202850",
+      "timestamp": "2024-10-25T15:38:25.575580",
       "type": "error",
       "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
       "location": "https://apps.itaipu.gov.br/favicon.ico",
@@ -174,7 +210,7 @@
       "severity": "ERROR"
     },
     {
-      "timestamp": "2024-10-25T15:25:39.426794",
+      "timestamp": "2024-10-25T15:38:25.858333",
       "type": "error",
       "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
       "location": "https://apps.itaipu.gov.br/SAM/undefined",
@@ -182,7 +218,23 @@
       "severity": "ERROR"
     },
     {
-      "timestamp": "2024-10-25T15:25:40.542646",
+      "timestamp": "2024-10-25T15:38:26.755521",
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js",
+      "stack_trace": null,
+      "severity": "ERROR"
+    },
+    {
+      "timestamp": "2024-10-25T15:38:26.756516",
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js",
+      "stack_trace": null,
+      "severity": "ERROR"
+    },
+    {
+      "timestamp": "2024-10-25T15:38:26.757352",
       "type": "error",
       "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
       "location": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js",
@@ -190,15 +242,7 @@
       "severity": "ERROR"
     },
     {
-      "timestamp": "2024-10-25T15:25:40.544331",
-      "type": "error",
-      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
-      "location": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js",
-      "stack_trace": null,
-      "severity": "ERROR"
-    },
-    {
-      "timestamp": "2024-10-25T15:25:40.552601",
+      "timestamp": "2024-10-25T15:38:27.559158",
       "type": "error",
       "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
       "location": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js",
@@ -206,15 +250,7 @@
       "severity": "ERROR"
     },
     {
-      "timestamp": "2024-10-25T15:25:41.597919",
-      "type": "error",
-      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
-      "location": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js",
-      "stack_trace": null,
-      "severity": "ERROR"
-    },
-    {
-      "timestamp": "2024-10-25T15:25:41.599652",
+      "timestamp": "2024-10-25T15:38:27.560959",
       "type": "error",
       "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
       "location": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js",
@@ -222,7 +258,7 @@
       "severity": "ERROR"
     },
     {
-      "timestamp": "2024-10-25T15:25:41.601284",
+      "timestamp": "2024-10-25T15:38:27.571044",
       "type": "error",
       "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
       "location": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js",
@@ -230,7 +266,7 @@
       "severity": "ERROR"
     },
     {
-      "timestamp": "2024-10-25T15:25:42.624525",
+      "timestamp": "2024-10-25T15:38:28.476503",
       "type": "error",
       "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
       "location": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js",
@@ -238,7 +274,7 @@
       "severity": "ERROR"
     },
     {
-      "timestamp": "2024-10-25T15:25:42.627252",
+      "timestamp": "2024-10-25T15:38:28.477429",
       "type": "error",
       "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
       "location": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js",
@@ -246,7 +282,7 @@
       "severity": "ERROR"
     },
     {
-      "timestamp": "2024-10-25T15:25:42.629351",
+      "timestamp": "2024-10-25T15:38:28.478228",
       "type": "error",
       "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
       "location": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js",
@@ -254,7 +290,7 @@
       "severity": "ERROR"
     },
     {
-      "timestamp": "2024-10-25T15:25:47.579648",
+      "timestamp": "2024-10-25T15:38:33.698051",
       "type": "error",
       "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
       "location": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js",
@@ -262,7 +298,7 @@
       "severity": "ERROR"
     },
     {
-      "timestamp": "2024-10-25T15:25:47.581390",
+      "timestamp": "2024-10-25T15:38:33.699939",
       "type": "error",
       "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
       "location": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js",
@@ -270,7 +306,31 @@
       "severity": "ERROR"
     },
     {
-      "timestamp": "2024-10-25T15:25:47.583211",
+      "timestamp": "2024-10-25T15:38:33.701422",
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js",
+      "stack_trace": null,
+      "severity": "ERROR"
+    },
+    {
+      "timestamp": "2024-10-25T15:40:22.938701",
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js",
+      "stack_trace": null,
+      "severity": "ERROR"
+    },
+    {
+      "timestamp": "2024-10-25T15:40:22.940409",
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js",
+      "stack_trace": null,
+      "severity": "ERROR"
+    },
+    {
+      "timestamp": "2024-10-25T15:40:22.941726",
       "type": "error",
       "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
       "location": "https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js",

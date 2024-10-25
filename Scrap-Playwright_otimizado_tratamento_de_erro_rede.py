@@ -132,7 +132,6 @@ class ErrorTracker:
         elif dialog.type == 'prompt':
             dialog.dismiss()
 
-
     def handle_request_failed(self, request):
         """Processa requisições que falharam."""
         try:
@@ -247,18 +246,22 @@ class ErrorTracker:
 
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(report, f, indent=2, ensure_ascii=False)
-            
+
+
     def print_error_summary(self):
-        """Imprime um resumo dos erros em formato legível."""
-        summary = self.get_error_summary()
-        print("\nResumo de Erros:")
-        print(f"Total de erros de rede: {summary['network_errors']}")
-        print(f"Total de erros de console: {summary['console_errors']}")
-        print("\nTipos de erro:")
-        print(f"- Erros 4xx: {summary['error_types']['http_4xx']}")
-        print(f"- Erros 5xx: {summary['error_types']['http_5xx']}")
-        print(f"- Erros de console: {summary['error_types']['console_errors']}")
-        print(f"- Avisos de console: {summary['error_types']['console_warnings']}")
+        """Imprime um resumo detalhado dos erros."""
+        # Combina todos os erros para análise
+        all_errors = self.network_errors + self.console_errors
+
+        # Realiza análise detalhada
+        analyzer = ErrorAnalyzer()
+        analysis = analyzer.analyze_errors(all_errors)
+
+        # Imprime relatório formatado
+        analyzer.print_analysis_report(analysis)
+
+        # Salva análise detalhada junto com o relatório
+        self.last_analysis = analysis  # para uso posterior se necessário
 
 
 class SAMLocators:
@@ -807,18 +810,239 @@ class SAMNavigator:
             return False
 
 
+class ErrorAnalyzer:
+    """Classe para análise detalhada de erros."""
+
+    # Erros que podem ser ignorados com segurança
+    IGNORABLE_ERRORS = {
+        "urls": [
+            "favicon.ico",
+            "/CustomInputMasks/",  # máscaras de input que não afetam funcionalidade
+        ],
+        "messages": [
+            "Failed to load resource",  # recursos não críticos
+            "undefined is not a function",  # erros JS não críticos
+        ],
+    }
+
+    # Erros que requerem atenção mas não são críticos
+    WARNING_PATTERNS = {
+        "urls": [
+            "/api/",  # endpoints de API que podem ter retry
+            "/static/",  # recursos estáticos que podem ter fallback
+        ],
+        "messages": [
+            "timeout",
+            "network error",
+            "request failed",
+        ],
+    }
+
+    # Erros que são considerados críticos
+    CRITICAL_PATTERNS = {
+        "urls": [
+            "/auth/",  # problemas de autenticação
+            "/export/",  # problemas na exportação
+            "PendingGeneralSSAs",  # problemas no relatório principal
+        ],
+        "messages": [
+            "Authorization failed",
+            "Session expired",
+            "Database error",
+        ],
+    }
+
+    @staticmethod
+    def categorize_error(error: Union[NetworkError, ConsoleError]) -> Dict:
+        """Categoriza um erro com base em seus padrões e características."""
+        url = getattr(error, "url", "")
+        message = getattr(error, "text", "") or getattr(error, "details", "")
+
+        # Verifica se é um erro ignorável
+        for ignore_url in ErrorAnalyzer.IGNORABLE_ERRORS["urls"]:
+            if ignore_url in url:
+                return {
+                    "category": "IGNORABLE",
+                    "reason": f"URL ignorável: {ignore_url}",
+                    "impact": "Nenhum impacto na funcionalidade",
+                }
+
+        for ignore_msg in ErrorAnalyzer.IGNORABLE_ERRORS["messages"]:
+            if ignore_msg in message:
+                return {
+                    "category": "IGNORABLE",
+                    "reason": f"Mensagem ignorável: {ignore_msg}",
+                    "impact": "Nenhum impacto na funcionalidade",
+                }
+
+        # Verifica se é um erro crítico
+        for critical_url in ErrorAnalyzer.CRITICAL_PATTERNS["urls"]:
+            if critical_url in url:
+                return {
+                    "category": "CRITICAL",
+                    "reason": f"URL crítica afetada: {critical_url}",
+                    "impact": "Possível comprometimento de funcionalidade core",
+                }
+
+        for critical_msg in ErrorAnalyzer.CRITICAL_PATTERNS["messages"]:
+            if critical_msg in message:
+                return {
+                    "category": "CRITICAL",
+                    "reason": f"Erro crítico detectado: {critical_msg}",
+                    "impact": "Funcionalidade core comprometida",
+                }
+
+        # Verifica se é um aviso
+        for warning_url in ErrorAnalyzer.WARNING_PATTERNS["urls"]:
+            if warning_url in url:
+                return {
+                    "category": "WARNING",
+                    "reason": f"URL com potencial impacto: {warning_url}",
+                    "impact": "Possível degradação de performance ou UX",
+                }
+
+        for warning_msg in ErrorAnalyzer.WARNING_PATTERNS["messages"]:
+            if warning_msg in message:
+                return {
+                    "category": "WARNING",
+                    "reason": f"Aviso detectado: {warning_msg}",
+                    "impact": "Possível instabilidade",
+                }
+
+        # Se não se encaixar em nenhuma categoria específica
+        return {
+            "category": "UNKNOWN",
+            "reason": "Erro não categorizado",
+            "impact": "Impacto desconhecido",
+        }
+
+    @staticmethod
+    def analyze_errors(errors: List[Union[NetworkError, ConsoleError]]) -> Dict:
+        """Analisa uma lista de erros e gera um relatório detalhado."""
+        analysis = {
+            "total": len(errors),
+            "by_category": {
+                "CRITICAL": [],
+                "WARNING": [],
+                "IGNORABLE": [],
+                "UNKNOWN": [],
+            },
+            "summary": {
+                "critical_count": 0,
+                "warning_count": 0,
+                "ignorable_count": 0,
+                "unknown_count": 0,
+            },
+            "recommendations": [],
+        }
+
+        for error in errors:
+            categorization = ErrorAnalyzer.categorize_error(error)
+            category = categorization["category"]
+
+            error_info = {
+                "timestamp": error.timestamp,
+                "type": error.__class__.__name__,
+                "details": str(error),
+                "categorization": categorization,
+            }
+
+            analysis["by_category"][category].append(error_info)
+            analysis["summary"][f"{category.lower()}_count"] += 1
+
+        # Gera recomendações baseadas na análise
+        if analysis["summary"]["critical_count"] > 0:
+            analysis["recommendations"].append(
+                {
+                    "priority": "ALTA",
+                    "action": "Investigar erros críticos imediatamente",
+                    "details": f"Encontrados {analysis['summary']['critical_count']} erros críticos",
+                }
+            )
+
+        if analysis["summary"]["warning_count"] > 3:
+            analysis["recommendations"].append(
+                {
+                    "priority": "MÉDIA",
+                    "action": "Monitorar warnings",
+                    "details": "Volume elevado de warnings pode indicar instabilidade",
+                }
+            )
+
+        # Adiciona métricas de saúde
+        analysis["health_metrics"] = {
+            "error_rate": len(errors) / 100,  # exemplo simples
+            "critical_error_percentage": (
+                (analysis["summary"]["critical_count"] / len(errors)) * 100
+                if errors
+                else 0
+            ),
+            "health_score": ErrorAnalyzer._calculate_health_score(analysis),
+        }
+
+        return analysis
+
+    @staticmethod
+    def _calculate_health_score(analysis: Dict) -> float:
+        """Calcula uma pontuação de saúde baseada na análise de erros."""
+        total = analysis["total"]
+        if total == 0:
+            return 100.0
+
+        # Pesos para diferentes tipos de erro
+        weights = {"critical": 1.0, "warning": 0.3, "unknown": 0.5, "ignorable": 0.1}
+
+        # Calcula pontuação ponderada
+        weighted_sum = (
+            analysis["summary"]["critical_count"] * weights["critical"]
+            + analysis["summary"]["warning_count"] * weights["warning"]
+            + analysis["summary"]["unknown_count"] * weights["unknown"]
+            + analysis["summary"]["ignorable_count"] * weights["ignorable"]
+        )
+
+        # Normaliza para 0-100, onde 100 é perfeito
+        health_score = 100 * (1 - (weighted_sum / total))
+        return round(max(0, min(100, health_score)), 2)
+
+    @staticmethod
+    def print_analysis_report(analysis: Dict):
+        """Imprime um relatório formatado da análise de erros."""
+        print("\n=== RELATÓRIO DE ANÁLISE DE ERROS ===")
+        print(f"\nPontuação Ponderada: {analysis['health_metrics']['health_score']}%")
+        print("\nResumo por Categoria:")
+        print(f"- Críticos: {analysis['summary']['critical_count']}")
+        print(f"- Avisos: {analysis['summary']['warning_count']}")
+        print(f"- Ignoráveis: {analysis['summary']['ignorable_count']}")
+        print(f"- Não categorizados: {analysis['summary']['unknown_count']}")
+
+        if analysis["recommendations"]:
+            print("\nRecomendações:")
+            for rec in analysis["recommendations"]:
+                print(f"[{rec['priority']}] {rec['action']}")
+                print(f"  → {rec['details']}")
+
+        if analysis["summary"]["critical_count"] > 0:
+            print("\nDetalhes dos Erros Críticos:")
+            for error in analysis["by_category"]["CRITICAL"]:
+                print(f"- {error['timestamp']}: {error['details']}")
+                print(f"  Impacto: {error['categorization']['impact']}")
+
+
 def run(username: str, password: str, setor: str):
+    """Função principal com parâmetros configuráveis e monitoramento de erros."""
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)
         context = browser.new_context()
         page = context.new_page()
 
+        # Configura monitoramento de recursos da página
         page.set_viewport_size({"width": 1920, "height": 1080})
         page.set_default_timeout(30000)
 
         navigator = SAMNavigator(page)
 
         try:
+            # Executa as operações principais
             navigator.login(username, password)
             navigator.navigate_to_filter_page()
             navigator.wait_for_filter_field()
@@ -831,7 +1055,7 @@ def run(username: str, password: str, setor: str):
                 print("Falha na configuração do relatório")
                 return
 
-            # Usa o novo método para imprimir resumo
+            # Agora usa o novo sistema de análise de erros
             navigator.error_tracker.print_error_summary()
 
             # Salva relatório detalhado
@@ -843,7 +1067,9 @@ def run(username: str, password: str, setor: str):
             print(f"Erro durante a execução: {e}")
             traceback.print_exc()
 
+            # Mesmo com erro, tenta salvar o relatório de erros
             try:
+                navigator.error_tracker.print_error_summary()  # Mostra análise mesmo com erro
                 navigator.error_tracker.save_error_report("error_report_crash.json")
             except Exception as save_error:
                 print(f"Não foi possível salvar o relatório de erros: {save_error}")
