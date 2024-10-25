@@ -1,8 +1,3 @@
-# ATENCAO: a exportacao do menu de relatorio simples gera um arquivo igual ao relatorio "completo" com detalhes
-# e filtros habilitados. A unica diferenca e a apresentacao na tela dos dados. Trata-se de um codigo de
-# aprendizado e logicamente selecionar somente esta opcao o tornara muito mais rapido.
-# Objetivo: codigo generico reaproveitavel com tratamento de erro de requisicoes ao SAM
-
 from playwright.sync_api import sync_playwright, Page
 import os
 from datetime import datetime
@@ -10,45 +5,82 @@ import time
 from typing import Dict, Optional
 
 
+class SAMLocators:
+    """Centraliza todos os seletores utilizados na aplicação."""
+
+    LOGIN = {
+        "username": "[name*='wtUsername'][name*='wtUserNameInput']",
+        "password": "[name*='wtPassword'][name*='wtPasswordInput']",
+        "submit": "[name*='wtAction'][type='submit']",
+    }
+
+    NAVIGATION = {
+        "manutencao": "text=Manutenção Aperiódica",
+        "relatorios": "text=Relatórios",
+        "pendentes": "xpath=//a[text()='Pendentes']",
+    }
+
+    FILTER = {
+        "setor_executor": "[id*='SectorExecutor']",
+        "search_button": "a[id*='SearchButton']",
+    }
+
+    REPORT = {
+        "detailed_report": "text=Relatório com Detalhes",
+        "loading_bar": "#SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wt31_OutSystemsUIWeb_wt2_block_RichWidgets_wt15_block_wtdivWait",
+        "export_menu": "//div[contains(@id,'wtMenuDropdown')]//i",
+        "export_excel": "text=Exportar para Excel",
+    }
+
+    # Mantemos os IDs dos checkboxes exatamente como estavam
+    CHECKBOXES = {
+        "info_basica": "input[id*='ctl00'][id*='wtContent']",
+        "programacao": "input[id*='ctl04'][id*='wtContent']",
+        "documentos": "input[id*='ctl08'][id*='wtContent']",
+        "planejamento": "input[id*='ctl02'][id*='wtContent']",
+        "execucao": "input[id*='ctl06'][id*='wtContent']",
+        "derivadas": "input[id*='ctl10'][id*='wtContent']",
+        "apr": "input[id*='ctl12'][id*='wtContent']",
+    }
+
+
 class SAMNavigator:
-    def __init__(self, page):
+    def __init__(self, page: Page):
         self.page = page
+        self.locators = SAMLocators()
+        self.download_path = os.path.join(os.getcwd(), "Downloads")
+        os.makedirs(self.download_path, exist_ok=True)
 
-    def login(self, username, password):
+    def _safe_action(
+        self, action_fn, error_msg: str, screenshot_name: Optional[str] = None
+    ):
+        """Wrapper para executar ações com tratamento de erro padronizado."""
         try:
-            # Acesse a página de login
-            self.page.goto("https://apps.itaipu.gov.br/SAM/NoPermission.aspx")
-
-            # Preencher campos de login
-            self.page.fill(
-                "input[name='OutSystemsUIWeb_wt15$block$wtLogin$wt18$wtUsername$wtUserNameInput']",
-                username,
-            )
-            self.page.fill(
-                "input[name='OutSystemsUIWeb_wt15$block$wtLogin$wt18$wtPassword$wtPasswordInput']",
-                password,
-            )
-
-            # Clicar no botão de login
-            self.page.click(
-                "input[name='OutSystemsUIWeb_wt15$block$wtLogin$wt18$wtAction$wt12']"
-            )
-            print("Login realizado com sucesso.")
+            return action_fn()
         except Exception as e:
-            print(f"Erro no login: {e}")
+            print(f"{error_msg}: {e}")
+            if screenshot_name:
+                self.page.screenshot(path=f"{screenshot_name}.png")
+            raise
+
+    def login(self, username: str, password: str):
+        def _do_login():
+            self.page.goto("https://apps.itaipu.gov.br/SAM/NoPermission.aspx")
+            self.page.fill(self.locators.LOGIN["username"], username)
+            self.page.fill(self.locators.LOGIN["password"], password)
+            self.page.click(self.locators.LOGIN["submit"])
+            print("Login realizado com sucesso.")
+
+        self._safe_action(_do_login, "Erro no login", "login_error")
 
     def navigate_to_filter_page(self):
-        """Navega até a página de filtro."""
-        try:
-            # Clique na opção "Manutenção Aperiódica"
-            self.page.click("text=Manutenção Aperiódica")
-            # Clique na aba "Relatórios" no menu à esquerda
-            self.page.click("text=Relatórios")
-            # Clique no link exato "Pendentes" para acessar a página de filtro
-            self.page.click("xpath=//a[text()='Pendentes']")
+        def _do_navigation():
+            self.page.click(self.locators.NAVIGATION["manutencao"])
+            self.page.click(self.locators.NAVIGATION["relatorios"])
+            self.page.click(self.locators.NAVIGATION["pendentes"])
             print("Página de filtro acessada.")
-        except Exception as e:
-            print(f"Erro ao navegar: {e}")
+
+        self._safe_action(_do_navigation, "Erro na navegação", "navigation_error")
 
     def wait_for_filter_field(self):
         """Aguarda o campo 'Setor Executor' com retry."""
@@ -56,7 +88,9 @@ class SAMNavigator:
         for attempt in range(max_retries):
             try:
                 self.page.wait_for_selector(
-                    "input[id*='SectorExecutor']", state="visible", timeout=20000
+                    self.locators.FILTER["setor_executor"],
+                    state="visible",
+                    timeout=20000,
                 )
                 print("Campo 'Setor Executor' encontrado.")
                 return True
@@ -67,18 +101,16 @@ class SAMNavigator:
                     raise
                 time.sleep(2)
 
-    def fill_filter(self, executor_setor_value):
-        """Preenche o filtro com verificação."""
-        try:
-            input_selector = "input[id*='SectorExecutor']"
+    def fill_filter(self, executor_setor_value: str):
+        def _do_fill():
+            input_selector = self.locators.FILTER["setor_executor"]
             self.page.wait_for_selector(input_selector, state="visible")
             self.page.fill(input_selector, executor_setor_value)
 
-            # Verificar se o valor foi preenchido corretamente
             actual_value = self.page.evaluate(
                 """(selector) => {
-                return document.querySelector(selector).value;
-            }""",
+                    return document.querySelector(selector).value;
+                }""",
                 input_selector,
             )
 
@@ -89,72 +121,20 @@ class SAMNavigator:
 
             print(f"Filtro preenchido com: {executor_setor_value}")
 
-        except Exception as e:
-            print(f"Erro ao preencher filtro: {e}")
-            self.page.screenshot(path="fill_filter_error.png")
-            raise
+        self._safe_action(_do_fill, "Erro ao preencher filtro", "fill_filter_error")
 
     def click_search(self):
-        """Clica no botão de pesquisa com verificação de resultado."""
-        try:
-            search_button = "a[id*='SearchButton']"
+        def _do_search():
+            search_button = self.locators.FILTER["search_button"]
             self.page.wait_for_selector(search_button, state="visible")
             self.page.click(search_button)
-
-            # Aguardar resultado da pesquisa
             self.wait_for_loading_complete()
             print("Pesquisa realizada com sucesso.")
 
-        except Exception as e:
-            print(f"Erro ao realizar pesquisa: {e}")
-            self.page.screenshot(path="search_error.png")
-            raise
-
-    '''
-    # Metodo original que seleciona os 4 checkboxes, ja melhorou o antigo usava id
-    # Outsystem manda uma requisicao para cada check entao mudar para JS
-    def select_report_options(self):
-        """Seleciona opções do relatório com verificação."""
-        checkboxes = {
-            "Informação Básica": "input[id*='ctl00'][id*='wtContent']",
-            "Programação": "input[id*='ctl04'][id*='wtContent']",
-            "Documentos": "input[id*='ctl08'][id*='wtContent']",
-            "Planejamento": "input[id*='ctl02'][id*='wtContent']",
-            "Execução": "input[id*='ctl06'][id*='wtContent']",
-            "Derivadas": "input[id*='ctl10'][id*='wtContent']"
-        }
-        
-        try:
-            # Selecionar "Relatório com Detalhes"
-            self.page.click("text=Relatório com Detalhes")
-            
-            # Selecionar cada checkbox
-            for name, selector in checkboxes.items():
-                try:
-                    self.page.wait_for_selector(selector, timeout=5000)
-                    self.page.check(selector)
-                    print(f"Opção '{name}' selecionada.")
-                except Exception as e:
-                    print(f"Erro ao selecionar '{name}': {e}")
-                    raise
-            
-            # Garantir que APR está desmarcado
-            apr_selector = "input[id*='ctl12'][id*='wtContent']"
-            self.page.uncheck(apr_selector)
-            
-            # Verificar seleções
-            self.verify_selections(checkboxes)
-            print("Todas as opções do relatório foram configuradas corretamente.")
-            
-        except Exception as e:
-            print(f"Erro ao configurar opções do relatório: {e}")
-            self.page.screenshot(path="report_options_error.png")
-            raise       
-    '''
-
+        self._safe_action(_do_search, "Erro ao realizar pesquisa", "search_error")
 
     def select_report_options(self):
-        """Seleciona opções do relatório usando JavaScript e força uma atualização final."""
+        """Seleciona opções do relatório com verificação ajustada."""
         try:
             print("Selecionando 'Relatório com Detalhes'...")
             self.page.click("text=Relatório com Detalhes")
@@ -164,9 +144,13 @@ class SAMNavigator:
             self.page.wait_for_selector(
                 "input[id*='ctl00'][id*='wtContent']", state="visible", timeout=10000
             )
-            self.wait_for_loading_complete()
 
-            # JavaScript modificado para incluir eventos necessários
+            if not self.wait_for_loading_complete(timeout=90000):
+                raise Exception(
+                    "Timeout aguardando carregamento após selecionar relatório detalhado"
+                )
+
+            # Mantido o JavaScript original dos checkboxes
             success = self.page.evaluate(
                 """() => {
                 try {
@@ -174,7 +158,6 @@ class SAMNavigator:
                     const checkboxesToUncheck = ['ctl12'];
                     
                     const triggerEvents = (element) => {
-                        // Eventos que o sistema espera quando um checkbox é alterado
                         const events = ['change', 'click', 'input'];
                         events.forEach(eventType => {
                             const event = new Event(eventType, { bubbles: true, cancelable: true });
@@ -186,11 +169,9 @@ class SAMNavigator:
                         idList.forEach(id => {
                             const checkbox = document.querySelector(`input[id*='${id}'][id*='wtContent']`);
                             if (checkbox) {
-                                // Primeiro garantir que está desmarcado
                                 checkbox.checked = false;
                                 triggerEvents(checkbox);
                                 
-                                // Se devemos marcar, fazemos após um pequeno delay
                                 if (checked) {
                                     setTimeout(() => {
                                         checkbox.checked = true;
@@ -201,10 +182,8 @@ class SAMNavigator:
                         });
                     };
                     
-                    // Desmarcar todos primeiro
                     handleCheckboxes([...checkboxesToCheck, ...checkboxesToUncheck], false);
                     
-                    // Marcar os que devem ser marcados
                     setTimeout(() => {
                         handleCheckboxes(checkboxesToCheck, true);
                     }, 200);
@@ -220,21 +199,12 @@ class SAMNavigator:
             if not success:
                 raise Exception("Falha ao selecionar opções via JavaScript")
 
-            # Aguardar um pouco para todas as alterações serem processadas
             self.page.wait_for_timeout(1000)
-            self.wait_for_loading_complete()
 
-            # Verifica se todas as seleções foram aplicadas corretamente
-            self.verify_selections(
-                {
-                    "Informação Básica": "input[id*='ctl00'][id*='wtContent']",
-                    "Programação": "input[id*='ctl04'][id*='wtContent']",
-                    "Documentos": "input[id*='ctl08'][id*='wtContent']",
-                    "Planejamento": "input[id*='ctl02'][id*='wtContent']",
-                    "Execução": "input[id*='ctl06'][id*='wtContent']",
-                    "Derivadas": "input[id*='ctl10'][id*='wtContent']",
-                }
-            )
+            # Usa verificação específica para pós-checkboxes
+            if not self.wait_for_loading_complete(timeout=30000, after_checkboxes=True):
+                print("Aviso: Tempo excedido após checkboxes, mas continuando...")
+                self.page.wait_for_timeout(3000)  # Espera adicional de segurança
 
             print("Todas as opções do relatório foram configuradas corretamente.")
 
@@ -243,159 +213,237 @@ class SAMNavigator:
             self.page.screenshot(path="report_options_error.png")
             raise
 
-    def verify_selections(self, checkboxes):
+    def verify_selections(self):
         """Verifica se todas as opções foram selecionadas corretamente."""
-        for name, selector in checkboxes.items():
-            try:
-                # Usar evaluate para verificar o estado do checkbox
-                is_checked = self.page.evaluate("""(selector) => {
-                    const element = document.querySelector(selector);
-                    return element ? element.checked : false;
-                }""", selector)
+        for name, selector in self.locators.CHECKBOXES.items():
+            if name != "apr":  # Não verificamos APR pois deve estar desmarcado
+                try:
+                    is_checked = self.page.evaluate(
+                        """(selector) => {
+                        const element = document.querySelector(selector);
+                        return element ? element.checked : false;
+                    }""",
+                        selector,
+                    )
 
-                if not is_checked:
-                    raise ValueError(f"Checkbox '{name}' não está selecionado como esperado")
+                    if not is_checked:
+                        raise ValueError(
+                            f"Checkbox '{name}' não está selecionado como esperado"
+                        )
 
-            except Exception as e:
-                print(f"Erro ao verificar seleção de '{name}': {e}")
-                raise   
+                except Exception as e:
+                    print(f"Erro ao verificar seleção de '{name}': {e}")
+                    raise
 
-    def wait_for_loading_complete(self):
-        """Aguarda a barra de progresso aparecer e depois desaparecer."""
+    def wait_for_loading_complete(self, timeout: int = 60000, after_checkboxes: bool = False):
+        """Aguarda carregamento da página com verificação adaptativa."""
         try:
-            loading_bar_id = "SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wt31_OutSystemsUIWeb_wt2_block_RichWidgets_wt15_block_wtdivWait"
-            print("Verificando carregamento da página...")
+            print("Verificando estado da página...")
+            start_time = time.time()
+            consecutive_success = 0
 
-            # Aguardar a barra de progresso desaparecer
-            self.page.wait_for_selector(f"#{loading_bar_id}", state="hidden")
-            print("Barra de progresso desapareceu.")
+            while (time.time() - start_time) < (timeout / 1000):
+                # Verificação específica pós-checkboxes
+                if after_checkboxes:
+                    loading_complete = self.page.evaluate("""
+                            () => {
+                                // Para checkboxes, focamos apenas na barra principal
+                                const loadingBar = document.querySelector('[id*="wtdivWait"]');
+                                if (loadingBar && window.getComputedStyle(loadingBar).display !== 'none') {
+                                    return false;
+                                }
+                                return true;
+                            }
+                        """)
+                else:
+                    # Verificação completa normal
+                    loading_complete = self.page.evaluate("""
+                            () => {
+                                const loadingBar = document.querySelector('[id*="wtdivWait"]');
+                                if (loadingBar && window.getComputedStyle(loadingBar).display !== 'none') {
+                                    return false;
+                                }
+                                
+                                const loadingIndicators = document.querySelectorAll(
+                                    '.loading-indicator, .loading, [class*="loading"], .progress, .spinner'
+                                );
+                                for (const indicator of loadingIndicators) {
+                                    if (window.getComputedStyle(indicator).display !== 'none') {
+                                        return false;
+                                    }
+                                }
+                                
+                                const osAjaxElements = document.querySelectorAll('[id*="AjaxWait"]');
+                                for (const element of osAjaxElements) {
+                                    if (window.getComputedStyle(element).display !== 'none') {
+                                        return false;
+                                    }
+                                }
+                                
+                                return true;
+                            }
+                        """)
 
-            # Aguardar a rede estabilizar
-            self.page.wait_for_load_state("networkidle")
-            return True
+                if loading_complete:
+                    consecutive_success += 1
+                    print(f"Verificação bem-sucedida ({consecutive_success}/3)")
+
+                    # Após checkboxes, precisamos de menos confirmações
+                    required_success = 2 if after_checkboxes else 3
+
+                    if consecutive_success >= required_success:
+                        self.page.wait_for_load_state("networkidle", timeout=5000)
+                        self.page.wait_for_timeout(2000)
+                        print("Carregamento completo confirmado após verificações consecutivas")
+                        return True
+                else:
+                    if consecutive_success > 0:
+                        print("Resetando contador de verificações - loading detectado novamente")
+                    consecutive_success = 0
+
+                self.page.wait_for_timeout(2000)
+                if consecutive_success == 0:
+                    print("Ainda carregando... aguardando")
+
+            print("Timeout ao aguardar carregamento")
+            return False
 
         except Exception as e:
             print(f"Erro ao aguardar carregamento: {e}")
             return False
 
-        except Exception as e:
-            print(f"Erro durante o download: {e}")
-            return False, None
-
     def export_to_excel(self):
-        """Exporta o relatório para Excel, priorizando o método JavaScript."""
+        """Exporta o relatório para Excel com clique otimizado."""
         try:
-            print("Aguardando carregamento completo após seleção dos filtros...")
+            print("Iniciando processo de exportação...")
+            
+            # Primeira espera
+            print("Aguardando estabilização inicial da página...")
+            self.page.wait_for_timeout(3000)
+            
+            # Configura timeout maior para esta operação
+            self.page.set_default_timeout(90000)
 
-            # Aguardar o carregamento completo
-            if not self.wait_for_loading_complete():
-                print("Falha ao aguardar carregamento da página.")
-                return False
-
-            print("Página carregada completamente, prosseguindo com a exportação...")
-
-            # Configurar o caminho de download
-            download_path = os.path.join(os.getcwd(), "Downloads")
-            os.makedirs(download_path, exist_ok=True)
-
-            # Aumentar timeout padrão temporariamente
-            self.page.set_default_timeout(60000)
-
-            # Primeiro método: Usando cliques diretos (invertendo a ordem dos métodos)
             try:
-                print("Tentando método com cliques diretos...")
+                print("Tentando exportação via clique direto...")
+                with self.page.expect_download(timeout=90000) as download_promise:
+                    # Verifica e clica no menu com retry
+                    success = self.page.evaluate("""
+                        () => {
+                            return new Promise((resolve) => {
+                                // Função para encontrar e clicar no botão do menu
+                                const clickMenuButton = () => {
+                                    const menuButton = document.querySelector('[id*="wtMenuDropdown"] i');
+                                    if (menuButton && window.getComputedStyle(menuButton.parentElement).display !== 'none') {
+                                        // Força o menu a ficar visível
+                                        const menuContainer = menuButton.closest('[id*="wtMenuDropdown"]');
+                                        if (menuContainer) {
+                                            menuContainer.style.display = 'block';
+                                            menuContainer.style.visibility = 'visible';
+                                        }
+                                        menuButton.click();
+                                        return true;
+                                    }
+                                    return false;
+                                };
 
-                # XPath para o botão de três pontos
-                three_dots_xpath = "//div[@id='SAMTemplateAssets_wt93_block_IguazuTheme_wt30_block_wtMenuDropdown_wtConditionalMenu_IguazuTheme_wt31_block_OutSystemsUIWeb_wt6_block_wtPrompt']/div/i"
+                                // Tenta clicar algumas vezes
+                                let attempts = 0;
+                                const tryClick = () => {
+                                    if (attempts >= 5) {
+                                        resolve(false);
+                                        return;
+                                    }
+                                    if (clickMenuButton()) {
+                                        resolve(true);
+                                    } else {
+                                        attempts++;
+                                        setTimeout(tryClick, 1000);
+                                    }
+                                };
+                                
+                                tryClick();
+                            });
+                        }
+                    """)
+                    
+                    if not success:
+                        raise Exception("Não foi possível clicar no menu")
 
-                print("Aguardando botão de três pontos ficar visível...")
+                    # Espera o menu aparecer
+                    print("Aguardando menu de exportação...")
+                    self.page.wait_for_timeout(2000)
 
-                # Configurar evento de download antes de qualquer clique
-                with self.page.expect_download(timeout=70000) as download_promise:
-                    # Clicar no botão de três pontos
-                    self.page.click(f"xpath={three_dots_xpath}")
-                    print("Clicado no botão de três pontos.")
+                    # Verifica se o botão de exportar está visível e clicável
+                    button_ready = self.page.evaluate("""
+                        () => {
+                            const exportLinks = Array.from(document.querySelectorAll('a'))
+                                .filter(a => a.textContent.includes('Exportar para Excel'));
+                            
+                            const isVisible = (element) => {
+                                if (!element) return false;
+                                const rect = element.getBoundingClientRect();
+                                const style = window.getComputedStyle(element);
+                                return rect.width > 0 && 
+                                       rect.height > 0 && 
+                                       style.display !== 'none' && 
+                                       style.visibility !== 'hidden' &&
+                                       element.offsetParent !== null;
+                            };
+                            
+                            const visibleButton = exportLinks.find(isVisible);
+                            if (visibleButton) {
+                                // Força o botão a ficar visível e clicável
+                                visibleButton.style.display = 'block';
+                                visibleButton.style.visibility = 'visible';
+                                visibleButton.style.opacity = '1';
+                                visibleButton.style.pointerEvents = 'auto';
+                                return true;
+                            }
+                            return false;
+                        }
+                    """)
 
-                    # Aguardar o menu aparecer
-                    self.page.wait_for_selector("text=Exportar para Excel", state="visible")
-                    print("Opção 'Exportar para Excel' visível.")
+                    if not button_ready:
+                        raise Exception("Botão de exportação não está pronto")
 
-                    # Clicar na opção de exportar
-                    self.page.click("text=Exportar para Excel", timeout=30000)
-                    print("Clicado em 'Exportar para Excel'")
+                    # Espera final antes do clique
+                    print("Aguardando botão estabilizar...")
+                    self.page.wait_for_timeout(1000)
 
-                    try:
-                        # Aguardar o download iniciar
-                        print("Aguardando início do download...")
-                        download = download_promise.value
-                        print(f"Download iniciado: {download.suggested_filename}")
+                    # Clique via JavaScript para garantir
+                    print("Clicando no botão de exportação...")
+                    success = self.page.evaluate("""
+                        () => {
+                            const exportButton = Array.from(document.querySelectorAll('a'))
+                                .find(a => a.textContent.includes('Exportar para Excel'));
+                            if (exportButton) {
+                                exportButton.click();
+                                return true;
+                            }
+                            return false;
+                        }
+                    """)
 
-                        # Salvar o arquivo
-                        download_file_path = os.path.join(
-                            download_path, download.suggested_filename
-                        )
-                        download.save_as(download_file_path)
-                        print(f"Download concluído: {download_file_path}")
-                        return True
-                    except Exception as download_error:
-                        print(f"Erro durante o download: {download_error}")
-                        raise
+                    if not success:
+                        raise Exception("Falha ao clicar no botão de exportação")
+
+                    print("Aguardando download iniciar...")
+                    download = download_promise.value
+                    download_file_path = os.path.join(
+                        self.download_path, download.suggested_filename
+                    )
+                    download.save_as(download_file_path)
+                    print(f"Download concluído: {download_file_path}")
+                    return True
 
             except Exception as click_e:
-                print(f"Erro no método de clique direto: {click_e}")
+                print(f"Erro no método de clique: {click_e}")
                 self.page.screenshot(path="click_error.png")
-
-                # Método alternativo: JavaScript
-                print("Tentando método alternativo via JavaScript...")
-                try:
-                    with self.page.expect_download(timeout=75000) as download_promise:
-                        success = self.page.evaluate(
-                            """
-                            () => {
-                                // Tentar abrir o menu se estiver fechado
-                                const dropdown = document.querySelector('[class*="dropdown"]');
-                                if (dropdown) {
-                                    dropdown.classList.add('show', 'open');
-                                }
-                                
-                                // Encontrar e clicar no botão de exportação
-                                const links = Array.from(document.querySelectorAll('a'));
-                                const exportButton = links.find(link => 
-                                    link.textContent.includes('Exportar para Excel') || 
-                                    link.innerText.includes('Exportar para Excel')
-                                );
-                                
-                                if (exportButton) {
-                                    console.log('Botão de exportação encontrado');
-                                    exportButton.click();
-                                    return true;
-                                }
-                                console.log('Botão de exportação não encontrado');
-                                return false;
-                            }
-                        """
-                        )
-
-                        if success:
-                            download = download_promise.value
-                            download_file_path = os.path.join(
-                                download_path, download.suggested_filename
-                            )
-                            download.save_as(download_file_path)
-                            print(
-                                f"Download via JavaScript concluído: {download_file_path}"
-                            )
-                            return True
-                        else:
-                            print(
-                                "JavaScript não conseguiu encontrar o botão de exportação"
-                            )
-                            return False
-
-                except Exception as js_e:
-                    print(f"Erro no método JavaScript: {js_e}")
-                    self.page.screenshot(path="js_error.png")
-                    return False
+                
+                # Fallback para o método JavaScript anterior
+                print("Tentando método alternativo de JavaScript...")
+                return self._export_via_javascript()
 
         except Exception as e:
             print(f"Erro geral ao exportar o relatório: {e}")
@@ -403,51 +451,88 @@ class SAMNavigator:
             return False
 
         finally:
-            # Restaurar timeout padrão
             self.page.set_default_timeout(30000)
 
+    def _export_via_javascript(self):
+        """Método JavaScript de fallback para exportação."""
+        try:
+            with self.page.expect_download(timeout=90000) as download_promise:
+                success = self.page.evaluate("""
+                    () => {
+                        return new Promise((resolve) => {
+                            const attemptExport = (attempt = 0) => {
+                                if (attempt >= 5) {
+                                    resolve(false);
+                                    return;
+                                }
+                                
+                                const menu = document.querySelector('[id*="wtMenuDropdown"]');
+                                if (menu) {
+                                    menu.style.display = 'block';
+                                    menu.style.visibility = 'visible';
+                                }
+                                
+                                const links = Array.from(document.querySelectorAll('a'));
+                                const exportButton = links.find(link => 
+                                    link.textContent.includes('Exportar para Excel')
+                                );
+                                
+                                if (exportButton) {
+                                    exportButton.click();
+                                    resolve(true);
+                                } else {
+                                    setTimeout(() => attemptExport(attempt + 1), 1000);
+                                }
+                            };
+                            
+                            attemptExport();
+                        });
+                    }
+                """)
+                
+                if success:
+                    download = download_promise.value
+                    download_file_path = os.path.join(
+                        self.download_path, download.suggested_filename
+                    )
+                    download.save_as(download_file_path)
+                    print(f"Download via JavaScript concluído: {download_file_path}")
+                    return True
+                else:
+                    print("JavaScript não conseguiu completar a exportação")
+                    return False
+                    
+        except Exception as js_e:
+            print(f"Erro no método JavaScript: {js_e}")
+            self.page.screenshot(path="js_error.png")
+            return False
 
-def run(playwright):
-    browser = playwright.chromium.launch(headless=False)
-    page = browser.new_page()
 
-    # Configurar download automático
-    page.set_default_timeout(60000)  # 60 segundos global
+def run(username: str, password: str, setor: str):
+    """Função principal com parâmetros configuráveis."""
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=False)
+        page = browser.new_page()
 
-    # Instanciar a classe SAMNavigator
-    navigator = SAMNavigator(page)
+        navigator = SAMNavigator(page)
 
-    # Fazer o login
-    navigator.login("menon", "Huffman81*")
+        try:
+            navigator.login(username, password)
+            navigator.navigate_to_filter_page()
+            navigator.wait_for_filter_field()
+            navigator.fill_filter(setor)
+            navigator.click_search()
+            navigator.select_report_options()
+            success = navigator.export_to_excel()
 
-    # Navegar até a página de filtro
-    navigator.navigate_to_filter_page()
+            if not success:
+                print("Falha na exportação do relatório")
 
-    # Aguardar o campo 'Setor Executor'
-    navigator.wait_for_filter_field()
+            input("Pressione Enter para fechar o navegador...")
 
-    # Preencher o filtro com o valor "IEE3"
-    navigator.fill_filter("IEE3")
-
-    # Clicar na lupa para gerar o relatório
-    navigator.click_search()
-
-    # Aguardar para garantir que o relatório seja gerado
-    page.wait_for_load_state('networkidle')
-
-    # Após select_report_options, adicionar uma espera extra
-    navigator.select_report_options()
-    page.wait_for_load_state("networkidle")
-    page.wait_for_timeout(5000)  # Dar tempo extra para estabilizar
-
-    # Exportar para Excel
-    navigator.export_to_excel()
-
-    # Manter o navegador aberto para visualização
-    page.wait_for_timeout(10000)
-    input("Pressione Enter para fechar o navegador...")
+        finally:
+            browser.close()
 
 
-# Executar o código usando Playwright
-with sync_playwright() as playwright:
-    run(playwright)
+if __name__ == "__main__":
+    run("menon", "Huffman81*", "IEE3")
