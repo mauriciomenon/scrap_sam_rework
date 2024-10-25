@@ -1,12 +1,14 @@
 # ATENCAO: a exportacao do menu de relatorio simples gera um arquivo igual ao relatorio "completo" com detalhes
-# e filtros habilitados. A unica diferenca e a apresentacao na tela dos dados. Trata-se de um codigo de 
+# e filtros habilitados. A unica diferenca e a apresentacao na tela dos dados. Trata-se de um codigo de
 # aprendizado e logicamente selecionar somente esta opcao o tornara muito mais rapido.
 # Objetivo: codigo generico reaproveitavel com tratamento de erro de requisicoes ao SAM
+# Mauricio Menon, 25/10/2024
 
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, Page
 import os
 from datetime import datetime
 import time
+from typing import Dict, Optional
 
 
 class SAMNavigator:
