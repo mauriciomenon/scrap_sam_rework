@@ -9,11 +9,13 @@ from dataclasses import dataclass
 from enum import Enum
 import traceback
 
+
 class ErrorSeverity(Enum):
     INFO = "INFO"
     WARNING = "WARNING"
     ERROR = "ERROR"
     CRITICAL = "CRITICAL"
+
 
 @dataclass
 class NetworkError:
@@ -34,26 +36,43 @@ class ConsoleError:
     stack_trace: Optional[str]
     severity: ErrorSeverity
 
+
+class ErrorCategory(Enum):
+    NETWORK_TIMEOUT = "NETWORK_TIMEOUT"
+    AUTH_ERROR = "AUTH_ERROR"
+    RESOURCE_ERROR = "RESOURCE_ERROR"
+    DOWNLOAD_ERROR = "DOWNLOAD_ERROR"
+    SESSION_ERROR = "SESSION_ERROR"
+    IGNORABLE = "IGNORABLE"
+    OTHER = "OTHER"
+
+
 class ErrorTracker:
     """Sistema de monitoramento e tratamento de erros."""
+
     def __init__(self, page: Page):
         self.page = page
         self.network_errors: List[NetworkError] = []
         self.console_errors: List[ConsoleError] = []
+        self.last_download_path: Optional[str] = None
+        self.download_start_time: Optional[datetime] = None
+        self.download_end_time: Optional[datetime] = None
         self.setup_logging()
         self.setup_error_handlers()
 
     def setup_logging(self):
         """Configura o sistema de logging."""
+        log_filename = f"execution_log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
         logging.basicConfig(
             level=logging.INFO,
-            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+            format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
             handlers=[
-                logging.FileHandler('error_tracking.log'),
-                logging.StreamHandler()
-            ]
+                logging.FileHandler(log_filename, encoding="utf-8"),
+                logging.StreamHandler(),
+            ],
         )
-        self.logger = logging.getLogger('ErrorTracker')
+        self.logger = logging.getLogger("ErrorTracker")
+        self.logger.info("Iniciando nova execução")
 
     def setup_error_handlers(self):
         """Configura os handlers de erro para a página."""
@@ -77,7 +96,7 @@ class ErrorTracker:
                 method=response.request.method,
                 error_type=f"HTTP_{status}",
                 details=self.get_status_description(status),
-                severity=severity
+                severity=severity,
             )
             self.network_errors.append(error)
             self.log_error(error)
@@ -85,15 +104,17 @@ class ErrorTracker:
 
     def handle_console_message(self, msg: ConsoleMessage):
         """Processa mensagens do console."""
-        if msg.type in ['error', 'warning']:
-            severity = ErrorSeverity.ERROR if msg.type == 'error' else ErrorSeverity.WARNING
+        if msg.type in ["error", "warning"]:
+            severity = (
+                ErrorSeverity.ERROR if msg.type == "error" else ErrorSeverity.WARNING
+            )
             error = ConsoleError(
                 timestamp=datetime.now().isoformat(),
                 type=msg.type,
                 text=msg.text,
-                location=msg.location['url'] if msg.location else 'Unknown',
+                location=msg.location["url"] if msg.location else "Unknown",
                 stack_trace=self.get_stack_trace(msg),
-                severity=severity
+                severity=severity,
             )
             self.console_errors.append(error)
             self.log_error(error)
@@ -105,19 +126,17 @@ class ErrorTracker:
 
         if status in retry_statuses:
             for attempt in range(max_retries):
-                self.logger.warning(f"Tentativa {attempt + 1} de {max_retries} para URL: {url}")
+                self.logger.warning(
+                    f"Tentativa {attempt + 1} de {max_retries} para URL: {url}"
+                )
                 try:
-                    # Espera exponencial entre tentativas
-                    wait_time = (2 ** attempt) * 1000  # ms
+                    wait_time = (2**attempt) * 1000  # ms
                     self.page.wait_for_timeout(wait_time)
-
-                    # Tenta recarregar a página
                     if url == self.page.url:
                         self.page.reload()
                     return
                 except Exception as e:
                     self.logger.error(f"Erro na tentativa {attempt + 1}: {e}")
-
             self.logger.critical(f"Todas as tentativas falharam para URL: {url}")
 
     def handle_page_error(self, error):
@@ -127,26 +146,24 @@ class ErrorTracker:
     def handle_dialog(self, dialog: Dialog):
         """Processa diálogos inesperados."""
         self.logger.warning(f"Diálogo detectado: {dialog.message}")
-        if dialog.type in ['alert', 'confirm']:
+        if dialog.type in ["alert", "confirm"]:
             dialog.accept()
-        elif dialog.type == 'prompt':
+        elif dialog.type == "prompt":
             dialog.dismiss()
 
     def handle_request_failed(self, request):
         """Processa requisições que falharam."""
         try:
-            # Verifica se request é um objeto ou string
             if hasattr(request, "failure") and callable(request.failure):
                 error = request.failure()
             else:
-                error = str(request)  # Se for string, usa diretamente
+                error = str(request)
 
             url = request.url if hasattr(request, "url") else "URL desconhecida"
             method = request.method if hasattr(request, "method") else "unknown"
 
             self.logger.error(f"Requisição falhou: {url}\nErro: {error}")
 
-            # Registra erro na lista de network_errors
             error_entry = NetworkError(
                 timestamp=datetime.now().isoformat(),
                 url=url,
@@ -184,14 +201,14 @@ class ErrorTracker:
             500: "Internal Server Error",
             502: "Bad Gateway",
             503: "Service Unavailable",
-            504: "Gateway Timeout"
+            504: "Gateway Timeout",
         }
         return descriptions.get(status, f"Unknown Status: {status}")
 
     def get_stack_trace(self, msg: ConsoleMessage) -> Optional[str]:
         """Extrai stack trace de mensagens de console quando disponível."""
         try:
-            if hasattr(msg, 'stack'):
+            if hasattr(msg, "stack"):
                 return msg.stack
             return None
         except:
@@ -208,19 +225,6 @@ class ErrorTracker:
                 f"Console Error: {error.type} - {error.text} - Location: {error.location}"
             )
 
-    def get_error_summary(self) -> Dict:
-        """Gera um resumo dos erros encontrados."""
-        return {
-            "network_errors": len(self.network_errors),
-            "console_errors": len(self.console_errors),
-            "error_types": {
-                "http_4xx": len([e for e in self.network_errors if 400 <= e.status < 500]),
-                "http_5xx": len([e for e in self.network_errors if e.status >= 500]),
-                "console_errors": len([e for e in self.console_errors if e.type == 'error']),
-                "console_warnings": len([e for e in self.console_errors if e.type == 'warning'])
-            }
-        }
-
     def save_error_report(self, filename: str = "error_report.json"):
         """Salva um relatório detalhado dos erros em formato JSON."""
 
@@ -228,14 +232,24 @@ class ErrorTracker:
             """Converte um erro em dicionário serializável."""
             error_dict = vars(error).copy()
             if "severity" in error_dict:
-                error_dict["severity"] = error_dict[
-                    "severity"
-                ].value  # Converte Enum para string
+                error_dict["severity"] = error_dict["severity"].value
             return error_dict
 
         report = {
             "timestamp": datetime.now().isoformat(),
-            "summary": self.get_error_summary(),
+            "download_info": {
+                "path": self.last_download_path,
+                "start_time": (
+                    self.download_start_time.isoformat()
+                    if self.download_start_time
+                    else None
+                ),
+                "end_time": (
+                    self.download_end_time.isoformat()
+                    if self.download_end_time
+                    else None
+                ),
+            },
             "network_errors": [
                 convert_error_to_dict(error) for error in self.network_errors
             ],
@@ -247,21 +261,27 @@ class ErrorTracker:
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(report, f, indent=2, ensure_ascii=False)
 
-
     def print_error_summary(self):
-        """Imprime um resumo detalhado dos erros."""
-        # Combina todos os erros para análise
+        """Imprime apenas erros críticos e salva log completo."""
         all_errors = self.network_errors + self.console_errors
-
-        # Realiza análise detalhada
         analyzer = ErrorAnalyzer()
         analysis = analyzer.analyze_errors(all_errors)
 
-        # Imprime relatório formatado
-        analyzer.print_analysis_report(analysis)
+        # Imprime na tela apenas erros críticos e status
+        analyzer.print_analysis_report(analysis, self.last_download_path)
 
-        # Salva análise detalhada junto com o relatório
-        self.last_analysis = analysis  # para uso posterior se necessário
+        # Loga o resto em arquivo sem exibir na tela
+        self.logger.info("=== RESUMO COMPLETO ===")
+        self.logger.info(f"Total de erros: {len(all_errors)}")
+        for category in ErrorCategory:
+            count = len(analysis["by_category"][category.value])
+            if count > 0:
+                if category == ErrorCategory.IGNORABLE:
+                    self.logger.info(
+                        f"Recursos não essenciais não encontrados (404): {count}"
+                    )
+                else:
+                    self.logger.info(f"{category.value}: {count}")
 
 
 class SAMLocators:
@@ -610,6 +630,7 @@ class SAMNavigator:
         """Exporta o relatório para Excel com clique otimizado."""
         try:
             print("Iniciando processo de exportação...")
+            self.error_tracker.download_start_time = datetime.now()
 
             # Primeira espera
             print("Aguardando estabilização inicial da página...")
@@ -734,6 +755,9 @@ class SAMNavigator:
                         self.download_path, download.suggested_filename
                     )
                     download.save_as(download_file_path)
+                    self.error_tracker.download_end_time = datetime.now()  
+                    self.error_tracker.last_download_path = download_file_path  
+
                     print(f"Download concluído: {download_file_path}")
                     return True
 
@@ -813,127 +837,101 @@ class SAMNavigator:
 class ErrorAnalyzer:
     """Classe para análise detalhada de erros."""
 
-    # Erros que podem ser ignorados com segurança
     IGNORABLE_ERRORS = {
         "urls": [
             "favicon.ico",
-            "/CustomInputMasks/",  # máscaras de input que não afetam funcionalidade
+            "/CustomInputMasks/",
         ],
         "messages": [
-            "Failed to load resource",  # recursos não críticos
-            "undefined is not a function",  # erros JS não críticos
+            "Failed to load resource",
+            "undefined is not a function",
         ],
     }
 
-    # Erros que requerem atenção mas não são críticos
-    WARNING_PATTERNS = {
-        "urls": [
-            "/api/",  # endpoints de API que podem ter retry
-            "/static/",  # recursos estáticos que podem ter fallback
-        ],
-        "messages": [
-            "timeout",
-            "network error",
-            "request failed",
-        ],
+    ERROR_PATTERNS = {
+        "NETWORK_TIMEOUT": {
+            "messages": ["timeout", "connection reset", "network error"],
+            "status_codes": [408, 504],
+        },
+        "AUTH_ERROR": {
+            "messages": ["unauthorized", "forbidden", "authentication failed"],
+            "status_codes": [401, 403],
+        },
+        "SESSION_ERROR": {
+            "messages": ["session expired", "invalid session"],
+            "urls": ["/login", "/auth"],
+        },
+        "DOWNLOAD_ERROR": {
+            "urls": ["PendingGeneralSSAs"],
+            "messages": ["download failed"],
+        },
     }
 
-    # Erros que são considerados críticos
-    CRITICAL_PATTERNS = {
-        "urls": [
-            "/auth/",  # problemas de autenticação
-            "/export/",  # problemas na exportação
-            "PendingGeneralSSAs",  # problemas no relatório principal
-        ],
-        "messages": [
-            "Authorization failed",
-            "Session expired",
-            "Database error",
-        ],
-    }
+    @staticmethod
+    def get_file_size_str(file_path: str) -> str:
+        """Retorna tamanho do arquivo em formato legível."""
+        try:
+            size_bytes = os.path.getsize(file_path)
+            for unit in ["B", "KB", "MB", "GB"]:
+                if size_bytes < 1024:
+                    return f"{size_bytes:.1f} {unit}"
+                size_bytes /= 1024
+            return f"{size_bytes:.1f} GB"
+        except:
+            return "tamanho desconhecido"
 
     @staticmethod
     def categorize_error(error: Union[NetworkError, ConsoleError]) -> Dict:
-        """Categoriza um erro com base em seus padrões e características."""
+        """Categoriza um erro com base em seus padrões."""
         url = getattr(error, "url", "")
         message = getattr(error, "text", "") or getattr(error, "details", "")
+        status = getattr(error, "status", 0)
 
-        # Verifica se é um erro ignorável
+        # Verifica primeiro se é um erro de download (PendingGeneralSSAs)
+        if "PendingGeneralSSAs" in url:
+            return {"category": "DOWNLOAD_ERROR"}
+
+        # Verifica cada padrão de erro para categorização
+        for category, patterns in ErrorAnalyzer.ERROR_PATTERNS.items():
+            # Verifica status codes
+            if "status_codes" in patterns and status in patterns["status_codes"]:
+                return {"category": category}
+
+            # Verifica mensagens
+            if "messages" in patterns:
+                for msg_pattern in patterns["messages"]:
+                    if msg_pattern.lower() in message.lower():
+                        return {"category": category}
+
+            # Verifica URLs
+            if "urls" in patterns:
+                for url_pattern in patterns["urls"]:
+                    if url_pattern in url:
+                        return {"category": category}
+
+        # Verifica se é ignorável
         for ignore_url in ErrorAnalyzer.IGNORABLE_ERRORS["urls"]:
             if ignore_url in url:
-                return {
-                    "category": "IGNORABLE",
-                    "reason": f"URL ignorável: {ignore_url}",
-                    "impact": "Nenhum impacto na funcionalidade",
-                }
+                return {"category": "IGNORABLE"}
 
         for ignore_msg in ErrorAnalyzer.IGNORABLE_ERRORS["messages"]:
             if ignore_msg in message:
-                return {
-                    "category": "IGNORABLE",
-                    "reason": f"Mensagem ignorável: {ignore_msg}",
-                    "impact": "Nenhum impacto na funcionalidade",
-                }
+                return {"category": "IGNORABLE"}
 
-        # Verifica se é um erro crítico
-        for critical_url in ErrorAnalyzer.CRITICAL_PATTERNS["urls"]:
-            if critical_url in url:
-                return {
-                    "category": "CRITICAL",
-                    "reason": f"URL crítica afetada: {critical_url}",
-                    "impact": "Possível comprometimento de funcionalidade core",
-                }
-
-        for critical_msg in ErrorAnalyzer.CRITICAL_PATTERNS["messages"]:
-            if critical_msg in message:
-                return {
-                    "category": "CRITICAL",
-                    "reason": f"Erro crítico detectado: {critical_msg}",
-                    "impact": "Funcionalidade core comprometida",
-                }
-
-        # Verifica se é um aviso
-        for warning_url in ErrorAnalyzer.WARNING_PATTERNS["urls"]:
-            if warning_url in url:
-                return {
-                    "category": "WARNING",
-                    "reason": f"URL com potencial impacto: {warning_url}",
-                    "impact": "Possível degradação de performance ou UX",
-                }
-
-        for warning_msg in ErrorAnalyzer.WARNING_PATTERNS["messages"]:
-            if warning_msg in message:
-                return {
-                    "category": "WARNING",
-                    "reason": f"Aviso detectado: {warning_msg}",
-                    "impact": "Possível instabilidade",
-                }
-
-        # Se não se encaixar em nenhuma categoria específica
-        return {
-            "category": "UNKNOWN",
-            "reason": "Erro não categorizado",
-            "impact": "Impacto desconhecido",
-        }
+        return {"category": "OTHER"}
 
     @staticmethod
     def analyze_errors(errors: List[Union[NetworkError, ConsoleError]]) -> Dict:
-        """Analisa uma lista de erros e gera um relatório detalhado."""
+        """Analisa uma lista de erros e gera um relatório simplificado."""
         analysis = {
             "total": len(errors),
-            "by_category": {
-                "CRITICAL": [],
-                "WARNING": [],
-                "IGNORABLE": [],
-                "UNKNOWN": [],
+            "by_category": {cat.value: [] for cat in ErrorCategory},
+            "timestamps": {
+                "first_error": None,
+                "last_error": None,
+                "download_start": None,
+                "download_end": None,
             },
-            "summary": {
-                "critical_count": 0,
-                "warning_count": 0,
-                "ignorable_count": 0,
-                "unknown_count": 0,
-            },
-            "recommendations": [],
         }
 
         for error in errors:
@@ -944,88 +942,53 @@ class ErrorAnalyzer:
                 "timestamp": error.timestamp,
                 "type": error.__class__.__name__,
                 "details": str(error),
-                "categorization": categorization,
             }
 
             analysis["by_category"][category].append(error_info)
-            analysis["summary"][f"{category.lower()}_count"] += 1
 
-        # Gera recomendações baseadas na análise
-        if analysis["summary"]["critical_count"] > 0:
-            analysis["recommendations"].append(
-                {
-                    "priority": "ALTA",
-                    "action": "Investigar erros críticos imediatamente",
-                    "details": f"Encontrados {analysis['summary']['critical_count']} erros críticos",
-                }
-            )
+            # Atualiza timestamps
+            if not analysis["timestamps"]["first_error"]:
+                analysis["timestamps"]["first_error"] = error.timestamp
+            analysis["timestamps"]["last_error"] = error.timestamp
 
-        if analysis["summary"]["warning_count"] > 3:
-            analysis["recommendations"].append(
-                {
-                    "priority": "MÉDIA",
-                    "action": "Monitorar warnings",
-                    "details": "Volume elevado de warnings pode indicar instabilidade",
-                }
-            )
-
-        # Adiciona métricas de saúde
-        analysis["health_metrics"] = {
-            "error_rate": len(errors) / 100,  # exemplo simples
-            "critical_error_percentage": (
-                (analysis["summary"]["critical_count"] / len(errors)) * 100
-                if errors
-                else 0
-            ),
-            "health_score": ErrorAnalyzer._calculate_health_score(analysis),
-        }
+            # Marca timestamps de download
+            if "PendingGeneralSSAs" in str(error):
+                if not analysis["timestamps"]["download_start"]:
+                    analysis["timestamps"]["download_start"] = error.timestamp
+                analysis["timestamps"]["download_end"] = error.timestamp
 
         return analysis
 
     @staticmethod
-    def _calculate_health_score(analysis: Dict) -> float:
-        """Calcula uma pontuação de saúde baseada na análise de erros."""
-        total = analysis["total"]
-        if total == 0:
-            return 100.0
+    def print_analysis_report(analysis: Dict, download_path: Optional[str] = None):
+        """Imprime apenas erros críticos e status do download."""
+        download_errors = analysis["by_category"].get("DOWNLOAD_ERROR", [])
 
-        # Pesos para diferentes tipos de erro
-        weights = {"critical": 1.0, "warning": 0.3, "unknown": 0.5, "ignorable": 0.1}
-
-        # Calcula pontuação ponderada
-        weighted_sum = (
-            analysis["summary"]["critical_count"] * weights["critical"]
-            + analysis["summary"]["warning_count"] * weights["warning"]
-            + analysis["summary"]["unknown_count"] * weights["unknown"]
-            + analysis["summary"]["ignorable_count"] * weights["ignorable"]
-        )
-
-        # Normaliza para 0-100, onde 100 é perfeito
-        health_score = 100 * (1 - (weighted_sum / total))
-        return round(max(0, min(100, health_score)), 2)
-
-    @staticmethod
-    def print_analysis_report(analysis: Dict):
-        """Imprime um relatório formatado da análise de erros."""
-        print("\n=== RELATÓRIO DE ANÁLISE DE ERROS ===")
-        print(f"\nPontuação Ponderada: {analysis['health_metrics']['health_score']}%")
-        print("\nResumo por Categoria:")
-        print(f"- Críticos: {analysis['summary']['critical_count']}")
-        print(f"- Avisos: {analysis['summary']['warning_count']}")
-        print(f"- Ignoráveis: {analysis['summary']['ignorable_count']}")
-        print(f"- Não categorizados: {analysis['summary']['unknown_count']}")
-
-        if analysis["recommendations"]:
-            print("\nRecomendações:")
-            for rec in analysis["recommendations"]:
-                print(f"[{rec['priority']}] {rec['action']}")
-                print(f"  → {rec['details']}")
-
-        if analysis["summary"]["critical_count"] > 0:
-            print("\nDetalhes dos Erros Críticos:")
-            for error in analysis["by_category"]["CRITICAL"]:
+        if download_errors:
+            print("\n=== ERROS CRÍTICOS DETECTADOS ===")
+            for error in download_errors:
                 print(f"- {error['timestamp']}: {error['details']}")
-                print(f"  Impacto: {error['categorization']['impact']}")
+                print(
+                    "  (Nota: Este erro é esperado durante o download - o servidor responde com arquivo em vez de HTTP)"
+                )
+
+            # Status do download com timestamps e tamanho do arquivo
+            if download_path and os.path.exists(download_path):
+                file_size = ErrorAnalyzer.get_file_size_str(download_path)
+                start_time = datetime.fromisoformat(
+                    analysis["timestamps"]["download_start"]
+                )
+                end_time = datetime.fromisoformat(
+                    analysis["timestamps"]["download_end"]
+                )
+                duration = (end_time - start_time).total_seconds()
+
+                print(f"\nSTATUS DO DOWNLOAD:")
+                print(f"- Início: {start_time.strftime('%H:%M:%S')}")
+                print(f"- Fim: {end_time.strftime('%H:%M:%S')}")
+                print(f"- Duração: {duration:.1f} segundos")
+                print(f"- Tamanho: {file_size}")
+                print(f"- Status: Completado com sucesso")
 
 
 def run(username: str, password: str, setor: str):
@@ -1079,4 +1042,4 @@ def run(username: str, password: str, setor: str):
 
 
 if __name__ == "__main__":
-    run("menon", "Huffman81*", "IEE3")
+    run("menon", "Huffman87*", "IEE3")

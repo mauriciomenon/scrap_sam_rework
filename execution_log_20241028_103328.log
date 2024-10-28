@@ -1,0 +1,39 @@
+2024-10-28 10:33:28,231 - ErrorTracker - INFO - Iniciando nova execução
+2024-10-28 10:33:28,642 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/SAM/undefined - Status: 404
+2024-10-28 10:33:28,643 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/SAM/undefined
+2024-10-28 10:33:28,695 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/favicon.ico
+2024-10-28 10:33:28,986 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/SAM/undefined - Status: 404
+2024-10-28 10:33:28,987 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/SAM/undefined
+2024-10-28 10:33:30,710 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js - Status: 404
+2024-10-28 10:33:30,711 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js
+2024-10-28 10:33:30,712 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js - Status: 404
+2024-10-28 10:33:30,713 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js
+2024-10-28 10:33:30,713 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js - Status: 404
+2024-10-28 10:33:30,714 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js
+2024-10-28 10:33:31,766 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js - Status: 404
+2024-10-28 10:33:31,767 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js
+2024-10-28 10:33:31,768 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js - Status: 404
+2024-10-28 10:33:31,769 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js
+2024-10-28 10:33:31,770 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js - Status: 404
+2024-10-28 10:33:31,770 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js
+2024-10-28 10:33:32,296 - ErrorTracker - ERROR - Requisição falhou: https://apps.itaipu.gov.br/SAM_SMA/SSAHome.aspx?_ts=1730122411977
+Erro: <Request url='https://apps.itaipu.gov.br/SAM_SMA/SSAHome.aspx?_ts=1730122411977' method='POST'>
+2024-10-28 10:33:32,616 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js - Status: 404
+2024-10-28 10:33:32,617 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js
+2024-10-28 10:33:32,618 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js - Status: 404
+2024-10-28 10:33:32,619 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js
+2024-10-28 10:33:32,620 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js - Status: 404
+2024-10-28 10:33:32,621 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js
+2024-10-28 10:33:37,415 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js - Status: 404
+2024-10-28 10:33:37,416 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js
+2024-10-28 10:33:37,417 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js - Status: 404
+2024-10-28 10:33:37,418 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js
+2024-10-28 10:33:37,419 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js - Status: 404
+2024-10-28 10:33:37,420 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js
+2024-10-28 10:35:51,075 - ErrorTracker - ERROR - Requisição falhou: https://apps.itaipu.gov.br/SAM_SMA_Reports/PendingGeneralSSAs.aspx
+Erro: <Request url='https://apps.itaipu.gov.br/SAM_SMA_Reports/PendingGeneralSSAs.aspx' method='POST'>
+2024-10-28 10:35:51,447 - ErrorTracker - INFO - === RESUMO COMPLETO ===
+2024-10-28 10:35:51,447 - ErrorTracker - INFO - Total de erros: 31
+2024-10-28 10:35:51,447 - ErrorTracker - INFO - Críticos: 1
+2024-10-28 10:35:51,448 - ErrorTracker - INFO - Outros: 3
+2024-10-28 10:35:51,448 - ErrorTracker - INFO - Ignoráveis: 27

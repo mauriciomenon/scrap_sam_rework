@@ -242,3 +242,201 @@ Erro: <Request url='https://apps.itaipu.gov.br/SAM_SMA_Reports/PendingGeneralSSA
 2024-10-25 15:40:22,941 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js
 2024-10-25 15:40:55,694 - ErrorTracker - ERROR - Requisição falhou: https://apps.itaipu.gov.br/SAM_SMA_Reports/PendingGeneralSSAs.aspx
 Erro: <Request url='https://apps.itaipu.gov.br/SAM_SMA_Reports/PendingGeneralSSAs.aspx' method='POST'>
+2024-10-28 08:46:27,319 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/SAM/undefined - Status: 404
+2024-10-28 08:46:27,321 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/SAM/undefined
+2024-10-28 08:46:27,373 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/favicon.ico
+2024-10-28 08:46:28,223 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/SAM/undefined - Status: 404
+2024-10-28 08:46:28,224 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/SAM/undefined
+2024-10-28 08:46:28,395 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/SAM/undefined - Status: 404
+2024-10-28 08:46:28,396 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/SAM/undefined
+2024-10-28 08:46:30,183 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/SAM/undefined - Status: 404
+2024-10-28 08:46:30,183 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/SAM/undefined
+2024-10-28 08:46:58,373 - ErrorTracker - ERROR - Tentativa 1/3: Erro na navegação: Timeout 30000ms exceeded.
+=========================== logs ===========================
+waiting for selector "text=Manutenção Aperiódica"
+============================================================
+Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\Scrap-Playwright_otimizado_tratamento_de_erro_rede.py", line 319, in _safe_action
+    return action_fn()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\Scrap-Playwright_otimizado_tratamento_de_erro_rede.py", line 346, in _do_navigation
+    self.page.click(self.locators.NAVIGATION["manutencao"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\playwright\sync_api\_generated.py", line 7985, in click
+    self._sync(
+    ~~~~~~~~~~^
+        "page.click",
+        ^^^^^^^^^^^^^
+    ...<12 lines>...
+        ),
+        ^^
+    )
+    ^
+  File "C:\Python313\Lib\site-packages\playwright\_impl\_sync_base.py", line 111, in _sync
+    return task.result()
+           ~~~~~~~~~~~^^
+  File "C:\Python313\Lib\site-packages\playwright\_impl\_page.py", line 644, in click
+    return await self._main_frame.click(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\playwright\_impl\_frame.py", line 460, in click
+    await self._channel.send("click", locals_to_params(locals()))
+  File "C:\Python313\Lib\site-packages\playwright\_impl\_connection.py", line 39, in send
+    return await self.inner_send(method, params, False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\playwright\_impl\_connection.py", line 63, in inner_send
+    result = next(iter(done)).result()
+playwright._impl._api_types.TimeoutError: Timeout 30000ms exceeded.
+=========================== logs ===========================
+waiting for selector "text=Manutenção Aperiódica"
+============================================================
+
+2024-10-28 08:47:30,076 - ErrorTracker - ERROR - Tentativa 2/3: Erro na navegação: Timeout 30000ms exceeded.
+=========================== logs ===========================
+waiting for selector "text=Manutenção Aperiódica"
+============================================================
+Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\Scrap-Playwright_otimizado_tratamento_de_erro_rede.py", line 319, in _safe_action
+    return action_fn()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\Scrap-Playwright_otimizado_tratamento_de_erro_rede.py", line 346, in _do_navigation
+    self.page.click(self.locators.NAVIGATION["manutencao"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\playwright\sync_api\_generated.py", line 7985, in click
+    self._sync(
+    ~~~~~~~~~~^
+        "page.click",
+        ^^^^^^^^^^^^^
+    ...<12 lines>...
+        ),
+        ^^
+    )
+    ^
+  File "C:\Python313\Lib\site-packages\playwright\_impl\_sync_base.py", line 111, in _sync
+    return task.result()
+           ~~~~~~~~~~~^^
+  File "C:\Python313\Lib\site-packages\playwright\_impl\_page.py", line 644, in click
+    return await self._main_frame.click(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\playwright\_impl\_frame.py", line 460, in click
+    await self._channel.send("click", locals_to_params(locals()))
+  File "C:\Python313\Lib\site-packages\playwright\_impl\_connection.py", line 39, in send
+    return await self.inner_send(method, params, False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\playwright\_impl\_connection.py", line 63, in inner_send
+    result = next(iter(done)).result()
+playwright._impl._api_types.TimeoutError: Timeout 30000ms exceeded.
+=========================== logs ===========================
+waiting for selector "text=Manutenção Aperiódica"
+============================================================
+
+2024-10-28 08:48:02,789 - ErrorTracker - ERROR - Tentativa 3/3: Erro na navegação: Timeout 30000ms exceeded.
+=========================== logs ===========================
+waiting for selector "text=Manutenção Aperiódica"
+============================================================
+Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\Scrap-Playwright_otimizado_tratamento_de_erro_rede.py", line 319, in _safe_action
+    return action_fn()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\Scrap-Playwright_otimizado_tratamento_de_erro_rede.py", line 346, in _do_navigation
+    self.page.click(self.locators.NAVIGATION["manutencao"])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\playwright\sync_api\_generated.py", line 7985, in click
+    self._sync(
+    ~~~~~~~~~~^
+        "page.click",
+        ^^^^^^^^^^^^^
+    ...<12 lines>...
+        ),
+        ^^
+    )
+    ^
+  File "C:\Python313\Lib\site-packages\playwright\_impl\_sync_base.py", line 111, in _sync
+    return task.result()
+           ~~~~~~~~~~~^^
+  File "C:\Python313\Lib\site-packages\playwright\_impl\_page.py", line 644, in click
+    return await self._main_frame.click(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\playwright\_impl\_frame.py", line 460, in click
+    await self._channel.send("click", locals_to_params(locals()))
+  File "C:\Python313\Lib\site-packages\playwright\_impl\_connection.py", line 39, in send
+    return await self.inner_send(method, params, False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\playwright\_impl\_connection.py", line 63, in inner_send
+    result = next(iter(done)).result()
+playwright._impl._api_types.TimeoutError: Timeout 30000ms exceeded.
+=========================== logs ===========================
+waiting for selector "text=Manutenção Aperiódica"
+============================================================
+
+2024-10-28 09:03:27,550 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/SAM/undefined - Status: 404
+2024-10-28 09:03:27,552 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/SAM/undefined
+2024-10-28 09:03:27,932 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/favicon.ico
+2024-10-28 09:03:28,404 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/SAM/undefined - Status: 404
+2024-10-28 09:03:28,405 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/SAM/undefined
+2024-10-28 09:03:29,062 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js - Status: 404
+2024-10-28 09:03:29,063 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js
+2024-10-28 09:03:29,064 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js - Status: 404
+2024-10-28 09:03:29,065 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js
+2024-10-28 09:03:29,066 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js - Status: 404
+2024-10-28 09:03:29,067 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js
+2024-10-28 09:03:29,859 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js - Status: 404
+2024-10-28 09:03:29,860 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js
+2024-10-28 09:03:29,861 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js - Status: 404
+2024-10-28 09:03:29,862 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js
+2024-10-28 09:03:29,865 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js - Status: 404
+2024-10-28 09:03:29,866 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js
+2024-10-28 09:03:49,067 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js - Status: 404
+2024-10-28 09:03:49,068 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js
+2024-10-28 09:03:49,069 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js - Status: 404
+2024-10-28 09:03:49,070 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js
+2024-10-28 09:03:49,071 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js - Status: 404
+2024-10-28 09:03:49,071 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js
+2024-10-28 09:04:04,008 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js - Status: 404
+2024-10-28 09:04:04,010 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js
+2024-10-28 09:04:04,011 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js - Status: 404
+2024-10-28 09:04:04,011 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js
+2024-10-28 09:04:04,012 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js - Status: 404
+2024-10-28 09:04:04,013 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js
+2024-10-28 09:06:39,384 - ErrorTracker - ERROR - Requisição falhou: https://apps.itaipu.gov.br/SAM_SMA_Reports/PendingGeneralSSAs.aspx
+Erro: <Request url='https://apps.itaipu.gov.br/SAM_SMA_Reports/PendingGeneralSSAs.aspx' method='POST'>
+2024-10-28 09:49:41,255 - ErrorTracker - ERROR - Network Error: HTTP_500 - https://apps.itaipu.gov.br/SAM_SMA_Reports/CustomHandlers/internalerror.aspx? - Status: 500
+2024-10-28 09:49:41,256 - ErrorTracker - WARNING - Tentativa 1 de 3 para URL: https://apps.itaipu.gov.br/SAM_SMA_Reports/CustomHandlers/internalerror.aspx?
+2024-10-28 09:49:41,271 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 500 (Internal Server Error) - Location: https://apps.itaipu.gov.br/SAM_SMA_Reports/CustomHandlers/internalerror.aspx?
+2024-10-28 09:49:41,275 - ErrorTracker - ERROR - Requisição falhou: https://apps.itaipu.gov.br/SAM_SMA_Reports/PendingGeneralSSAs.aspx
+Erro: <Request url='https://apps.itaipu.gov.br/SAM_SMA_Reports/PendingGeneralSSAs.aspx' method='GET'>
+2024-10-28 09:49:41,281 - ErrorTracker - ERROR - Erro na tentativa 1: Target page, context or browser has been closed
+2024-10-28 09:49:41,282 - ErrorTracker - WARNING - Tentativa 2 de 3 para URL: https://apps.itaipu.gov.br/SAM_SMA_Reports/CustomHandlers/internalerror.aspx?
+2024-10-28 09:49:41,283 - ErrorTracker - ERROR - Erro na tentativa 2: Target page, context or browser has been closed
+2024-10-28 09:49:41,284 - ErrorTracker - WARNING - Tentativa 3 de 3 para URL: https://apps.itaipu.gov.br/SAM_SMA_Reports/CustomHandlers/internalerror.aspx?
+2024-10-28 09:49:41,286 - ErrorTracker - ERROR - Erro na tentativa 3: Target page, context or browser has been closed
+2024-10-28 09:49:41,286 - ErrorTracker - CRITICAL - Todas as tentativas falharam para URL: https://apps.itaipu.gov.br/SAM_SMA_Reports/CustomHandlers/internalerror.aspx?
+2024-10-28 09:50:06,451 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/SAM/undefined - Status: 404
+2024-10-28 09:50:06,452 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/SAM/undefined
+2024-10-28 09:50:06,513 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/favicon.ico
+2024-10-28 09:50:06,754 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/SAM/undefined - Status: 404
+2024-10-28 09:50:06,754 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/SAM/undefined
+2024-10-28 09:50:07,417 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js - Status: 404
+2024-10-28 09:50:07,418 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js
+2024-10-28 09:50:07,420 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js - Status: 404
+2024-10-28 09:50:07,420 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js
+2024-10-28 09:50:07,422 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js - Status: 404
+2024-10-28 09:50:07,422 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js
+2024-10-28 09:50:08,222 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js - Status: 404
+2024-10-28 09:50:08,224 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js
+2024-10-28 09:50:08,225 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js - Status: 404
+2024-10-28 09:50:08,225 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js
+2024-10-28 09:50:08,226 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js - Status: 404
+2024-10-28 09:50:08,227 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js
+2024-10-28 09:50:09,046 - ErrorTracker - ERROR - Requisição falhou: https://apps.itaipu.gov.br/SAM_SMA/SSAHome.aspx?_ts=1730119808379
+Erro: <Request url='https://apps.itaipu.gov.br/SAM_SMA/SSAHome.aspx?_ts=1730119808379' method='POST'>
+2024-10-28 09:50:09,613 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js - Status: 404
+2024-10-28 09:50:09,614 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js
+2024-10-28 09:50:09,616 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js - Status: 404
+2024-10-28 09:50:09,617 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js
+2024-10-28 09:50:09,618 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js - Status: 404
+2024-10-28 09:50:09,619 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js
+2024-10-28 09:50:14,745 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js - Status: 404
+2024-10-28 09:50:14,746 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/CustomMasks/MaskNumber.js
+2024-10-28 09:50:14,747 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js - Status: 404
+2024-10-28 09:50:14,748 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/AuxFunctions.js
+2024-10-28 09:50:14,749 - ErrorTracker - ERROR - Network Error: HTTP_404 - https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js - Status: 404
+2024-10-28 09:50:14,749 - ErrorTracker - ERROR - Console Error: error - Failed to load resource: the server responded with a status of 404 (Not Found) - Location: https://apps.itaipu.gov.br/CustomInputMasks/Blocks/CustomInputMasks/Private/MaskPlugin.js
+2024-10-28 09:52:24,097 - ErrorTracker - ERROR - Requisição falhou: https://apps.itaipu.gov.br/SAM_SMA_Reports/PendingGeneralSSAs.aspx
+Erro: <Request url='https://apps.itaipu.gov.br/SAM_SMA_Reports/PendingGeneralSSAs.aspx' method='POST'>
