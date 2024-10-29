@@ -67,38 +67,106 @@ class DataLoader:
     def __init__(self, excel_path: str):
         self.excel_path = excel_path
         self.df = None
-        self.ssa_objects = []  # Lista para armazenar os objetos SSAData
+        self.ssa_objects = []
 
     def load_data(self) -> pd.DataFrame:
         """Carrega dados do Excel com as configurações corretas."""
         try:
+            # Carrega o Excel pulando as duas primeiras linhas
             self.df = pd.read_excel(
                 self.excel_path,
                 header=2,  # Cabeçalho na terceira linha
             )
 
-            # Força conversão explícita das colunas importantes
-            self.df.iloc[:, SSAColumns.EMITIDA_EM] = pd.to_datetime(
-                self.df.iloc[:, SSAColumns.EMITIDA_EM], errors="coerce"
-            )
+            # Converte a coluna de data usando o formato brasileiro específico
+            try:
+                self.df.iloc[:, SSAColumns.EMITIDA_EM] = pd.to_datetime(
+                    self.df.iloc[:, SSAColumns.EMITIDA_EM],
+                    format="%d/%m/%Y %H:%M:%S",
+                    errors="coerce",
+                )
 
-            # Converte para string as colunas que precisam ser string
+                # Log do resultado da conversão
+                valid_dates = self.df.iloc[:, SSAColumns.EMITIDA_EM].notna().sum()
+                total_dates = len(self.df)
+                logging.info(
+                    f"Convertidas {valid_dates} de {total_dates} datas com sucesso"
+                )
+
+                if valid_dates == 0:
+                    logging.error("Nenhuma data foi convertida com sucesso")
+                elif valid_dates < total_dates:
+                    logging.warning(
+                        f"Algumas datas ({total_dates - valid_dates}) não puderam ser convertidas"
+                    )
+
+            except Exception as e:
+                logging.error(f"Erro ao processar datas: {str(e)}")
+                self.df.iloc[:, SSAColumns.EMITIDA_EM] = pd.NaT
+
+            # Converte colunas string
             string_columns = [
                 SSAColumns.NUMERO_SSA,
                 SSAColumns.SITUACAO,
                 SSAColumns.SEMANA_CADASTRO,
                 SSAColumns.GRAU_PRIORIDADE_EMISSAO,
+                SSAColumns.SETOR_EXECUTOR,
+                SSAColumns.DERIVADA,
+                SSAColumns.LOCALIZACAO,
+                SSAColumns.DESC_LOCALIZACAO,
+                SSAColumns.EQUIPAMENTO,
+                SSAColumns.DESC_SSA,
+                SSAColumns.SETOR_EMISSOR,
+                SSAColumns.SOLICITANTE,
+                SSAColumns.SERVICO_ORIGEM,
+                SSAColumns.EXECUCAO_SIMPLES,
+                SSAColumns.SISTEMA_ORIGEM,
+                SSAColumns.ANOMALIA,
             ]
-            for col in string_columns:
-                self.df.iloc[:, col] = self.df.iloc[:, col].astype(str)
 
-            # Converte os dados para objetos SSAData
+            for col in string_columns:
+                self.df.iloc[:, col] = (
+                    self.df.iloc[:, col].astype(str).replace("nan", "")
+                )
+
+            # Converte colunas opcionais
+            optional_string_columns = [
+                SSAColumns.GRAU_PRIORIDADE_PLANEJAMENTO,
+                SSAColumns.RESPONSAVEL_PROGRAMACAO,
+                SSAColumns.SEMANA_PROGRAMADA,
+                SSAColumns.RESPONSAVEL_EXECUCAO,
+                SSAColumns.DESCRICAO_EXECUCAO,
+            ]
+
+            for col in optional_string_columns:
+                self.df.iloc[:, col] = (
+                    self.df.iloc[:, col].astype(str).replace("nan", None)
+                )
+
+            # Padroniza prioridades para maiúsculas
+            self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] = (
+                self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
+                .str.upper()
+                .str.strip()
+            )
+
+            # Remove linhas com número da SSA vazio
+            self.df = self.df[self.df.iloc[:, SSAColumns.NUMERO_SSA].str.strip() != ""]
+
+            # Converte para objetos SSAData
             self._convert_to_objects()
+
+            # Log exemplo das primeiras datas convertidas para verificação
+            if not self.df.empty:
+                sample_dates = self.df.iloc[:5, SSAColumns.EMITIDA_EM]
+                logging.info("Exemplos de datas convertidas:")
+                for idx, date in enumerate(sample_dates):
+                    logging.info(f"Linha {idx + 1}: {date}")
 
             return self.df
 
         except Exception as e:
-            logging.error(f"Erro ao carregar dados: {e}")
+            logging.error(f"Erro ao carregar dados: {str(e)}")
             raise
 
     def _convert_to_objects(self):
@@ -108,81 +176,123 @@ class DataLoader:
             for idx, row in self.df.iterrows():
                 try:
                     ssa = SSAData(
-                        numero=str(row.iloc[SSAColumns.NUMERO_SSA]),
-                        situacao=str(row.iloc[SSAColumns.SITUACAO]),
-                        derivada=str(row.iloc[SSAColumns.DERIVADA]),
-                        localizacao=str(row.iloc[SSAColumns.LOCALIZACAO]),
-                        desc_localizacao=str(row.iloc[SSAColumns.DESC_LOCALIZACAO]),
-                        equipamento=str(row.iloc[SSAColumns.EQUIPAMENTO]),
-                        semana_cadastro=str(row.iloc[SSAColumns.SEMANA_CADASTRO]),
-                        emitida_em=row.iloc[SSAColumns.EMITIDA_EM],
-                        descricao=str(row.iloc[SSAColumns.DESC_SSA]),
-                        setor_emissor=str(row.iloc[SSAColumns.SETOR_EMISSOR]),
-                        setor_executor=str(row.iloc[SSAColumns.SETOR_EXECUTOR]),
-                        solicitante=str(row.iloc[SSAColumns.SOLICITANTE]),
-                        servico_origem=str(row.iloc[SSAColumns.SERVICO_ORIGEM]),
+                        numero=str(row.iloc[SSAColumns.NUMERO_SSA]).strip(),
+                        situacao=str(row.iloc[SSAColumns.SITUACAO]).strip(),
+                        derivada=str(row.iloc[SSAColumns.DERIVADA]).strip() or None,
+                        localizacao=str(row.iloc[SSAColumns.LOCALIZACAO]).strip(),
+                        desc_localizacao=str(
+                            row.iloc[SSAColumns.DESC_LOCALIZACAO]
+                        ).strip(),
+                        equipamento=str(row.iloc[SSAColumns.EQUIPAMENTO]).strip(),
+                        semana_cadastro=str(
+                            row.iloc[SSAColumns.SEMANA_CADASTRO]
+                        ).strip(),
+                        emitida_em=(
+                            row.iloc[SSAColumns.EMITIDA_EM]
+                            if pd.notna(row.iloc[SSAColumns.EMITIDA_EM])
+                            else None
+                        ),
+                        descricao=str(row.iloc[SSAColumns.DESC_SSA]).strip(),
+                        setor_emissor=str(row.iloc[SSAColumns.SETOR_EMISSOR]).strip(),
+                        setor_executor=str(row.iloc[SSAColumns.SETOR_EXECUTOR]).strip(),
+                        solicitante=str(row.iloc[SSAColumns.SOLICITANTE]).strip(),
+                        servico_origem=str(row.iloc[SSAColumns.SERVICO_ORIGEM]).strip(),
                         prioridade_emissao=str(
                             row.iloc[SSAColumns.GRAU_PRIORIDADE_EMISSAO]
-                        ),
+                        )
+                        .strip()
+                        .upper(),
                         prioridade_planejamento=str(
                             row.iloc[SSAColumns.GRAU_PRIORIDADE_PLANEJAMENTO]
-                        ),
-                        execucao_simples=str(row.iloc[SSAColumns.EXECUCAO_SIMPLES]),
+                        ).strip()
+                        or None,
+                        execucao_simples=str(
+                            row.iloc[SSAColumns.EXECUCAO_SIMPLES]
+                        ).strip(),
                         responsavel_programacao=str(
                             row.iloc[SSAColumns.RESPONSAVEL_PROGRAMACAO]
-                        ),
-                        semana_programada=str(row.iloc[SSAColumns.SEMANA_PROGRAMADA]),
+                        ).strip()
+                        or None,
+                        semana_programada=str(
+                            row.iloc[SSAColumns.SEMANA_PROGRAMADA]
+                        ).strip()
+                        or None,
                         responsavel_execucao=str(
                             row.iloc[SSAColumns.RESPONSAVEL_EXECUCAO]
-                        ),
-                        descricao_execucao=str(row.iloc[SSAColumns.DESCRICAO_EXECUCAO]),
-                        sistema_origem=str(row.iloc[SSAColumns.SISTEMA_ORIGEM]),
-                        anomalia=str(row.iloc[SSAColumns.ANOMALIA]),
+                        ).strip()
+                        or None,
+                        descricao_execucao=str(
+                            row.iloc[SSAColumns.DESCRICAO_EXECUCAO]
+                        ).strip()
+                        or None,
+                        sistema_origem=str(row.iloc[SSAColumns.SISTEMA_ORIGEM]).strip(),
+                        anomalia=str(row.iloc[SSAColumns.ANOMALIA]).strip() or None,
                     )
                     self.ssa_objects.append(ssa)
                 except Exception as e:
-                    logging.error(f"Erro ao converter linha {idx}: {e}")
+                    logging.error(f"Erro ao converter linha {idx}: {str(e)}")
                     continue
-            logging.info(f"Convertidos {len(self.ssa_objects)} registros para SSAData")
-        except Exception as e:
-            logging.error(f"Erro durante conversão para objetos: {e}")
-            raise
 
-    def get_ssa_objects(self) -> List[SSAData]:
-        """Retorna a lista de objetos SSAData."""
-        if not self.ssa_objects:
-            self._convert_to_objects()
-        return self.ssa_objects
+            logging.info(f"Convertidos {len(self.ssa_objects)} registros para SSAData")
+
+            # Log exemplo do primeiro objeto convertido para verificação
+            if self.ssa_objects:
+                first_ssa = self.ssa_objects[0]
+                logging.info(f"Exemplo de primeiro objeto convertido:")
+                logging.info(f"Número: {first_ssa.numero}")
+                logging.info(f"Data de emissão: {first_ssa.emitida_em}")
+                logging.info(f"Prioridade: {first_ssa.prioridade_emissao}")
+
+        except Exception as e:
+            logging.error(f"Erro durante conversão para objetos: {str(e)}")
+            raise
 
     def filter_ssas(
         self,
-        setor: Optional[str] = None,
-        prioridade: Optional[str] = None,
-        data_inicio: Optional[datetime] = None,
-        data_fim: Optional[datetime] = None,
+        setor: str = None,
+        prioridade: str = None,
+        data_inicio: datetime = None,
+        data_fim: datetime = None,
     ) -> List[SSAData]:
         """Filtra SSAs com base nos critérios fornecidos."""
         filtered_ssas = self.get_ssa_objects()
 
         if setor:
             filtered_ssas = [
-                ssa for ssa in filtered_ssas if ssa.setor_executor == setor
+                ssa
+                for ssa in filtered_ssas
+                if ssa.setor_executor and ssa.setor_executor.upper() == setor.upper()
             ]
 
         if prioridade:
             filtered_ssas = [
-                ssa for ssa in filtered_ssas if ssa.prioridade_emissao == prioridade
+                ssa
+                for ssa in filtered_ssas
+                if ssa.prioridade_emissao
+                and ssa.prioridade_emissao.upper() == prioridade.upper()
             ]
 
         if data_inicio:
             filtered_ssas = [
-                ssa for ssa in filtered_ssas if ssa.emitida_em >= data_inicio
+                ssa
+                for ssa in filtered_ssas
+                if ssa.emitida_em and ssa.emitida_em >= data_inicio
             ]
 
         if data_fim:
-            filtered_ssas = [ssa for ssa in filtered_ssas if ssa.emitida_em <= data_fim]
+            filtered_ssas = [
+                ssa
+                for ssa in filtered_ssas
+                if ssa.emitida_em and ssa.emitida_em <= data_fim
+            ]
 
         return filtered_ssas
+
+    def get_ssa_objects(self) -> List[SSAData]:
+        """Retorna a lista de objetos SSAData."""
+        if not self.ssa_objects:
+            self._convert_to_objects()
+        return self.ssa_objects
 
 
 class SSAColumns:
@@ -777,122 +887,128 @@ class SSADashboard:
         self.setup_layout()
         self.setup_callbacks()
 
+    def _format_date(self, date):
+        """Formata a data para exibição."""
+        if pd.isna(date):
+            return ""
+        return date.strftime("%d/%m/%Y")
+
+    def _get_initial_stats(self):
+        """Calcula estatísticas iniciais para o dashboard."""
+        total_ssas = len(self.df)
+        ssas_por_prioridade = self.df.iloc[
+            :, SSAColumns.GRAU_PRIORIDADE_EMISSAO
+        ].value_counts()
+        ssas_criticas = len(
+            self.df[self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == "S3.7"]
+        )
+
+        # Contagem por setor
+        ssas_por_setor = (
+            self.df.iloc[:, SSAColumns.SETOR_EXECUTOR].value_counts().head(5)
+        )
+
+        # Datas únicas para mostrar períodos
+        datas = pd.to_datetime(self.df.iloc[:, SSAColumns.EMITIDA_EM])
+        data_mais_antiga = datas.min()
+        data_mais_recente = datas.max()
+
+        return {
+            "total": total_ssas,
+            "criticas": ssas_criticas,
+            "por_prioridade": ssas_por_prioridade,
+            "por_setor": ssas_por_setor,
+            "periodo": f"{self._format_date(data_mais_antiga)} até {self._format_date(data_mais_recente)}",
+        }
+
     def setup_layout(self):
         """Define o layout do dashboard."""
-        # Obter datas min e max com tratamento de erro
-        try:
-            date_col = self.df.iloc[:, SSAColumns.EMITIDA_EM]
-            valid_dates = date_col[date_col.notna()]
-            min_date = valid_dates.min() if not valid_dates.empty else None
-            max_date = valid_dates.max() if not valid_dates.empty else None
-
-            # Converter para string no formato que o DatePickerRange aceita
-            min_date_str = (
-                min_date.strftime("%Y-%m-%d") if min_date is not None else None
-            )
-            max_date_str = (
-                max_date.strftime("%Y-%m-%d") if max_date is not None else None
-            )
-        except Exception as e:
-            logging.warning(f"Erro ao processar datas: {e}")
-            min_date_str = None
-            max_date_str = None
+        stats = self._get_initial_stats()
 
         self.app.layout = dbc.Container(
             [
-                # Cabeçalho
+                # Header
                 dbc.Row(
                     [
                         dbc.Col(
-                            html.H1(
-                                "Dashboard de Análise de SSAs",
-                                className="text-primary mb-4",
+                            html.H1("Dashboard de SSAs", className="text-primary mb-4"),
+                            width=12,
+                        )
+                    ]
+                ),
+                # Período de análise
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            html.H5(
+                                f"Período de análise: {stats['periodo']}",
+                                className="text-muted mb-4",
                             ),
                             width=12,
                         )
                     ]
                 ),
-                # Filtros
+                # Cards com KPIs
                 dbc.Row(
                     [
                         dbc.Col(
-                            [
-                                html.H4("Filtros", className="text-secondary mb-3"),
-                                dbc.Card(
-                                    [
-                                        dbc.CardBody(
-                                            [
-                                                # Filtro de Setor
-                                                html.Label(
-                                                    f"{SSAColumns.get_name(SSAColumns.SETOR_EXECUTOR)}:"
-                                                ),
-                                                dcc.Dropdown(
-                                                    id="setor-filter",
-                                                    options=[
-                                                        {"label": x, "value": x}
-                                                        for x in sorted(
-                                                            self.df.iloc[
-                                                                :,
-                                                                SSAColumns.SETOR_EXECUTOR,
-                                                            ].unique()
-                                                        )
-                                                        if pd.notna(x)
-                                                    ],
-                                                    multi=True,
-                                                ),
-                                                # Filtro de Prioridade
-                                                html.Label(
-                                                    f"{SSAColumns.get_name(SSAColumns.GRAU_PRIORIDADE_EMISSAO)}:",
-                                                    className="mt-3",
-                                                ),
-                                                dcc.Dropdown(
-                                                    id="priority-filter",
-                                                    options=[
-                                                        {"label": x, "value": x}
-                                                        for x in sorted(
-                                                            self.df.iloc[
-                                                                :,
-                                                                SSAColumns.GRAU_PRIORIDADE_EMISSAO,
-                                                            ].unique()
-                                                        )
-                                                        if pd.notna(x)
-                                                    ],
-                                                    multi=True,
-                                                ),
-                                                # Filtro de Data
-                                                html.Label(
-                                                    f"{SSAColumns.get_name(SSAColumns.EMITIDA_EM)}:",
-                                                    className="mt-3",
-                                                ),
-                                                (
-                                                    dcc.DatePickerRange(
-                                                        id="date-filter",
-                                                        start_date=min_date_str,
-                                                        end_date=max_date_str,
-                                                        display_format="DD/MM/YYYY",
-                                                    )
-                                                    if min_date_str and max_date_str
-                                                    else html.Div(
-                                                        "Datas não disponíveis"
-                                                    )
-                                                ),
-                                            ]
-                                        )
-                                    ]
-                                ),
-                            ],
-                            width=3,
+                            dbc.Card(
+                                [
+                                    dbc.CardBody(
+                                        [
+                                            html.H4(
+                                                "Total de SSAs", className="card-title"
+                                            ),
+                                            html.H2(
+                                                f"{stats['total']:,}",
+                                                className="text-primary",
+                                            ),
+                                        ]
+                                    )
+                                ],
+                                className="mb-4",
+                            ),
+                            width=4,
                         ),
-                        # KPIs
                         dbc.Col(
-                            [
-                                html.H4(
-                                    "Indicadores Principais",
-                                    className="text-secondary mb-3",
-                                ),
-                                self.create_kpi_cards(),
-                            ],
-                            width=9,
+                            dbc.Card(
+                                [
+                                    dbc.CardBody(
+                                        [
+                                            html.H4(
+                                                "SSAs Críticas (S3.7)",
+                                                className="card-title",
+                                            ),
+                                            html.H2(
+                                                f"{stats['criticas']:,}",
+                                                className="text-danger",
+                                            ),
+                                        ]
+                                    )
+                                ],
+                                className="mb-4",
+                            ),
+                            width=4,
+                        ),
+                        dbc.Col(
+                            dbc.Card(
+                                [
+                                    dbc.CardBody(
+                                        [
+                                            html.H4(
+                                                "Taxa de Criticidade",
+                                                className="card-title",
+                                            ),
+                                            html.H2(
+                                                f"{(stats['criticas']/stats['total']*100):.1f}%",
+                                                className="text-warning",
+                                            ),
+                                        ]
+                                    )
+                                ],
+                                className="mb-4",
+                            ),
+                            width=4,
                         ),
                     ]
                 ),
@@ -900,178 +1016,146 @@ class SSADashboard:
                 dbc.Row(
                     [
                         dbc.Col(
-                            dbc.Card(
-                                [
-                                    dbc.CardHeader("Distribuição por Prioridade"),
-                                    dbc.CardBody(dcc.Graph(id="priority-chart")),
-                                ]
-                            ),
+                            [
+                                dbc.Card(
+                                    [
+                                        dbc.CardHeader("Distribuição por Prioridade"),
+                                        dbc.CardBody(dcc.Graph(id="priority-chart")),
+                                    ],
+                                    className="mb-4",
+                                ),
+                            ],
                             width=6,
                         ),
                         dbc.Col(
-                            dbc.Card(
-                                [
-                                    dbc.CardHeader("Carga por Setor"),
-                                    dbc.CardBody(dcc.Graph(id="sector-chart")),
-                                ]
-                            ),
+                            [
+                                dbc.Card(
+                                    [
+                                        dbc.CardHeader("Top 5 Setores"),
+                                        dbc.CardBody(dcc.Graph(id="sector-chart")),
+                                    ],
+                                    className="mb-4",
+                                ),
+                            ],
                             width=6,
                         ),
-                    ],
-                    className="mt-4",
+                    ]
                 ),
-                # Tabela de detalhes
+                # Tabela de SSAs
                 dbc.Row(
                     [
                         dbc.Col(
                             [
-                                html.H4(
-                                    "Detalhamento", className="text-secondary mt-4 mb-3"
+                                dbc.Card(
+                                    [
+                                        dbc.CardHeader("Lista de SSAs"),
+                                        dbc.CardBody(
+                                            dash_table.DataTable(
+                                                id="ssa-table",
+                                                columns=[
+                                                    {"name": "Número", "id": "numero"},
+                                                    {"name": "Data", "id": "data"},
+                                                    {
+                                                        "name": "Prioridade",
+                                                        "id": "prioridade",
+                                                    },
+                                                    {"name": "Setor", "id": "setor"},
+                                                    {"name": "Status", "id": "status"},
+                                                ],
+                                                data=self._prepare_table_data(),
+                                                page_size=10,
+                                                style_table={"overflowX": "auto"},
+                                                style_cell={"textAlign": "left"},
+                                                style_header={
+                                                    "backgroundColor": "rgb(230, 230, 230)",
+                                                    "fontWeight": "bold",
+                                                },
+                                            )
+                                        ),
+                                    ],
+                                    className="mb-4",
                                 ),
-                                self._create_data_table(),
                             ],
                             width=12,
-                        )
+                        ),
                     ]
                 ),
             ],
             fluid=True,
+            className="p-4",
         )
 
-    def _create_data_table(self):
-        """Cria tabela de dados com tratamento de erro."""
-        try:
-            return dash_table.DataTable(
-                id="ssa-table",
-                columns=[
-                    {"name": SSAColumns.get_name(col), "id": str(col)}
-                    for col in [
-                        SSAColumns.NUMERO_SSA,
-                        SSAColumns.SITUACAO,
-                        SSAColumns.SETOR_EXECUTOR,
-                        SSAColumns.GRAU_PRIORIDADE_EMISSAO,
-                        SSAColumns.EMITIDA_EM,
-                    ]
-                ],
-                page_size=10,
-                style_table={"overflowX": "auto"},
-                style_cell={"textAlign": "left"},
-                style_header={
-                    "backgroundColor": "rgb(230, 230, 230)",
-                    "fontWeight": "bold",
-                },
+    def _prepare_table_data(self):
+        """Prepara os dados para a tabela de SSAs."""
+        table_data = []
+        for idx, row in self.df.iterrows():
+            date = pd.to_datetime(row.iloc[SSAColumns.EMITIDA_EM])
+            table_data.append(
+                {
+                    "numero": row.iloc[SSAColumns.NUMERO_SSA],
+                    "data": self._format_date(date),
+                    "prioridade": row.iloc[SSAColumns.GRAU_PRIORIDADE_EMISSAO],
+                    "setor": row.iloc[SSAColumns.SETOR_EXECUTOR],
+                    "status": row.iloc[SSAColumns.SITUACAO],
+                }
             )
-        except Exception as e:
-            logging.error(f"Erro ao criar tabela: {e}")
-            return html.Div("Erro ao carregar tabela de dados")
+        return table_data
 
     def setup_callbacks(self):
         """Configura os callbacks para interatividade."""
 
         @self.app.callback(
-            [
-                Output("ssa-table", "data"),
-                Output("priority-chart", "figure"),
-                Output("sector-chart", "figure"),
-            ],
-            [
-                Input("setor-filter", "value"),
-                Input("priority-filter", "value"),
-                Input("date-filter", "start_date"),
-                Input("date-filter", "end_date"),
-            ],
+            [Output("priority-chart", "figure"), Output("sector-chart", "figure")],
+            [Input("ssa-table", "data")],  # Usar a tabela como trigger
         )
-        def update_data(setores, prioridades, start_date, end_date):
-            """Atualiza os dados com base nos filtros."""
-            try:
-                df_filtered = self.df.copy()
+        def update_charts(_):
+            # Gráfico de prioridades
+            priority_data = self.df.iloc[
+                :, SSAColumns.GRAU_PRIORIDADE_EMISSAO
+            ].value_counts()
+            priority_fig = go.Figure(
+                data=[
+                    go.Bar(
+                        x=priority_data.index,
+                        y=priority_data.values,
+                        text=priority_data.values,
+                        textposition="auto",
+                    )
+                ]
+            )
+            priority_fig.update_layout(
+                title="Distribuição por Prioridade",
+                xaxis_title="Prioridade",
+                yaxis_title="Quantidade",
+                template="plotly_white",
+            )
 
-                # Aplica filtros
-                if setores:
-                    df_filtered = df_filtered[
-                        df_filtered.iloc[:, SSAColumns.SETOR_EXECUTOR].isin(setores)
-                    ]
-                if prioridades:
-                    df_filtered = df_filtered[
-                        df_filtered.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].isin(
-                            prioridades
-                        )
-                    ]
-                if start_date:
-                    df_filtered = df_filtered[
-                        df_filtered.iloc[:, SSAColumns.EMITIDA_EM].dt.date
-                        >= pd.to_datetime(start_date).date()
-                    ]
-                if end_date:
-                    df_filtered = df_filtered[
-                        df_filtered.iloc[:, SSAColumns.EMITIDA_EM].dt.date
-                        <= pd.to_datetime(end_date).date()
-                    ]
+            # Gráfico de setores
+            sector_data = (
+                self.df.iloc[:, SSAColumns.SETOR_EXECUTOR].value_counts().head(5)
+            )
+            sector_fig = go.Figure(
+                data=[
+                    go.Bar(
+                        x=sector_data.index,
+                        y=sector_data.values,
+                        text=sector_data.values,
+                        textposition="auto",
+                    )
+                ]
+            )
+            sector_fig.update_layout(
+                title="Top 5 Setores",
+                xaxis_title="Setor",
+                yaxis_title="Quantidade",
+                template="plotly_white",
+            )
 
-                # Cria visualizações
-                viz = SSAVisualizer(df_filtered)
-
-                # Retorna dados atualizados
-                return (
-                    df_filtered.to_dict("records"),
-                    viz.create_priority_chart(),
-                    viz.create_sector_workload(),
-                )
-            except Exception as e:
-                logging.error(f"Erro ao atualizar dashboard: {e}")
-                # Retorna dados vazios em caso de erro
-                return [], {}, {}
+            return priority_fig, sector_fig
 
     def run_server(self, debug=True, port=8050):
         """Inicia o servidor do dashboard."""
-        try:
-            logging.info(f"Iniciando servidor na porta {port}")
-            self.app.run_server(debug=debug, port=port)
-        except Exception as e:
-            logging.error(f"Erro ao iniciar servidor: {e}")
-            raise
-
-    def create_kpi_cards(self):
-        """Cria cards para os KPIs principais."""
-        return dbc.Row(
-            [
-                dbc.Col(
-                    dbc.Card(
-                        [
-                            dbc.CardBody(
-                                [
-                                    html.H5("Total de SSAs", className="card-title"),
-                                    html.H3(len(self.df), className="text-primary"),
-                                ]
-                            )
-                        ]
-                    )
-                ),
-                dbc.Col(
-                    dbc.Card(
-                        [
-                            dbc.CardBody(
-                                [
-                                    html.H5("Alta Prioridade", className="card-title"),
-                                    html.H3(
-                                        len(
-                                            self.df[
-                                                self.df.iloc[
-                                                    :,
-                                                    SSAColumns.GRAU_PRIORIDADE_EMISSAO,
-                                                ]
-                                                == "S3.7"
-                                            ]
-                                        ),
-                                        className="text-danger",
-                                    ),
-                                ]
-                            )
-                        ]
-                    )
-                ),
-            ]
-        )
+        self.app.run_server(debug=debug, port=port)
 
 
 def check_dependencies():
