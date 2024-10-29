@@ -364,3 +364,14 @@ AttributeError: 'SSADashboard' object has no attribute 'run_server'
 2024-10-29 08:28:08,798 - root - ERROR - Erro ao atualizar dashboard: Can only use .dt accessor with datetimelike values
 2024-10-29 08:28:12,907 - root - ERROR - Erro ao atualizar dashboard: Can only use .dt accessor with datetimelike values
 2024-10-29 08:28:25,733 - root - ERROR - Erro ao atualizar dashboard: Can only use .dt accessor with datetimelike values
+2024-10-29 09:17:51,742 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-29 09:17:52,571 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-29 09:17:52,571 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-29 09:17:52,571 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-29 09:17:52,572 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-29 09:17:52,572 - __main__ - INFO - Gerando relatório inicial...
+2024-10-29 09:17:52,574 - root - WARNING - Análise temporal ignorada - coluna de data inválida
+2024-10-29 09:17:52,574 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-10-29 09:17:52,799 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-10-29 09:17:52,799 - __main__ - INFO - Iniciando dashboard...
+2024-10-29 09:17:52,833 - root - INFO - Iniciando servidor na porta 8050
