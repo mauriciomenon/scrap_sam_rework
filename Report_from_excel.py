@@ -13,6 +13,7 @@ from typing import Dict, List, Optional
 import warnings
 import traceback
 import xlsxwriter
+import pdfkit
 
 # Depois de todos os imports
 warnings.filterwarnings("ignore")

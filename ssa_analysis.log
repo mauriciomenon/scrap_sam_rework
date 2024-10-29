@@ -375,3 +375,4 @@ AttributeError: 'SSADashboard' object has no attribute 'run_server'
 2024-10-29 09:17:52,799 - __main__ - INFO - Relatório Excel gerado com sucesso.
 2024-10-29 09:17:52,799 - __main__ - INFO - Iniciando dashboard...
 2024-10-29 09:17:52,833 - root - INFO - Iniciando servidor na porta 8050
+2024-10-29 09:18:32,025 - root - ERROR - Erro ao atualizar dashboard: Can only use .dt accessor with datetimelike values
