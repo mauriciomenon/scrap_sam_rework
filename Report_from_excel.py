@@ -186,6 +186,7 @@ class DataLoader:
 
 class SSAColumns:
     """Mantém os índices e nomes das colunas."""
+
     # Índices
     NUMERO_SSA = 0
     SITUACAO = 1
@@ -233,7 +234,7 @@ class SSAColumns:
         RESPONSAVEL_EXECUCAO: "Responsável na Execução",
         DESCRICAO_EXECUCAO: "Descrição Execução",
         SISTEMA_ORIGEM: "Sistema de Origem",
-        ANOMALIA: "Anomalia"
+        ANOMALIA: "Anomalia",
     }
 
     @classmethod
@@ -965,14 +966,19 @@ class SSADashboard:
 
     def setup_callbacks(self):
         """Configura os callbacks para interatividade."""
+
         @self.app.callback(
-            [Output("ssa-table", "data"),
-            Output("priority-chart", "figure"),
-            Output("sector-chart", "figure")],
-            [Input("setor-filter", "value"),
-            Input("priority-filter", "value"),
-            Input("date-filter", "start_date"),
-            Input("date-filter", "end_date")]
+            [
+                Output("ssa-table", "data"),
+                Output("priority-chart", "figure"),
+                Output("sector-chart", "figure"),
+            ],
+            [
+                Input("setor-filter", "value"),
+                Input("priority-filter", "value"),
+                Input("date-filter", "start_date"),
+                Input("date-filter", "end_date"),
+            ],
         )
         def update_data(setores, prioridades, start_date, end_date):
             """Atualiza os dados com base nos filtros."""
@@ -986,25 +992,29 @@ class SSADashboard:
                     ]
                 if prioridades:
                     df_filtered = df_filtered[
-                        df_filtered.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].isin(prioridades)
+                        df_filtered.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].isin(
+                            prioridades
+                        )
                     ]
                 if start_date:
                     df_filtered = df_filtered[
-                        df_filtered.iloc[:, SSAColumns.EMITIDA_EM].dt.date >= pd.to_datetime(start_date).date()
+                        df_filtered.iloc[:, SSAColumns.EMITIDA_EM].dt.date
+                        >= pd.to_datetime(start_date).date()
                     ]
                 if end_date:
                     df_filtered = df_filtered[
-                        df_filtered.iloc[:, SSAColumns.EMITIDA_EM].dt.date <= pd.to_datetime(end_date).date()
+                        df_filtered.iloc[:, SSAColumns.EMITIDA_EM].dt.date
+                        <= pd.to_datetime(end_date).date()
                     ]
 
                 # Cria visualizações
                 viz = SSAVisualizer(df_filtered)
-                
+
                 # Retorna dados atualizados
                 return (
-                    df_filtered.to_dict('records'),
+                    df_filtered.to_dict("records"),
                     viz.create_priority_chart(),
-                    viz.create_sector_workload()
+                    viz.create_sector_workload(),
                 )
             except Exception as e:
                 logging.error(f"Erro ao atualizar dashboard: {e}")
@@ -1012,13 +1022,13 @@ class SSADashboard:
                 return [], {}, {}
 
     def run_server(self, debug=True, port=8050):
-            """Inicia o servidor do dashboard."""
-            try:
-                logging.info(f"Iniciando servidor na porta {port}")
-                self.app.run_server(debug=debug, port=port)
-            except Exception as e:
-                logging.error(f"Erro ao iniciar servidor: {e}")
-                raise
+        """Inicia o servidor do dashboard."""
+        try:
+            logging.info(f"Iniciando servidor na porta {port}")
+            self.app.run_server(debug=debug, port=port)
+        except Exception as e:
+            logging.error(f"Erro ao iniciar servidor: {e}")
+            raise
 
     def create_kpi_cards(self):
         """Cria cards para os KPIs principais."""

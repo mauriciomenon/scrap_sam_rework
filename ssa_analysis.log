@@ -1,0 +1,366 @@
+2024-10-28 16:45:35,601 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-28 16:45:36,199 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-28 16:45:36,199 - __main__ - INFO - Gerando relat�rio inicial...
+2024-10-28 16:45:36,200 - __main__ - ERROR - Erro durante a execu��o: No module named 'xlsxwriter'
+2024-10-29 07:56:48,646 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-29 07:56:49,310 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-29 07:56:49,310 - __main__ - ERROR - Erro durante a execução: 'DataLoader' object has no attribute 'get_ssa_objects'
+2024-10-29 07:56:49,313 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1269, in <module>
+    ssas = loader.get_ssa_objects()
+           ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DataLoader' object has no attribute 'get_ssa_objects'
+
+2024-10-29 08:00:22,814 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-29 08:00:23,180 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-29 08:00:23,181 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-29 08:00:23,181 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-29 08:00:23,181 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-29 08:00:23,181 - __main__ - INFO - Gerando relatório inicial...
+2024-10-29 08:00:23,182 - __main__ - ERROR - Erro durante a execução: No module named 'xlsxwriter'
+2024-10-29 08:00:23,189 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1401, in <module>
+    reporter.save_excel_report("relatorio_ssas.xlsx")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 777, in save_excel_report
+    with pd.ExcelWriter(filename, engine="xlsxwriter") as writer:
+         ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\pandas\io\excel\_xlsxwriter.py", line 197, in __init__
+    from xlsxwriter import Workbook
+ModuleNotFoundError: No module named 'xlsxwriter'
+
+2024-10-29 08:02:13,705 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-29 08:02:14,103 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-29 08:02:14,103 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-29 08:02:14,103 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-29 08:02:14,104 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-29 08:02:14,104 - __main__ - INFO - Gerando relatório inicial...
+2024-10-29 08:02:14,225 - __main__ - ERROR - Erro durante a execução: Can only use .dt accessor with datetimelike values
+2024-10-29 08:02:14,255 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1402, in <module>
+    reporter.save_excel_report("relatorio_ssas.xlsx")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 787, in save_excel_report
+    summary_df = pd.DataFrame([self.generate_summary_stats()])
+                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 688, in generate_summary_stats
+    ].dt.hour.mean(),
+      ^^
+  File "C:\Python313\Lib\site-packages\pandas\core\generic.py", line 6299, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\pandas\core\accessor.py", line 224, in __get__
+    accessor_obj = self._accessor(obj)
+  File "C:\Python313\Lib\site-packages\pandas\core\indexes\accessors.py", line 643, in __new__
+    raise AttributeError("Can only use .dt accessor with datetimelike values")
+AttributeError: Can only use .dt accessor with datetimelike values
+
+2024-10-29 08:05:38,093 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-29 08:05:38,515 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-29 08:05:38,515 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-29 08:05:38,515 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-29 08:05:38,516 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-29 08:05:38,516 - __main__ - INFO - Gerando relatório inicial...
+2024-10-29 08:05:38,642 - __main__ - ERROR - Erro durante a execução: Can only use .dt accessor with datetimelike values
+2024-10-29 08:05:38,650 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1380, in <module>
+    reporter.save_excel_report("relatorio_ssas.xlsx")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 752, in save_excel_report
+    summary_df = pd.DataFrame([self.generate_summary_stats()])
+                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 653, in generate_summary_stats
+    ].dt.hour.mean(),
+      ^^
+  File "C:\Python313\Lib\site-packages\pandas\core\generic.py", line 6299, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\pandas\core\accessor.py", line 224, in __get__
+    accessor_obj = self._accessor(obj)
+  File "C:\Python313\Lib\site-packages\pandas\core\indexes\accessors.py", line 643, in __new__
+    raise AttributeError("Can only use .dt accessor with datetimelike values")
+AttributeError: Can only use .dt accessor with datetimelike values
+
+2024-10-29 08:08:04,946 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-29 08:08:05,341 - root - ERROR - Erro ao carregar dados: Can only use .str accessor with string values!
+2024-10-29 08:08:05,342 - __main__ - ERROR - Erro durante a execução: Can only use .str accessor with string values!
+2024-10-29 08:08:05,360 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1380, in <module>
+    df = loader.load_data()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 264, in load_data
+    self._clean_data()
+    ~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 282, in _clean_data
+    self.df[col] = self.df[col].str.strip()
+                   ^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\pandas\core\generic.py", line 6299, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\pandas\core\accessor.py", line 224, in __get__
+    accessor_obj = self._accessor(obj)
+  File "C:\Python313\Lib\site-packages\pandas\core\strings\accessor.py", line 191, in __init__
+    self._inferred_dtype = self._validate(data)
+                           ~~~~~~~~~~~~~~^^^^^^
+  File "C:\Python313\Lib\site-packages\pandas\core\strings\accessor.py", line 245, in _validate
+    raise AttributeError("Can only use .str accessor with string values!")
+AttributeError: Can only use .str accessor with string values!. Did you mean: 'std'?
+
+2024-10-29 08:09:24,601 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-29 08:09:25,026 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-29 08:09:25,026 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-29 08:09:25,027 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-29 08:09:25,027 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-29 08:09:25,027 - __main__ - INFO - Gerando relatório inicial...
+2024-10-29 08:09:25,030 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-10-29 08:09:25,217 - __main__ - ERROR - Erro durante a execução: Can only use .dt accessor with datetimelike values
+2024-10-29 08:09:25,225 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1398, in <module>
+    reporter.save_excel_report("relatorio_ssas.xlsx")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 811, in save_excel_report
+    self.df.iloc[:, SSAColumns.EMITIDA_EM].dt.date,
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\pandas\core\generic.py", line 6299, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\pandas\core\accessor.py", line 224, in __get__
+    accessor_obj = self._accessor(obj)
+  File "C:\Python313\Lib\site-packages\pandas\core\indexes\accessors.py", line 643, in __new__
+    raise AttributeError("Can only use .dt accessor with datetimelike values")
+AttributeError: Can only use .dt accessor with datetimelike values
+
+2024-10-29 08:11:23,733 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-29 08:11:24,143 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-29 08:11:24,144 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-29 08:11:24,144 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-29 08:11:24,144 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-29 08:11:24,145 - __main__ - INFO - Gerando relatório inicial...
+2024-10-29 08:11:24,147 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-10-29 08:11:24,329 - __main__ - ERROR - Erro durante a execução: Can only use .dt accessor with datetimelike values
+2024-10-29 08:11:24,338 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1397, in <module>
+    reporter.save_excel_report("relatorio_ssas.xlsx")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 810, in save_excel_report
+    self.df.iloc[:, SSAColumns.EMITIDA_EM].dt.date,
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\pandas\core\generic.py", line 6299, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\pandas\core\accessor.py", line 224, in __get__
+    accessor_obj = self._accessor(obj)
+  File "C:\Python313\Lib\site-packages\pandas\core\indexes\accessors.py", line 643, in __new__
+    raise AttributeError("Can only use .dt accessor with datetimelike values")
+AttributeError: Can only use .dt accessor with datetimelike values
+
+2024-10-29 08:12:39,944 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-29 08:12:40,446 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-29 08:12:40,446 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-29 08:12:40,447 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-29 08:12:40,447 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-29 08:12:40,448 - __main__ - INFO - Gerando relatório inicial...
+2024-10-29 08:12:40,450 - root - WARNING - Análise temporal ignorada - coluna de data inválida
+2024-10-29 08:12:40,451 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-10-29 08:12:40,651 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-10-29 08:12:40,651 - __main__ - INFO - Iniciando dashboard...
+2024-10-29 08:12:40,689 - __main__ - ERROR - Erro durante a execução: Can only use .dt accessor with datetimelike values
+2024-10-29 08:12:40,724 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1402, in <module>
+    dashboard = SSADashboard(df)
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1048, in __init__
+    self.setup_layout()
+    ~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1149, in setup_layout
+    self.create_kpi_cards(),
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1235, in create_kpi_cards
+    metrics = self.kpi_calc.calculate_efficiency_metrics()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 929, in calculate_efficiency_metrics
+    "tempo_medio_processamento": self._calculate_processing_time(),
+                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 939, in _calculate_processing_time
+    .agg(
+     ~~~^
+        {
+        ^
+    ...<4 lines>...
+        }
+        ^
+    )
+    ^
+  File "C:\Python313\Lib\site-packages\pandas\core\groupby\generic.py", line 1432, in aggregate
+    result = op.agg()
+  File "C:\Python313\Lib\site-packages\pandas\core\apply.py", line 190, in agg
+    return self.agg_dict_like()
+           ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python313\Lib\site-packages\pandas\core\apply.py", line 423, in agg_dict_like
+    return self.agg_or_apply_dict_like(op_name="agg")
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\pandas\core\apply.py", line 1608, in agg_or_apply_dict_like
+    result_index, result_data = self.compute_dict_like(
+                                ~~~~~~~~~~~~~~~~~~~~~~^
+        op_name, selected_obj, selection, kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Python313\Lib\site-packages\pandas\core\apply.py", line 497, in compute_dict_like
+    getattr(obj._gotitem(key, ndim=1), op_name)(how, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\pandas\core\groupby\generic.py", line 294, in aggregate
+    return self._python_agg_general(func, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\pandas\core\groupby\generic.py", line 327, in _python_agg_general
+    result = self._grouper.agg_series(obj, f)
+  File "C:\Python313\Lib\site-packages\pandas\core\groupby\ops.py", line 864, in agg_series
+    result = self._aggregate_series_pure_python(obj, func)
+  File "C:\Python313\Lib\site-packages\pandas\core\groupby\ops.py", line 885, in _aggregate_series_pure_python
+    res = func(group)
+  File "C:\Python313\Lib\site-packages\pandas\core\groupby\generic.py", line 324, in <lambda>
+    f = lambda x: func(x, *args, **kwargs)
+                  ~~~~^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 943, in <lambda>
+    ]: lambda x: x.dt.total_seconds().mean()
+                 ^^^^
+  File "C:\Python313\Lib\site-packages\pandas\core\generic.py", line 6299, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\pandas\core\accessor.py", line 224, in __get__
+    accessor_obj = self._accessor(obj)
+  File "C:\Python313\Lib\site-packages\pandas\core\indexes\accessors.py", line 643, in __new__
+    raise AttributeError("Can only use .dt accessor with datetimelike values")
+AttributeError: Can only use .dt accessor with datetimelike values
+
+2024-10-29 08:17:02,900 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-29 08:17:02,900 - __main__ - ERROR - Erro durante a execução: DataLoader() takes no arguments
+2024-10-29 08:17:02,902 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1100, in <module>
+    loader = DataLoader(
+        r"C:\Users\menon\git\trabalho\SCRAP-SAM\Downloads\SSAs Pendentes Geral - 28-10-2024_1221PM.xlsx"
+    )
+TypeError: DataLoader() takes no arguments
+
+2024-10-29 08:17:13,782 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-29 08:17:13,783 - __main__ - ERROR - Erro durante a execução: DataLoader() takes no arguments
+2024-10-29 08:17:13,785 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1100, in <module>
+    loader = DataLoader(
+        r"C:\Users\menon\git\trabalho\SCRAP-SAM\Downloads\SSAs Pendentes Geral - 28-10-2024_1221PM.xlsx"
+    )
+TypeError: DataLoader() takes no arguments
+
+2024-10-29 08:19:32,974 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-29 08:19:33,385 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-29 08:19:33,385 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-29 08:19:33,385 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-29 08:19:33,386 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-29 08:19:33,386 - __main__ - INFO - Gerando relatório inicial...
+2024-10-29 08:19:33,389 - root - WARNING - Análise temporal ignorada - coluna de data inválida
+2024-10-29 08:19:33,389 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-10-29 08:19:33,570 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-10-29 08:19:33,570 - __main__ - INFO - Iniciando dashboard...
+2024-10-29 08:19:33,587 - __main__ - ERROR - Erro durante a execução: '<=' not supported between instances of 'Timestamp' and 'float'
+2024-10-29 08:19:33,616 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1105, in <module>
+    dashboard = SSADashboard(df)
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 775, in __init__
+    self.setup_layout()
+    ~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 857, in setup_layout
+    ].min(),
+      ~~~^^
+  File "C:\Python313\Lib\site-packages\pandas\core\series.py", line 6507, in min
+    return NDFrame.min(self, axis, skipna, numeric_only, **kwargs)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\pandas\core\generic.py", line 12388, in min
+    return self._stat_function(
+           ~~~~~~~~~~~~~~~~~~~^
+        "min",
+        ^^^^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "C:\Python313\Lib\site-packages\pandas\core\generic.py", line 12377, in _stat_function
+    return self._reduce(
+           ~~~~~~~~~~~~^
+        func, name=name, axis=axis, skipna=skipna, numeric_only=numeric_only
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Python313\Lib\site-packages\pandas\core\series.py", line 6457, in _reduce
+    return op(delegate, skipna=skipna, **kwds)
+  File "C:\Python313\Lib\site-packages\pandas\core\nanops.py", line 147, in f
+    result = alt(values, axis=axis, skipna=skipna, **kwds)
+  File "C:\Python313\Lib\site-packages\pandas\core\nanops.py", line 404, in new_func
+    result = func(values, axis=axis, skipna=skipna, mask=mask, **kwargs)
+  File "C:\Python313\Lib\site-packages\pandas\core\nanops.py", line 1098, in reduction
+    result = getattr(values, meth)(axis)
+  File "C:\Python313\Lib\site-packages\numpy\_core\_methods.py", line 49, in _amin
+    return umr_minimum(a, axis, None, out, keepdims, initial, where)
+TypeError: '<=' not supported between instances of 'Timestamp' and 'float'
+
+2024-10-29 08:22:14,042 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-29 08:22:14,454 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-29 08:22:14,454 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-29 08:22:14,455 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-29 08:22:14,455 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-29 08:22:14,456 - __main__ - INFO - Gerando relatório inicial...
+2024-10-29 08:22:14,458 - root - WARNING - Análise temporal ignorada - coluna de data inválida
+2024-10-29 08:22:14,459 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-10-29 08:22:14,639 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-10-29 08:22:14,640 - __main__ - INFO - Iniciando dashboard...
+2024-10-29 08:22:14,656 - __main__ - ERROR - Erro durante a execução: 'SSADashboard' object has no attribute 'setup_callbacks'
+2024-10-29 08:22:14,659 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1059, in <module>
+    dashboard = SSADashboard(df)
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 776, in __init__
+    self.setup_callbacks()
+    ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SSADashboard' object has no attribute 'setup_callbacks'
+
+2024-10-29 08:25:59,825 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-29 08:26:00,261 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-29 08:26:00,261 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-29 08:26:00,261 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-29 08:26:00,262 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-29 08:26:00,262 - __main__ - INFO - Gerando relatório inicial...
+2024-10-29 08:26:00,265 - root - WARNING - Análise temporal ignorada - coluna de data inválida
+2024-10-29 08:26:00,266 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-10-29 08:26:00,457 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-10-29 08:26:00,458 - __main__ - INFO - Iniciando dashboard...
+2024-10-29 08:26:00,477 - __main__ - ERROR - Erro durante a execução: 'SSADashboard' object has no attribute 'run_server'
+2024-10-29 08:26:00,480 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1109, in <module>
+    dashboard.run_server(debug=True, port=8050)
+    ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SSADashboard' object has no attribute 'run_server'
+
+2024-10-29 08:27:27,992 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-29 08:27:28,400 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-29 08:27:28,401 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-29 08:27:28,401 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-29 08:27:28,402 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-29 08:27:28,402 - __main__ - INFO - Gerando relatório inicial...
+2024-10-29 08:27:28,405 - root - WARNING - Análise temporal ignorada - coluna de data inválida
+2024-10-29 08:27:28,405 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-10-29 08:27:28,589 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-10-29 08:27:28,590 - __main__ - INFO - Iniciando dashboard...
+2024-10-29 08:27:28,609 - root - INFO - Iniciando servidor na porta 8050
+2024-10-29 08:27:28,610 - dash.dash - INFO - Dash is running on http://127.0.0.1:8050/
+
+2024-10-29 08:27:30,900 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-29 08:27:31,314 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-29 08:27:31,315 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-29 08:27:31,315 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-29 08:27:31,316 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-29 08:27:31,316 - __main__ - INFO - Gerando relatório inicial...
+2024-10-29 08:27:31,318 - root - WARNING - Análise temporal ignorada - coluna de data inválida
+2024-10-29 08:27:31,319 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-10-29 08:27:31,499 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-10-29 08:27:31,500 - __main__ - INFO - Iniciando dashboard...
+2024-10-29 08:27:31,518 - root - INFO - Iniciando servidor na porta 8050
+2024-10-29 08:27:58,018 - root - ERROR - Erro ao atualizar dashboard: Can only use .dt accessor with datetimelike values
+2024-10-29 08:28:08,798 - root - ERROR - Erro ao atualizar dashboard: Can only use .dt accessor with datetimelike values
+2024-10-29 08:28:12,907 - root - ERROR - Erro ao atualizar dashboard: Can only use .dt accessor with datetimelike values
+2024-10-29 08:28:25,733 - root - ERROR - Erro ao atualizar dashboard: Can only use .dt accessor with datetimelike values
