@@ -511,3 +511,36 @@ AttributeError: 'SSADashboard' object has no attribute 'run_server'
 2024-10-29 13:45:42,719 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
 2024-10-29 13:45:42,907 - __main__ - INFO - Relatório Excel gerado com sucesso.
 2024-10-29 13:45:42,908 - __main__ - INFO - Iniciando dashboard...
+2024-10-29 16:30:32,722 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-29 16:30:33,389 - root - INFO - Convertidas 190 de 190 datas com sucesso
+2024-10-29 16:30:33,419 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-29 16:30:33,419 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-10-29 16:30:33,419 - root - INFO - Número: 202415726
+2024-10-29 16:30:33,420 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-10-29 16:30:33,420 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-10-29 16:30:33,420 - root - INFO - Exemplos de datas convertidas:
+2024-10-29 16:30:33,421 - root - INFO - Linha 1: 2024-10-02 09:44:12
+2024-10-29 16:30:33,421 - root - INFO - Linha 2: 2024-09-23 08:29:01
+2024-10-29 16:30:33,421 - root - INFO - Linha 3: 2024-09-23 08:29:45
+2024-10-29 16:30:33,422 - root - INFO - Linha 4: 2024-09-19 16:07:00
+2024-10-29 16:30:33,422 - root - INFO - Linha 5: 2024-09-17 08:04:29
+2024-10-29 16:30:33,422 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-29 16:30:33,422 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-29 16:30:33,422 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-29 16:30:33,423 - __main__ - INFO - Gerando relatório inicial...
+2024-10-29 16:30:33,425 - root - WARNING - Análise temporal ignorada - coluna de data inválida
+2024-10-29 16:30:33,425 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-10-29 16:30:33,614 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-10-29 16:30:33,615 - __main__ - INFO - Iniciando dashboard...
+2024-10-29 16:30:33,640 - __main__ - ERROR - Erro durante a execução: 'SSADashboard' object has no attribute '_get_initial_stats'
+2024-10-29 16:30:33,643 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\Report_from_excel.py", line 1330, in <module>
+    dashboard = SSADashboard(df)
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\Report_from_excel.py", line 887, in __init__
+    self.setup_layout()
+    ~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\Report_from_excel.py", line 909, in setup_layout
+    stats = self._get_initial_stats()
+            ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SSADashboard' object has no attribute '_get_initial_stats'
+
