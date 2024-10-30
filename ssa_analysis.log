@@ -544,3 +544,47 @@ AttributeError: 'SSADashboard' object has no attribute 'run_server'
             ^^^^^^^^^^^^^^^^^^^^^^^
 AttributeError: 'SSADashboard' object has no attribute '_get_initial_stats'
 
+2024-10-29 16:34:31,272 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-29 16:34:31,648 - root - INFO - Convertidas 190 de 190 datas com sucesso
+2024-10-29 16:34:31,679 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-29 16:34:31,679 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-10-29 16:34:31,680 - root - INFO - Número: 202415726
+2024-10-29 16:34:31,680 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-10-29 16:34:31,680 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-10-29 16:34:31,681 - root - INFO - Exemplos de datas convertidas:
+2024-10-29 16:34:31,681 - root - INFO - Linha 1: 2024-10-02 09:44:12
+2024-10-29 16:34:31,681 - root - INFO - Linha 2: 2024-09-23 08:29:01
+2024-10-29 16:34:31,682 - root - INFO - Linha 3: 2024-09-23 08:29:45
+2024-10-29 16:34:31,682 - root - INFO - Linha 4: 2024-09-19 16:07:00
+2024-10-29 16:34:31,682 - root - INFO - Linha 5: 2024-09-17 08:04:29
+2024-10-29 16:34:31,683 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-29 16:34:31,683 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-29 16:34:31,683 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-29 16:34:31,684 - __main__ - INFO - Gerando relatório inicial...
+2024-10-29 16:34:31,686 - root - WARNING - Análise temporal ignorada - coluna de data inválida
+2024-10-29 16:34:31,687 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-10-29 16:34:31,865 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-10-29 16:34:31,865 - __main__ - INFO - Iniciando dashboard...
+2024-10-29 16:34:31,895 - dash.dash - INFO - Dash is running on http://127.0.0.1:8050/
+
+2024-10-29 16:34:34,104 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-29 16:34:34,467 - root - INFO - Convertidas 190 de 190 datas com sucesso
+2024-10-29 16:34:34,498 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-29 16:34:34,498 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-10-29 16:34:34,498 - root - INFO - Número: 202415726
+2024-10-29 16:34:34,499 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-10-29 16:34:34,499 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-10-29 16:34:34,499 - root - INFO - Exemplos de datas convertidas:
+2024-10-29 16:34:34,500 - root - INFO - Linha 1: 2024-10-02 09:44:12
+2024-10-29 16:34:34,500 - root - INFO - Linha 2: 2024-09-23 08:29:01
+2024-10-29 16:34:34,500 - root - INFO - Linha 3: 2024-09-23 08:29:45
+2024-10-29 16:34:34,501 - root - INFO - Linha 4: 2024-09-19 16:07:00
+2024-10-29 16:34:34,501 - root - INFO - Linha 5: 2024-09-17 08:04:29
+2024-10-29 16:34:34,501 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-29 16:34:34,501 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-29 16:34:34,502 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-29 16:34:34,502 - __main__ - INFO - Gerando relatório inicial...
+2024-10-29 16:34:34,506 - root - WARNING - Análise temporal ignorada - coluna de data inválida
+2024-10-29 16:34:34,506 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-10-29 16:34:34,688 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-10-29 16:34:34,689 - __main__ - INFO - Iniciando dashboard...
