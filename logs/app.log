@@ -1,0 +1,137 @@
+2024-11-01 08:51:37,664 - __main__ - ERROR - Erro durante a execução: No module named 'psutil'
+2024-11-01 08:51:37,669 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6497, in main
+    resource_manager = ResourceManager()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6110, in __init__
+    "memory": self._monitor_memory(),
+              ~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6129, in _monitor_memory
+    import psutil
+ModuleNotFoundError: No module named 'psutil'
+
+2024-11-01 08:51:37,670 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 08:52:16,892 - __main__ - INFO - Monitoramento iniciado com intervalo de 60s
+2024-11-01 08:52:16,894 - __main__ - ERROR - Erro durante a execução: No module named 'schedule'
+2024-11-01 08:52:16,898 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6505, in main
+    maintenance_manager = setup_maintenance()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5889, in setup_maintenance
+    return MaintenanceManager()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5796, in __init__
+    self._start_scheduler()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5800, in _start_scheduler
+    import schedule
+ModuleNotFoundError: No module named 'schedule'
+
+2024-11-01 08:52:16,900 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 08:52:16,927 - __main__ - INFO - Otimização de recursos concluída
+2024-11-01 08:52:51,089 - __main__ - INFO - Monitoramento iniciado com intervalo de 60s
+2024-11-01 08:52:51,096 - __main__ - ERROR - Erro durante a execução: 'Job' object has no attribute 'month'
+2024-11-01 08:52:51,101 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6505, in main
+    maintenance_manager = setup_maintenance()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5889, in setup_maintenance
+    return MaintenanceManager()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5796, in __init__
+    self._start_scheduler()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5806, in _start_scheduler
+    schedule.every().month.at("1").do(self.maintenance_schedule["monthly"])
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Job' object has no attribute 'month'
+
+2024-11-01 08:52:51,104 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 08:52:51,128 - __main__ - INFO - Otimização de recursos concluída
+2024-11-01 08:53:14,976 - __main__ - INFO - Monitoramento iniciado com intervalo de 60s
+2024-11-01 08:53:14,981 - __main__ - ERROR - Erro durante a execução: 'Job' object has no attribute 'month'
+2024-11-01 08:53:14,986 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6505, in main
+    maintenance_manager = setup_maintenance()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5889, in setup_maintenance
+    return MaintenanceManager()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5796, in __init__
+    self._start_scheduler()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5806, in _start_scheduler
+    schedule.every().month.at("1").do(self.maintenance_schedule["monthly"])
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Job' object has no attribute 'month'
+
+2024-11-01 08:53:14,989 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 08:53:15,015 - __main__ - INFO - Otimização de recursos concluída
+2024-11-01 15:25:35,730 - __main__ - INFO - Monitoramento iniciado com intervalo de 60s
+2024-11-01 15:25:35,731 - __main__ - INFO - Sistema de backup configurado com sucesso
+2024-11-01 15:25:35,731 - root - ERROR - Error loading configuration: name 'Path' is not defined
+2024-11-01 15:25:35,732 - root - INFO - Default configuration created
+2024-11-01 15:25:35,732 - __main__ - INFO - Sistema de manutenção configurado com sucesso
+2024-11-01 15:25:35,733 - __main__ - ERROR - Erro durante a execução: name 'threading' is not defined
+2024-11-01 15:25:35,738 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6627, in main
+    maintenance_thread = threading.Thread(
+                         ^^^^^^^^^
+NameError: name 'threading' is not defined. Did you forget to import 'threading'?
+
+2024-11-01 15:25:35,740 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 15:25:35,740 - __main__ - INFO - Finalizando gerenciador de backup
+2024-11-01 15:26:39,706 - __main__ - INFO - Monitoramento iniciado com intervalo de 60s
+2024-11-01 15:26:39,707 - __main__ - INFO - Sistema de backup configurado com sucesso
+2024-11-01 15:26:39,707 - root - ERROR - Error loading configuration: name 'Path' is not defined
+2024-11-01 15:26:39,707 - root - INFO - Default configuration created
+2024-11-01 15:26:39,708 - __main__ - INFO - Sistema de manutenção configurado com sucesso
+2024-11-01 15:26:39,708 - __main__ - ERROR - Erro no loop de manutenção: 'MaintenanceManager' object has no attribute 'run'
+2024-11-01 15:26:39,709 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-01 15:26:40,376 - __main__ - INFO - Convertidas 190 de 190 datas com sucesso
+2024-11-01 15:26:40,408 - __main__ - INFO - Convertidos 190 registros para SSAData
+2024-11-01 15:26:40,409 - __main__ - INFO - Exemplo de primeiro objeto convertido:
+2024-11-01 15:26:40,409 - __main__ - INFO - Número: 202415726
+2024-11-01 15:26:40,410 - __main__ - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-01 15:26:40,410 - __main__ - INFO - Prioridade: PROGRAMÁVEL
+2024-11-01 15:26:40,411 - __main__ - INFO - Exemplos de datas convertidas:
+2024-11-01 15:26:40,411 - __main__ - INFO - Linha 1: 2024-10-02 09:44:12
+2024-11-01 15:26:40,411 - __main__ - INFO - Linha 2: 2024-09-23 08:29:01
+2024-11-01 15:26:40,412 - __main__ - INFO - Linha 3: 2024-09-23 08:29:45
+2024-11-01 15:26:40,412 - __main__ - INFO - Linha 4: 2024-09-19 16:07:00
+2024-11-01 15:26:40,412 - __main__ - INFO - Linha 5: 2024-09-17 08:04:29
+2024-11-01 15:26:40,413 - __main__ - WARNING - Prioridades inválidas encontradas: ['PROGRAMÁVEL']
+2024-11-01 15:26:40,414 - __main__ - WARNING - SSAs derivadas com origem inexistente: ['', '202220335.0', '202412085.0', '202401348.0', '202315064.0', '202415988.0', '202415910.0', '202414279.0', '202412413.0', '202412434.0', '202408601.0', '202409816.0', '202404494.0', '202407471.0', '202404086.0', '202406009.0', '202220996.0', '202220995.0', '202320788.0', '202315961.0', '202314204.0', '202314182.0', '202313222.0', '202310663.0', '202310662.0', '202310660.0', '202308322.0', '202210063.0', '202207444.0', '202314512.0', '202314904.0', '202207912.0', '202416399.0', '202415099.0', '202211490.0', '202209305.0', '202209303.0', '202209301.0', '202209299.0', '202209297.0', '202209295.0', '202211354.0']
+2024-11-01 15:26:40,416 - __main__ - WARNING - Falha nas validações: ['priorities', 'relationships']
+2024-11-01 15:26:40,416 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-11-01 15:26:40,423 - __main__ - INFO - Backup criado: backups\backup_20241101_152640.pkl
+2024-11-01 15:26:40,424 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-11-01 15:26:40,424 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-01 15:26:40,425 - __main__ - INFO - Gerando relatório inicial...
+2024-11-01 15:26:40,428 - root - WARNING - Análise temporal ignorada - coluna de data inválida
+2024-11-01 15:26:40,428 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-11-01 15:26:40,603 - __main__ - INFO - Relatório Excel gerado com sucesso
+2024-11-01 15:26:42,617 - __main__ - INFO - Iniciando dashboard...
+2024-11-01 15:26:42,647 - __main__ - ERROR - Erro ao processar dados: 'SSADashboard' object has no attribute 'setup_layout'
+2024-11-01 15:26:42,651 - audit - INFO - USER: SYSTEM - ACTION: ERROR - DETAILS: {"error": "'SSADashboard' object has no attribute 'setup_layout'", "traceback": "Traceback (most recent call last):\n  File \"c:\\Users\\menon\\git\\trabalho\\SCRAP-SAM\\tempCodeRunnerFile.python\", line 6679, in main\n    app = SSADashboard(df)\n  File \"c:\\Users\\menon\\git\\trabalho\\SCRAP-SAM\\tempCodeRunnerFile.python\", line 3817, in __init__\n    self.setup_layout()\n    ^^^^^^^^^^^^^^^^^\nAttributeError: 'SSADashboard' object has no attribute 'setup_layout'\n"}
+2024-11-01 15:26:42,652 - __main__ - ERROR - Erro durante a execução: 'SSADashboard' object has no attribute 'setup_layout'
+2024-11-01 15:26:42,653 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6679, in main
+    app = SSADashboard(df)
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 3817, in __init__
+    self.setup_layout()
+    ^^^^^^^^^^^^^^^^^
+AttributeError: 'SSADashboard' object has no attribute 'setup_layout'
+
+2024-11-01 15:26:42,655 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 15:26:42,655 - __main__ - INFO - Monitoramento de performance interrompido
+2024-11-01 15:26:42,656 - __main__ - INFO - Finalizando gerenciador de backup
+2024-11-01 15:39:07,199 - __main__ - INFO - Monitoramento iniciado com intervalo de 60s
+2024-11-01 15:39:07,200 - __main__ - INFO - Sistema de backup configurado com sucesso
+2024-11-01 15:39:07,201 - root - INFO - Configuration loaded successfully
+2024-11-01 15:39:07,202 - __main__ - INFO - Sistema de manutenção configurado com sucesso
+2024-11-01 15:39:07,202 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-01 15:39:07,203 - __main__ - ERROR - Erro durante a execução: Caminho do arquivo Excel não pode ser vazio
+2024-11-01 15:39:07,207 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6713, in main
+    loader = DataLoader(excel_path)
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 986, in __init__
+    raise ValueError("Caminho do arquivo Excel não pode ser vazio")
+ValueError: Caminho do arquivo Excel não pode ser vazio
+
+2024-11-01 15:39:07,208 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 15:39:07,208 - __main__ - INFO - Monitoramento de performance interrompido
+2024-11-01 15:39:07,209 - __main__ - INFO - Finalizando gerenciador de backup

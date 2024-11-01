@@ -1,0 +1,16 @@
+data:
+  excel_path: "C:/Users/menon/git/trabalho/SCRAP-SAM/downloads/SSAs Pendentes Geral - 25-10-2024_0340PM.xlsx"
+  sheet_name: "SSAs"
+  backup_dir: "backups"
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+server:
+  host: "0.0.0.0"
+  port: 8050
+  debug: false
+
+monitoring:
+  interval: 60

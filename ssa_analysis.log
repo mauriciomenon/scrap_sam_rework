@@ -588,3 +588,619 @@ AttributeError: 'SSADashboard' object has no attribute '_get_initial_stats'
 2024-10-29 16:34:34,506 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
 2024-10-29 16:34:34,688 - __main__ - INFO - Relatório Excel gerado com sucesso.
 2024-10-29 16:34:34,689 - __main__ - INFO - Iniciando dashboard...
+2024-10-30 14:08:02,747 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-30 14:08:03,607 - root - INFO - Convertidas 190 de 190 datas com sucesso
+2024-10-30 14:08:03,639 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-30 14:08:03,640 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-10-30 14:08:03,640 - root - INFO - Número: 202415726
+2024-10-30 14:08:03,640 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-10-30 14:08:03,641 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-10-30 14:08:03,641 - root - INFO - Exemplos de datas convertidas:
+2024-10-30 14:08:03,641 - root - INFO - Linha 1: 2024-10-02 09:44:12
+2024-10-30 14:08:03,642 - root - INFO - Linha 2: 2024-09-23 08:29:01
+2024-10-30 14:08:03,642 - root - INFO - Linha 3: 2024-09-23 08:29:45
+2024-10-30 14:08:03,642 - root - INFO - Linha 4: 2024-09-19 16:07:00
+2024-10-30 14:08:03,643 - root - INFO - Linha 5: 2024-09-17 08:04:29
+2024-10-30 14:08:03,643 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-30 14:08:03,643 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-30 14:08:03,643 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-30 14:08:03,643 - __main__ - INFO - Gerando relatório inicial...
+2024-10-30 14:08:03,647 - root - WARNING - Análise temporal ignorada - coluna de data inválida
+2024-10-30 14:08:03,647 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-10-30 14:08:03,864 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-10-30 14:08:03,864 - __main__ - INFO - Iniciando dashboard...
+2024-10-30 14:08:03,898 - __main__ - ERROR - Erro durante a execução: 'SSADashboard' object has no attribute '_get_initial_stats'
+2024-10-30 14:08:03,902 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\Report_from_excel.py", line 1453, in <module>
+    try:
+    
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\Report_from_excel.py", line 887, in __init__
+    self.setup_layout()
+    ~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\Report_from_excel.py", line 909, in setup_layout
+    stats = self._get_initial_stats()
+            ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SSADashboard' object has no attribute '_get_initial_stats'
+
+2024-10-30 14:08:28,071 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-30 14:08:28,505 - root - INFO - Convertidas 190 de 190 datas com sucesso
+2024-10-30 14:08:28,542 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-30 14:08:28,542 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-10-30 14:08:28,543 - root - INFO - Número: 202415726
+2024-10-30 14:08:28,543 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-10-30 14:08:28,543 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-10-30 14:08:28,544 - root - INFO - Exemplos de datas convertidas:
+2024-10-30 14:08:28,544 - root - INFO - Linha 1: 2024-10-02 09:44:12
+2024-10-30 14:08:28,545 - root - INFO - Linha 2: 2024-09-23 08:29:01
+2024-10-30 14:08:28,545 - root - INFO - Linha 3: 2024-09-23 08:29:45
+2024-10-30 14:08:28,546 - root - INFO - Linha 4: 2024-09-19 16:07:00
+2024-10-30 14:08:28,546 - root - INFO - Linha 5: 2024-09-17 08:04:29
+2024-10-30 14:08:28,546 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-30 14:08:28,547 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-30 14:08:28,547 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-30 14:08:28,547 - __main__ - INFO - Gerando relatório inicial...
+2024-10-30 14:08:28,550 - root - WARNING - Análise temporal ignorada - coluna de data inválida
+2024-10-30 14:08:28,551 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-10-30 14:08:28,753 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-10-30 14:08:28,753 - __main__ - INFO - Iniciando dashboard...
+2024-10-30 14:08:28,792 - dash.dash - INFO - Dash is running on http://127.0.0.1:8050/
+
+2024-10-30 14:08:31,739 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-30 14:08:32,257 - root - INFO - Convertidas 190 de 190 datas com sucesso
+2024-10-30 14:08:32,294 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-30 14:08:32,294 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-10-30 14:08:32,295 - root - INFO - Número: 202415726
+2024-10-30 14:08:32,295 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-10-30 14:08:32,296 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-10-30 14:08:32,296 - root - INFO - Exemplos de datas convertidas:
+2024-10-30 14:08:32,297 - root - INFO - Linha 1: 2024-10-02 09:44:12
+2024-10-30 14:08:32,297 - root - INFO - Linha 2: 2024-09-23 08:29:01
+2024-10-30 14:08:32,298 - root - INFO - Linha 3: 2024-09-23 08:29:45
+2024-10-30 14:08:32,298 - root - INFO - Linha 4: 2024-09-19 16:07:00
+2024-10-30 14:08:32,298 - root - INFO - Linha 5: 2024-09-17 08:04:29
+2024-10-30 14:08:32,299 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-30 14:08:32,299 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-30 14:08:32,299 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-30 14:08:32,300 - __main__ - INFO - Gerando relatório inicial...
+2024-10-30 14:08:32,302 - root - WARNING - Análise temporal ignorada - coluna de data inválida
+2024-10-30 14:08:32,303 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-10-30 14:08:32,520 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-10-30 14:08:32,520 - __main__ - INFO - Iniciando dashboard...
+2024-10-30 14:10:05,047 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-30 14:10:05,559 - root - INFO - Convertidas 190 de 190 datas com sucesso
+2024-10-30 14:10:05,594 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-30 14:10:05,594 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-10-30 14:10:05,595 - root - INFO - Número: 202415726
+2024-10-30 14:10:05,595 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-10-30 14:10:05,595 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-10-30 14:10:05,596 - root - INFO - Exemplos de datas convertidas:
+2024-10-30 14:10:05,596 - root - INFO - Linha 1: 2024-10-02 09:44:12
+2024-10-30 14:10:05,596 - root - INFO - Linha 2: 2024-09-23 08:29:01
+2024-10-30 14:10:05,597 - root - INFO - Linha 3: 2024-09-23 08:29:45
+2024-10-30 14:10:05,597 - root - INFO - Linha 4: 2024-09-19 16:07:00
+2024-10-30 14:10:05,597 - root - INFO - Linha 5: 2024-09-17 08:04:29
+2024-10-30 14:10:05,598 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-30 14:10:05,598 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-30 14:10:05,598 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-30 14:10:05,599 - __main__ - INFO - Gerando relatório inicial...
+2024-10-30 14:10:05,602 - root - WARNING - Análise temporal ignorada - coluna de data inválida
+2024-10-30 14:10:05,602 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-10-30 14:10:05,845 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-10-30 14:10:05,846 - __main__ - INFO - Iniciando dashboard...
+2024-10-30 14:10:05,867 - __main__ - ERROR - Erro durante a execução: 'SSADashboard' object has no attribute 'setup_layout'
+2024-10-30 14:10:05,872 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\Report_from_excel.py", line 1292, in <module>
+    dashboard = SSADashboard(df)
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\Report_from_excel.py", line 887, in __init__
+    self.setup_layout()
+    ^^^^^^^^^^^^^^^^^
+AttributeError: 'SSADashboard' object has no attribute 'setup_layout'
+
+2024-10-30 14:11:00,141 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-30 14:11:00,628 - root - INFO - Convertidas 190 de 190 datas com sucesso
+2024-10-30 14:11:00,662 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-30 14:11:00,663 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-10-30 14:11:00,663 - root - INFO - Número: 202415726
+2024-10-30 14:11:00,663 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-10-30 14:11:00,664 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-10-30 14:11:00,664 - root - INFO - Exemplos de datas convertidas:
+2024-10-30 14:11:00,664 - root - INFO - Linha 1: 2024-10-02 09:44:12
+2024-10-30 14:11:00,665 - root - INFO - Linha 2: 2024-09-23 08:29:01
+2024-10-30 14:11:00,665 - root - INFO - Linha 3: 2024-09-23 08:29:45
+2024-10-30 14:11:00,666 - root - INFO - Linha 4: 2024-09-19 16:07:00
+2024-10-30 14:11:00,666 - root - INFO - Linha 5: 2024-09-17 08:04:29
+2024-10-30 14:11:00,667 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-30 14:11:00,667 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-30 14:11:00,668 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-30 14:11:00,668 - __main__ - INFO - Gerando relatório inicial...
+2024-10-30 14:11:00,670 - root - WARNING - Análise temporal ignorada - coluna de data inválida
+2024-10-30 14:11:00,671 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-10-30 14:11:00,901 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-10-30 14:11:00,901 - __main__ - INFO - Iniciando dashboard...
+2024-10-30 14:11:00,923 - __main__ - ERROR - Erro durante a execução: 'SSADashboard' object has no attribute '_create_ssa_table'
+2024-10-30 14:11:00,930 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\Report_from_excel.py", line 1554, in <module>
+    dashboard = SSADashboard(df)
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\Report_from_excel.py", line 887, in __init__
+    self.setup_layout()
+    ~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\Report_from_excel.py", line 1075, in setup_layout
+    dbc.CardBody(self._create_ssa_table("ssa-table"))
+                 ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SSADashboard' object has no attribute '_create_ssa_table'
+
+2024-10-30 14:50:20,388 - __main__ - INFO - Dependência xlsxwriter encontrada
+2024-10-30 14:50:20,388 - __main__ - WARNING - Dependência dash-bootstrap-components não encontrada
+2024-10-30 14:50:20,389 - __main__ - INFO - Dependência plotly encontrada
+2024-10-30 14:50:20,389 - __main__ - INFO - Dependência pandas encontrada
+2024-10-30 14:50:20,389 - __main__ - INFO - Dependência pdfkit encontrada
+2024-10-30 14:50:20,389 - __main__ - INFO - Instalando dash-bootstrap-components...
+2024-10-30 14:50:25,220 - __main__ - INFO - dash-bootstrap-components instalado com sucesso
+2024-10-30 14:50:25,426 - __main__ - WARNING - Erro ao verificar wkhtmltopdf: No wkhtmltopdf executable found: "b''"
+If this file exists please check that this process can read it or you can pass path to it manually in method call, check README. Otherwise please install wkhtmltopdf - https://github.com/JazzCore/python-pdfkit/wiki/Installing-wkhtmltopdf
+2024-10-30 14:50:25,427 - __main__ - INFO - Iniciando aplicação...
+2024-10-30 14:50:25,427 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-30 14:50:25,819 - root - INFO - Convertidas 190 de 190 datas com sucesso
+2024-10-30 14:50:25,849 - root - INFO - Convertidos 190 registros para SSAData
+2024-10-30 14:50:25,850 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-10-30 14:50:25,850 - root - INFO - Número: 202415726
+2024-10-30 14:50:25,851 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-10-30 14:50:25,851 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-10-30 14:50:25,852 - root - INFO - Exemplos de datas convertidas:
+2024-10-30 14:50:25,852 - root - INFO - Linha 1: 2024-10-02 09:44:12
+2024-10-30 14:50:25,853 - root - INFO - Linha 2: 2024-09-23 08:29:01
+2024-10-30 14:50:25,853 - root - INFO - Linha 3: 2024-09-23 08:29:45
+2024-10-30 14:50:25,853 - root - INFO - Linha 4: 2024-09-19 16:07:00
+2024-10-30 14:50:25,854 - root - INFO - Linha 5: 2024-09-17 08:04:29
+2024-10-30 14:50:25,854 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-30 14:50:25,855 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-30 14:50:25,855 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-30 14:50:25,855 - __main__ - INFO - Gerando relatório inicial...
+2024-10-30 14:50:25,858 - root - WARNING - Análise temporal ignorada - coluna de data inválida
+2024-10-30 14:50:25,858 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-10-30 14:50:26,033 - __main__ - INFO - Relatório Excel gerado com sucesso
+2024-10-30 14:50:26,034 - __main__ - INFO - Iniciando dashboard...
+2024-10-30 14:50:26,034 - __main__ - ERROR - Erro durante a execução: SSADashboard() takes no arguments
+2024-10-30 14:50:26,036 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\Report_from_excel.py", line 3586, in main
+    app = SSADashboard(df)
+TypeError: SSADashboard() takes no arguments
+
+2024-10-30 14:50:26,037 - __main__ - INFO - Finalizando aplicação...
+2024-10-31 08:01:15,049 - __main__ - INFO - Dependência xlsxwriter encontrada
+2024-10-31 08:01:15,050 - __main__ - WARNING - Dependência dash-bootstrap-components não encontrada
+2024-10-31 08:01:15,050 - __main__ - INFO - Dependência plotly encontrada
+2024-10-31 08:01:15,050 - __main__ - INFO - Dependência pandas encontrada
+2024-10-31 08:01:15,051 - __main__ - INFO - Dependência pdfkit encontrada
+2024-10-31 08:01:15,051 - __main__ - INFO - Instalando dash-bootstrap-components...
+2024-10-31 08:01:20,028 - __main__ - INFO - dash-bootstrap-components instalado com sucesso
+2024-10-31 08:01:20,220 - __main__ - WARNING - Erro ao verificar wkhtmltopdf: No wkhtmltopdf executable found: "b''"
+If this file exists please check that this process can read it or you can pass path to it manually in method call, check README. Otherwise please install wkhtmltopdf - https://github.com/JazzCore/python-pdfkit/wiki/Installing-wkhtmltopdf
+2024-10-31 08:01:20,221 - __main__ - INFO - Iniciando aplicação...
+2024-10-31 08:01:20,222 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-31 08:01:20,895 - __main__ - INFO - Convertidas 190 de 190 datas com sucesso
+2024-10-31 08:01:20,905 - __main__ - ERROR - Erro ao carregar dados: 'DataLoader' object has no attribute '_log_sample_dates'
+2024-10-31 08:01:20,906 - __main__ - ERROR - Erro durante a execução: 'DataLoader' object has no attribute '_log_sample_dates'
+2024-10-31 08:01:20,910 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1926, in main
+    df = loader.load_data()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1010, in load_data
+    self._log_sample_dates()
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DataLoader' object has no attribute '_log_sample_dates'
+
+2024-10-31 08:01:20,911 - __main__ - INFO - Finalizando aplicação...
+2024-10-31 09:05:03,627 - __main__ - INFO - Dependência xlsxwriter encontrada
+2024-10-31 09:05:03,628 - __main__ - WARNING - Dependência dash-bootstrap-components não encontrada
+2024-10-31 09:05:03,628 - __main__ - INFO - Dependência plotly encontrada
+2024-10-31 09:05:03,628 - __main__ - INFO - Dependência pandas encontrada
+2024-10-31 09:05:03,629 - __main__ - INFO - Dependência pdfkit encontrada
+2024-10-31 09:05:03,629 - __main__ - INFO - Instalando dash-bootstrap-components...
+2024-10-31 09:05:08,514 - __main__ - INFO - dash-bootstrap-components instalado com sucesso
+2024-10-31 09:05:08,706 - __main__ - WARNING - Erro ao verificar wkhtmltopdf: No wkhtmltopdf executable found: "b''"
+If this file exists please check that this process can read it or you can pass path to it manually in method call, check README. Otherwise please install wkhtmltopdf - https://github.com/JazzCore/python-pdfkit/wiki/Installing-wkhtmltopdf
+2024-10-31 09:05:08,706 - __main__ - INFO - Iniciando aplicação...
+2024-10-31 09:05:08,707 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-10-31 09:05:09,440 - __main__ - INFO - Convertidas 190 de 190 datas com sucesso
+2024-10-31 09:05:09,474 - __main__ - INFO - Convertidos 190 registros para SSAData
+2024-10-31 09:05:09,475 - __main__ - INFO - Exemplo de primeiro objeto convertido:
+2024-10-31 09:05:09,475 - __main__ - INFO - Número: 202415726
+2024-10-31 09:05:09,476 - __main__ - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-10-31 09:05:09,476 - __main__ - INFO - Prioridade: PROGRAMÁVEL
+2024-10-31 09:05:09,477 - __main__ - INFO - Exemplos de datas convertidas:
+2024-10-31 09:05:09,477 - __main__ - INFO - Linha 1: 2024-10-02 09:44:12
+2024-10-31 09:05:09,477 - __main__ - INFO - Linha 2: 2024-09-23 08:29:01
+2024-10-31 09:05:09,478 - __main__ - INFO - Linha 3: 2024-09-23 08:29:45
+2024-10-31 09:05:09,478 - __main__ - INFO - Linha 4: 2024-09-19 16:07:00
+2024-10-31 09:05:09,478 - __main__ - INFO - Linha 5: 2024-09-17 08:04:29
+2024-10-31 09:05:09,479 - __main__ - WARNING - Prioridades inválidas encontradas: ['PROGRAMÁVEL']
+2024-10-31 09:05:09,480 - __main__ - WARNING - SSAs derivadas com origem inexistente: ['', '202220335.0', '202412085.0', '202401348.0', '202315064.0', '202415988.0', '202415910.0', '202414279.0', '202412413.0', '202412434.0', '202408601.0', '202409816.0', '202404494.0', '202407471.0', '202404086.0', '202406009.0', '202220996.0', '202220995.0', '202320788.0', '202315961.0', '202314204.0', '202314182.0', '202313222.0', '202310663.0', '202310662.0', '202310660.0', '202308322.0', '202210063.0', '202207444.0', '202314512.0', '202314904.0', '202207912.0', '202416399.0', '202415099.0', '202211490.0', '202209305.0', '202209303.0', '202209301.0', '202209299.0', '202209297.0', '202209295.0', '202211354.0']
+2024-10-31 09:05:09,482 - __main__ - WARNING - Falha nas validações: ['priorities', 'relationships']
+2024-10-31 09:05:09,482 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-10-31 09:05:09,483 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-10-31 09:05:09,483 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-10-31 09:05:09,483 - __main__ - INFO - Gerando relatório inicial...
+2024-10-31 09:05:09,486 - root - WARNING - Análise temporal ignorada - coluna de data inválida
+2024-10-31 09:05:09,487 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-10-31 09:05:09,699 - __main__ - INFO - Relatório Excel gerado com sucesso
+2024-10-31 09:05:09,700 - __main__ - INFO - Iniciando dashboard...
+2024-10-31 09:05:09,731 - __main__ - ERROR - Erro durante a execução: 'SSADashboard' object has no attribute '_create_table_header'
+2024-10-31 09:05:09,735 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 2412, in main
+    app = SSADashboard(df)
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1844, in __init__
+    self.setup_layout()
+    ~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 2035, in setup_layout
+    columns=self._create_table_header(),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SSADashboard' object has no attribute '_create_table_header'
+
+2024-10-31 09:05:09,737 - __main__ - INFO - Finalizando aplicação...
+2024-10-31 15:59:31,243 - __main__ - INFO - Iniciando aplicação...
+2024-10-31 15:59:31,243 - __main__ - ERROR - Erro durante a execução: 'ConfigurationManager' object has no attribute 'load_config'
+2024-10-31 15:59:31,247 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6406, in main
+    config_manager = ConfigurationManager()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5894, in __init__
+    self.load_config()
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'ConfigurationManager' object has no attribute 'load_config'. Did you mean: 'save_config'?
+
+2024-10-31 15:59:31,248 - __main__ - INFO - Finalizando aplicação...
+2024-10-31 16:15:43,259 - __main__ - INFO - Iniciando aplicação...
+2024-10-31 16:15:43,259 - __main__ - ERROR - Erro durante a execução: 'ConfigurationManager' object has no attribute 'load_config'
+2024-10-31 16:15:43,263 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6406, in main
+    config_manager = ConfigurationManager()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5894, in __init__
+    self.load_config()
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'ConfigurationManager' object has no attribute 'load_config'. Did you mean: 'save_config'?
+
+2024-10-31 16:15:43,264 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 08:13:01,766 - __main__ - INFO - Iniciando aplicação...
+2024-11-01 08:13:01,767 - root - ERROR - Error loading configuration: 'ConfigurationManager' object has no attribute 'config_file'
+2024-11-01 08:13:01,767 - root - INFO - Default configuration created
+2024-11-01 08:13:01,767 - __main__ - ERROR - Configuração ausente: debug
+2024-11-01 08:13:01,767 - __main__ - ERROR - Configurações inválidas
+2024-11-01 08:13:01,767 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 08:43:41,522 - __main__ - INFO - Iniciando aplicação...
+2024-11-01 08:43:41,522 - __main__ - ERROR - Erro durante a execução: 'ConfigurationManager' object has no attribute 'load_config'
+2024-11-01 08:43:41,525 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6478, in main
+    config_manager = ConfigurationManager()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5894, in __init__
+    self.load_config()
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'ConfigurationManager' object has no attribute 'load_config'. Did you mean: 'get_config'?
+
+2024-11-01 08:43:41,525 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 08:50:35,298 - __main__ - INFO - Iniciando aplicação...
+2024-11-01 08:50:35,299 - root - INFO - Default configuration created
+2024-11-01 08:50:35,305 - root - INFO - Configuration saved successfully
+2024-11-01 08:50:35,305 - root - INFO - Created and saved default configuration
+2024-11-01 08:50:35,309 - __main__ - ERROR - Erro durante a execução: name 'os' is not defined
+2024-11-01 08:50:35,315 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6492, in main
+    advanced_logger = AdvancedLogger()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6318, in __init__
+    self.setup_logging()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6325, in setup_logging
+    os.makedirs(self.log_dir, exist_ok=True)
+    ^^
+NameError: name 'os' is not defined. Did you forget to import 'os'?
+
+2024-11-01 08:50:35,318 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 08:51:37,655 - __main__ - INFO - Iniciando aplicação...
+2024-11-01 08:51:37,657 - root - INFO - Configuration loaded successfully
+2024-11-01 08:51:37,664 - __main__ - ERROR - Erro durante a execução: No module named 'psutil'
+2024-11-01 08:51:37,669 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6497, in main
+    resource_manager = ResourceManager()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6110, in __init__
+    "memory": self._monitor_memory(),
+              ~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6129, in _monitor_memory
+    import psutil
+ModuleNotFoundError: No module named 'psutil'
+
+2024-11-01 08:51:37,670 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 08:52:14,849 - __main__ - INFO - Iniciando aplicação...
+2024-11-01 08:52:14,850 - root - INFO - Configuration loaded successfully
+2024-11-01 08:52:16,892 - __main__ - INFO - Monitoramento iniciado com intervalo de 60s
+2024-11-01 08:52:16,894 - __main__ - ERROR - Erro durante a execução: No module named 'schedule'
+2024-11-01 08:52:16,898 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6505, in main
+    maintenance_manager = setup_maintenance()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5889, in setup_maintenance
+    return MaintenanceManager()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5796, in __init__
+    self._start_scheduler()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5800, in _start_scheduler
+    import schedule
+ModuleNotFoundError: No module named 'schedule'
+
+2024-11-01 08:52:16,900 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 08:52:16,927 - __main__ - INFO - Otimização de recursos concluída
+2024-11-01 08:52:49,054 - __main__ - INFO - Iniciando aplicação...
+2024-11-01 08:52:49,056 - root - INFO - Configuration loaded successfully
+2024-11-01 08:52:51,089 - __main__ - INFO - Monitoramento iniciado com intervalo de 60s
+2024-11-01 08:52:51,096 - __main__ - ERROR - Erro durante a execução: 'Job' object has no attribute 'month'
+2024-11-01 08:52:51,101 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6505, in main
+    maintenance_manager = setup_maintenance()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5889, in setup_maintenance
+    return MaintenanceManager()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5796, in __init__
+    self._start_scheduler()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5806, in _start_scheduler
+    schedule.every().month.at("1").do(self.maintenance_schedule["monthly"])
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Job' object has no attribute 'month'
+
+2024-11-01 08:52:51,104 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 08:52:51,128 - __main__ - INFO - Otimização de recursos concluída
+2024-11-01 08:53:12,944 - __main__ - INFO - Iniciando aplicação...
+2024-11-01 08:53:12,945 - root - INFO - Configuration loaded successfully
+2024-11-01 08:53:14,976 - __main__ - INFO - Monitoramento iniciado com intervalo de 60s
+2024-11-01 08:53:14,981 - __main__ - ERROR - Erro durante a execução: 'Job' object has no attribute 'month'
+2024-11-01 08:53:14,986 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6505, in main
+    maintenance_manager = setup_maintenance()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5889, in setup_maintenance
+    return MaintenanceManager()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5796, in __init__
+    self._start_scheduler()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5806, in _start_scheduler
+    schedule.every().month.at("1").do(self.maintenance_schedule["monthly"])
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Job' object has no attribute 'month'
+
+2024-11-01 08:53:14,989 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 08:53:15,015 - __main__ - INFO - Otimização de recursos concluída
+2024-11-01 13:02:24,733 - __main__ - INFO - Iniciando aplicação...
+2024-11-01 13:02:24,734 - __main__ - ERROR - Erro durante a execução: name 'ConfigurationManager' is not defined
+2024-11-01 13:02:24,741 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6418, in main
+    config_manager = ConfigurationManager()
+                     ^^^^^^^^^^^^^^^^^^^^
+NameError: name 'ConfigurationManager' is not defined
+
+2024-11-01 13:02:24,742 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 15:25:33,690 - __main__ - INFO - Iniciando aplicação...
+2024-11-01 15:25:33,691 - root - ERROR - Error loading configuration: name 'Path' is not defined
+2024-11-01 15:25:33,691 - root - INFO - Default configuration created
+2024-11-01 15:25:35,730 - __main__ - INFO - Monitoramento iniciado com intervalo de 60s
+2024-11-01 15:25:35,731 - __main__ - INFO - Sistema de backup configurado com sucesso
+2024-11-01 15:25:35,731 - root - ERROR - Error loading configuration: name 'Path' is not defined
+2024-11-01 15:25:35,732 - root - INFO - Default configuration created
+2024-11-01 15:25:35,732 - __main__ - INFO - Sistema de manutenção configurado com sucesso
+2024-11-01 15:25:35,733 - __main__ - ERROR - Erro durante a execução: name 'threading' is not defined
+2024-11-01 15:25:35,738 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6627, in main
+    maintenance_thread = threading.Thread(
+                         ^^^^^^^^^
+NameError: name 'threading' is not defined. Did you forget to import 'threading'?
+
+2024-11-01 15:25:35,740 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 15:25:35,740 - __main__ - INFO - Finalizando gerenciador de backup
+2024-11-01 15:26:37,668 - __main__ - INFO - Iniciando aplicação...
+2024-11-01 15:26:37,668 - root - ERROR - Error loading configuration: name 'Path' is not defined
+2024-11-01 15:26:37,669 - root - INFO - Default configuration created
+2024-11-01 15:26:39,706 - __main__ - INFO - Monitoramento iniciado com intervalo de 60s
+2024-11-01 15:26:39,707 - __main__ - INFO - Sistema de backup configurado com sucesso
+2024-11-01 15:26:39,707 - root - ERROR - Error loading configuration: name 'Path' is not defined
+2024-11-01 15:26:39,707 - root - INFO - Default configuration created
+2024-11-01 15:26:39,708 - __main__ - INFO - Sistema de manutenção configurado com sucesso
+2024-11-01 15:26:39,708 - __main__ - ERROR - Erro no loop de manutenção: 'MaintenanceManager' object has no attribute 'run'
+2024-11-01 15:26:39,709 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-01 15:26:40,376 - __main__ - INFO - Convertidas 190 de 190 datas com sucesso
+2024-11-01 15:26:40,408 - __main__ - INFO - Convertidos 190 registros para SSAData
+2024-11-01 15:26:40,409 - __main__ - INFO - Exemplo de primeiro objeto convertido:
+2024-11-01 15:26:40,409 - __main__ - INFO - Número: 202415726
+2024-11-01 15:26:40,410 - __main__ - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-01 15:26:40,410 - __main__ - INFO - Prioridade: PROGRAMÁVEL
+2024-11-01 15:26:40,411 - __main__ - INFO - Exemplos de datas convertidas:
+2024-11-01 15:26:40,411 - __main__ - INFO - Linha 1: 2024-10-02 09:44:12
+2024-11-01 15:26:40,411 - __main__ - INFO - Linha 2: 2024-09-23 08:29:01
+2024-11-01 15:26:40,412 - __main__ - INFO - Linha 3: 2024-09-23 08:29:45
+2024-11-01 15:26:40,412 - __main__ - INFO - Linha 4: 2024-09-19 16:07:00
+2024-11-01 15:26:40,412 - __main__ - INFO - Linha 5: 2024-09-17 08:04:29
+2024-11-01 15:26:40,413 - __main__ - WARNING - Prioridades inválidas encontradas: ['PROGRAMÁVEL']
+2024-11-01 15:26:40,414 - __main__ - WARNING - SSAs derivadas com origem inexistente: ['', '202220335.0', '202412085.0', '202401348.0', '202315064.0', '202415988.0', '202415910.0', '202414279.0', '202412413.0', '202412434.0', '202408601.0', '202409816.0', '202404494.0', '202407471.0', '202404086.0', '202406009.0', '202220996.0', '202220995.0', '202320788.0', '202315961.0', '202314204.0', '202314182.0', '202313222.0', '202310663.0', '202310662.0', '202310660.0', '202308322.0', '202210063.0', '202207444.0', '202314512.0', '202314904.0', '202207912.0', '202416399.0', '202415099.0', '202211490.0', '202209305.0', '202209303.0', '202209301.0', '202209299.0', '202209297.0', '202209295.0', '202211354.0']
+2024-11-01 15:26:40,416 - __main__ - WARNING - Falha nas validações: ['priorities', 'relationships']
+2024-11-01 15:26:40,416 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 190
+2024-11-01 15:26:40,423 - __main__ - INFO - Backup criado: backups\backup_20241101_152640.pkl
+2024-11-01 15:26:40,424 - __main__ - INFO - Convertidos 190 registros para objetos SSAData
+2024-11-01 15:26:40,424 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-01 15:26:40,425 - __main__ - INFO - Gerando relatório inicial...
+2024-11-01 15:26:40,428 - root - WARNING - Análise temporal ignorada - coluna de data inválida
+2024-11-01 15:26:40,428 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
+2024-11-01 15:26:40,603 - __main__ - INFO - Relatório Excel gerado com sucesso
+2024-11-01 15:26:42,617 - __main__ - INFO - Iniciando dashboard...
+2024-11-01 15:26:42,647 - __main__ - ERROR - Erro ao processar dados: 'SSADashboard' object has no attribute 'setup_layout'
+2024-11-01 15:26:42,651 - audit - INFO - USER: SYSTEM - ACTION: ERROR - DETAILS: {"error": "'SSADashboard' object has no attribute 'setup_layout'", "traceback": "Traceback (most recent call last):\n  File \"c:\\Users\\menon\\git\\trabalho\\SCRAP-SAM\\tempCodeRunnerFile.python\", line 6679, in main\n    app = SSADashboard(df)\n  File \"c:\\Users\\menon\\git\\trabalho\\SCRAP-SAM\\tempCodeRunnerFile.python\", line 3817, in __init__\n    self.setup_layout()\n    ^^^^^^^^^^^^^^^^^\nAttributeError: 'SSADashboard' object has no attribute 'setup_layout'\n"}
+2024-11-01 15:26:42,652 - __main__ - ERROR - Erro durante a execução: 'SSADashboard' object has no attribute 'setup_layout'
+2024-11-01 15:26:42,653 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6679, in main
+    app = SSADashboard(df)
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 3817, in __init__
+    self.setup_layout()
+    ^^^^^^^^^^^^^^^^^
+AttributeError: 'SSADashboard' object has no attribute 'setup_layout'
+
+2024-11-01 15:26:42,655 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 15:26:42,655 - __main__ - INFO - Monitoramento de performance interrompido
+2024-11-01 15:26:42,656 - __main__ - INFO - Finalizando gerenciador de backup
+2024-11-01 15:39:05,158 - __main__ - INFO - Iniciando aplicação...
+2024-11-01 15:39:05,161 - root - INFO - Configuration loaded successfully
+2024-11-01 15:39:07,199 - __main__ - INFO - Monitoramento iniciado com intervalo de 60s
+2024-11-01 15:39:07,200 - __main__ - INFO - Sistema de backup configurado com sucesso
+2024-11-01 15:39:07,201 - root - INFO - Configuration loaded successfully
+2024-11-01 15:39:07,202 - __main__ - INFO - Sistema de manutenção configurado com sucesso
+2024-11-01 15:39:07,202 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-01 15:39:07,203 - __main__ - ERROR - Erro durante a execução: Caminho do arquivo Excel não pode ser vazio
+2024-11-01 15:39:07,207 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6713, in main
+    loader = DataLoader(excel_path)
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 986, in __init__
+    raise ValueError("Caminho do arquivo Excel não pode ser vazio")
+ValueError: Caminho do arquivo Excel não pode ser vazio
+
+2024-11-01 15:39:07,208 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 15:39:07,208 - __main__ - INFO - Monitoramento de performance interrompido
+2024-11-01 15:39:07,209 - __main__ - INFO - Finalizando gerenciador de backup
+2024-11-01 15:49:48,387 - __main__ - INFO - Iniciando aplicação...
+2024-11-01 15:49:48,388 - __main__ - ERROR - Erro durante a execução: name 'yaml' is not defined
+2024-11-01 15:49:48,392 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6726, in main
+    config = Config()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5681, in __init__
+    self.config: Dict[str, Any] = self._load_config()
+                                  ~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5687, in _load_config
+    config = yaml.safe_load(f)
+             ^^^^
+NameError: name 'yaml' is not defined
+
+2024-11-01 15:49:48,394 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 15:50:56,336 - __main__ - INFO - Iniciando aplicação...
+2024-11-01 15:50:56,338 - __main__ - ERROR - Erro durante a execução: name 'yaml' is not defined
+2024-11-01 15:50:56,342 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6726, in main
+    config = Config()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5681, in __init__
+    self.config: Dict[str, Any] = self._load_config()
+                                  ~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5687, in _load_config
+    config = yaml.safe_load(f)
+             ^^^^
+NameError: name 'yaml' is not defined
+
+2024-11-01 15:50:56,344 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 15:53:48,246 - __main__ - INFO - Iniciando aplicação...
+2024-11-01 15:53:48,247 - __main__ - ERROR - Erro durante a execução: while scanning a double-quoted scalar
+  in "config.yml", line 2, column 15
+found unknown escape character 'g'
+  in "config.yml", line 2, column 31
+2024-11-01 15:53:48,257 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6727, in main
+    config = Config()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5682, in __init__
+    self.config: Dict[str, Any] = self._load_config()
+                                  ~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5688, in _load_config
+    config = yaml.safe_load(f)
+  File "C:\Python313\Lib\site-packages\yaml\__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+  File "C:\Python313\Lib\site-packages\yaml\__init__.py", line 81, in load
+    return loader.get_single_data()
+           ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python313\Lib\site-packages\yaml\constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+  File "C:\Python313\Lib\site-packages\yaml\composer.py", line 36, in get_single_node
+    document = self.compose_document()
+  File "C:\Python313\Lib\site-packages\yaml\composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+  File "C:\Python313\Lib\site-packages\yaml\composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+  File "C:\Python313\Lib\site-packages\yaml\composer.py", line 133, in compose_mapping_node
+    item_value = self.compose_node(node, item_key)
+  File "C:\Python313\Lib\site-packages\yaml\composer.py", line 64, in compose_node
+    if self.check_event(AliasEvent):
+       ~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\yaml\parser.py", line 98, in check_event
+    self.current_event = self.state()
+                         ~~~~~~~~~~^^
+  File "C:\Python313\Lib\site-packages\yaml\parser.py", line 449, in parse_block_mapping_value
+    if not self.check_token(KeyToken, ValueToken, BlockEndToken):
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\yaml\scanner.py", line 116, in check_token
+    self.fetch_more_tokens()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python313\Lib\site-packages\yaml\scanner.py", line 251, in fetch_more_tokens
+    return self.fetch_double()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Python313\Lib\site-packages\yaml\scanner.py", line 655, in fetch_double
+    self.fetch_flow_scalar(style='"')
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\yaml\scanner.py", line 666, in fetch_flow_scalar
+    self.tokens.append(self.scan_flow_scalar(style))
+                       ~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Python313\Lib\site-packages\yaml\scanner.py", line 1149, in scan_flow_scalar
+    chunks.extend(self.scan_flow_scalar_non_spaces(double, start_mark))
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\yaml\scanner.py", line 1223, in scan_flow_scalar_non_spaces
+    raise ScannerError("while scanning a double-quoted scalar", start_mark,
+            "found unknown escape character %r" % ch, self.get_mark())
+yaml.scanner.ScannerError: while scanning a double-quoted scalar
+  in "config.yml", line 2, column 15
+found unknown escape character 'g'
+  in "config.yml", line 2, column 31
+
+2024-11-01 15:53:48,263 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 15:56:32,420 - __main__ - INFO - Iniciando aplicação...
+2024-11-01 15:56:32,423 - root - INFO - Configuration loaded successfully
+2024-11-01 15:56:34,460 - __main__ - INFO - Monitoramento iniciado com intervalo de 60s
+2024-11-01 15:56:34,461 - __main__ - INFO - Sistema de backup configurado com sucesso
+2024-11-01 15:56:34,461 - __main__ - INFO - Sistema de backup configurado com sucesso
+2024-11-01 15:56:34,463 - root - INFO - Configuration loaded successfully
+2024-11-01 15:56:34,463 - __main__ - INFO - Sistema de manutenção configurado com sucesso
+2024-11-01 15:56:34,463 - __main__ - INFO - Sistema de manutenção configurado com sucesso
+2024-11-01 15:56:34,464 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-01 15:56:35,027 - root - INFO - Dados carregados com sucesso. Total de registros: 193
+2024-11-01 15:56:35,028 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 193
+2024-11-01 15:56:35,032 - __main__ - INFO - Backup criado: backups\backup_20241101_155635.pkl
+2024-11-01 15:56:35,033 - __main__ - ERROR - Erro ao processar dados: 'DataLoader' object has no attribute 'ssa_objects'
+2024-11-01 15:56:35,033 - __main__ - ERROR - Erro durante a execução: 'DataLoader' object has no attribute 'ssa_objects'
+2024-11-01 15:56:35,039 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6783, in main
+    ssas = loader.get_ssa_objects()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1308, in get_ssa_objects
+    if not self.ssa_objects:
+           ^^^^^^^^^^^^^^^^
+AttributeError: 'DataLoader' object has no attribute 'ssa_objects'. Did you mean: 'get_ssa_objects'?
+
+2024-11-01 15:56:35,040 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 15:56:35,041 - __main__ - INFO - Finalizado security_manager
+2024-11-01 15:56:35,041 - __main__ - INFO - Finalizado maintenance_manager
+2024-11-01 15:56:35,042 - __main__ - INFO - Finalizando gerenciador de backup
+2024-11-01 15:56:35,042 - __main__ - INFO - Finalizado backup_manager
+2024-11-01 15:56:35,042 - __main__ - INFO - Monitoramento de performance interrompido
+2024-11-01 15:56:35,043 - __main__ - INFO - Finalizado performance_monitor
+2024-11-01 15:56:35,043 - __main__ - INFO - Finalizado resource_manager
+2024-11-01 15:56:43,562 - __main__ - INFO - Iniciando aplicação...
+2024-11-01 15:56:43,564 - root - INFO - Configuration loaded successfully
+2024-11-01 15:56:45,596 - __main__ - INFO - Monitoramento iniciado com intervalo de 60s
+2024-11-01 15:56:45,597 - __main__ - INFO - Sistema de backup configurado com sucesso
+2024-11-01 15:56:45,597 - __main__ - INFO - Sistema de backup configurado com sucesso
+2024-11-01 15:56:45,599 - root - INFO - Configuration loaded successfully
+2024-11-01 15:56:45,599 - __main__ - INFO - Sistema de manutenção configurado com sucesso
+2024-11-01 15:56:45,599 - __main__ - INFO - Sistema de manutenção configurado com sucesso
+2024-11-01 15:56:45,600 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-01 15:56:45,956 - root - INFO - Dados carregados com sucesso. Total de registros: 193
+2024-11-01 15:56:45,957 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 193
+2024-11-01 15:56:45,962 - __main__ - INFO - Backup criado: backups\backup_20241101_155645.pkl
+2024-11-01 15:56:45,962 - __main__ - ERROR - Erro ao processar dados: 'DataLoader' object has no attribute 'ssa_objects'
+2024-11-01 15:56:45,963 - __main__ - ERROR - Erro durante a execução: 'DataLoader' object has no attribute 'ssa_objects'
+2024-11-01 15:56:45,968 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6783, in main
+    ssas = loader.get_ssa_objects()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 1308, in get_ssa_objects
+    if not self.ssa_objects:
+           ^^^^^^^^^^^^^^^^
+AttributeError: 'DataLoader' object has no attribute 'ssa_objects'. Did you mean: 'get_ssa_objects'?
+
+2024-11-01 15:56:45,969 - __main__ - INFO - Finalizando aplicação...
+2024-11-01 15:56:45,969 - __main__ - INFO - Finalizado security_manager
+2024-11-01 15:56:45,970 - __main__ - INFO - Finalizado maintenance_manager
+2024-11-01 15:56:45,970 - __main__ - INFO - Finalizando gerenciador de backup
+2024-11-01 15:56:45,971 - __main__ - INFO - Finalizado backup_manager
+2024-11-01 15:56:45,971 - __main__ - INFO - Monitoramento de performance interrompido
+2024-11-01 15:56:45,971 - __main__ - INFO - Finalizado performance_monitor
+2024-11-01 15:56:45,972 - __main__ - INFO - Finalizado resource_manager

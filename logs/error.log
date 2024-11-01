@@ -1,0 +1,80 @@
+2024-11-01 08:51:37,664 - __main__ - ERROR - c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python:6569 - Erro durante a execução: No module named 'psutil'
+2024-11-01 08:51:37,669 - __main__ - ERROR - c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python:6570 - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6497, in main
+    resource_manager = ResourceManager()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6110, in __init__
+    "memory": self._monitor_memory(),
+              ~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6129, in _monitor_memory
+    import psutil
+ModuleNotFoundError: No module named 'psutil'
+
+2024-11-01 08:52:16,894 - __main__ - ERROR - c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python:6570 - Erro durante a execução: No module named 'schedule'
+2024-11-01 08:52:16,898 - __main__ - ERROR - c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python:6571 - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6505, in main
+    maintenance_manager = setup_maintenance()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5889, in setup_maintenance
+    return MaintenanceManager()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5796, in __init__
+    self._start_scheduler()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5800, in _start_scheduler
+    import schedule
+ModuleNotFoundError: No module named 'schedule'
+
+2024-11-01 08:52:51,096 - __main__ - ERROR - c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python:6570 - Erro durante a execução: 'Job' object has no attribute 'month'
+2024-11-01 08:52:51,101 - __main__ - ERROR - c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python:6571 - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6505, in main
+    maintenance_manager = setup_maintenance()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5889, in setup_maintenance
+    return MaintenanceManager()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5796, in __init__
+    self._start_scheduler()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5806, in _start_scheduler
+    schedule.every().month.at("1").do(self.maintenance_schedule["monthly"])
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Job' object has no attribute 'month'
+
+2024-11-01 08:53:14,981 - __main__ - ERROR - c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python:6570 - Erro durante a execução: 'Job' object has no attribute 'month'
+2024-11-01 08:53:14,986 - __main__ - ERROR - c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python:6571 - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6505, in main
+    maintenance_manager = setup_maintenance()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5889, in setup_maintenance
+    return MaintenanceManager()
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5796, in __init__
+    self._start_scheduler()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 5806, in _start_scheduler
+    schedule.every().month.at("1").do(self.maintenance_schedule["monthly"])
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Job' object has no attribute 'month'
+
+2024-11-01 15:25:35,731 - root - ERROR - c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python:5898 - Error loading configuration: name 'Path' is not defined
+2024-11-01 15:25:35,733 - __main__ - ERROR - c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python:6701 - Erro durante a execução: name 'threading' is not defined
+2024-11-01 15:25:35,738 - __main__ - ERROR - c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python:6702 - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6627, in main
+    maintenance_thread = threading.Thread(
+                         ^^^^^^^^^
+NameError: name 'threading' is not defined. Did you forget to import 'threading'?
+
+2024-11-01 15:26:39,707 - root - ERROR - c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python:5899 - Error loading configuration: name 'Path' is not defined
+2024-11-01 15:26:39,708 - __main__ - ERROR - c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python:6728 - Erro no loop de manutenção: 'MaintenanceManager' object has no attribute 'run'
+2024-11-01 15:26:42,647 - __main__ - ERROR - c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python:6690 - Erro ao processar dados: 'SSADashboard' object has no attribute 'setup_layout'
+2024-11-01 15:26:42,652 - __main__ - ERROR - c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python:6702 - Erro durante a execução: 'SSADashboard' object has no attribute 'setup_layout'
+2024-11-01 15:26:42,653 - __main__ - ERROR - c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python:6703 - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6679, in main
+    app = SSADashboard(df)
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 3817, in __init__
+    self.setup_layout()
+    ^^^^^^^^^^^^^^^^^
+AttributeError: 'SSADashboard' object has no attribute 'setup_layout'
+
+2024-11-01 15:39:07,203 - __main__ - ERROR - c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python:6769 - Erro durante a execução: Caminho do arquivo Excel não pode ser vazio
+2024-11-01 15:39:07,207 - __main__ - ERROR - c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python:6770 - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 6713, in main
+    loader = DataLoader(excel_path)
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\tempCodeRunnerFile.python", line 986, in __init__
+    raise ValueError("Caminho do arquivo Excel não pode ser vazio")
+ValueError: Caminho do arquivo Excel não pode ser vazio
+
