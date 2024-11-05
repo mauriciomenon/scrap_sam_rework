@@ -69,6 +69,7 @@ class DataLoader:
         self.df = None
         self.ssa_objects = []
 
+
     def load_data(self) -> pd.DataFrame:
         """Carrega dados do Excel com as configurações corretas."""
         try:
@@ -78,76 +79,75 @@ class DataLoader:
                 header=2,  # Cabeçalho na terceira linha
             )
 
-            # Converte a coluna de data usando vários formatos possíveis
+            # Primeiro, trata as datas
             try:
-                # Primeiro, limpa possíveis espaços em branco
-                self.df.iloc[:, SSAColumns.EMITIDA_EM] = self.df.iloc[:, SSAColumns.EMITIDA_EM].astype(str).str.strip()
-                
-                # Lista de formatos de data a tentar
-                date_formats = [
-                    "%d/%m/%Y %H:%M:%S",
-                    "%d/%m/%Y %H:%M",
-                    "%Y-%m-%d %H:%M:%S",
-                    "%d-%m-%Y %H:%M:%S",
-                    "%d-%m-%Y %H:%M",
-                    "%Y/%m/%d %H:%M:%S",
-                ]
+                # Limpa dados e cria cópia para backup
+                self.df.iloc[:, SSAColumns.EMITIDA_EM] = (
+                    self.df.iloc[:, SSAColumns.EMITIDA_EM]
+                    .fillna("")
+                    .astype(str)
+                    .str.strip()
+                )
+                original_dates = self.df.iloc[:, SSAColumns.EMITIDA_EM].copy()
 
-                # Tenta converter usando cada formato
-                for date_format in date_formats:
+                # Função para converter data mantendo o ano original
+                def convert_date(date_str):
                     try:
-                        self.df.iloc[:, SSAColumns.EMITIDA_EM] = pd.to_datetime(
-                            self.df.iloc[:, SSAColumns.EMITIDA_EM],
-                            format=date_format,
-                            errors='coerce'
-                        )
-                        if not self.df.iloc[:, SSAColumns.EMITIDA_EM].isna().all():
-                            logging.info(f"Formato de data utilizado com sucesso: {date_format}")
-                            break
-                    except Exception as e:
-                        continue
+                        if not date_str or date_str == "nan" or date_str == "":
+                            return pd.NaT
 
-                # Se ainda houver NaT, tenta converter sem formato específico
-                mask_nat = self.df.iloc[:, SSAColumns.EMITIDA_EM].isna()
-                if mask_nat.any():
-                    try:
-                        temp_dates = pd.to_datetime(
-                            self.df.iloc[mask_nat.values, SSAColumns.EMITIDA_EM],
-                            errors='coerce'
-                        )
-                        self.df.iloc[mask_nat.values, SSAColumns.EMITIDA_EM] = temp_dates
-                    except Exception as e:
-                        logging.error(f"Erro na conversão flexível de datas: {str(e)}")
+                        # Se for apenas anosemana (6 dígitos: AAASS)
+                        if date_str.isdigit() and len(date_str) == 6:
+                            year = int(date_str[:4])
+                            week = int(date_str[4:])
+                            # Converte para uma data representativa da semana
+                            return pd.to_datetime(
+                                f"{year}-W{week:02d}-1", format="%Y-W%W-%w"
+                            )
 
-                # Log do resultado da conversão
+                        # Se for data completa, tenta vários formatos
+                        for fmt in ["%d/%m/%Y %H:%M:%S", "%d/%m/%Y %H:%M"]:
+                            try:
+                                return pd.to_datetime(date_str, format=fmt)
+                            except:
+                                continue
+
+                        # Se nenhum formato funcionar, tenta conversão flexível
+                        return pd.to_datetime(date_str)
+                    except:
+                        return pd.NaT
+
+                # Aplica a conversão em cada data
+                self.df.iloc[:, SSAColumns.EMITIDA_EM] = self.df.iloc[
+                    :, SSAColumns.EMITIDA_EM
+                ].apply(convert_date)
+
+                # Log dos resultados
                 valid_dates = self.df.iloc[:, SSAColumns.EMITIDA_EM].notna().sum()
                 total_dates = len(self.df)
-                logging.info(f"Convertidas {valid_dates} de {total_dates} datas com sucesso")
 
-                if valid_dates == 0:
-                    logging.error("Nenhuma data foi convertida com sucesso")
-                    # Tenta mostrar alguns exemplos dos dados originais
-                    sample_dates = self.df.iloc[:5, SSAColumns.EMITIDA_EM]
-                    logging.error(f"Exemplos de dados de data não convertidos: {sample_dates.tolist()}")
-                elif valid_dates < total_dates:
-                    logging.warning(f"Algumas datas ({total_dates - valid_dates}) não puderam ser convertidas")
-                    # Log das linhas com problemas para diagnóstico
-                    problematic_rows = self.df[self.df.iloc[:, SSAColumns.EMITIDA_EM].isna()]
-                    logging.warning("Linhas com problemas de conversão de data:")
-                    for idx, row in problematic_rows.iterrows():
-                        logging.warning(f"Linha {idx + 1}: Valor original = {row.iloc[SSAColumns.EMITIDA_EM]}")
+                if valid_dates < total_dates:
+                    invalid_rows = []
+                    mask_nat = self.df.iloc[:, SSAColumns.EMITIDA_EM].isna()
+                    for idx in self.df[mask_nat].index:
+                        original_value = original_dates.iloc[idx]
+                        invalid_rows.append(
+                            f"Linha {idx + 1}: Valor original = {original_value}"
+                        )
 
-                # Log exemplo das primeiras datas convertidas para verificação
-                if not self.df.empty:
-                    sample_dates = self.df.iloc[:5, SSAColumns.EMITIDA_EM]
-                    logging.info("Exemplos de datas convertidas:")
-                    for idx, date in enumerate(sample_dates):
-                        logging.info(f"Linha {idx + 1}: {date}")
+                    if len(invalid_rows) == 1:
+                        logging.warning(
+                            f"Uma data não pôde ser convertida: {invalid_rows[0]}"
+                        )
+                    else:
+                        logging.warning(
+                            f"{total_dates - valid_dates} datas não puderam ser convertidas:\n"
+                            + "\n".join(invalid_rows)
+                        )
 
             except Exception as e:
                 logging.error(f"Erro ao processar datas: {str(e)}")
-                logging.error(f"Traceback completo: {traceback.format_exc()}")
-                # Em caso de erro crítico na conversão de datas, configura como NaT
+                logging.error(traceback.format_exc())
                 self.df.iloc[:, SSAColumns.EMITIDA_EM] = pd.NaT
 
             # Converte colunas string
@@ -172,15 +172,15 @@ class DataLoader:
 
             for col in string_columns:
                 try:
-                    self.df.iloc[:, col] = self.df.iloc[:, col].astype(str).str.strip().replace("nan", "")
+                    self.df.iloc[:, col] = (
+                        self.df.iloc[:, col].astype(str).str.strip().replace("nan", "")
+                    )
                 except Exception as e:
                     logging.error(f"Erro ao converter coluna {col}: {str(e)}")
 
             # Padroniza prioridades para maiúsculas
             self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] = (
-                self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
-                .str.upper()
-                .str.strip()
+                self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].str.upper().str.strip()
             )
 
             # Converte colunas opcionais
@@ -208,13 +208,33 @@ class DataLoader:
 
             # Converte semana cadastro para string preenchendo com zeros à esquerda
             try:
+                # Trata semana cadastro
                 self.df.iloc[:, SSAColumns.SEMANA_CADASTRO] = (
-                    self.df.iloc[:, SSAColumns.SEMANA_CADASTRO]
+                    pd.to_numeric(
+                        self.df.iloc[:, SSAColumns.SEMANA_CADASTRO], errors="coerce"
+                    )
+                    .fillna(0)
+                    .astype(int)
                     .astype(str)
-                    .str.zfill(6)  # Garante 6 dígitos (AAAAMM)
+                    .str.zfill(6)  # Garante 6 dígitos (AAASS)
                 )
+
+                # Trata semana programada
+                self.df.iloc[:, SSAColumns.SEMANA_PROGRAMADA] = (
+                    pd.to_numeric(
+                        self.df.iloc[:, SSAColumns.SEMANA_PROGRAMADA], errors="coerce"
+                    )
+                    .fillna(0)
+                    .astype(int)
+                    .astype(str)
+                    .str.zfill(6)
+                )
+                self.df.iloc[:, SSAColumns.SEMANA_PROGRAMADA] = self.df.iloc[
+                    :, SSAColumns.SEMANA_PROGRAMADA
+                ].replace("000000", None)
+
             except Exception as e:
-                logging.error(f"Erro ao formatar semana cadastro: {str(e)}")
+                logging.error(f"Erro ao formatar semanas: {str(e)}")
 
             # Converte para objetos SSAData
             self._convert_to_objects()
@@ -227,16 +247,18 @@ class DataLoader:
         except Exception as e:
             logging.error(f"Erro ao carregar dados: {str(e)}")
             raise
-    
+
     def _validate_data_quality(self):
         """Valida a qualidade dos dados após as conversões."""
-        total_rows = len(self.df)
-        
+        issues = []
+
         # Verifica datas válidas
         valid_dates = self.df.iloc[:, SSAColumns.EMITIDA_EM].notna().sum()
+        total_rows = len(self.df)
         if valid_dates < total_rows:
-            logging.warning(
-                f"Qualidade dos dados: {total_rows - valid_dates} linhas com datas inválidas"
+            diff = total_rows - valid_dates
+            issues.append(
+                f"{diff} data{'s' if diff > 1 else ''} inválida{'s' if diff > 1 else ''}"
             )
 
         # Verifica campos obrigatórios vazios
@@ -247,9 +269,13 @@ class DataLoader:
         ]:
             empty_count = self.df.iloc[:, col].isna().sum()
             if empty_count > 0:
-                logging.warning(
-                    f"Qualidade dos dados: {empty_count} linhas com {SSAColumns.get_name(col)} vazio"
+                issues.append(
+                    f"{empty_count} {SSAColumns.get_name(col)} vazio{'s' if empty_count > 1 else ''}"
                 )
+
+        # Registra todos os problemas em uma única mensagem
+        if issues:
+            logging.warning("Problemas encontrados nos dados: " + "; ".join(issues))
 
     def _convert_to_objects(self):
         """Converte as linhas do DataFrame em objetos SSAData."""
@@ -921,9 +947,9 @@ class SSAReporter:
                 {"bold": True, "bg_color": "#D3D3D3", "border": 1}
             )
 
-            # Verifica se a coluna de data está em formato correto
+            # Gera análise temporal apenas se houver datas válidas
             emitida_em = self.df.iloc[:, SSAColumns.EMITIDA_EM]
-            if pd.api.types.is_datetime64_any_dtype(emitida_em):
+            if pd.api.types.is_datetime64_any_dtype(emitida_em) and not emitida_em.isna().all():
                 try:
                     temporal_analysis = (
                         self.df.groupby(
@@ -939,47 +965,148 @@ class SSAReporter:
                     temporal_analysis.to_excel(
                         writer, sheet_name="Análise Temporal", index=False
                     )
+                    logging.info("Análise temporal incluída no relatório")
                 except Exception as e:
                     logging.error(f"Erro ao gerar análise temporal: {str(e)}")
             else:
-                # Remove o warning redundante e apenas registra no log
-                logging.info("Análise temporal não incluída no relatório - Algumas datas inválidas")
+                logging.debug("Análise temporal não incluída devido a datas inválidas")
 
-            # Resto das análises que não dependem de data
-            summary_df = pd.DataFrame([self.generate_summary_stats()])
-            summary_df.to_excel(writer, sheet_name="Resumo", index=False)
+            try:
+                # Resumo geral
+                summary_df = pd.DataFrame([self.generate_summary_stats()])
+                summary_df.to_excel(writer, sheet_name="Resumo", index=False)
 
-            # Análise por prioridade
-            priority_pivot = pd.pivot_table(
-                self.df,
-                values=self.df.columns[SSAColumns.NUMERO_SSA],
-                index=self.df.columns[SSAColumns.SETOR_EXECUTOR],
-                columns=self.df.columns[SSAColumns.GRAU_PRIORIDADE_EMISSAO],
-                aggfunc="count",
-                fill_value=0,
-            )
-            priority_pivot.to_excel(writer, sheet_name="Por Prioridade")
-
-            # Análise de equipamentos
-            equip_analysis = (
-                self.df.groupby(self.df.columns[SSAColumns.EQUIPAMENTO])
-                .agg(
-                    {
-                        self.df.columns[SSAColumns.NUMERO_SSA]: "count",
-                        self.df.columns[SSAColumns.GRAU_PRIORIDADE_EMISSAO]: lambda x: (
-                            x.value_counts().index[0] if len(x) > 0 else "N/A"
-                        ),
-                    }
+                # Análise por prioridade
+                priority_pivot = pd.pivot_table(
+                    self.df,
+                    values=self.df.columns[SSAColumns.NUMERO_SSA],
+                    index=self.df.columns[SSAColumns.SETOR_EXECUTOR],
+                    columns=self.df.columns[SSAColumns.GRAU_PRIORIDADE_EMISSAO],
+                    aggfunc="count",
+                    fill_value=0,
                 )
-                .reset_index()
-            )
-            equip_analysis.columns = [
-                "Equipamento",
-                "Quantidade SSAs",
-                "Prioridade Mais Comum",
-            ]
-            equip_analysis.to_excel(writer, sheet_name="Equipamentos", index=False)
+                priority_pivot.to_excel(writer, sheet_name="Por Prioridade")
 
+                # Análise de equipamentos
+                equip_analysis = (
+                    self.df.groupby(self.df.columns[SSAColumns.EQUIPAMENTO])
+                    .agg(
+                        {
+                            self.df.columns[SSAColumns.NUMERO_SSA]: "count",
+                            self.df.columns[SSAColumns.GRAU_PRIORIDADE_EMISSAO]: lambda x: (
+                                x.value_counts().index[0] if len(x) > 0 else "N/A"
+                            ),
+                        }
+                    )
+                    .reset_index()
+                )
+                equip_analysis.columns = [
+                    "Equipamento",
+                    "Quantidade SSAs",
+                    "Prioridade Mais Comum",
+                ]
+                equip_analysis.to_excel(writer, sheet_name="Equipamentos", index=False)
+
+                # Análise por status
+                status_analysis = pd.crosstab(
+                    [
+                        self.df.iloc[:, SSAColumns.SITUACAO],
+                        self.df.iloc[:, SSAColumns.SETOR_EXECUTOR]
+                    ],
+                    self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
+                )
+                status_analysis.to_excel(writer, sheet_name="Por Status")
+
+                # Análise por responsável
+                resp_analysis = pd.crosstab(
+                    [
+                        self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO],
+                        self.df.iloc[:, SSAColumns.SETOR_EXECUTOR]
+                    ],
+                    self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
+                )
+                resp_analysis.to_excel(writer, sheet_name="Por Responsável")
+
+                # Análise por serviço
+                service_analysis = pd.crosstab(
+                    [
+                        self.df.iloc[:, SSAColumns.SERVICO_ORIGEM],
+                        self.df.iloc[:, SSAColumns.SETOR_EXECUTOR]
+                    ],
+                    self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
+                )
+                service_analysis.to_excel(writer, sheet_name="Por Serviço")
+
+                # Dados completos
+                raw_data = self.df.copy()
+                raw_data.to_excel(writer, sheet_name="Dados Completos", index=False)
+
+                # Formatação das abas
+                for worksheet in writer.sheets.values():
+                    worksheet.set_zoom(85)  # Ajusta o zoom
+                    worksheet.freeze_panes(1, 0)  # Congela primeira linha
+                    
+                    # Ajusta largura das colunas
+                    for idx, col in enumerate(raw_data.columns):
+                        series = raw_data.iloc[:, idx]
+                        max_len = max(
+                            series.astype(str).apply(len).max(),  # comprimento máximo dos dados
+                            len(str(series.name))  # comprimento do cabeçalho
+                        ) + 2  # adiciona um pequeno padding
+                        worksheet.set_column(idx, idx, max_len)
+
+                # Adiciona filtros
+                for sheet_name in writer.sheets:
+                    worksheet = writer.sheets[sheet_name]
+                    if sheet_name != "Resumo":  # Não adiciona filtro na aba de resumo
+                        worksheet.autofilter(0, 0, raw_data.shape[0], raw_data.shape[1] - 1)
+
+            except Exception as e:
+                logging.error(f"Erro ao gerar análises específicas: {str(e)}")
+                logging.error(traceback.format_exc())
+
+            try:
+                # Adiciona uma aba de metadados com tratamento de datas nulas
+                valid_dates = emitida_em[emitida_em.notna()]
+                
+                if not valid_dates.empty:
+                    data_inicio = valid_dates.min().strftime('%d/%m/%Y')
+                    data_fim = valid_dates.max().strftime('%d/%m/%Y')
+                    periodo = f"{data_inicio} a {data_fim}"
+                else:
+                    periodo = "Período não disponível"
+
+                metadata = pd.DataFrame([
+                    {"Métrica": "Total de SSAs", "Valor": len(self.df)},
+                    {"Métrica": "Data de Geração", "Valor": datetime.now().strftime("%d/%m/%Y %H:%M:%S")},
+                    {"Métrica": "SSAs por Prioridade", "Valor": dict(self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].value_counts())},
+                    {"Métrica": "SSAs por Status", "Valor": dict(self.df.iloc[:, SSAColumns.SITUACAO].value_counts())},
+                    {"Métrica": "Período Analisado", "Valor": periodo}
+                ])
+                metadata.to_excel(writer, sheet_name="Metadados", index=False)
+
+            except Exception as e:
+                logging.error(f"Erro ao gerar metadados: {str(e)}")
+                logging.debug(traceback.format_exc())
+
+            # Aplica formatação final
+            try:
+                for sheet_name in writer.sheets:
+                    worksheet = writer.sheets[sheet_name]
+                    worksheet.set_column('A:ZZ', None, None, {'text_wrap': True})  # Habilita wrap de texto
+                    
+                    # Ajusta zoom e visualização
+                    worksheet.set_zoom(85)
+                    if sheet_name == "Dados Completos":
+                        worksheet.freeze_panes(1, 2)  # Congela primeira linha e duas colunas
+                    else:
+                        worksheet.freeze_panes(1, 0)  # Congela apenas primeira linha
+
+            except Exception as e:
+                logging.error(f"Erro ao aplicar formatação final: {str(e)}")
+
+            logging.info(f"Relatório Excel salvo com sucesso em: {filename}")
+ 
     def generate_pdf_report(self, filename: str):
         """Gera relatório em PDF."""
         import pdfkit  # Requer wkhtmltopdf instalado
@@ -1431,27 +1558,27 @@ class SSADashboard:
         try:
             # Remove valores nulos ou vazios
             week_counts = df.iloc[:, SSAColumns.SEMANA_PROGRAMADA].dropna()
-            
+
             # Converte para string e remove decimais
             week_counts = week_counts.astype(str).str.replace('.0', '')
-            
+
             # Remove valores vazios e faz a contagem
             week_counts = week_counts[week_counts != ''].value_counts().sort_index()
-            
+
             if not week_counts.empty:
                 # Remove valores inválidos (menores que 202400 ou maiores que 202453)
                 week_counts = week_counts[
                     (week_counts.index.astype(str) >= '202400') & 
                     (week_counts.index.astype(str) <= '202453')
                 ]
-                
+
                 fig = go.Figure(data=[go.Bar(
                     x=[str(x) for x in week_counts.index],  # Converte índices para string
                     y=week_counts.values,
                     text=week_counts.values,
                     textposition='auto',
                 )])
-                
+
                 fig.update_layout(
                     title="SSAs Programadas por Semana",
                     xaxis_title="Semana",
@@ -1477,9 +1604,9 @@ class SSADashboard:
                         'font': {'size': 14}
                     }]
                 )
-            
+
             return fig
-            
+
         except Exception as e:
             logging.error(f"Erro ao criar gráfico de semanas: {str(e)}")
             return go.Figure()
@@ -1501,27 +1628,27 @@ class SSADashboard:
         try:
             # Remove valores nulos ou vazios
             week_detail = df.iloc[:, SSAColumns.SEMANA_PROGRAMADA].dropna()
-            
+
             # Converte para string e remove decimais
             week_detail = week_detail.astype(str).str.replace('.0', '')
-            
+
             # Remove valores vazios e faz a contagem
             week_detail = week_detail[week_detail != ''].value_counts().sort_index()
-            
+
             if not week_detail.empty:
                 # Remove valores inválidos (menores que 202400 ou maiores que 202453)
                 week_detail = week_detail[
                     (week_detail.index.astype(str) >= '202400') & 
                     (week_detail.index.astype(str) <= '202453')
                 ]
-                
+
                 fig = go.Figure(data=[go.Bar(
                     x=[str(x) for x in week_detail.index],  # Converte índices para string
                     y=week_detail.values,
                     text=week_detail.values,
                     textposition='auto',
                 )])
-                
+
                 fig.update_layout(
                     title="SSAs Programadas por Semana (Detalhamento)",
                     xaxis_title="Semana",
@@ -1547,13 +1674,13 @@ class SSADashboard:
                         'font': {'size': 14}
                     }]
                 )
-            
+
             return fig
-            
+
         except Exception as e:
             logging.error(f"Erro ao criar gráfico de detalhamento por semana: {str(e)}")
             return go.Figure()
- 
+
     def _prepare_table_data(self, df=None):
         """Prepara dados para a tabela."""
         if df is None:
@@ -1574,47 +1701,80 @@ class SSADashboard:
         """Inicia o servidor do dashboard."""
         self.app.run_server(debug=debug, port=port)
 
+
     def _get_initial_stats(self):
         """Calcula estatísticas iniciais para o dashboard."""
         try:
+            # Estatísticas básicas
             total_ssas = len(self.df)
-            prioridades = self.df.iloc[
-                :, SSAColumns.GRAU_PRIORIDADE_EMISSAO
-            ].value_counts()
+
+            # Estatísticas de prioridade
+            prioridades = self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].value_counts()
             ssas_criticas = len(
                 self.df[
                     self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].str.upper()
                     == "S3.7"
                 ]
             )
+            taxa_criticidade = (ssas_criticas / total_ssas * 100) if total_ssas > 0 else 0
+
+            # Estatísticas de setor e estado
             setores = self.df.iloc[:, SSAColumns.SETOR_EXECUTOR].value_counts()
             estados = self.df.iloc[:, SSAColumns.SITUACAO].value_counts()
 
-            datas = pd.to_datetime(self.df.iloc[:, SSAColumns.EMITIDA_EM])
-            data_mais_antiga = datas.min()
-            data_mais_recente = datas.max()
+            # Tratamento seguro das datas
+            datas = self.df.iloc[:, SSAColumns.EMITIDA_EM]
+            valid_dates = datas[datas.notna()]
+
+            periodo = {}
+            if not valid_dates.empty:
+                try:
+                    data_mais_antiga = valid_dates.min()
+                    data_mais_recente = valid_dates.max()
+                    periodo = {
+                        "inicio": (
+                            data_mais_antiga.strftime("%d/%m/%Y")
+                            if pd.notna(data_mais_antiga)
+                            else "N/A"
+                        ),
+                        "fim": (
+                            data_mais_recente.strftime("%d/%m/%Y")
+                            if pd.notna(data_mais_recente)
+                            else "N/A"
+                        ),
+                    }
+                except Exception as e:
+                    logging.error(f"Erro ao processar datas para período: {str(e)}")
+                    periodo = {"inicio": "N/A", "fim": "N/A"}
+            else:
+                periodo = {"inicio": "N/A", "fim": "N/A"}
+
+            # Estatísticas de responsáveis
+            responsaveis = {
+                "programacao": self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO]
+                .replace([None, ""], np.nan)
+                .dropna()
+                .nunique(),
+                "execucao": self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO]
+                .replace([None, ""], np.nan)
+                .dropna()
+                .nunique(),
+            }
 
             return {
                 "total": total_ssas,
                 "criticas": ssas_criticas,
-                "taxa_criticidade": (
-                    (ssas_criticas / total_ssas * 100) if total_ssas > 0 else 0
-                ),
+                "taxa_criticidade": taxa_criticidade,
                 "por_prioridade": prioridades,
                 "por_setor": setores,
                 "por_estado": estados,
-                "periodo": {"inicio": data_mais_antiga, "fim": data_mais_recente},
-                "responsaveis": {
-                    "programacao": self.df.iloc[
-                        :, SSAColumns.RESPONSAVEL_PROGRAMACAO
-                    ].nunique(),
-                    "execucao": self.df.iloc[
-                        :, SSAColumns.RESPONSAVEL_EXECUCAO
-                    ].nunique(),
-                },
+                "periodo": periodo,
+                "responsaveis": responsaveis,
             }
+
         except Exception as e:
             logging.error(f"Erro ao calcular estatísticas iniciais: {str(e)}")
+            # Retorna estatísticas vazias em caso de erro
             return {
                 "total": 0,
                 "criticas": 0,
@@ -1622,7 +1782,7 @@ class SSADashboard:
                 "por_prioridade": pd.Series(),
                 "por_setor": pd.Series(),
                 "por_estado": pd.Series(),
-                "periodo": {"inicio": None, "fim": None},
+                "periodo": {"inicio": "N/A", "fim": "N/A"},
                 "responsaveis": {"programacao": 0, "execucao": 0},
             }
 

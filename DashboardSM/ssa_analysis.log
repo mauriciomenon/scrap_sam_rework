@@ -1225,3 +1225,302 @@ AttributeError: 'SSADashboard' object has no attribute '_get_initial_stats'
 2024-11-05 13:59:35,118 - root - WARNING - Coluna EMITIDA_EM não está em formato datetime
 2024-11-05 13:59:35,365 - __main__ - INFO - Relatório Excel gerado com sucesso.
 2024-11-05 13:59:35,366 - __main__ - INFO - Iniciando dashboard...
+2024-11-05 14:05:01,050 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 14:05:01,448 - root - INFO - Formato de data utilizado com sucesso: %d/%m/%Y %H:%M:%S
+2024-11-05 14:05:01,450 - root - INFO - Convertidas 173 de 174 datas com sucesso
+2024-11-05 14:05:01,450 - root - WARNING - Algumas datas (1) não puderam ser convertidas
+2024-11-05 14:05:01,451 - root - WARNING - Linhas com problemas de conversão de data:
+2024-11-05 14:05:01,451 - root - WARNING - Linha 163: Valor original = NaT
+2024-11-05 14:05:01,451 - root - INFO - Exemplos de datas convertidas:
+2024-11-05 14:05:01,452 - root - INFO - Linha 1: 2024-10-02 09:44:12
+2024-11-05 14:05:01,452 - root - INFO - Linha 2: 2024-09-23 08:29:01
+2024-11-05 14:05:01,452 - root - INFO - Linha 3: 2024-09-23 08:29:45
+2024-11-05 14:05:01,452 - root - INFO - Linha 4: 2024-09-19 16:07:00
+2024-11-05 14:05:01,453 - root - INFO - Linha 5: 2024-09-17 08:04:29
+2024-11-05 14:05:01,484 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 14:05:01,484 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 14:05:01,485 - root - INFO - Número: 202415726
+2024-11-05 14:05:01,485 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-05 14:05:01,485 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 14:05:01,486 - root - WARNING - Qualidade dos dados: 1 linhas com datas inválidas
+2024-11-05 14:05:01,486 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 14:05:01,487 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 14:05:01,487 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 14:05:01,487 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 14:05:01,490 - root - INFO - Análise temporal não incluída no relatório - Algumas datas inválidas
+2024-11-05 14:05:01,491 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-05 14:05:01,653 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-05 14:05:01,654 - __main__ - INFO - Iniciando dashboard...
+2024-11-05 14:05:01,682 - dash.dash - INFO - Dash is running on http://127.0.0.1:8050/
+
+2024-11-05 14:05:03,939 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 14:05:04,315 - root - INFO - Formato de data utilizado com sucesso: %d/%m/%Y %H:%M:%S
+2024-11-05 14:05:04,316 - root - INFO - Convertidas 173 de 174 datas com sucesso
+2024-11-05 14:05:04,316 - root - WARNING - Algumas datas (1) não puderam ser convertidas
+2024-11-05 14:05:04,317 - root - WARNING - Linhas com problemas de conversão de data:
+2024-11-05 14:05:04,318 - root - WARNING - Linha 163: Valor original = NaT
+2024-11-05 14:05:04,318 - root - INFO - Exemplos de datas convertidas:
+2024-11-05 14:05:04,318 - root - INFO - Linha 1: 2024-10-02 09:44:12
+2024-11-05 14:05:04,319 - root - INFO - Linha 2: 2024-09-23 08:29:01
+2024-11-05 14:05:04,319 - root - INFO - Linha 3: 2024-09-23 08:29:45
+2024-11-05 14:05:04,319 - root - INFO - Linha 4: 2024-09-19 16:07:00
+2024-11-05 14:05:04,319 - root - INFO - Linha 5: 2024-09-17 08:04:29
+2024-11-05 14:05:04,354 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 14:05:04,354 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 14:05:04,354 - root - INFO - Número: 202415726
+2024-11-05 14:05:04,355 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-05 14:05:04,355 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 14:05:04,355 - root - WARNING - Qualidade dos dados: 1 linhas com datas inválidas
+2024-11-05 14:05:04,356 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 14:05:04,356 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 14:05:04,357 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 14:05:04,357 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 14:05:04,361 - root - INFO - Análise temporal não incluída no relatório - Algumas datas inválidas
+2024-11-05 14:05:04,362 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-05 14:05:04,533 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-05 14:05:04,534 - __main__ - INFO - Iniciando dashboard...
+2024-11-05 14:11:35,386 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 14:11:35,989 - root - INFO - Formato de data utilizado com sucesso: %d/%m/%Y %H:%M:%S
+2024-11-05 14:11:35,990 - root - INFO - Convertidas 173 de 174 datas com sucesso
+2024-11-05 14:11:35,991 - root - WARNING - Algumas datas (1) não puderam ser convertidas
+2024-11-05 14:11:35,991 - root - WARNING - Linhas com problemas de conversão de data:
+2024-11-05 14:11:35,992 - root - WARNING - Linha 163: Valor original = NaT
+2024-11-05 14:11:35,992 - root - INFO - Exemplos de datas convertidas:
+2024-11-05 14:11:35,993 - root - INFO - Linha 1: 2024-10-02 09:44:12
+2024-11-05 14:11:35,993 - root - INFO - Linha 2: 2024-09-23 08:29:01
+2024-11-05 14:11:35,993 - root - INFO - Linha 3: 2024-09-23 08:29:45
+2024-11-05 14:11:35,994 - root - INFO - Linha 4: 2024-09-19 16:07:00
+2024-11-05 14:11:35,994 - root - INFO - Linha 5: 2024-09-17 08:04:29
+2024-11-05 14:11:36,041 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 14:11:36,042 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 14:11:36,042 - root - INFO - Número: 202415726
+2024-11-05 14:11:36,042 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-05 14:11:36,043 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 14:11:36,044 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-05 14:11:36,044 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 14:11:36,044 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 14:11:36,045 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 14:11:36,045 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 14:11:36,047 - root - INFO - Análise temporal não incluída no relatório - Algumas datas inválidas
+2024-11-05 14:11:36,048 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-05 14:11:36,274 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-05 14:11:36,275 - __main__ - INFO - Iniciando dashboard...
+2024-11-05 14:22:10,730 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 14:22:11,235 - root - INFO - Formato de data utilizado com sucesso: %d/%m/%Y %H:%M:%S
+2024-11-05 14:22:11,236 - root - WARNING - Uma data não pôde ser convertida: Linha 163: Valor original = nan
+2024-11-05 14:22:11,274 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 14:22:11,275 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 14:22:11,275 - root - INFO - Número: 202415726
+2024-11-05 14:22:11,276 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-05 14:22:11,276 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 14:22:11,277 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-05 14:22:11,278 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 14:22:11,278 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 14:22:11,279 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 14:22:11,279 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 14:22:11,282 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-05 14:22:11,429 - root - ERROR - Erro ao gerar metadados: '<=' not supported between instances of 'Timestamp' and 'float'
+2024-11-05 14:22:11,430 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-05 14:22:11,722 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-05 14:22:11,723 - __main__ - INFO - Iniciando dashboard...
+2024-11-05 14:22:11,764 - dash.dash - INFO - Dash is running on http://127.0.0.1:8050/
+
+2024-11-05 14:22:14,356 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 14:22:14,702 - root - INFO - Formato de data utilizado com sucesso: %d/%m/%Y %H:%M:%S
+2024-11-05 14:22:14,703 - root - WARNING - Uma data não pôde ser convertida: Linha 163: Valor original = nan
+2024-11-05 14:22:14,735 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 14:22:14,736 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 14:22:14,736 - root - INFO - Número: 202415726
+2024-11-05 14:22:14,737 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-05 14:22:14,737 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 14:22:14,738 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-05 14:22:14,739 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 14:22:14,739 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 14:22:14,739 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 14:22:14,740 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 14:22:14,742 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-05 14:22:14,859 - root - ERROR - Erro ao gerar metadados: '<=' not supported between instances of 'Timestamp' and 'float'
+2024-11-05 14:22:14,861 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-05 14:22:15,048 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-05 14:22:15,048 - __main__ - INFO - Iniciando dashboard...
+2024-11-05 15:04:40,569 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 15:04:41,359 - root - INFO - Formato de data utilizado com sucesso: %d/%m/%Y %H:%M:%S
+2024-11-05 15:04:41,361 - root - WARNING - Uma data não pôde ser convertida: Linha 163: Valor original = nan
+2024-11-05 15:04:41,397 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 15:04:41,398 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 15:04:41,398 - root - INFO - Número: 202415726
+2024-11-05 15:04:41,398 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-05 15:04:41,399 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 15:04:41,400 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-05 15:04:41,400 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 15:04:41,401 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 15:04:41,401 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 15:04:41,402 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 15:04:41,402 - __main__ - ERROR - Erro durante a execução: 'SSAReporter' object has no attribute 'save_excel_report'
+2024-11-05 15:04:41,406 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Report_from_excel.py", line 1671, in <module>
+    # Remove valores inválidos (menores que 202400 ou maiores que 202453)
+AttributeError: 'SSAReporter' object has no attribute 'save_excel_report'
+
+2024-11-05 15:06:00,912 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 15:06:01,277 - root - WARNING - Uma data não pôde ser convertida: Linha 163: Valor original = 
+2024-11-05 15:06:01,309 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 15:06:01,310 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 15:06:01,310 - root - INFO - Número: 202415726
+2024-11-05 15:06:01,310 - root - INFO - Data de emissão: 02/10/2024 09:44:12
+2024-11-05 15:06:01,311 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 15:06:01,312 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-05 15:06:01,312 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 15:06:01,312 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 15:06:01,313 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 15:06:01,313 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 15:06:01,315 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-05 15:06:01,429 - root - ERROR - Erro ao gerar metadados: 'str' object has no attribute 'strftime'
+2024-11-05 15:06:01,433 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-05 15:06:01,626 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-05 15:06:01,626 - __main__ - INFO - Iniciando dashboard...
+2024-11-05 15:06:01,657 - root - ERROR - Erro ao calcular estatísticas iniciais: time data "23/09/2024 08:29:01" doesn't match format "%m/%d/%Y %H:%M:%S", at position 1. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2024-11-05 15:06:01,671 - dash.dash - INFO - Dash is running on http://127.0.0.1:8050/
+
+2024-11-05 15:06:03,991 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 15:06:04,364 - root - WARNING - Uma data não pôde ser convertida: Linha 163: Valor original = 
+2024-11-05 15:06:04,398 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 15:06:04,398 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 15:06:04,398 - root - INFO - Número: 202415726
+2024-11-05 15:06:04,399 - root - INFO - Data de emissão: 02/10/2024 09:44:12
+2024-11-05 15:06:04,399 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 15:06:04,400 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-05 15:06:04,400 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 15:06:04,400 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 15:06:04,401 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 15:06:04,401 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 15:06:04,403 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-05 15:06:04,513 - root - ERROR - Erro ao gerar metadados: 'str' object has no attribute 'strftime'
+2024-11-05 15:06:04,516 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-05 15:06:04,709 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-05 15:06:04,710 - __main__ - INFO - Iniciando dashboard...
+2024-11-05 15:06:04,726 - root - ERROR - Erro ao calcular estatísticas iniciais: time data "23/09/2024 08:29:01" doesn't match format "%m/%d/%Y %H:%M:%S", at position 1. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2024-11-05 15:08:34,405 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 15:08:34,836 - root - WARNING - Uma data não pôde ser convertida: Linha 163: Valor original = 
+2024-11-05 15:08:34,870 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 15:08:34,871 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 15:08:34,871 - root - INFO - Número: 202415726
+2024-11-05 15:08:34,872 - root - INFO - Data de emissão: 02/10/2024 09:44:12
+2024-11-05 15:08:34,872 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 15:08:34,873 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-05 15:08:34,874 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 15:08:34,874 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 15:08:34,874 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 15:08:34,874 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 15:08:34,878 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-05 15:08:34,993 - root - ERROR - Erro ao gerar metadados: 'str' object has no attribute 'strftime'
+2024-11-05 15:08:34,997 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-05 15:08:35,218 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-05 15:08:35,218 - __main__ - INFO - Iniciando dashboard...
+2024-11-05 15:08:35,235 - root - ERROR - Erro ao calcular estatísticas iniciais: time data "23/09/2024 08:29:01" doesn't match format "%m/%d/%Y %H:%M:%S", at position 1. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2024-11-05 15:29:17,080 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 15:29:17,842 - root - WARNING - Uma data não pôde ser convertida: Linha 163: Valor original = 
+2024-11-05 15:29:17,878 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 15:29:17,878 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 15:29:17,879 - root - INFO - Número: 202415726
+2024-11-05 15:29:17,879 - root - INFO - Data de emissão: 02/10/2024 09:44:12
+2024-11-05 15:29:17,879 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 15:29:17,880 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-05 15:29:17,881 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 15:29:17,881 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 15:29:17,881 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 15:29:17,882 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 15:29:17,884 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-05 15:29:18,013 - root - ERROR - Erro ao gerar metadados: 'str' object has no attribute 'strftime'
+2024-11-05 15:29:18,017 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-05 15:29:18,250 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-05 15:29:18,251 - __main__ - INFO - Iniciando dashboard...
+2024-11-05 15:29:18,285 - root - ERROR - Erro ao calcular estatísticas iniciais: time data "23/09/2024 08:29:01" doesn't match format "%m/%d/%Y %H:%M:%S", at position 1. You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2024-11-05 15:29:23,924 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 15:29:23,924 - __main__ - ERROR - Erro durante a execução: 'DataLoader' object has no attribute 'load_data'
+2024-11-05 15:29:23,926 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Report_from_excel.py", line 1615, in <module>
+    df = loader.load_data()
+         ^^^^^^^^^^^^^^^^
+AttributeError: 'DataLoader' object has no attribute 'load_data'
+
+2024-11-05 15:30:44,761 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 15:30:45,200 - root - WARNING - Uma data não pôde ser convertida: Linha 163: Valor original = 
+2024-11-05 15:30:45,236 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 15:30:45,237 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 15:30:45,237 - root - INFO - Número: 202415726
+2024-11-05 15:30:45,238 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-05 15:30:45,238 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 15:30:45,239 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-05 15:30:45,239 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 15:30:45,240 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 15:30:45,240 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 15:30:45,240 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 15:30:45,243 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-05 15:30:45,371 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-05 15:30:45,620 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-05 15:30:45,621 - __main__ - INFO - Iniciando dashboard...
+2024-11-05 15:30:45,654 - dash.dash - INFO - Dash is running on http://127.0.0.1:8050/
+
+2024-11-05 15:30:47,919 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 15:30:48,311 - root - WARNING - Uma data não pôde ser convertida: Linha 163: Valor original = 
+2024-11-05 15:30:48,345 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 15:30:48,345 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 15:30:48,345 - root - INFO - Número: 202415726
+2024-11-05 15:30:48,346 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-05 15:30:48,346 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 15:30:48,348 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-05 15:30:48,348 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 15:30:48,349 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 15:30:48,349 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 15:30:48,350 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 15:30:48,353 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-05 15:30:48,475 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-05 15:30:48,686 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-05 15:30:48,687 - __main__ - INFO - Iniciando dashboard...
+2024-11-05 15:43:47,719 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 15:43:48,497 - root - WARNING - Uma data não pôde ser convertida: Linha 163: Valor original = 
+2024-11-05 15:43:48,540 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 15:43:48,541 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 15:43:48,541 - root - INFO - Número: 202415726
+2024-11-05 15:43:48,541 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-05 15:43:48,542 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 15:43:48,543 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-05 15:43:48,543 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 15:43:48,544 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 15:43:48,544 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 15:43:48,544 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 15:43:48,547 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-05 15:43:48,672 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-05 15:43:48,875 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-05 15:43:48,875 - __main__ - INFO - Iniciando dashboard...
+2024-11-05 15:43:48,917 - dash.dash - INFO - Dash is running on http://127.0.0.1:8050/
+
+2024-11-05 15:43:51,165 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 15:43:51,600 - root - WARNING - Uma data não pôde ser convertida: Linha 163: Valor original = 
+2024-11-05 15:43:51,634 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 15:43:51,634 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 15:43:51,635 - root - INFO - Número: 202415726
+2024-11-05 15:43:51,635 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-05 15:43:51,635 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 15:43:51,636 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-05 15:43:51,637 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 15:43:51,637 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 15:43:51,638 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 15:43:51,638 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 15:43:51,641 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-05 15:43:51,758 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-05 15:43:51,986 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-05 15:43:51,986 - __main__ - INFO - Iniciando dashboard...
