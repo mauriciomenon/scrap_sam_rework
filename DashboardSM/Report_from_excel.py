@@ -1421,22 +1421,61 @@ class SSADashboard:
 
     def _create_week_chart(self, df):
         """Cria o gráfico de SSAs programadas por semana."""
-        week_counts = (
-            df.iloc[:, SSAColumns.SEMANA_PROGRAMADA].value_counts().sort_index()
-        )
-        # Converte índices para inteiro apenas se não forem nulos
-        valid_indices = [idx for idx in week_counts.index if pd.notna(idx)]
-        week_counts = week_counts[valid_indices]
-
-        fig = go.Figure(data=[go.Bar(x=week_counts.index, y=week_counts.values)])
-        fig.update_layout(
-            title="SSAs Programadas por Semana",
-            xaxis_title="Semana",
-            yaxis_title="Quantidade",
-            template="plotly_white",
-            xaxis=dict(tickmode="linear", dtick=1),
-        )
-        return fig
+        try:
+            # Remove valores nulos ou vazios
+            week_counts = df.iloc[:, SSAColumns.SEMANA_PROGRAMADA].dropna()
+            
+            # Converte para string e remove decimais
+            week_counts = week_counts.astype(str).str.replace('.0', '')
+            
+            # Remove valores vazios e faz a contagem
+            week_counts = week_counts[week_counts != ''].value_counts().sort_index()
+            
+            if not week_counts.empty:
+                # Remove valores inválidos (menores que 202400 ou maiores que 202453)
+                week_counts = week_counts[
+                    (week_counts.index.astype(str) >= '202400') & 
+                    (week_counts.index.astype(str) <= '202453')
+                ]
+                
+                fig = go.Figure(data=[go.Bar(
+                    x=[str(x) for x in week_counts.index],  # Converte índices para string
+                    y=week_counts.values,
+                    text=week_counts.values,
+                    textposition='auto',
+                )])
+                
+                fig.update_layout(
+                    title="SSAs Programadas por Semana",
+                    xaxis_title="Semana",
+                    yaxis_title="Quantidade",
+                    template="plotly_white",
+                    xaxis=dict(
+                        type='category',  # Força o eixo x como categoria
+                        tickangle=-45,  # Rotaciona os labels para melhor legibilidade
+                    )
+                )
+            else:
+                fig = go.Figure()
+                fig.update_layout(
+                    title="SSAs Programadas por Semana",
+                    xaxis_title="Semana",
+                    yaxis_title="Quantidade",
+                    template="plotly_white",
+                    annotations=[{
+                        'text': 'Não há SSAs programadas',
+                        'xref': 'paper',
+                        'yref': 'paper',
+                        'showarrow': False,
+                        'font': {'size': 14}
+                    }]
+                )
+            
+            return fig
+            
+        except Exception as e:
+            logging.error(f"Erro ao criar gráfico de semanas: {str(e)}")
+            return go.Figure()
 
     def _create_detail_state_chart(self, df):
         """Cria o gráfico de detalhamento por estado."""
@@ -1452,22 +1491,62 @@ class SSADashboard:
 
     def _create_detail_week_chart(self, df):
         """Cria o gráfico de detalhamento por semana."""
-        week_detail = (
-            df.iloc[:, SSAColumns.SEMANA_PROGRAMADA].value_counts().sort_index()
-        )
-        # Remove valores nulos/vazios
-        week_detail = week_detail[week_detail.index.notna()]
-
-        fig = go.Figure(data=[go.Bar(x=week_detail.index, y=week_detail.values)])
-        fig.update_layout(
-            title="SSAs Programadas por Semana (Detalhamento)",
-            xaxis_title="Semana",
-            yaxis_title="Quantidade",
-            template="plotly_white",
-            xaxis=dict(tickmode="linear", dtick=1),
-        )
-        return fig
-
+        try:
+            # Remove valores nulos ou vazios
+            week_detail = df.iloc[:, SSAColumns.SEMANA_PROGRAMADA].dropna()
+            
+            # Converte para string e remove decimais
+            week_detail = week_detail.astype(str).str.replace('.0', '')
+            
+            # Remove valores vazios e faz a contagem
+            week_detail = week_detail[week_detail != ''].value_counts().sort_index()
+            
+            if not week_detail.empty:
+                # Remove valores inválidos (menores que 202400 ou maiores que 202453)
+                week_detail = week_detail[
+                    (week_detail.index.astype(str) >= '202400') & 
+                    (week_detail.index.astype(str) <= '202453')
+                ]
+                
+                fig = go.Figure(data=[go.Bar(
+                    x=[str(x) for x in week_detail.index],  # Converte índices para string
+                    y=week_detail.values,
+                    text=week_detail.values,
+                    textposition='auto',
+                )])
+                
+                fig.update_layout(
+                    title="SSAs Programadas por Semana (Detalhamento)",
+                    xaxis_title="Semana",
+                    yaxis_title="Quantidade",
+                    template="plotly_white",
+                    xaxis=dict(
+                        type='category',  # Força o eixo x como categoria
+                        tickangle=-45,  # Rotaciona os labels para melhor legibilidade
+                    )
+                )
+            else:
+                fig = go.Figure()
+                fig.update_layout(
+                    title="SSAs Programadas por Semana (Detalhamento)",
+                    xaxis_title="Semana",
+                    yaxis_title="Quantidade",
+                    template="plotly_white",
+                    annotations=[{
+                        'text': 'Não há SSAs programadas',
+                        'xref': 'paper',
+                        'yref': 'paper',
+                        'showarrow': False,
+                        'font': {'size': 14}
+                    }]
+                )
+            
+            return fig
+            
+        except Exception as e:
+            logging.error(f"Erro ao criar gráfico de detalhamento por semana: {str(e)}")
+            return go.Figure()
+ 
     def _prepare_table_data(self, df=None):
         """Prepara dados para a tabela."""
         if df is None:
