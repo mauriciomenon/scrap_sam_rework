@@ -61,7 +61,6 @@ class SSAData:
             ),
         }
 
-
 class DataLoader:
     """Carrega e prepara os dados das SSAs."""
 
@@ -79,30 +78,76 @@ class DataLoader:
                 header=2,  # Cabeçalho na terceira linha
             )
 
-            # Converte a coluna de data usando o formato brasileiro específico
+            # Converte a coluna de data usando vários formatos possíveis
             try:
-                self.df.iloc[:, SSAColumns.EMITIDA_EM] = pd.to_datetime(
-                    self.df.iloc[:, SSAColumns.EMITIDA_EM],
-                    format="%d/%m/%Y %H:%M:%S",
-                    errors="coerce",
-                )
+                # Primeiro, limpa possíveis espaços em branco
+                self.df.iloc[:, SSAColumns.EMITIDA_EM] = self.df.iloc[:, SSAColumns.EMITIDA_EM].astype(str).str.strip()
+                
+                # Lista de formatos de data a tentar
+                date_formats = [
+                    "%d/%m/%Y %H:%M:%S",
+                    "%d/%m/%Y %H:%M",
+                    "%Y-%m-%d %H:%M:%S",
+                    "%d-%m-%Y %H:%M:%S",
+                    "%d-%m-%Y %H:%M",
+                    "%Y/%m/%d %H:%M:%S",
+                ]
+
+                # Tenta converter usando cada formato
+                for date_format in date_formats:
+                    try:
+                        self.df.iloc[:, SSAColumns.EMITIDA_EM] = pd.to_datetime(
+                            self.df.iloc[:, SSAColumns.EMITIDA_EM],
+                            format=date_format,
+                            errors='coerce'
+                        )
+                        if not self.df.iloc[:, SSAColumns.EMITIDA_EM].isna().all():
+                            logging.info(f"Formato de data utilizado com sucesso: {date_format}")
+                            break
+                    except Exception as e:
+                        continue
+
+                # Se ainda houver NaT, tenta converter sem formato específico
+                mask_nat = self.df.iloc[:, SSAColumns.EMITIDA_EM].isna()
+                if mask_nat.any():
+                    try:
+                        temp_dates = pd.to_datetime(
+                            self.df.iloc[mask_nat.values, SSAColumns.EMITIDA_EM],
+                            errors='coerce'
+                        )
+                        self.df.iloc[mask_nat.values, SSAColumns.EMITIDA_EM] = temp_dates
+                    except Exception as e:
+                        logging.error(f"Erro na conversão flexível de datas: {str(e)}")
 
                 # Log do resultado da conversão
                 valid_dates = self.df.iloc[:, SSAColumns.EMITIDA_EM].notna().sum()
                 total_dates = len(self.df)
-                logging.info(
-                    f"Convertidas {valid_dates} de {total_dates} datas com sucesso"
-                )
+                logging.info(f"Convertidas {valid_dates} de {total_dates} datas com sucesso")
 
                 if valid_dates == 0:
                     logging.error("Nenhuma data foi convertida com sucesso")
+                    # Tenta mostrar alguns exemplos dos dados originais
+                    sample_dates = self.df.iloc[:5, SSAColumns.EMITIDA_EM]
+                    logging.error(f"Exemplos de dados de data não convertidos: {sample_dates.tolist()}")
                 elif valid_dates < total_dates:
-                    logging.warning(
-                        f"Algumas datas ({total_dates - valid_dates}) não puderam ser convertidas"
-                    )
+                    logging.warning(f"Algumas datas ({total_dates - valid_dates}) não puderam ser convertidas")
+                    # Log das linhas com problemas para diagnóstico
+                    problematic_rows = self.df[self.df.iloc[:, SSAColumns.EMITIDA_EM].isna()]
+                    logging.warning("Linhas com problemas de conversão de data:")
+                    for idx, row in problematic_rows.iterrows():
+                        logging.warning(f"Linha {idx + 1}: Valor original = {row.iloc[SSAColumns.EMITIDA_EM]}")
+
+                # Log exemplo das primeiras datas convertidas para verificação
+                if not self.df.empty:
+                    sample_dates = self.df.iloc[:5, SSAColumns.EMITIDA_EM]
+                    logging.info("Exemplos de datas convertidas:")
+                    for idx, date in enumerate(sample_dates):
+                        logging.info(f"Linha {idx + 1}: {date}")
 
             except Exception as e:
                 logging.error(f"Erro ao processar datas: {str(e)}")
+                logging.error(f"Traceback completo: {traceback.format_exc()}")
+                # Em caso de erro crítico na conversão de datas, configura como NaT
                 self.df.iloc[:, SSAColumns.EMITIDA_EM] = pd.NaT
 
             # Converte colunas string
@@ -126,9 +171,17 @@ class DataLoader:
             ]
 
             for col in string_columns:
-                self.df.iloc[:, col] = (
-                    self.df.iloc[:, col].astype(str).replace("nan", "")
-                )
+                try:
+                    self.df.iloc[:, col] = self.df.iloc[:, col].astype(str).str.strip().replace("nan", "")
+                except Exception as e:
+                    logging.error(f"Erro ao converter coluna {col}: {str(e)}")
+
+            # Padroniza prioridades para maiúsculas
+            self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] = (
+                self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
+                .str.upper()
+                .str.strip()
+            )
 
             # Converte colunas opcionais
             optional_string_columns = [
@@ -140,35 +193,63 @@ class DataLoader:
             ]
 
             for col in optional_string_columns:
-                self.df.iloc[:, col] = (
-                    self.df.iloc[:, col].astype(str).replace("nan", None)
-                )
-
-            # Padroniza prioridades para maiúsculas
-            self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] = (
-                self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
-                .str.upper()
-                .str.strip()
-            )
+                try:
+                    self.df.iloc[:, col] = (
+                        self.df.iloc[:, col]
+                        .astype(str)
+                        .replace("nan", None)
+                        .replace("", None)
+                    )
+                except Exception as e:
+                    logging.error(f"Erro ao converter coluna opcional {col}: {str(e)}")
 
             # Remove linhas com número da SSA vazio
             self.df = self.df[self.df.iloc[:, SSAColumns.NUMERO_SSA].str.strip() != ""]
 
+            # Converte semana cadastro para string preenchendo com zeros à esquerda
+            try:
+                self.df.iloc[:, SSAColumns.SEMANA_CADASTRO] = (
+                    self.df.iloc[:, SSAColumns.SEMANA_CADASTRO]
+                    .astype(str)
+                    .str.zfill(6)  # Garante 6 dígitos (AAAAMM)
+                )
+            except Exception as e:
+                logging.error(f"Erro ao formatar semana cadastro: {str(e)}")
+
             # Converte para objetos SSAData
             self._convert_to_objects()
 
-            # Log exemplo das primeiras datas convertidas para verificação
-            if not self.df.empty:
-                sample_dates = self.df.iloc[:5, SSAColumns.EMITIDA_EM]
-                logging.info("Exemplos de datas convertidas:")
-                for idx, date in enumerate(sample_dates):
-                    logging.info(f"Linha {idx + 1}: {date}")
+            # Verifica a qualidade dos dados após todas as conversões
+            self._validate_data_quality()
 
             return self.df
 
         except Exception as e:
             logging.error(f"Erro ao carregar dados: {str(e)}")
             raise
+    
+    def _validate_data_quality(self):
+        """Valida a qualidade dos dados após as conversões."""
+        total_rows = len(self.df)
+        
+        # Verifica datas válidas
+        valid_dates = self.df.iloc[:, SSAColumns.EMITIDA_EM].notna().sum()
+        if valid_dates < total_rows:
+            logging.warning(
+                f"Qualidade dos dados: {total_rows - valid_dates} linhas com datas inválidas"
+            )
+
+        # Verifica campos obrigatórios vazios
+        for col in [
+            SSAColumns.NUMERO_SSA,
+            SSAColumns.SITUACAO,
+            SSAColumns.GRAU_PRIORIDADE_EMISSAO,
+        ]:
+            empty_count = self.df.iloc[:, col].isna().sum()
+            if empty_count > 0:
+                logging.warning(
+                    f"Qualidade dos dados: {empty_count} linhas com {SSAColumns.get_name(col)} vazio"
+                )
 
     def _convert_to_objects(self):
         """Converte as linhas do DataFrame em objetos SSAData."""
@@ -627,6 +708,85 @@ class SSAVisualizer:
         return fig
 
 
+    def create_week_chart(self) -> go.Figure:
+        """Cria gráfico de SSAs programadas por semana."""
+        week_counts = (
+            self.df.iloc[:, SSAColumns.SEMANA_PROGRAMADA].value_counts().sort_index()
+        )
+
+        fig = go.Figure(
+            data=[
+                go.Bar(
+                    x=week_counts.index.astype(int),  # Converte para inteiro
+                    y=week_counts.values,
+                )
+            ]
+        )
+
+        fig.update_layout(
+            title="SSAs Programadas por Semana",
+            xaxis_title="Semana",
+            yaxis_title="Quantidade",
+            xaxis=dict(
+                tickmode="linear", tick0=0, dtick=1  # Força exibição de todos os ticks
+            ),
+        )
+
+        return fig
+
+    def calculate_weeks_in_state(self, df: pd.DataFrame) -> pd.Series:
+        """
+        Calcula quantas semanas cada SSA está no estado atual.
+        Retorna uma Series com o número de semanas para cada SSA.
+        """
+        current_week = int(
+            datetime.now().strftime("%Y%V")
+        )  # Semana atual no formato YYYYWW
+
+        # Converte semana cadastro para numérico, removendo NaN
+        weeks = pd.to_numeric(df.iloc[:, SSAColumns.SEMANA_CADASTRO], errors="coerce")
+
+        # Calcula diferença de semanas
+        weeks_in_state = current_week - weeks
+
+        # Ajusta para considerar virada de ano
+        year_diff = (current_week // 100) - (weeks // 100)
+        weeks_in_state = weeks_in_state.apply(
+            lambda x: x if x >= 0 else x + (52 * year_diff)
+        )
+
+        return weeks_in_state
+
+    def add_weeks_in_state_chart(self) -> go.Figure:
+        """
+        Cria um gráfico mostrando a distribuição de SSAs por tempo no estado atual.
+        """
+        weeks_in_state = self.calculate_weeks_in_state(self.df)
+
+        # Agrupa por número de semanas
+        distribution = weeks_in_state.value_counts().sort_index()
+
+        fig = go.Figure(
+            data=[
+                go.Bar(
+                    x=distribution.index,
+                    y=distribution.values,
+                    text=distribution.values,
+                    textposition="auto",
+                )
+            ]
+        )
+
+        fig.update_layout(
+            title="Distribuição de SSAs por Tempo no Estado Atual",
+            xaxis_title="Semanas no Estado",
+            yaxis_title="Quantidade de SSAs",
+            bargap=0.2,
+        )
+
+        return fig
+
+
 class SSAReporter:
     """Gera relatórios detalhados das SSAs."""
 
@@ -883,7 +1043,7 @@ class SSADashboard:
     def __init__(self, df: pd.DataFrame):
         self.df = df
         self.app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-        self.visualizer = SSAVisualizer(df)
+        self.visualizer = SSAVisualizer(df)  # Cria o visualizador
         self.kpi_calc = KPICalculator(df)
         self.setup_layout()
         self.setup_callbacks()
@@ -912,7 +1072,7 @@ class SSADashboard:
 
         self.app.layout = dbc.Container(
             [
-                # Header
+                # Header (mantido como estava)
                 dbc.Row(
                     [
                         dbc.Col(
@@ -921,7 +1081,7 @@ class SSADashboard:
                         )
                     ]
                 ),
-                # Filtros
+                # Filtros (mantido como estava)
                 dbc.Row(
                     [
                         dbc.Col(
@@ -957,7 +1117,7 @@ class SSADashboard:
                     ],
                     className="mb-4",
                 ),
-                # Cards de Estado
+                # Cards de Estado (mantido como estava)
                 dbc.Row(
                     [
                         dbc.Col(
@@ -970,7 +1130,26 @@ class SSADashboard:
                     ],
                     className="mb-4",
                 ),
-                # Gráficos
+                # Novo gráfico de tempo no estado
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                dbc.Card(
+                                    [
+                                        dbc.CardHeader("Tempo no Estado Atual"),
+                                        dbc.CardBody(
+                                            dcc.Graph(id="weeks-in-state-chart")
+                                        ),
+                                    ]
+                                )
+                            ],
+                            width=12,
+                        )
+                    ],
+                    className="mb-4",
+                ),
+                # Resto dos gráficos (mantido como estava)
                 dbc.Row(
                     [
                         dbc.Col(
@@ -981,7 +1160,7 @@ class SSADashboard:
                                             "SSAs por Responsável na Programação"
                                         ),
                                         dbc.CardBody(dcc.Graph(id="resp-prog-chart")),
-                                    ],
+                                    ]
                                 )
                             ],
                             width=6,
@@ -994,7 +1173,7 @@ class SSADashboard:
                                             "SSAs por Responsável na Execução"
                                         ),
                                         dbc.CardBody(dcc.Graph(id="resp-exec-chart")),
-                                    ],
+                                    ]
                                 )
                             ],
                             width=6,
@@ -1002,7 +1181,7 @@ class SSADashboard:
                     ],
                     className="mb-4",
                 ),
-                # Gráfico de SSAs programadas por semana
+                # Restante do layout mantido como estava...
                 dbc.Row(
                     [
                         dbc.Col(
@@ -1011,7 +1190,7 @@ class SSADashboard:
                                     [
                                         dbc.CardHeader("SSAs Programadas por Semana"),
                                         dbc.CardBody(dcc.Graph(id="week-chart")),
-                                    ],
+                                    ]
                                 )
                             ],
                             width=12,
@@ -1019,7 +1198,7 @@ class SSADashboard:
                     ],
                     className="mb-4",
                 ),
-                # Seção de detalhamento (visível apenas quando um responsável é selecionado)
+                # Seção de detalhamento
                 html.Div(
                     [
                         html.H4("Detalhamento por Responsável", className="mb-3"),
@@ -1035,7 +1214,7 @@ class SSADashboard:
                                                 dbc.CardBody(
                                                     dcc.Graph(id="detail-state-chart")
                                                 ),
-                                            ],
+                                            ]
                                         )
                                     ],
                                     width=6,
@@ -1050,7 +1229,7 @@ class SSADashboard:
                                                 dbc.CardBody(
                                                     dcc.Graph(id="detail-week-chart")
                                                 ),
-                                            ],
+                                            ]
                                         )
                                     ],
                                     width=6,
@@ -1103,7 +1282,7 @@ class SSADashboard:
                                                 },
                                             )
                                         ),
-                                    ],
+                                    ]
                                 )
                             ],
                             width=12,
@@ -1133,7 +1312,7 @@ class SSADashboard:
                             )
                         ],
                         className="mb-3",
-                        style={"height": "100px"},  # Altura fixa para uniformidade
+                        style={"height": "100px"},
                     ),
                     width=2,
                 )
@@ -1166,6 +1345,7 @@ class SSADashboard:
                 Output("detail-state-chart", "figure"),
                 Output("detail-week-chart", "figure"),
                 Output("ssa-table", "data"),
+                Output("weeks-in-state-chart", "figure"),
             ],
             [Input("resp-prog-filter", "value"), Input("resp-exec-filter", "value")],
         )
@@ -1181,87 +1361,24 @@ class SSADashboard:
                     df_filtered.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == resp_exec
                 ]
 
-            # Gráfico de responsáveis na programação
-            resp_prog_counts = df_filtered.iloc[
-                :, SSAColumns.RESPONSAVEL_PROGRAMACAO
-            ].value_counts()
-            fig_prog = go.Figure(
-                data=[go.Bar(x=resp_prog_counts.index, y=resp_prog_counts.values)]
-            )
-            fig_prog.update_layout(
-                title="SSAs por Responsável na Programação",
-                xaxis_title="Responsável",
-                yaxis_title="Quantidade",
-            )
+            # Criação dos gráficos existentes...
+            fig_prog = self._create_resp_prog_chart(df_filtered)
+            fig_exec = self._create_resp_exec_chart(df_filtered)
+            fig_week = self._create_week_chart(df_filtered)
 
-            # Gráfico de responsáveis na execução
-            resp_exec_counts = df_filtered.iloc[
-                :, SSAColumns.RESPONSAVEL_EXECUCAO
-            ].value_counts()
-            fig_exec = go.Figure(
-                data=[go.Bar(x=resp_exec_counts.index, y=resp_exec_counts.values)]
-            )
-            fig_exec.update_layout(
-                title="SSAs por Responsável na Execução",
-                xaxis_title="Responsável",
-                yaxis_title="Quantidade",
-            )
-
-            # Gráfico de SSAs programadas por semana
-            week_counts = (
-                df_filtered.iloc[:, SSAColumns.SEMANA_PROGRAMADA]
-                .value_counts()
-                .sort_index()
-            )
-            fig_week = go.Figure(
-                data=[go.Bar(x=week_counts.index, y=week_counts.values)]
-            )
-            fig_week.update_layout(
-                title="SSAs Programadas por Semana",
-                xaxis_title="Semana",
-                yaxis_title="Quantidade",
-            )
-
-            # Detalhamento (visível apenas se houver filtro)
+            # Detalhamento
             detail_style = (
                 {"display": "block"} if resp_prog or resp_exec else {"display": "none"}
             )
+            fig_detail_state = self._create_detail_state_chart(df_filtered)
+            fig_detail_week = self._create_detail_week_chart(df_filtered)
 
-            # Gráficos de detalhamento
-            state_counts = df_filtered.iloc[:, SSAColumns.SITUACAO].value_counts()
-            fig_detail_state = go.Figure(
-                data=[go.Bar(x=state_counts.index, y=state_counts.values)]
-            )
-            fig_detail_state.update_layout(
-                title="SSAs Pendentes por Estado",
-                xaxis_title="Estado",
-                yaxis_title="Quantidade",
-            )
-
-            week_detail = (
-                df_filtered.iloc[:, SSAColumns.SEMANA_PROGRAMADA]
-                .value_counts()
-                .sort_index()
-            )
-            fig_detail_week = go.Figure(
-                data=[go.Bar(x=week_detail.index, y=week_detail.values)]
-            )
-            fig_detail_week.update_layout(
-                title="SSAs Programadas por Semana (Detalhamento)",
-                xaxis_title="Semana",
-                yaxis_title="Quantidade",
-            )
+            # Novo gráfico de tempo no estado usando o visualizador filtrado
+            filtered_visualizer = SSAVisualizer(df_filtered)
+            weeks_in_state_fig = filtered_visualizer.add_weeks_in_state_chart()
 
             # Dados da tabela filtrados
-            table_data = self._prepare_table_data()
-            if resp_prog:
-                table_data = [
-                    row for row in table_data if row["resp_prog"] == resp_prog
-                ]
-            if resp_exec:
-                table_data = [
-                    row for row in table_data if row["resp_exec"] == resp_exec
-                ]
+            table_data = self._prepare_table_data(df_filtered)
 
             return (
                 fig_prog,
@@ -1271,7 +1388,101 @@ class SSADashboard:
                 fig_detail_state,
                 fig_detail_week,
                 table_data,
+                weeks_in_state_fig,
             )
+
+    def _create_resp_prog_chart(self, df):
+        """Cria o gráfico de responsáveis na programação."""
+        resp_prog_counts = df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO].value_counts()
+        fig = go.Figure(
+            data=[go.Bar(x=resp_prog_counts.index, y=resp_prog_counts.values)]
+        )
+        fig.update_layout(
+            title="SSAs por Responsável na Programação",
+            xaxis_title="Responsável",
+            yaxis_title="Quantidade",
+            template="plotly_white",
+        )
+        return fig
+
+    def _create_resp_exec_chart(self, df):
+        """Cria o gráfico de responsáveis na execução."""
+        resp_exec_counts = df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO].value_counts()
+        fig = go.Figure(
+            data=[go.Bar(x=resp_exec_counts.index, y=resp_exec_counts.values)]
+        )
+        fig.update_layout(
+            title="SSAs por Responsável na Execução",
+            xaxis_title="Responsável",
+            yaxis_title="Quantidade",
+            template="plotly_white",
+        )
+        return fig
+
+    def _create_week_chart(self, df):
+        """Cria o gráfico de SSAs programadas por semana."""
+        week_counts = (
+            df.iloc[:, SSAColumns.SEMANA_PROGRAMADA].value_counts().sort_index()
+        )
+        # Converte índices para inteiro apenas se não forem nulos
+        valid_indices = [idx for idx in week_counts.index if pd.notna(idx)]
+        week_counts = week_counts[valid_indices]
+
+        fig = go.Figure(data=[go.Bar(x=week_counts.index, y=week_counts.values)])
+        fig.update_layout(
+            title="SSAs Programadas por Semana",
+            xaxis_title="Semana",
+            yaxis_title="Quantidade",
+            template="plotly_white",
+            xaxis=dict(tickmode="linear", dtick=1),
+        )
+        return fig
+
+    def _create_detail_state_chart(self, df):
+        """Cria o gráfico de detalhamento por estado."""
+        state_counts = df.iloc[:, SSAColumns.SITUACAO].value_counts()
+        fig = go.Figure(data=[go.Bar(x=state_counts.index, y=state_counts.values)])
+        fig.update_layout(
+            title="SSAs Pendentes por Estado",
+            xaxis_title="Estado",
+            yaxis_title="Quantidade",
+            template="plotly_white",
+        )
+        return fig
+
+    def _create_detail_week_chart(self, df):
+        """Cria o gráfico de detalhamento por semana."""
+        week_detail = (
+            df.iloc[:, SSAColumns.SEMANA_PROGRAMADA].value_counts().sort_index()
+        )
+        # Remove valores nulos/vazios
+        week_detail = week_detail[week_detail.index.notna()]
+
+        fig = go.Figure(data=[go.Bar(x=week_detail.index, y=week_detail.values)])
+        fig.update_layout(
+            title="SSAs Programadas por Semana (Detalhamento)",
+            xaxis_title="Semana",
+            yaxis_title="Quantidade",
+            template="plotly_white",
+            xaxis=dict(tickmode="linear", dtick=1),
+        )
+        return fig
+
+    def _prepare_table_data(self, df=None):
+        """Prepara dados para a tabela."""
+        if df is None:
+            df = self.df
+        return [
+            {
+                "numero": row.iloc[SSAColumns.NUMERO_SSA],
+                "estado": row.iloc[SSAColumns.SITUACAO],
+                "resp_prog": row.iloc[SSAColumns.RESPONSAVEL_PROGRAMACAO],
+                "resp_exec": row.iloc[SSAColumns.RESPONSAVEL_EXECUCAO],
+                "semana_prog": row.iloc[SSAColumns.SEMANA_PROGRAMADA],
+                "prioridade": row.iloc[SSAColumns.GRAU_PRIORIDADE_EMISSAO],
+            }
+            for idx, row in df.iterrows()
+        ]
 
     def run_server(self, debug=True, port=8050):
         """Inicia o servidor do dashboard."""
@@ -1281,27 +1492,18 @@ class SSADashboard:
         """Calcula estatísticas iniciais para o dashboard."""
         try:
             total_ssas = len(self.df)
-
-            # Contagem por prioridade
             prioridades = self.df.iloc[
                 :, SSAColumns.GRAU_PRIORIDADE_EMISSAO
             ].value_counts()
-
-            # SSAs críticas (S3.7)
             ssas_criticas = len(
                 self.df[
                     self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].str.upper()
                     == "S3.7"
                 ]
             )
-
-            # Contagem por setor
             setores = self.df.iloc[:, SSAColumns.SETOR_EXECUTOR].value_counts()
-
-            # Contagem por estado
             estados = self.df.iloc[:, SSAColumns.SITUACAO].value_counts()
 
-            # Análise temporal
             datas = pd.to_datetime(self.df.iloc[:, SSAColumns.EMITIDA_EM])
             data_mais_antiga = datas.min()
             data_mais_recente = datas.max()
@@ -1327,7 +1529,6 @@ class SSADashboard:
             }
         except Exception as e:
             logging.error(f"Erro ao calcular estatísticas iniciais: {str(e)}")
-            # Retorna estatísticas vazias em caso de erro
             return {
                 "total": 0,
                 "criticas": 0,
