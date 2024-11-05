@@ -803,7 +803,10 @@ class SSAReporter:
                 tempo_medio = emitida_em.dt.hour.mean()
             else:
                 tempo_medio = None
-                logging.warning("Coluna EMITIDA_EM não está em formato datetime")
+                # Remove o warning e usa um log informativo
+                logging.info(
+                    "Tempo médio de emissão não calculado - Algumas datas inválidas"
+                )
 
             return {
                 "total_ssas": len(self.df),
@@ -918,25 +921,29 @@ class SSAReporter:
                 {"bold": True, "bg_color": "#D3D3D3", "border": 1}
             )
 
-            # Gera análise temporal apenas se a coluna de data estiver correta
+            # Verifica se a coluna de data está em formato correto
             emitida_em = self.df.iloc[:, SSAColumns.EMITIDA_EM]
             if pd.api.types.is_datetime64_any_dtype(emitida_em):
-                temporal_analysis = (
-                    self.df.groupby(
-                        [
-                            emitida_em.dt.date,
-                            self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO],
-                        ]
+                try:
+                    temporal_analysis = (
+                        self.df.groupby(
+                            [
+                                emitida_em.dt.date,
+                                self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO],
+                            ]
+                        )
+                        .size()
+                        .unstack(fill_value=0)
+                        .reset_index()
                     )
-                    .size()
-                    .unstack(fill_value=0)
-                    .reset_index()
-                )
-                temporal_analysis.to_excel(
-                    writer, sheet_name="Análise Temporal", index=False
-                )
+                    temporal_analysis.to_excel(
+                        writer, sheet_name="Análise Temporal", index=False
+                    )
+                except Exception as e:
+                    logging.error(f"Erro ao gerar análise temporal: {str(e)}")
             else:
-                logging.warning("Análise temporal ignorada - coluna de data inválida")
+                # Remove o warning redundante e apenas registra no log
+                logging.info("Análise temporal não incluída no relatório - Algumas datas inválidas")
 
             # Resto das análises que não dependem de data
             summary_df = pd.DataFrame([self.generate_summary_stats()])
