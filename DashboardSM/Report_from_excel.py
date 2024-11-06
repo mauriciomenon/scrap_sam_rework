@@ -142,11 +142,25 @@ class DataLoader:
     def load_data(self) -> pd.DataFrame:
         """Carrega dados do Excel com as configurações corretas."""
         try:
-            # Carrega o Excel pulando as duas primeiras linhas
+            # Carrega o Excel pulando a primeira linha (cabeçalho na segunda linha)
             self.df = pd.read_excel(
                 self.excel_path,
-                header=2,  # Cabeçalho na terceira linha
+                header=1,  # Cabeçalho na segunda linha
             )
+
+            # NOVO: Diagnóstico de datas antes da conversão
+            date_diagnosis = diagnose_dates(self.df, SSAColumns.EMITIDA_EM)
+            if date_diagnosis['error_count'] > 0:
+                logging.info("=== Diagnóstico de Datas ===")
+                logging.info(f"Total de linhas: {date_diagnosis['total_rows']}")
+                logging.info(f"Problemas encontrados: {date_diagnosis['error_count']}")
+                for prob in date_diagnosis['problematic_rows']:
+                    logging.info(f"\nLinha {prob['index'] + 1}:")
+                    logging.info(f"  Valor encontrado: {prob['value']}")
+                    logging.info(f"  Motivo: {prob['reason']}")
+                    logging.info("  Dados da linha:")
+                    for key, value in prob['row_data'].items():
+                        logging.info(f"    {key}: {value}")
 
             # Converte as datas usando o novo método
             self._convert_dates()
@@ -247,7 +261,7 @@ class DataLoader:
 
         except Exception as e:
             logging.error(f"Erro ao carregar dados: {str(e)}")
-        raise
+            raise
 
     def _validate_data_quality(self):
         """Valida a qualidade dos dados após as conversões."""
@@ -645,89 +659,150 @@ class SSAWeekAnalyzer:
         return stats
 
 
-class SSAAnalyzer:
-    """Análise específica para os dados de SSA."""
+class SSAWeekAnalyzer:
+    """Analyzes SSA data with respect to weeks."""
 
     def __init__(self, df: pd.DataFrame):
         self.df = df
-        self.week_analyzer = SSAWeekAnalyzer(df)
+        self.calculator = WeekCalculator()
+        self.current_date = date.today()
+        self.current_year = self.current_date.year
 
-    def analyze_by_priority(self) -> Dict:
-        """Analisa SSAs por grau de prioridade."""
-        priority_stats = {
-            "count_by_priority": self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
-            .value_counts()
-            .to_dict(),
-            "sectors_by_priority": self.df.groupby(
-                [
-                    self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO],
-                    self.df.iloc[:, SSAColumns.SETOR_EXECUTOR],
-                ]
+    def _parse_week_str(self, week_str: Union[str, float, None]) -> Optional[WeekInfo]:
+        """
+        Parseia string de semana no formato YYYYSS.
+
+        Args:
+            week_str: String no formato YYYYSS (ex: 202401)
+
+        Returns:
+            WeekInfo object ou None se inválido
+        """
+        if pd.isna(week_str) or not str(week_str).strip():
+            return None
+
+        try:
+            week_str = str(week_str).replace(".0", "")
+            if len(week_str) != 6:
+                return None
+
+            year = int(week_str[:4])
+            week = int(week_str[4:])
+
+            # Validação básica
+            if year < 2000 or year > self.current_year + 5 or week < 1 or week > 53:
+                return None
+
+            return WeekInfo(year=year, week=week)
+        except ValueError:
+            return None
+
+    def calculate_weeks_in_state(self) -> pd.Series:
+        """
+        Calcula quantas semanas cada SSA está em seu estado atual.
+        Considera transições de ano e mantém valores NaN.
+
+        Returns:
+            Series com contagem de semanas, preservando NaN para entradas inválidas
+        """
+        current_week = self.calculator.current_iso_week()
+
+        def process_week(week_str: Union[str, float, None]) -> Optional[int]:
+            week_info = self._parse_week_str(week_str)
+            if not week_info:
+                return None
+
+            diff = self.calculator.calculate_week_difference(week_info, current_week)
+            return diff if diff is not None and diff >= 0 else None
+
+        weeks_in_state = self.df.iloc[:, SSAColumns.SEMANA_CADASTRO].apply(process_week)
+
+        # Log de estatísticas
+        total_rows = len(weeks_in_state)
+        valid_counts = weeks_in_state.notna().sum()
+
+        logging.info(
+            f"Week calculation stats: {valid_counts}/{total_rows} valid calculations"
+        )
+        if valid_counts < total_rows:
+            logging.warning(
+                f"Found {total_rows - valid_counts} entries with invalid or missing week data"
             )
-            .size()
-            .unstack(fill_value=0)
-            .to_dict(),
-            "equipment_by_priority": self.df.groupby(
-                [
-                    self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO],
-                    self.df.iloc[:, SSAColumns.EQUIPAMENTO],
-                ]
+
+        return weeks_in_state
+
+    def analyze_weeks(self) -> pd.DataFrame:
+        """
+        Analisa distribuição de SSAs por semana e ano.
+
+        Returns:
+            DataFrame com análise por ano e semana
+        """
+        week_data = []
+
+        # Analisa semanas programadas
+        for _, row in self.df.iterrows():
+            week_str = str(row.iloc[SSAColumns.SEMANA_PROGRAMADA])
+            week_info = self._parse_week_str(week_str)
+
+            if week_info:
+                week_data.append(
+                    {
+                        "year": week_info.year,
+                        "week": week_info.week,
+                        "week_str": week_info.to_string(),
+                        "ssa_number": row.iloc[SSAColumns.NUMERO_SSA],
+                    }
+                )
+
+        if not week_data:
+            return pd.DataFrame()
+
+        df_weeks = pd.DataFrame(week_data)
+        analysis = df_weeks.groupby(["year", "week"]).size().reset_index(name="count")
+        analysis["year_week"] = analysis.apply(
+            lambda x: f"{x['year']}-W{x['week']:02d}", axis=1
+        )
+
+        return analysis.sort_values(["year", "week"])
+
+    def analyze_week_distribution(self) -> pd.DataFrame:
+        """
+        Analisa a distribuição de SSAs entre semanas, mantendo qualidade dos dados.
+
+        Returns:
+            DataFrame com estatísticas de distribuição por semana
+        """
+        analysis = self.analyze_weeks()
+
+        if analysis.empty:
+            return pd.DataFrame(
+                {
+                    "week_count": pd.Series(dtype="int64"),
+                    "cumulative_percent": pd.Series(dtype="float64"),
+                }
             )
-            .size()
-            .unstack(fill_value=0)
-            .to_dict(),
-        }
-        return priority_stats
 
-    def analyze_by_sector(self) -> Dict:
-        """Analisa distribuição de SSAs por setor."""
-        sector_stats = {
-            "emissor": self.df.iloc[:, SSAColumns.SETOR_EMISSOR]
-            .value_counts()
-            .to_dict(),
-            "executor": self.df.iloc[:, SSAColumns.SETOR_EXECUTOR]
-            .value_counts()
-            .to_dict(),
-            "cross_sector": pd.crosstab(
-                self.df.iloc[:, SSAColumns.SETOR_EMISSOR],
-                self.df.iloc[:, SSAColumns.SETOR_EXECUTOR],
-            ).to_dict(),
-        }
-        return sector_stats
+        # Criar análise de distribuição
+        stats = pd.DataFrame(
+            {
+                "week_count": analysis["count"],
+                "cumulative_percent": (
+                    analysis["count"].cumsum() / analysis["count"].sum() * 100
+                ),
+            }
+        )
 
-    def analyze_execution_status(self) -> Dict:
-        """Analisa status de execução das SSAs."""
-        week_distribution = self.week_analyzer.analyze_week_distribution()
-        
-        return {
-            "simple_execution": self.df.iloc[:, SSAColumns.EXECUCAO_SIMPLES]
-            .value_counts()
-            .to_dict(),
-            "by_week": week_distribution['week_count'].to_dict() if not week_distribution.empty else {},
-            "programmed_vs_total": {
-                "programmed": self.df.iloc[:, SSAColumns.SEMANA_PROGRAMADA]
-                .notna()
-                .sum(),
-                "total": len(self.df),
-            },
-        }
+        # Adicionar métricas de qualidade
+        invalid_count = len(self.df) - analysis["count"].sum()
+        if len(self.df) > 0:
+            invalid_percent = (invalid_count / len(self.df)) * 100
+        else:
+            invalid_percent = 0
 
-    def analyze_priority_trends(self) -> pd.DataFrame:
-        """Analisa tendências de prioridade ao longo do tempo."""
-        return pd.crosstab(
-            self.df.iloc[:, SSAColumns.EMITIDA_EM].dt.date,
-            self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO],
-        ).reset_index()
+        stats.loc["missing_data"] = [invalid_count, invalid_percent]
 
-    def analyze_workload(self) -> pd.DataFrame:
-        """Analisa carga de trabalho por setor/responsável."""
-        return pd.crosstab(
-            [
-                self.df.iloc[:, SSAColumns.SETOR_EXECUTOR],
-                self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO],
-            ],
-            self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO],
-        ).reset_index()
+        return stats
 
 
 class SSAVisualizer:
