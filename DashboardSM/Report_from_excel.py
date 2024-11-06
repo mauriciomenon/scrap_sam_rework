@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, date
 import pandas as pd
 import numpy as np
 import plotly.express as px
@@ -8,6 +8,7 @@ from dash import Dash, dcc, html, Input, Output
 import dash_bootstrap_components as dbc
 import logging
 from dash import dash_table
+from typing import Union, Tuple
 from typing import Dict, List, Optional
 import warnings
 import traceback
@@ -60,6 +61,7 @@ class SSAData:
                 else None
             ),
         }
+
 
 class DataLoader:
     """Carrega e prepara os dados das SSAs."""
@@ -461,11 +463,194 @@ class SSAColumns:
         return cls.COLUMN_NAMES.get(index, f"Coluna {index}")
 
 
+@dataclass
+class WeekInfo:
+    """Represents ISO week information for calculations."""
+    year: int
+    week: int
+    
+    @classmethod
+    def from_string(cls, week_str: str) -> Optional['WeekInfo']:
+        """
+        Creates WeekInfo from YYYYWW format string.
+        Returns None if input is invalid.
+        
+        Args:
+            week_str: String in format 'YYYYWW' (e.g., '202401')
+        """
+        if not isinstance(week_str, str) or len(week_str) != 6:
+            return None
+        
+        try:
+            year = int(week_str[:4])
+            week = int(week_str[4:])
+            
+            # Basic validation
+            if year < 2000 or year > 2100 or week < 1 or week > 53:
+                return None
+                
+            return cls(year=year, week=week)
+        except ValueError:
+            return None
+
+    def to_string(self) -> str:
+        """Converts WeekInfo back to YYYYWW format."""
+        return f"{self.year}{self.week:02d}"
+
+class WeekCalculator:
+    """Handles ISO week-based calculations with year transition awareness."""
+    
+    @staticmethod
+    def get_iso_calendar(dt: Union[date, datetime]) -> Tuple[int, int, int]:
+        """
+        Gets ISO calendar information safely.
+        Returns tuple of (year, week, weekday).
+        """
+        try:
+            if isinstance(dt, datetime):
+                dt = dt.date()
+            return dt.isocalendar()
+        except AttributeError:
+            return (0, 0, 0)  # Invalid date
+
+    @staticmethod
+    def current_iso_week() -> WeekInfo:
+        """Gets current ISO week information."""
+        today = date.today()
+        iso_year, iso_week, _ = today.isocalendar()
+        return WeekInfo(year=iso_year, week=iso_week)
+
+    @staticmethod
+    def get_last_week_of_year(year: int) -> int:
+        """
+        Determines if a year has 52 or 53 ISO weeks.
+        
+        Args:
+            year: The year to check
+            
+        Returns:
+            Number of weeks (52 or 53)
+        """
+        # December 28th is always in the last week of the ISO year
+        dec_28 = date(year, 12, 28)
+        _, last_week, _ = dec_28.isocalendar()
+        return last_week
+
+    @classmethod
+    def calculate_week_difference(
+        cls,
+        week1: Optional[WeekInfo],
+        week2: Optional[WeekInfo]
+    ) -> Optional[int]:
+        """
+        Calculates the difference between two ISO weeks, handling year transitions.
+        
+        Args:
+            week1: First WeekInfo object
+            week2: Second WeekInfo object
+            
+        Returns:
+            Number of weeks difference or None if invalid input
+        """
+        if not week1 or not week2:
+            return None
+            
+        if week1.year == week2.year:
+            return week2.week - week1.week
+            
+        # Handle year transitions
+        total_weeks = 0
+        
+        # Add weeks for complete years between
+        for year in range(week1.year, week2.year):
+            total_weeks += cls.get_last_week_of_year(year)
+            
+        # Adjust for partial weeks in start and end year
+        total_weeks -= week1.week
+        total_weeks += week2.week
+        
+        return total_weeks
+
+class SSAWeekAnalyzer:
+    """Analyzes SSA data with respect to weeks."""
+
+    def __init__(self, df: pd.DataFrame):
+        self.df = df
+        self.calculator = WeekCalculator()
+
+    def calculate_weeks_in_state(self) -> pd.Series:
+        """
+        Calculates how many weeks each SSA has been in its current state.
+        Handles year transitions and maintains NaN values.
+
+        Returns:
+            Series with week counts, preserving NaN for invalid entries
+        """
+        current_week = self.calculator.current_iso_week()
+
+        def process_week(week_str: Union[str, float, None]) -> Optional[int]:
+            """Process individual week string, handling NaN and invalid values."""
+            if pd.isna(week_str):
+                return None
+
+            week_info = WeekInfo.from_string(str(week_str).replace(".0", ""))
+            if not week_info:
+                return None
+
+            diff = self.calculator.calculate_week_difference(week_info, current_week)
+            return diff if diff is not None and diff >= 0 else None
+
+        # Apply calculation to each row, preserving NaN
+        weeks_in_state = self.df.iloc[:, SSAColumns.SEMANA_CADASTRO].apply(process_week)
+
+        # Log statistics about the calculation
+        total_rows = len(weeks_in_state)
+        valid_counts = weeks_in_state.notna().sum()
+        logging.info(
+            f"Week calculation stats: {valid_counts}/{total_rows} valid calculations"
+        )
+
+        if valid_counts < total_rows:
+            logging.warning(
+                f"Found {total_rows - valid_counts} entries with invalid or missing week data"
+            )
+
+        return weeks_in_state
+
+    def analyze_week_distribution(self) -> pd.DataFrame:
+        """
+        Analyzes the distribution of SSAs across weeks, maintaining data quality.
+        
+        Returns:
+            DataFrame with week distribution statistics
+        """
+        weeks_in_state = self.calculate_weeks_in_state()
+
+        # Create distribution analysis
+        stats = pd.DataFrame({
+            'week_count': weeks_in_state.value_counts().sort_index(),
+            'cumulative_percent': (
+                weeks_in_state.value_counts(normalize=True)
+                .sort_index()
+                .cumsum() * 100
+            )
+        })
+
+        # Add quality metrics
+        stats.loc['missing_data'] = [
+            weeks_in_state.isna().sum(),
+            (weeks_in_state.isna().sum() / len(weeks_in_state) * 100)
+        ]
+
+        return stats
+
+
 class SSAAnalyzer:
     """Análise específica para os dados de SSA."""
 
     def __init__(self, df: pd.DataFrame):
         self.df = df
+        self.week_analyzer = SSAWeekAnalyzer(df)
 
     def analyze_by_priority(self) -> Dict:
         """Analisa SSAs por grau de prioridade."""
@@ -512,13 +697,13 @@ class SSAAnalyzer:
 
     def analyze_execution_status(self) -> Dict:
         """Analisa status de execução das SSAs."""
-        execution_stats = {
+        week_distribution = self.week_analyzer.analyze_week_distribution()
+        
+        return {
             "simple_execution": self.df.iloc[:, SSAColumns.EXECUCAO_SIMPLES]
             .value_counts()
             .to_dict(),
-            "by_week": self.df.iloc[:, SSAColumns.SEMANA_CADASTRO]
-            .value_counts()
-            .to_dict(),
+            "by_week": week_distribution['week_count'].to_dict() if not week_distribution.empty else {},
             "programmed_vs_total": {
                 "programmed": self.df.iloc[:, SSAColumns.SEMANA_PROGRAMADA]
                 .notna()
@@ -526,7 +711,6 @@ class SSAAnalyzer:
                 "total": len(self.df),
             },
         }
-        return execution_stats
 
     def analyze_priority_trends(self) -> pd.DataFrame:
         """Analisa tendências de prioridade ao longo do tempo."""
@@ -551,6 +735,7 @@ class SSAVisualizer:
 
     def __init__(self, df: pd.DataFrame):
         self.df = df
+        self.week_analyzer = SSAWeekAnalyzer(df)  # Adicionar analisador de semanas
 
     def create_priority_chart(self) -> go.Figure:
         """Cria gráfico de distribuição por prioridade."""
@@ -732,85 +917,92 @@ class SSAVisualizer:
 
         return fig
 
-
     def create_week_chart(self) -> go.Figure:
         """Cria gráfico de SSAs programadas por semana."""
-        week_counts = (
-            self.df.iloc[:, SSAColumns.SEMANA_PROGRAMADA].value_counts().sort_index()
-        )
+        week_info = self.week_analyzer.analyze_week_distribution()
 
-        fig = go.Figure(
-            data=[
-                go.Bar(
-                    x=week_counts.index.astype(int),  # Converte para inteiro
-                    y=week_counts.values,
-                )
-            ]
-        )
+        if week_info.empty:
+            return go.Figure().update_layout(
+                title="SSAs Programadas por Semana",
+                annotations=[{
+                    'text': 'Não há dados válidos disponíveis',
+                    'xref': 'paper',
+                    'yref': 'paper',
+                    'showarrow': False,
+                    'font': {'size': 14}
+                }]
+            )
+
+        fig = go.Figure(data=[
+            go.Bar(
+                x=week_info['week_count'].index,
+                y=week_info['week_count'].values,
+                text=week_info['week_count'].values,
+                textposition='auto',
+            )
+        ])
 
         fig.update_layout(
             title="SSAs Programadas por Semana",
             xaxis_title="Semana",
             yaxis_title="Quantidade",
-            xaxis=dict(
-                tickmode="linear", tick0=0, dtick=1  # Força exibição de todos os ticks
-            ),
+            template="plotly_white",
+            xaxis=dict(type='category', tickangle=-45)
         )
 
         return fig
 
-    def calculate_weeks_in_state(self, df: pd.DataFrame) -> pd.Series:
-        """
-        Calcula quantas semanas cada SSA está no estado atual.
-        Retorna uma Series com o número de semanas para cada SSA.
-        """
-        current_week = int(
-            datetime.now().strftime("%Y%V")
-        )  # Semana atual no formato YYYYWW
-
-        # Converte semana cadastro para numérico, removendo NaN
-        weeks = pd.to_numeric(df.iloc[:, SSAColumns.SEMANA_CADASTRO], errors="coerce")
-
-        # Calcula diferença de semanas
-        weeks_in_state = current_week - weeks
-
-        # Ajusta para considerar virada de ano
-        year_diff = (current_week // 100) - (weeks // 100)
-        weeks_in_state = weeks_in_state.apply(
-            lambda x: x if x >= 0 else x + (52 * year_diff)
-        )
-
-        return weeks_in_state
-
+    # Update the visualizer's week-related method
     def add_weeks_in_state_chart(self) -> go.Figure:
         """
-        Cria um gráfico mostrando a distribuição de SSAs por tempo no estado atual.
+        Creates an enhanced chart showing SSA distribution by weeks in state.
+        Uses the WeekAnalyzer for calculations.
         """
-        weeks_in_state = self.calculate_weeks_in_state(self.df)
+        weeks_in_state = self.week_analyzer.calculate_weeks_in_state()
+        valid_weeks = weeks_in_state.dropna()
 
-        # Agrupa por número de semanas
-        distribution = weeks_in_state.value_counts().sort_index()
+        if valid_weeks.empty:
+            return go.Figure().update_layout(
+                title="Distribuição de SSAs por Tempo no Estado Atual",
+                annotations=[{
+                    'text': 'Não há dados válidos disponíveis',
+                    'xref': 'paper',
+                    'yref': 'paper',
+                    'showarrow': False,
+                    'font': {'size': 14}
+                }]
+            )
 
-        fig = go.Figure(
-            data=[
-                go.Bar(
-                    x=distribution.index,
-                    y=distribution.values,
-                    text=distribution.values,
-                    textposition="auto",
-                )
-            ]
-        )
+        fig = go.Figure([
+            go.Bar(
+                x=valid_weeks.value_counts().sort_index().index,
+                y=valid_weeks.value_counts().sort_index().values,
+                text=valid_weeks.value_counts().sort_index().values,
+                textposition='auto',
+                name='SSAs por Semana'
+            )
+        ])
+
+        invalid_count = weeks_in_state.isna().sum()
+        total_count = len(weeks_in_state)
 
         fig.update_layout(
-            title="Distribuição de SSAs por Tempo no Estado Atual",
+            title=f"Distribuição de SSAs por Tempo no Estado Atual<br><sub>({invalid_count}/{total_count} registros inválidos)</sub>",
             xaxis_title="Semanas no Estado",
             yaxis_title="Quantidade de SSAs",
-            bargap=0.2,
+            showlegend=True,
+            annotations=[{
+                'text': f"Qualidade dos dados: {((total_count-invalid_count)/total_count*100):.1f}%",
+                'xref': 'paper',
+                'yref': 'paper',
+                'x': 0.98,
+                'y': 0.98,
+                'showarrow': False,
+                'font': {'size': 12}
+            }]
         )
 
         return fig
-
 
 class SSAReporter:
     """Gera relatórios detalhados das SSAs."""
@@ -1176,8 +1368,9 @@ class SSADashboard:
     def __init__(self, df: pd.DataFrame):
         self.df = df
         self.app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-        self.visualizer = SSAVisualizer(df)  # Cria o visualizador
+        self.visualizer = SSAVisualizer(df)
         self.kpi_calc = KPICalculator(df)
+        self.week_analyzer = SSAWeekAnalyzer(df)  # Principal instância do analisador
         self.setup_layout()
         self.setup_callbacks()
 
@@ -1186,8 +1379,11 @@ class SSADashboard:
         return self.df.iloc[:, SSAColumns.SITUACAO].value_counts().to_dict()
 
     def _get_programmed_by_week(self):
-        """Obtém SSAs programadas por semana."""
-        return self.df.iloc[:, SSAColumns.SEMANA_PROGRAMADA].value_counts().sort_index()
+        """Obtém SSAs programadas por semana usando o analisador central."""
+        week_info = self.week_analyzer.analyze_week_distribution()
+        if not week_info.empty and "week_count" in week_info:
+            return week_info["week_count"]
+        return pd.Series()  # Retorna série vazia se não houver dados
 
     def _get_responsaveis(self):
         """Obtém lista de responsáveis únicos."""
@@ -1467,8 +1663,6 @@ class SSADashboard:
         ]
 
     def setup_callbacks(self):
-        """Configura os callbacks para interatividade."""
-
         @self.app.callback(
             [
                 Output("resp-prog-chart", "figure"),
@@ -1483,7 +1677,6 @@ class SSADashboard:
             [Input("resp-prog-filter", "value"), Input("resp-exec-filter", "value")],
         )
         def update_all_charts(resp_prog, resp_exec):
-            # Filtra o DataFrame baseado nos responsáveis selecionados
             df_filtered = self.df.copy()
             if resp_prog:
                 df_filtered = df_filtered[
@@ -1494,24 +1687,18 @@ class SSADashboard:
                     df_filtered.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == resp_exec
                 ]
 
-            # Criação dos gráficos existentes...
+            # Criar apenas um visualizador filtrado
+            filtered_visualizer = SSAVisualizer(df_filtered)
+
+            # Usar o visualizador para todos os gráficos relacionados a semanas
             fig_prog = self._create_resp_prog_chart(df_filtered)
             fig_exec = self._create_resp_exec_chart(df_filtered)
-            fig_week = self._create_week_chart(df_filtered)
-
-            # Detalhamento
-            detail_style = (
-                {"display": "block"} if resp_prog or resp_exec else {"display": "none"}
-            )
+            fig_week = filtered_visualizer.create_week_chart()
+            detail_style = {"display": "block"} if resp_prog or resp_exec else {"display": "none"}
             fig_detail_state = self._create_detail_state_chart(df_filtered)
-            fig_detail_week = self._create_detail_week_chart(df_filtered)
-
-            # Novo gráfico de tempo no estado usando o visualizador filtrado
-            filtered_visualizer = SSAVisualizer(df_filtered)
-            weeks_in_state_fig = filtered_visualizer.add_weeks_in_state_chart()
-
-            # Dados da tabela filtrados
+            fig_detail_week = filtered_visualizer.create_week_chart()
             table_data = self._prepare_table_data(df_filtered)
+            weeks_fig = filtered_visualizer.add_weeks_in_state_chart()
 
             return (
                 fig_prog,
@@ -1521,9 +1708,9 @@ class SSADashboard:
                 fig_detail_state,
                 fig_detail_week,
                 table_data,
-                weeks_in_state_fig,
+                weeks_fig,
             )
-
+    
     def _create_resp_prog_chart(self, df):
         """Cria o gráfico de responsáveis na programação."""
         resp_prog_counts = df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO].value_counts()
@@ -1553,62 +1740,14 @@ class SSADashboard:
         return fig
 
     def _create_week_chart(self, df):
-        """Cria o gráfico de SSAs programadas por semana."""
-        try:
-            # Remove valores nulos ou vazios
-            week_counts = df.iloc[:, SSAColumns.SEMANA_PROGRAMADA].dropna()
-
-            # Converte para string e remove decimais
-            week_counts = week_counts.astype(str).str.replace('.0', '')
-
-            # Remove valores vazios e faz a contagem
-            week_counts = week_counts[week_counts != ''].value_counts().sort_index()
-
-            if not week_counts.empty:
-                # Remove valores inválidos (menores que 202400 ou maiores que 202453)
-                week_counts = week_counts[
-                    (week_counts.index.astype(str) >= '202400') & 
-                    (week_counts.index.astype(str) <= '202453')
-                ]
-
-                fig = go.Figure(data=[go.Bar(
-                    x=[str(x) for x in week_counts.index],  # Converte índices para string
-                    y=week_counts.values,
-                    text=week_counts.values,
-                    textposition='auto',
-                )])
-
-                fig.update_layout(
-                    title="SSAs Programadas por Semana",
-                    xaxis_title="Semana",
-                    yaxis_title="Quantidade",
-                    template="plotly_white",
-                    xaxis=dict(
-                        type='category',  # Força o eixo x como categoria
-                        tickangle=-45,  # Rotaciona os labels para melhor legibilidade
-                    )
-                )
-            else:
-                fig = go.Figure()
-                fig.update_layout(
-                    title="SSAs Programadas por Semana",
-                    xaxis_title="Semana",
-                    yaxis_title="Quantidade",
-                    template="plotly_white",
-                    annotations=[{
-                        'text': 'Não há SSAs programadas',
-                        'xref': 'paper',
-                        'yref': 'paper',
-                        'showarrow': False,
-                        'font': {'size': 14}
-                    }]
-                )
-
-            return fig
-
-        except Exception as e:
-            logging.error(f"Erro ao criar gráfico de semanas: {str(e)}")
-            return go.Figure()
+        """Cria o gráfico de SSAs programadas por semana usando o visualizador."""
+        filtered_visualizer = SSAVisualizer(df)
+        return filtered_visualizer.create_week_chart()
+    
+    def _create_detail_week_chart(self, df):
+        """Cria o gráfico de detalhamento por semana usando o visualizador."""
+        filtered_visualizer = SSAVisualizer(df)
+        return filtered_visualizer.create_week_chart()
 
     def _create_detail_state_chart(self, df):
         """Cria o gráfico de detalhamento por estado."""
@@ -1622,63 +1761,17 @@ class SSADashboard:
         )
         return fig
 
-    def _create_detail_week_chart(self, df):
-        """Cria o gráfico de detalhamento por semana."""
-        try:
-            # Remove valores nulos ou vazios
-            week_detail = df.iloc[:, SSAColumns.SEMANA_PROGRAMADA].dropna()
-
-            # Converte para string e remove decimais
-            week_detail = week_detail.astype(str).str.replace('.0', '')
-
-            # Remove valores vazios e faz a contagem
-            week_detail = week_detail[week_detail != ''].value_counts().sort_index()
-
-            if not week_detail.empty:
-                # Remove valores inválidos (menores que 202400 ou maiores que 202453)
-                week_detail = week_detail[
-                    (week_detail.index.astype(str) >= '202400') & 
-                    (week_detail.index.astype(str) <= '202453')
-                ]
-
-                fig = go.Figure(data=[go.Bar(
-                    x=[str(x) for x in week_detail.index],  # Converte índices para string
-                    y=week_detail.values,
-                    text=week_detail.values,
-                    textposition='auto',
-                )])
-
-                fig.update_layout(
-                    title="SSAs Programadas por Semana (Detalhamento)",
-                    xaxis_title="Semana",
-                    yaxis_title="Quantidade",
-                    template="plotly_white",
-                    xaxis=dict(
-                        type='category',  # Força o eixo x como categoria
-                        tickangle=-45,  # Rotaciona os labels para melhor legibilidade
-                    )
-                )
-            else:
-                fig = go.Figure()
-                fig.update_layout(
-                    title="SSAs Programadas por Semana (Detalhamento)",
-                    xaxis_title="Semana",
-                    yaxis_title="Quantidade",
-                    template="plotly_white",
-                    annotations=[{
-                        'text': 'Não há SSAs programadas',
-                        'xref': 'paper',
-                        'yref': 'paper',
-                        'showarrow': False,
-                        'font': {'size': 14}
-                    }]
-                )
-
-            return fig
-
-        except Exception as e:
-            logging.error(f"Erro ao criar gráfico de detalhamento por semana: {str(e)}")
-            return go.Figure()
+    def _create_detail_state_chart(self, df):
+        """Cria o gráfico de detalhamento por estado."""
+        state_counts = df.iloc[:, SSAColumns.SITUACAO].value_counts()
+        fig = go.Figure(data=[go.Bar(x=state_counts.index, y=state_counts.values)])
+        fig.update_layout(
+            title="SSAs Pendentes por Estado",
+            xaxis_title="Estado",
+            yaxis_title="Quantidade",
+            template="plotly_white",
+        )
+        return fig
 
     def _prepare_table_data(self, df=None):
         """Prepara dados para a tabela."""
@@ -1699,7 +1792,6 @@ class SSADashboard:
     def run_server(self, debug=True, port=8050):
         """Inicia o servidor do dashboard."""
         self.app.run_server(debug=debug, port=port)
-
 
     def _get_initial_stats(self):
         """Calcula estatísticas iniciais para o dashboard."""
@@ -1796,6 +1888,46 @@ def check_dependencies():
 
         subprocess.check_call(["pip", "install", "xlsxwriter"])
         logging.info("xlsxwriter instalado com sucesso")
+
+def diagnose_dates(df, date_column_index):
+    """
+    Diagnostica problemas com datas em um DataFrame.
+    
+    Args:
+        df: DataFrame com os dados
+        date_column_index: índice da coluna de data
+    
+    Returns:
+        Dict com informações de diagnóstico
+    """
+    problematic_rows = []
+    
+    for idx, row in df.iterrows():
+        date_value = row.iloc[date_column_index]
+        try:
+            if pd.isna(date_value):
+                problematic_rows.append({
+                    'index': idx,
+                    'value': date_value,
+                    'reason': 'Valor nulo ou NaN',
+                    'row_data': row.to_dict()
+                })
+            elif isinstance(date_value, str):
+                # Tenta converter para verificar se é uma data válida
+                pd.to_datetime(date_value)
+        except Exception as e:
+            problematic_rows.append({
+                'index': idx,
+                'value': date_value,
+                'reason': str(e),
+                'row_data': row.to_dict()
+            })
+    
+    return {
+        'total_rows': len(df),
+        'problematic_rows': problematic_rows,
+        'error_count': len(problematic_rows)
+    }
 
 
 if __name__ == "__main__":

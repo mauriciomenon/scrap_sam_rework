@@ -1661,3 +1661,357 @@ RuntimeError: No active exception to reraise
 2024-11-05 16:31:45,190 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
 2024-11-05 16:31:45,406 - __main__ - INFO - Relatório Excel gerado com sucesso.
 2024-11-05 16:31:45,407 - __main__ - INFO - Iniciando dashboard...
+2024-11-06 13:17:20,184 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-06 13:17:21,086 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-06 13:17:21,086 - root - ERROR - Linha 163: Data inválida - verificar valor original
+2024-11-06 13:17:21,123 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-06 13:17:21,123 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-06 13:17:21,124 - root - INFO - Número: 202415726
+2024-11-06 13:17:21,124 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-06 13:17:21,125 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-06 13:17:21,126 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-06 13:17:21,127 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-06 13:17:21,127 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-06 13:17:21,128 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-06 13:17:21,128 - __main__ - INFO - Gerando relatório inicial...
+2024-11-06 13:17:21,132 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-06 13:17:21,269 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-06 13:17:21,504 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-06 13:17:21,505 - __main__ - INFO - Iniciando dashboard...
+2024-11-06 13:17:21,547 - dash.dash - INFO - Dash is running on http://127.0.0.1:8050/
+
+2024-11-06 13:17:23,823 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-06 13:17:24,167 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-06 13:17:24,168 - root - ERROR - Linha 163: Data inválida - verificar valor original
+2024-11-06 13:17:24,200 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-06 13:17:24,201 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-06 13:17:24,201 - root - INFO - Número: 202415726
+2024-11-06 13:17:24,202 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-06 13:17:24,202 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-06 13:17:24,203 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-06 13:17:24,203 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-06 13:17:24,204 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-06 13:17:24,204 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-06 13:17:24,204 - __main__ - INFO - Gerando relatório inicial...
+2024-11-06 13:17:24,206 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-06 13:17:24,320 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-06 13:17:24,520 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-06 13:17:24,520 - __main__ - INFO - Iniciando dashboard...
+2024-11-06 13:41:35,191 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-06 13:41:35,940 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-06 13:41:35,941 - root - ERROR - Linha 163: Data inválida - verificar valor original
+2024-11-06 13:41:35,975 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-06 13:41:35,975 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-06 13:41:35,976 - root - INFO - Número: 202415726
+2024-11-06 13:41:35,976 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-06 13:41:35,976 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-06 13:41:35,977 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-06 13:41:35,978 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-06 13:41:35,978 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-06 13:41:35,978 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-06 13:41:35,979 - __main__ - INFO - Gerando relatório inicial...
+2024-11-06 13:41:35,981 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-06 13:41:36,109 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-06 13:41:36,390 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-06 13:41:36,391 - __main__ - INFO - Iniciando dashboard...
+2024-11-06 13:41:39,992 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-06 13:41:40,489 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-06 13:41:40,489 - root - ERROR - Linha 163: Data inválida - verificar valor original
+2024-11-06 13:41:40,525 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-06 13:41:40,525 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-06 13:41:40,526 - root - INFO - Número: 202415726
+2024-11-06 13:41:40,526 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-06 13:41:40,527 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-06 13:41:40,528 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-06 13:41:40,529 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-06 13:41:40,529 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-06 13:41:40,529 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-06 13:41:40,530 - __main__ - INFO - Gerando relatório inicial...
+2024-11-06 13:41:40,532 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-06 13:41:40,646 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-06 13:41:40,868 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-06 13:41:40,869 - __main__ - INFO - Iniciando dashboard...
+2024-11-06 13:41:53,751 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-06 13:41:54,189 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-06 13:41:54,189 - root - ERROR - Linha 163: Data inválida - verificar valor original
+2024-11-06 13:41:54,223 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-06 13:41:54,224 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-06 13:41:54,224 - root - INFO - Número: 202415726
+2024-11-06 13:41:54,225 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-06 13:41:54,225 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-06 13:41:54,226 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-06 13:41:54,226 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-06 13:41:54,226 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-06 13:41:54,227 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-06 13:41:54,227 - __main__ - INFO - Gerando relatório inicial...
+2024-11-06 13:41:54,229 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-06 13:41:54,345 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-06 13:41:54,591 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-06 13:41:54,592 - __main__ - INFO - Iniciando dashboard...
+2024-11-06 13:43:27,916 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-06 13:43:28,371 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-06 13:43:28,372 - root - ERROR - Linha 163: Data inválida - verificar valor original
+2024-11-06 13:43:28,407 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-06 13:43:28,408 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-06 13:43:28,408 - root - INFO - Número: 202415726
+2024-11-06 13:43:28,408 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-06 13:43:28,409 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-06 13:43:28,410 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-06 13:43:28,410 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-06 13:43:28,410 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-06 13:43:28,411 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-06 13:43:28,411 - __main__ - INFO - Gerando relatório inicial...
+2024-11-06 13:43:28,414 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-06 13:43:28,560 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-06 13:43:28,853 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-06 13:43:28,854 - __main__ - INFO - Iniciando dashboard...
+2024-11-06 13:43:32,350 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-06 13:43:32,824 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-06 13:43:32,825 - root - ERROR - Linha 163: Data inválida - verificar valor original
+2024-11-06 13:43:32,863 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-06 13:43:32,864 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-06 13:43:32,864 - root - INFO - Número: 202415726
+2024-11-06 13:43:32,865 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-06 13:43:32,865 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-06 13:43:32,866 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-06 13:43:32,867 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-06 13:43:32,867 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-06 13:43:32,868 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-06 13:43:32,868 - __main__ - INFO - Gerando relatório inicial...
+2024-11-06 13:43:32,871 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-06 13:43:32,994 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-06 13:43:33,227 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-06 13:43:33,228 - __main__ - INFO - Iniciando dashboard...
+2024-11-06 13:43:37,700 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-06 13:43:38,125 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-06 13:43:38,126 - root - ERROR - Linha 163: Data inválida - verificar valor original
+2024-11-06 13:43:38,165 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-06 13:43:38,165 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-06 13:43:38,165 - root - INFO - Número: 202415726
+2024-11-06 13:43:38,166 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-06 13:43:38,166 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-06 13:43:38,167 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-06 13:43:38,168 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-06 13:43:38,168 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-06 13:43:38,168 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-06 13:43:38,168 - __main__ - INFO - Gerando relatório inicial...
+2024-11-06 13:43:38,170 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-06 13:43:38,309 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-06 13:43:38,540 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-06 13:43:38,540 - __main__ - INFO - Iniciando dashboard...
+2024-11-06 13:45:27,591 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-06 13:45:28,069 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-06 13:45:28,070 - root - ERROR - Linha 163: Data inválida - verificar valor original
+2024-11-06 13:45:28,123 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-06 13:45:28,124 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-06 13:45:28,124 - root - INFO - Número: 202415726
+2024-11-06 13:45:28,124 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-06 13:45:28,124 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-06 13:45:28,125 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-06 13:45:28,126 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-06 13:45:28,127 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-06 13:45:28,128 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-06 13:45:28,128 - __main__ - INFO - Gerando relatório inicial...
+2024-11-06 13:45:28,131 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-06 13:45:28,271 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-06 13:45:28,508 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-06 13:45:28,508 - __main__ - INFO - Iniciando dashboard...
+2024-11-06 14:06:42,816 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-06 14:06:43,310 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-06 14:06:43,311 - root - ERROR - Linha 163: Data inválida - verificar valor original
+2024-11-06 14:06:43,350 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-06 14:06:43,350 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-06 14:06:43,351 - root - INFO - Número: 202415726
+2024-11-06 14:06:43,351 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-06 14:06:43,351 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-06 14:06:43,353 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-06 14:06:43,353 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-06 14:06:43,353 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-06 14:06:43,354 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-06 14:06:43,354 - __main__ - INFO - Gerando relatório inicial...
+2024-11-06 14:06:43,357 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-06 14:06:43,487 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-06 14:06:43,721 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-06 14:06:43,722 - __main__ - INFO - Iniciando dashboard...
+2024-11-06 14:06:43,754 - dash.dash - INFO - Dash is running on http://127.0.0.1:8050/
+
+2024-11-06 14:06:45,912 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-06 14:06:46,277 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-06 14:06:46,277 - root - ERROR - Linha 163: Data inválida - verificar valor original
+2024-11-06 14:06:46,353 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-06 14:06:46,353 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-06 14:06:46,354 - root - INFO - Número: 202415726
+2024-11-06 14:06:46,354 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-06 14:06:46,355 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-06 14:06:46,357 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-06 14:06:46,358 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-06 14:06:46,358 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-06 14:06:46,359 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-06 14:06:46,359 - __main__ - INFO - Gerando relatório inicial...
+2024-11-06 14:06:46,362 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-06 14:06:46,507 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-06 14:06:46,780 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-06 14:06:46,780 - __main__ - INFO - Iniciando dashboard...
+2024-11-06 14:06:49,242 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:06:49,253 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:06:49,306 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:06:49,319 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:06:49,354 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:06:49,397 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:07:18,252 - root - INFO - Week calculation stats: 25/25 valid calculations
+2024-11-06 14:07:18,286 - root - INFO - Week calculation stats: 25/25 valid calculations
+2024-11-06 14:07:18,342 - root - INFO - Week calculation stats: 25/25 valid calculations
+2024-11-06 14:07:27,537 - root - INFO - Week calculation stats: 24/24 valid calculations
+2024-11-06 14:07:27,563 - root - INFO - Week calculation stats: 24/24 valid calculations
+2024-11-06 14:07:27,578 - root - INFO - Week calculation stats: 24/24 valid calculations
+2024-11-06 14:10:40,444 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-06 14:10:40,954 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-06 14:10:40,955 - root - ERROR - Linha 163: Data inválida - verificar valor original
+2024-11-06 14:10:41,003 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-06 14:10:41,004 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-06 14:10:41,004 - root - INFO - Número: 202415726
+2024-11-06 14:10:41,005 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-06 14:10:41,005 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-06 14:10:41,006 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-06 14:10:41,007 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-06 14:10:41,007 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-06 14:10:41,008 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-06 14:10:41,008 - __main__ - INFO - Gerando relatório inicial...
+2024-11-06 14:10:41,011 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-06 14:10:41,167 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-06 14:10:41,465 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-06 14:10:41,465 - __main__ - INFO - Iniciando dashboard...
+2024-11-06 14:10:43,489 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:10:43,532 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:10:43,562 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:11:19,384 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-06 14:11:19,737 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-06 14:11:19,737 - root - ERROR - Linha 163: Data inválida - verificar valor original
+2024-11-06 14:11:19,772 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-06 14:11:19,772 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-06 14:11:19,773 - root - INFO - Número: 202415726
+2024-11-06 14:11:19,773 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-06 14:11:19,773 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-06 14:11:19,775 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-06 14:11:19,776 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-06 14:11:19,776 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-06 14:11:19,776 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-06 14:11:19,777 - __main__ - INFO - Gerando relatório inicial...
+2024-11-06 14:11:19,780 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-06 14:11:19,892 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-06 14:11:20,089 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-06 14:11:20,090 - __main__ - INFO - Iniciando dashboard...
+2024-11-06 14:11:21,875 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:11:21,904 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:11:21,926 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:11:37,872 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:11:37,908 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:11:37,945 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:11:58,847 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-06 14:11:59,242 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-06 14:11:59,243 - root - ERROR - Linha 163: Data inválida - verificar valor original
+2024-11-06 14:11:59,275 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-06 14:11:59,275 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-06 14:11:59,276 - root - INFO - Número: 202415726
+2024-11-06 14:11:59,276 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-06 14:11:59,277 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-06 14:11:59,277 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-06 14:11:59,278 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-06 14:11:59,278 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-06 14:11:59,278 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-06 14:11:59,279 - __main__ - INFO - Gerando relatório inicial...
+2024-11-06 14:11:59,281 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-06 14:11:59,394 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-06 14:11:59,625 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-06 14:11:59,625 - __main__ - INFO - Iniciando dashboard...
+2024-11-06 14:12:01,788 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:12:01,835 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:12:01,872 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:12:11,317 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-06 14:12:11,703 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-06 14:12:11,704 - root - ERROR - Linha 163: Data inválida - verificar valor original
+2024-11-06 14:12:11,740 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-06 14:12:11,741 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-06 14:12:11,741 - root - INFO - Número: 202415726
+2024-11-06 14:12:11,741 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-06 14:12:11,742 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-06 14:12:11,743 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-06 14:12:11,743 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-06 14:12:11,744 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-06 14:12:11,744 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-06 14:12:11,745 - __main__ - INFO - Gerando relatório inicial...
+2024-11-06 14:12:11,748 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-06 14:12:11,888 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-06 14:12:12,159 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-06 14:12:12,159 - __main__ - INFO - Iniciando dashboard...
+2024-11-06 14:12:38,490 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:12:38,521 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:12:38,546 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:26:33,293 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-06 14:26:33,664 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-06 14:26:33,664 - root - ERROR - Linha 163: Data inválida - verificar valor original
+2024-11-06 14:26:33,703 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-06 14:26:33,703 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-06 14:26:33,703 - root - INFO - Número: 202415726
+2024-11-06 14:26:33,704 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-06 14:26:33,704 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-06 14:26:33,705 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-06 14:26:33,705 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-06 14:26:33,706 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-06 14:26:33,706 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-06 14:26:33,706 - __main__ - INFO - Gerando relatório inicial...
+2024-11-06 14:26:33,709 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-06 14:26:33,825 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-06 14:26:34,030 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-06 14:26:34,030 - __main__ - INFO - Iniciando dashboard...
+2024-11-06 14:26:34,058 - dash.dash - INFO - Dash is running on http://127.0.0.1:8050/
+
+2024-11-06 14:26:36,153 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-06 14:26:36,516 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-06 14:26:36,517 - root - ERROR - Linha 163: Data inválida - verificar valor original
+2024-11-06 14:26:36,550 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-06 14:26:36,551 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-06 14:26:36,551 - root - INFO - Número: 202415726
+2024-11-06 14:26:36,551 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-06 14:26:36,552 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-06 14:26:36,553 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-06 14:26:36,553 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-06 14:26:36,553 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-06 14:26:36,554 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-06 14:26:36,554 - __main__ - INFO - Gerando relatório inicial...
+2024-11-06 14:26:36,557 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-06 14:26:36,673 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-06 14:26:36,880 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-06 14:26:36,880 - __main__ - INFO - Iniciando dashboard...
+2024-11-06 14:26:38,520 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:26:38,531 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:26:38,587 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:26:38,594 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:26:38,622 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:26:38,645 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:27:02,506 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:27:02,552 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:27:02,646 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:34:58,924 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:34:58,966 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:34:58,996 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:36:46,941 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-06 14:36:47,420 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-06 14:36:47,421 - root - ERROR - Linha 163: Data inválida - verificar valor original
+2024-11-06 14:36:47,457 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-06 14:36:47,457 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-06 14:36:47,457 - root - INFO - Número: 202415726
+2024-11-06 14:36:47,458 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-06 14:36:47,458 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-06 14:36:47,459 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-06 14:36:47,459 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-06 14:36:47,459 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-06 14:36:47,460 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-06 14:36:47,460 - __main__ - INFO - Gerando relatório inicial...
+2024-11-06 14:36:47,463 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-06 14:36:47,604 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-06 14:36:47,853 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-06 14:36:47,853 - __main__ - INFO - Iniciando dashboard...
+2024-11-06 14:36:50,345 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:36:50,385 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:36:50,411 - root - INFO - Week calculation stats: 174/174 valid calculations
