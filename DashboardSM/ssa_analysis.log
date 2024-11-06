@@ -2015,3 +2015,26 @@ RuntimeError: No active exception to reraise
 2024-11-06 14:36:50,345 - root - INFO - Week calculation stats: 174/174 valid calculations
 2024-11-06 14:36:50,385 - root - INFO - Week calculation stats: 174/174 valid calculations
 2024-11-06 14:36:50,411 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:37:35,783 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-06 14:37:36,165 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-06 14:37:36,166 - root - ERROR - Linha 163: Data inválida - verificar valor original
+2024-11-06 14:37:36,198 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-06 14:37:36,198 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-06 14:37:36,199 - root - INFO - Número: 202415726
+2024-11-06 14:37:36,199 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-06 14:37:36,200 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-06 14:37:36,201 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-06 14:37:36,201 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-06 14:37:36,202 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-06 14:37:36,202 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-06 14:37:36,202 - __main__ - INFO - Gerando relatório inicial...
+2024-11-06 14:37:36,205 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-06 14:37:36,316 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-06 14:37:36,521 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-06 14:37:36,522 - __main__ - INFO - Iniciando dashboard...
+2024-11-06 14:37:38,521 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:37:38,532 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:37:38,577 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:37:38,589 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:37:38,614 - root - INFO - Week calculation stats: 174/174 valid calculations
+2024-11-06 14:37:38,636 - root - INFO - Week calculation stats: 174/174 valid calculations
