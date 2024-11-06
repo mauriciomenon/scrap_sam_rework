@@ -69,6 +69,73 @@ class DataLoader:
         self.df = None
         self.ssa_objects = []
 
+    def validate_and_fix_date(self, date_str, row_num, logger=None):
+        """
+        Valida e corrige valores de data apenas quando necessário.
+        """
+        import pandas as pd
+        from datetime import datetime
+
+        def log_issue(message):
+            if logger:
+                logger.warning(f"Linha {row_num}: {message}")
+
+        try:
+            # Se já for timestamp válido, retorna diretamente
+            if isinstance(date_str, pd.Timestamp):
+                return date_str
+
+            # Se for string vazia ou NaT/nan, então sim, precisamos tentar recuperar
+            if pd.isna(date_str) or date_str == "" or date_str == "NaT":
+                log_issue(f"Data vazia ou inválida (valor original = {date_str})")
+                return None
+
+            # Se for string com formato válido, converte
+            try:
+                # Primeiro tenta o formato padrão do sistema
+                return pd.to_datetime(date_str, format="%d/%m/%Y %H:%M:%S")
+            except:
+                # Se falhar, tenta formato flexível
+                try:
+                    return pd.to_datetime(date_str)
+                except:
+                    log_issue(f"Formato de data não reconhecido: {date_str}")
+                    return None
+
+        except Exception as e:
+            log_issue(f"Erro ao processar data: {str(e)}")
+            return None
+
+
+    def _convert_dates(self):
+        """Converte e valida datas mantendo o tipo apropriado."""
+        try:
+            # Se a coluna já for datetime, não precisa converter
+            if pd.api.types.is_datetime64_any_dtype(self.df.iloc[:, SSAColumns.EMITIDA_EM]):
+                logging.info("Coluna já está em formato datetime")
+                return
+
+            # Converte diretamente para datetime usando o formato correto
+            self.df.iloc[:, SSAColumns.EMITIDA_EM] = pd.to_datetime(
+                self.df.iloc[:, SSAColumns.EMITIDA_EM],
+                format="%d/%m/%Y %H:%M:%S",
+                errors="coerce",
+            )
+
+            # Verifica se houve problemas
+            invalid_mask = self.df.iloc[:, SSAColumns.EMITIDA_EM].isna()
+            invalid_count = invalid_mask.sum()
+
+            if invalid_count > 0:
+                logging.error(f"Encontradas {invalid_count} datas inválidas")
+                for idx in invalid_mask[invalid_mask].index:
+                    logging.error(
+                        f"Linha {idx + 1}: Data inválida - verificar valor original"
+                    )
+
+        except Exception as e:
+            logging.error(f"Erro no processamento de datas: {str(e)}")
+            raise
 
     def load_data(self) -> pd.DataFrame:
         """Carrega dados do Excel com as configurações corretas."""
@@ -79,76 +146,8 @@ class DataLoader:
                 header=2,  # Cabeçalho na terceira linha
             )
 
-            # Primeiro, trata as datas
-            try:
-                # Limpa dados e cria cópia para backup
-                self.df.iloc[:, SSAColumns.EMITIDA_EM] = (
-                    self.df.iloc[:, SSAColumns.EMITIDA_EM]
-                    .fillna("")
-                    .astype(str)
-                    .str.strip()
-                )
-                original_dates = self.df.iloc[:, SSAColumns.EMITIDA_EM].copy()
-
-                # Função para converter data mantendo o ano original
-                def convert_date(date_str):
-                    try:
-                        if not date_str or date_str == "nan" or date_str == "":
-                            return pd.NaT
-
-                        # Se for apenas anosemana (6 dígitos: AAASS)
-                        if date_str.isdigit() and len(date_str) == 6:
-                            year = int(date_str[:4])
-                            week = int(date_str[4:])
-                            # Converte para uma data representativa da semana
-                            return pd.to_datetime(
-                                f"{year}-W{week:02d}-1", format="%Y-W%W-%w"
-                            )
-
-                        # Se for data completa, tenta vários formatos
-                        for fmt in ["%d/%m/%Y %H:%M:%S", "%d/%m/%Y %H:%M"]:
-                            try:
-                                return pd.to_datetime(date_str, format=fmt)
-                            except:
-                                continue
-
-                        # Se nenhum formato funcionar, tenta conversão flexível
-                        return pd.to_datetime(date_str)
-                    except:
-                        return pd.NaT
-
-                # Aplica a conversão em cada data
-                self.df.iloc[:, SSAColumns.EMITIDA_EM] = self.df.iloc[
-                    :, SSAColumns.EMITIDA_EM
-                ].apply(convert_date)
-
-                # Log dos resultados
-                valid_dates = self.df.iloc[:, SSAColumns.EMITIDA_EM].notna().sum()
-                total_dates = len(self.df)
-
-                if valid_dates < total_dates:
-                    invalid_rows = []
-                    mask_nat = self.df.iloc[:, SSAColumns.EMITIDA_EM].isna()
-                    for idx in self.df[mask_nat].index:
-                        original_value = original_dates.iloc[idx]
-                        invalid_rows.append(
-                            f"Linha {idx + 1}: Valor original = {original_value}"
-                        )
-
-                    if len(invalid_rows) == 1:
-                        logging.warning(
-                            f"Uma data não pôde ser convertida: {invalid_rows[0]}"
-                        )
-                    else:
-                        logging.warning(
-                            f"{total_dates - valid_dates} datas não puderam ser convertidas:\n"
-                            + "\n".join(invalid_rows)
-                        )
-
-            except Exception as e:
-                logging.error(f"Erro ao processar datas: {str(e)}")
-                logging.error(traceback.format_exc())
-                self.df.iloc[:, SSAColumns.EMITIDA_EM] = pd.NaT
+            # Converte as datas usando o novo método
+            self._convert_dates()
 
             # Converte colunas string
             string_columns = [
@@ -246,7 +245,7 @@ class DataLoader:
 
         except Exception as e:
             logging.error(f"Erro ao carregar dados: {str(e)}")
-            raise
+        raise
 
     def _validate_data_quality(self):
         """Valida a qualidade dos dados após as conversões."""

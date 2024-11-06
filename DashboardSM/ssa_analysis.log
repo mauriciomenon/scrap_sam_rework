@@ -1524,3 +1524,140 @@ AttributeError: 'DataLoader' object has no attribute 'load_data'
 2024-11-05 15:43:51,758 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
 2024-11-05 15:43:51,986 - __main__ - INFO - Relatório Excel gerado com sucesso.
 2024-11-05 15:43:51,986 - __main__ - INFO - Iniciando dashboard...
+2024-11-05 16:05:30,735 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 16:05:31,420 - root - WARNING - Linha 163: Data vazia ou inválida (valor original = )
+2024-11-05 16:05:31,421 - root - WARNING - Linha 163: Data recuperada da semana cadastro: 2024-10-28 00:00:00
+2024-11-05 16:05:31,459 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 16:05:31,459 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 16:05:31,459 - root - INFO - Número: 202415726
+2024-11-05 16:05:31,460 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-05 16:05:31,460 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 16:05:31,461 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 16:05:31,461 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 16:05:31,462 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 16:05:31,462 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 16:05:31,465 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-05 16:05:31,589 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-05 16:05:31,812 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-05 16:05:31,813 - __main__ - INFO - Iniciando dashboard...
+2024-11-05 16:05:31,854 - dash.dash - INFO - Dash is running on http://127.0.0.1:8050/
+
+2024-11-05 16:05:34,122 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 16:05:34,537 - root - WARNING - Linha 163: Data vazia ou inválida (valor original = )
+2024-11-05 16:05:34,538 - root - WARNING - Linha 163: Data recuperada da semana cadastro: 2024-10-28 00:00:00
+2024-11-05 16:05:34,575 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 16:05:34,575 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 16:05:34,575 - root - INFO - Número: 202415726
+2024-11-05 16:05:34,576 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-05 16:05:34,576 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 16:05:34,577 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 16:05:34,577 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 16:05:34,578 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 16:05:34,578 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 16:05:34,581 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-05 16:05:34,691 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-05 16:05:34,889 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-05 16:05:34,889 - __main__ - INFO - Iniciando dashboard...
+2024-11-05 16:20:59,926 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 16:21:00,593 - root - ERROR - Erro ao carregar dados: 'DataLoader' object has no attribute 'validate_and_fix_date'
+2024-11-05 16:21:00,594 - __main__ - ERROR - Erro durante a execução: No active exception to reraise
+2024-11-05 16:21:00,597 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Report_from_excel.py", line 1790, in <module>
+    setores = self.df.iloc[:, SSAColumns.SETOR_EXECUTOR].value_counts()
+     ^^^^^^^^^^^^^^^^^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Report_from_excel.py", line 215, in load_data
+    header=2,  # Cabeçalho na terceira linha
+    
+RuntimeError: No active exception to reraise
+
+2024-11-05 16:24:23,595 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 16:24:24,053 - root - WARNING - Linha 163: Data vazia ou inválida (valor original = )
+2024-11-05 16:24:24,057 - root - WARNING - 1 data(s) inválida(s):
+2024-11-05 16:24:24,057 - root - WARNING - Linha 163: Valor original = 
+2024-11-05 16:24:24,093 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 16:24:24,093 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 16:24:24,094 - root - INFO - Número: 202415726
+2024-11-05 16:24:24,094 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-05 16:24:24,094 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 16:24:24,096 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-05 16:24:24,096 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 16:24:24,096 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 16:24:24,097 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 16:24:24,097 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 16:24:24,100 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-05 16:24:24,221 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-05 16:24:24,427 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-05 16:24:24,428 - __main__ - INFO - Iniciando dashboard...
+2024-11-05 16:24:24,471 - dash.dash - INFO - Dash is running on http://127.0.0.1:8050/
+
+2024-11-05 16:24:27,080 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 16:24:27,583 - root - WARNING - Linha 163: Data vazia ou inválida (valor original = )
+2024-11-05 16:24:27,587 - root - WARNING - 1 data(s) inválida(s):
+2024-11-05 16:24:27,587 - root - WARNING - Linha 163: Valor original = 
+2024-11-05 16:24:27,625 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 16:24:27,625 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 16:24:27,626 - root - INFO - Número: 202415726
+2024-11-05 16:24:27,626 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-05 16:24:27,626 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 16:24:27,627 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-05 16:24:27,628 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 16:24:27,628 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 16:24:27,628 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 16:24:27,628 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 16:24:27,631 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-05 16:24:27,762 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-05 16:24:27,988 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-05 16:24:27,989 - __main__ - INFO - Iniciando dashboard...
+2024-11-05 16:26:37,990 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 16:26:38,469 - root - WARNING - Linha 163: Data vazia ou inválida (valor original = )
+2024-11-05 16:26:38,474 - root - WARNING - 1 data(s) inválida(s):
+2024-11-05 16:26:38,475 - root - WARNING - Linha 163: Valor original = 
+2024-11-05 16:26:38,517 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 16:26:38,518 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 16:26:38,519 - root - INFO - Número: 202415726
+2024-11-05 16:26:38,520 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-05 16:26:38,520 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 16:26:38,521 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-05 16:26:38,522 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 16:26:38,523 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 16:26:38,523 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 16:26:38,524 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 16:26:38,526 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-05 16:26:38,650 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-05 16:26:38,912 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-05 16:26:38,913 - __main__ - INFO - Iniciando dashboard...
+2024-11-05 16:31:28,680 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 16:31:29,215 - root - WARNING - Linha 163: Data vazia ou inválida (valor original = )
+2024-11-05 16:31:29,219 - root - WARNING - 1 data(s) inválida(s):
+2024-11-05 16:31:29,220 - root - WARNING - Linha 163: Valor original = 
+2024-11-05 16:31:29,253 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 16:31:29,253 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 16:31:29,254 - root - INFO - Número: 202415726
+2024-11-05 16:31:29,254 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-05 16:31:29,254 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 16:31:29,255 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-05 16:31:29,255 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 16:31:29,256 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 16:31:29,256 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 16:31:29,256 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 16:31:29,259 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-05 16:31:29,379 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-05 16:31:29,578 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-05 16:31:29,579 - __main__ - INFO - Iniciando dashboard...
+2024-11-05 16:31:44,628 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-05 16:31:45,035 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-05 16:31:45,036 - root - ERROR - Linha 163: Data inválida - verificar valor original
+2024-11-05 16:31:45,070 - root - INFO - Convertidos 174 registros para SSAData
+2024-11-05 16:31:45,070 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-05 16:31:45,070 - root - INFO - Número: 202415726
+2024-11-05 16:31:45,071 - root - INFO - Data de emissão: 2024-10-02 09:44:12
+2024-11-05 16:31:45,071 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-05 16:31:45,072 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-05 16:31:45,073 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 174
+2024-11-05 16:31:45,073 - __main__ - INFO - Convertidos 174 registros para objetos SSAData
+2024-11-05 16:31:45,074 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-05 16:31:45,074 - __main__ - INFO - Gerando relatório inicial...
+2024-11-05 16:31:45,077 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-05 16:31:45,190 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-05 16:31:45,406 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-05 16:31:45,407 - __main__ - INFO - Iniciando dashboard...
