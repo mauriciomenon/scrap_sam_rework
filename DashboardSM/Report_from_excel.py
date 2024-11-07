@@ -708,33 +708,32 @@ class SSAWeekAnalyzer:
 
         return analysis.sort_values(["year", "week"])
 
-    def create_week_chart(self, use_programmed: bool = True) -> go.Figure:
-        """
-        Cria gráfico de SSAs por semana, agrupado por ano.
 
-        Args:
-            use_programmed: Se True, usa semana_programada, senão usa semana_cadastro
-        """
-        analysis = self.analyze_weeks(use_programmed)
+    def create_week_chart(self, use_programmed: bool = True) -> go.Figure:
+        """Cria gráfico de SSAs por semana."""
+        analysis = self.week_analyzer.analyze_weeks(use_programmed)
 
         if analysis.empty:
             return go.Figure().update_layout(
-                title="SSAs por Semana",
-                annotations=[
-                    {
-                        "text": "Não há dados válidos disponíveis",
-                        "xref": "paper",
-                        "yref": "paper",
-                        "showarrow": False,
-                        "font": {"size": 14},
-                    }
-                ],
+                self._get_standard_layout(
+                    title="SSAs por Semana",
+                    xaxis_title="Ano-Semana",
+                    yaxis_title="Quantidade de SSAs",
+                    annotations=[
+                        {
+                            "text": "Não há dados válidos disponíveis",
+                            "xref": "paper",
+                            "yref": "paper",
+                            "showarrow": False,
+                            "font": {"size": 14},
+                        }
+                    ],
+                )
             )
 
         fig = go.Figure()
 
-        # Uma barra para cada prioridade
-        for priority in analysis.columns[2:-1]:  # Exclui year, week e year_week
+        for priority in analysis.columns[2:-1]:
             fig.add_trace(
                 go.Bar(
                     name=priority,
@@ -752,24 +751,13 @@ class SSAWeekAnalyzer:
         )
 
         fig.update_layout(
-            title=title_text,
-            xaxis_title="Ano-Semana (ISO)",
-            yaxis_title="Quantidade de SSAs",
-            barmode="stack",
-            template="plotly_white",
-            showlegend=True,
-            xaxis={"tickangle": -45},
-            annotations=[
-                {
-                    "text": f"Anos: {analysis['year'].min()} - {analysis['year'].max()}",
-                    "xref": "paper",
-                    "yref": "paper",
-                    "x": 0.98,
-                    "y": 0.98,
-                    "showarrow": False,
-                    "font": {"size": 12},
-                }
-            ],
+            self._get_standard_layout(
+                title=title_text,
+                xaxis_title="Ano-Semana",
+                yaxis_title="Quantidade de SSAs",
+                x_values=analysis["year_week"],
+                barmode="stack",
+            )
         )
 
         return fig
@@ -835,12 +823,123 @@ class SSAWeekAnalyzer:
 
         return stats
 
+
 class SSAVisualizer:
     """Gera visualizações específicas para SSAs."""
 
     def __init__(self, df: pd.DataFrame):
         self.df = df
         self.week_analyzer = SSAWeekAnalyzer(df)  # Adicionar analisador de semanas
+
+
+    def _get_standard_layout(
+        self,
+        title: str,
+        xaxis_title: str = None,
+        yaxis_title: str = None,
+        x_values: list = None,
+        show_year_annotation: bool = True,
+        chart_type: str = "default",
+        **kwargs,
+    ) -> dict:
+        """
+        Retorna configuração padrão de layout para gráficos com tratamento robusto para diferentes tipos.
+
+        Args:
+            title: Título do gráfico
+            xaxis_title: Título do eixo X (opcional)
+            yaxis_title: Título do eixo Y (opcional)
+            x_values: Valores para o eixo X (opcional)
+            show_year_annotation: Se deve mostrar anotação de anos
+            chart_type: Tipo de gráfico ('bar', 'line', 'heatmap', 'scatter', 'default')
+            **kwargs: Configurações adicionais de layout
+        """
+        # Layout base que funciona para todos os tipos de gráfico
+        base_layout = {
+            "title": title,
+            "template": "plotly_white",
+            "showlegend": True,
+            "margin": {"l": 50, "r": 20, "t": 50, "b": 50},
+        }
+
+        # Adiciona configurações de eixos apenas se fornecidos
+        if xaxis_title is not None:
+            base_layout["xaxis_title"] = xaxis_title
+        if yaxis_title is not None:
+            base_layout["yaxis_title"] = yaxis_title
+
+        # Configurações específicas por tipo de gráfico
+        chart_specific = {
+            "bar": {
+                "xaxis": {"tickangle": -45, "tickfont": {"size": 10}, "showgrid": True},
+                "yaxis": {"showgrid": True, "gridcolor": "lightgray"},
+                "bargap": 0.2,
+                "bargroupgap": 0.1,
+            },
+            "line": {
+                "xaxis": {
+                    "showgrid": True,
+                    "gridcolor": "lightgray",
+                    "showline": True,
+                    "linewidth": 1,
+                    "linecolor": "black",
+                },
+                "yaxis": {
+                    "showgrid": True,
+                    "gridcolor": "lightgray",
+                    "showline": True,
+                    "linewidth": 1,
+                    "linecolor": "black",
+                },
+            },
+            "heatmap": {
+                "xaxis": {"side": "bottom", "tickfont": {"size": 10}},
+                "yaxis": {"side": "left", "tickfont": {"size": 10}},
+            },
+            "scatter": {
+                "xaxis": {"showgrid": True, "gridcolor": "lightgray", "zeroline": True},
+                "yaxis": {"showgrid": True, "gridcolor": "lightgray", "zeroline": True},
+            },
+            "default": {
+                "xaxis": {"showgrid": True, "gridcolor": "lightgray"},
+                "yaxis": {"showgrid": True, "gridcolor": "lightgray"},
+            },
+        }
+
+        # Seleciona configurações específicas do tipo de gráfico
+        type_config = chart_specific.get(chart_type, chart_specific["default"])
+        base_layout.update(type_config)
+
+        # Configura valores específicos do eixo X se fornecidos
+        if x_values is not None and "xaxis" in base_layout:
+            base_layout["xaxis"].update(
+                {"tickmode": "array", "ticktext": x_values, "tickvals": x_values}
+            )
+
+        # Adiciona anotação de anos se necessário e se tiver os dados
+        if show_year_annotation and hasattr(self, "df") and "year" in self.df.columns:
+            try:
+                year_min = self.df["year"].min()
+                year_max = self.df["year"].max()
+                if pd.notna(year_min) and pd.notna(year_max):
+                    base_layout.setdefault("annotations", []).append(
+                        {
+                            "text": f"Anos: {year_min} - {year_max}",
+                            "xref": "paper",
+                            "yref": "paper",
+                            "x": 0.98,
+                            "y": 0.98,
+                            "showarrow": False,
+                            "font": {"size": 12},
+                        }
+                    )
+            except Exception as e:
+                logging.warning(f"Erro ao adicionar anotação de anos: {str(e)}")
+
+        # Atualiza com configurações adicionais fornecidas
+        base_layout.update(kwargs)
+
+        return base_layout
 
     def create_priority_chart(self) -> go.Figure:
         """Cria gráfico de distribuição por prioridade."""
@@ -1013,15 +1112,16 @@ class SSAVisualizer:
             )
 
         fig.update_layout(
-            title="Carga de Trabalho por Setor",
-            xaxis_title=SSAColumns.get_name(SSAColumns.SETOR_EXECUTOR),
-            yaxis_title="Quantidade de SSAs",
-            barmode="stack",
-            template="plotly_white",
+            self._get_standard_layout(
+                title="Carga de Trabalho por Setor",
+                xaxis_title=SSAColumns.get_name(SSAColumns.SETOR_EXECUTOR),
+                yaxis_title="Quantidade de SSAs",
+                x_values=workload.index,
+                barmode="stack"
+            )
         )
 
         return fig
-
 
     def create_week_chart(self, use_programmed: bool = True) -> go.Figure:
         """
@@ -1107,32 +1207,49 @@ class SSAVisualizer:
 
     # Update the visualizer's week-related method
     def add_weeks_in_state_chart(self) -> go.Figure:
-        """
-        Creates an enhanced chart showing SSA distribution by weeks in state.
-        Uses the WeekAnalyzer for calculations.
-        """
+        """Cria gráfico mostrando distribuição de SSAs por tempo no estado."""
         weeks_in_state = self.week_analyzer.calculate_weeks_in_state()
         valid_weeks = weeks_in_state.dropna()
 
         if valid_weeks.empty:
             return go.Figure().update_layout(
-                title="Distribuição de SSAs por Tempo no Estado Atual",
-                annotations=[{
-                    'text': 'Não há dados válidos disponíveis',
-                    'xref': 'paper',
-                    'yref': 'paper',
-                    'showarrow': False,
-                    'font': {'size': 14}
-                }]
+                self._get_standard_layout(
+                    title="Distribuição de SSAs por Tempo no Estado Atual",
+                    xaxis_title="Semanas no Estado",
+                    yaxis_title="Quantidade de SSAs",
+                    chart_type="bar",
+                    annotations=[{
+                        'text': 'Não há dados válidos disponíveis',
+                        'xref': 'paper',
+                        'yref': 'paper',
+                        'showarrow': False,
+                        'font': {'size': 14}
+                    }]
+                )
             )
+
+        # Agrupa em intervalos de semanas para melhor visualização
+        value_counts = valid_weeks.value_counts().sort_index()
+        
+        # Criar bins (intervalos) para agrupar as semanas
+        max_weeks = value_counts.index.max()
+        if max_weeks > 50:  # Se tivermos muitas semanas, criar intervalos maiores
+            bins = list(range(0, int(max_weeks) + 10, 10))  # Intervalos de 10 semanas
+            labels = [f'{bins[i]}-{bins[i+1]-1}' for i in range(len(bins)-1)]
+            
+            # Redistribuir os dados nos novos intervalos
+            binned_data = pd.cut(value_counts.index, bins=bins, labels=labels, right=False)
+            value_counts = value_counts.groupby(binned_data).sum()
 
         fig = go.Figure([
             go.Bar(
-                x=valid_weeks.value_counts().sort_index().index,
-                y=valid_weeks.value_counts().sort_index().values,
-                text=valid_weeks.value_counts().sort_index().values,
+                x=value_counts.index,
+                y=value_counts.values,
+                text=value_counts.values,
                 textposition='auto',
-                name='SSAs por Semana'
+                name='SSAs por Semana',
+                marker_color='rgb(64, 83, 177)',  # Azul mais agradável
+                hovertemplate="Intervalo: %{x}<br>SSAs: %{y}<extra></extra>"
             )
         ])
 
@@ -1140,23 +1257,46 @@ class SSAVisualizer:
         total_count = len(weeks_in_state)
 
         fig.update_layout(
-            title=f"Distribuição de SSAs por Tempo no Estado Atual<br><sub>({invalid_count}/{total_count} registros inválidos)</sub>",
-            xaxis_title="Semanas no Estado",
-            yaxis_title="Quantidade de SSAs",
-            showlegend=True,
-            annotations=[{
-                'text': f"Qualidade dos dados: {((total_count-invalid_count)/total_count*100):.1f}%",
-                'xref': 'paper',
-                'yref': 'paper',
-                'x': 0.98,
-                'y': 0.98,
-                'showarrow': False,
-                'font': {'size': 12}
-            }]
+            self._get_standard_layout(
+                title=f"Distribuição de SSAs por Tempo no Estado Atual<br><sub>({invalid_count}/{total_count} registros inválidos)</sub>",
+                xaxis_title="Intervalo de Semanas no Estado",
+                yaxis_title="Quantidade de SSAs",
+                chart_type="bar",
+                annotations=[{
+                    'text': f"Qualidade dos dados: {((total_count-invalid_count)/total_count*100):.1f}%",
+                    'xref': 'paper',
+                    'yref': 'paper',
+                    'x': 0.98,
+                    'y': 0.98,
+                    'showarrow': False,
+                    'font': {'size': 12}
+                }]
+            )
+        )
+
+        # Adiciona configurações específicas para melhorar a visualização
+        fig.update_layout(
+            bargap=0.2,
+            plot_bgcolor='white',
+            showlegend=False,
+            xaxis=dict(
+                showgrid=True,
+                gridwidth=1,
+                gridcolor='lightgray',
+                tickangle=0,  # Mantém os rótulos horizontais
+            ),
+            yaxis=dict(
+                showgrid=True,
+                gridwidth=1,
+                gridcolor='lightgray',
+                zeroline=True,
+                zerolinecolor='black',
+                zerolinewidth=1
+            ),
+            margin=dict(t=100, l=50, r=50, b=50)  # Ajusta as margens
         )
 
         return fig
-
 
 class SSAReporter:
     """Gera relatórios detalhados das SSAs."""
@@ -1524,7 +1664,8 @@ class SSADashboard:
         self.app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
         self.visualizer = SSAVisualizer(df)
         self.kpi_calc = KPICalculator(df)
-        self.week_analyzer = SSAWeekAnalyzer(df)  # Principal instância do analisador
+        # Podemos usar o week_analyzer do visualizer ao invés de criar um novo
+        self.week_analyzer = self.visualizer.week_analyzer
         self.setup_layout()
         self.setup_callbacks()
 
@@ -1533,8 +1674,8 @@ class SSADashboard:
             [
                 Output("resp-prog-chart", "figure"),
                 Output("resp-exec-chart", "figure"),
-                Output("programmed-week-chart", "figure"),  # ID correto
-                Output("registration-week-chart", "figure"),  # ID correto
+                Output("programmed-week-chart", "figure"),
+                Output("registration-week-chart", "figure"),
                 Output("detail-section", "style"),
                 Output("detail-state-chart", "figure"),
                 Output("detail-week-chart", "figure"),
@@ -1554,13 +1695,15 @@ class SSADashboard:
                     df_filtered.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == resp_exec
                 ]
 
-            # Criar apenas um visualizador filtrado
+            # Criar visualizador filtrado
             filtered_visualizer = SSAVisualizer(df_filtered)
 
-            # Gerar gráficos
+            # Gerar gráficos usando o visualizer quando apropriado
             fig_prog = self._create_resp_prog_chart(df_filtered)
             fig_exec = self._create_resp_exec_chart(df_filtered)
-            fig_programmed_week = filtered_visualizer.create_week_chart(use_programmed=True)
+            fig_programmed_week = filtered_visualizer.create_week_chart(
+                use_programmed=True
+            )
             fig_registration_week = filtered_visualizer.create_week_chart(
                 use_programmed=False
             )
@@ -1568,7 +1711,9 @@ class SSADashboard:
                 {"display": "block"} if resp_prog or resp_exec else {"display": "none"}
             )
             fig_detail_state = self._create_detail_state_chart(df_filtered)
-            fig_detail_week = filtered_visualizer.create_week_chart()
+            fig_detail_week = (
+                filtered_visualizer.create_week_chart()
+            )  # Use o visualizer diretamente
             table_data = self._prepare_table_data(df_filtered)
             weeks_fig = filtered_visualizer.add_weeks_in_state_chart()
 
@@ -1891,29 +2036,51 @@ class SSADashboard:
     def _create_resp_prog_chart(self, df):
         """Cria o gráfico de responsáveis na programação."""
         resp_prog_counts = df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO].value_counts()
+
         fig = go.Figure(
-            data=[go.Bar(x=resp_prog_counts.index, y=resp_prog_counts.values)]
+            data=[
+                go.Bar(
+                    x=resp_prog_counts.index,
+                    y=resp_prog_counts.values,
+                    text=resp_prog_counts.values,
+                    textposition="auto",
+                )
+            ]
         )
+
         fig.update_layout(
-            title="SSAs por Responsável na Programação",
-            xaxis_title="Responsável",
-            yaxis_title="Quantidade",
-            template="plotly_white",
+            self.visualizer._get_standard_layout(  # Use o visualizer aqui
+                title="SSAs por Responsável na Programação",
+                xaxis_title="Responsável",
+                yaxis_title="Quantidade",
+                chart_type="bar",
+            )
         )
+
         return fig
 
     def _create_resp_exec_chart(self, df):
         """Cria o gráfico de responsáveis na execução."""
         resp_exec_counts = df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO].value_counts()
-        fig = go.Figure(
-            data=[go.Bar(x=resp_exec_counts.index, y=resp_exec_counts.values)]
-        )
+
+        fig = go.Figure(data=[
+            go.Bar(
+                x=resp_exec_counts.index,
+                y=resp_exec_counts.values,
+                text=resp_exec_counts.values,
+                textposition="auto"
+            )
+        ])
+
         fig.update_layout(
-            title="SSAs por Responsável na Execução",
-            xaxis_title="Responsável",
-            yaxis_title="Quantidade",
-            template="plotly_white",
+            self.visualizer._get_standard_layout(  # Use o visualizer aqui
+                title="SSAs por Responsável na Execução",
+                xaxis_title="Responsável",
+                yaxis_title="Quantidade",
+                chart_type="bar"
+            )
         )
+
         return fig
 
     def create_week_chart(self, use_programmed: bool = True) -> go.Figure:
@@ -1998,7 +2165,6 @@ class SSADashboard:
 
         return fig
 
-
     def create_registration_week_chart(self) -> go.Figure:
         """
         Cria gráfico específico para SSAs por semana de cadastro.
@@ -2008,31 +2174,34 @@ class SSADashboard:
 
     def _create_detail_week_chart(self, df):
         """Cria o gráfico de detalhamento por semana usando o visualizador."""
+        # Aqui já estamos usando o visualizador corretamente
         filtered_visualizer = SSAVisualizer(df)
-        return filtered_visualizer.create_week_chart()
+        return filtered_visualizer.create_week_chart(
+            use_programmed=True
+        )
 
     def _create_detail_state_chart(self, df):
         """Cria o gráfico de detalhamento por estado."""
         state_counts = df.iloc[:, SSAColumns.SITUACAO].value_counts()
-        fig = go.Figure(data=[go.Bar(x=state_counts.index, y=state_counts.values)])
-        fig.update_layout(
-            title="SSAs Pendentes por Estado",
-            xaxis_title="Estado",
-            yaxis_title="Quantidade",
-            template="plotly_white",
-        )
-        return fig
 
-    def _create_detail_state_chart(self, df):
-        """Cria o gráfico de detalhamento por estado."""
-        state_counts = df.iloc[:, SSAColumns.SITUACAO].value_counts()
-        fig = go.Figure(data=[go.Bar(x=state_counts.index, y=state_counts.values)])
+        fig = go.Figure(data=[
+            go.Bar(
+                x=state_counts.index,
+                y=state_counts.values,
+                text=state_counts.values,
+                textposition="auto"
+            )
+        ])
+
         fig.update_layout(
-            title="SSAs Pendentes por Estado",
-            xaxis_title="Estado",
-            yaxis_title="Quantidade",
-            template="plotly_white",
+            self.visualizer._get_standard_layout(  # Use o visualizer aqui
+                title="SSAs Pendentes por Estado",
+                xaxis_title="Estado",
+                yaxis_title="Quantidade",
+                chart_type="bar"
+            )
         )
+
         return fig
 
     def _prepare_table_data(self, df=None):
