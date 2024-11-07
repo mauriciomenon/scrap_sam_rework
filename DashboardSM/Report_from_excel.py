@@ -810,34 +810,30 @@ class SSAWeekAnalyzer:
         analysis = self.analyze_weeks()
 
         if analysis.empty:
-            return pd.DataFrame(
-                {
-                    "week_count": pd.Series(dtype="int64"),
-                    "cumulative_percent": pd.Series(dtype="float64"),
-                }
-            )
+            return pd.DataFrame({
+                'week_count': pd.Series(dtype='int64'),
+                'cumulative_percent': pd.Series(dtype='float64')
+            })
+
+        # Calcular contagem total por semana (soma de todas as prioridades)
+        total_por_semana = analysis.iloc[:, 2:-1].sum(axis=1)  # Soma todas as colunas exceto year, week e year_week
 
         # Criar análise de distribuição
-        stats = pd.DataFrame(
-            {
-                "week_count": analysis["count"],
-                "cumulative_percent": (
-                    analysis["count"].cumsum() / analysis["count"].sum() * 100
-                ),
-            }
-        )
+        stats = pd.DataFrame({
+            'week_count': total_por_semana,
+            'cumulative_percent': (total_por_semana.cumsum() / total_por_semana.sum() * 100)
+        })
 
         # Adicionar métricas de qualidade
-        invalid_count = len(self.df) - analysis["count"].sum()
+        invalid_count = len(self.df) - total_por_semana.sum()
         if len(self.df) > 0:
             invalid_percent = (invalid_count / len(self.df)) * 100
         else:
             invalid_percent = 0
 
-        stats.loc["missing_data"] = [invalid_count, invalid_percent]
+        stats.loc['missing_data'] = [invalid_count, invalid_percent]
 
         return stats
-
 
 class SSAVisualizer:
     """Gera visualizações específicas para SSAs."""
@@ -1532,7 +1528,6 @@ class SSADashboard:
         self.setup_layout()
         self.setup_callbacks()
 
-
     def setup_callbacks(self):
         @self.app.callback(
             [
@@ -1921,9 +1916,88 @@ class SSADashboard:
         )
         return fig
 
-    def create_week_chart(self) -> go.Figure:
-        """Cria gráfico de SSAs programadas por semana."""
-        return self.week_analyzer.create_week_chart(use_programmed=True)
+    def create_week_chart(self, use_programmed: bool = True) -> go.Figure:
+        """
+        Cria gráfico de SSAs por semana.
+
+        Args:
+            use_programmed: Se True, usa semana_programada, senão usa semana_cadastro
+        """
+        week_info = self.week_analyzer.analyze_week_distribution()
+
+        if week_info.empty:
+            return go.Figure().update_layout(
+                title="SSAs por Semana",
+                annotations=[
+                    {
+                        "text": "Não há dados válidos disponíveis",
+                        "xref": "paper",
+                        "yref": "paper",
+                        "showarrow": False,
+                        "font": {"size": 14},
+                    }
+                ],
+            )
+
+        analysis = self.week_analyzer.analyze_weeks(use_programmed)
+
+        if analysis.empty:
+            return go.Figure().update_layout(
+                title="SSAs por Semana",
+                annotations=[
+                    {
+                        "text": "Não há dados válidos disponíveis",
+                        "xref": "paper",
+                        "yref": "paper",
+                        "showarrow": False,
+                        "font": {"size": 14},
+                    }
+                ],
+            )
+
+        fig = go.Figure()
+
+        # Uma barra para cada prioridade
+        for priority in analysis.columns[2:-1]:  # Exclui year, week e year_week
+            fig.add_trace(
+                go.Bar(
+                    name=priority,
+                    x=analysis["year_week"],
+                    y=analysis[priority],
+                    text=analysis[priority],
+                    textposition="auto",
+                )
+            )
+
+        title_text = (
+            "SSAs Programadas por Semana"
+            if use_programmed
+            else "SSAs por Semana de Cadastro"
+        )
+
+        fig.update_layout(
+            title=title_text,
+            xaxis_title="Ano-Semana (ISO)",
+            yaxis_title="Quantidade de SSAs",
+            barmode="stack",
+            template="plotly_white",
+            showlegend=True,
+            xaxis={"tickangle": -45},
+            annotations=[
+                {
+                    "text": f"Anos: {analysis['year'].min()} - {analysis['year'].max()}",
+                    "xref": "paper",
+                    "yref": "paper",
+                    "x": 0.98,
+                    "y": 0.98,
+                    "showarrow": False,
+                    "font": {"size": 12},
+                }
+            ],
+        )
+
+        return fig
+
 
     def create_registration_week_chart(self) -> go.Figure:
         """
