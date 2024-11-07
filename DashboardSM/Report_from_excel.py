@@ -2053,7 +2053,7 @@ class SSADashboard:
 
     def run_server(self, debug=True, port=8050):
         """Inicia o servidor do dashboard."""
-        self.app.run_server(debug=debug, port=port)
+        self.app.run_server(debug=debug, port=port, host='0.0.0.0')
 
     def _get_initial_stats(self):
         """Calcula estatísticas iniciais para o dashboard."""
