@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-from dash import Dash, dcc, html, Input, Output
+from dash import Dash, dcc, html, Input, Output,State, MATCH, dash_table  
 import dash_bootstrap_components as dbc
 import logging
 from dash import dash_table
@@ -831,7 +831,6 @@ class SSAVisualizer:
         self.df = df
         self.week_analyzer = SSAWeekAnalyzer(df)  # Adicionar analisador de semanas
 
-
     def _get_standard_layout(
         self,
         title: str,
@@ -1218,40 +1217,75 @@ class SSAVisualizer:
                     xaxis_title="Semanas no Estado",
                     yaxis_title="Quantidade de SSAs",
                     chart_type="bar",
-                    annotations=[{
-                        'text': 'Não há dados válidos disponíveis',
-                        'xref': 'paper',
-                        'yref': 'paper',
-                        'showarrow': False,
-                        'font': {'size': 14}
-                    }]
+                    annotations=[
+                        {
+                            "text": "Não há dados válidos disponíveis",
+                            "xref": "paper",
+                            "yref": "paper",
+                            "showarrow": False,
+                            "font": {"size": 14},
+                        }
+                    ],
                 )
             )
 
-        # Agrupa em intervalos de semanas para melhor visualização
+        # Agrupa em intervalos de semanas
         value_counts = valid_weeks.value_counts().sort_index()
-        
-        # Criar bins (intervalos) para agrupar as semanas
         max_weeks = value_counts.index.max()
-        if max_weeks > 50:  # Se tivermos muitas semanas, criar intervalos maiores
-            bins = list(range(0, int(max_weeks) + 10, 10))  # Intervalos de 10 semanas
-            labels = [f'{bins[i]}-{bins[i+1]-1}' for i in range(len(bins)-1)]
-            
-            # Redistribuir os dados nos novos intervalos
-            binned_data = pd.cut(value_counts.index, bins=bins, labels=labels, right=False)
+
+        if max_weeks > 50:
+            bins = list(range(0, int(max_weeks) + 10, 10))
+            labels = [f"{bins[i]}-{bins[i+1]-1}" for i in range(len(bins) - 1)]
+            binned_data = pd.cut(
+                value_counts.index, bins=bins, labels=labels, right=False
+            )
             value_counts = value_counts.groupby(binned_data).sum()
 
-        fig = go.Figure([
-            go.Bar(
-                x=value_counts.index,
-                y=value_counts.values,
-                text=value_counts.values,
-                textposition='auto',
-                name='SSAs por Semana',
-                marker_color='rgb(64, 83, 177)',  # Azul mais agradável
-                hovertemplate="Intervalo: %{x}<br>SSAs: %{y}<extra></extra>"
+        # Criar dicionário para armazenar SSAs por intervalo
+        ssas_by_interval = {}
+        for interval in value_counts.index:
+            # Encontrar SSAs no intervalo atual
+            if "-" in str(interval):
+                start, end = map(int, str(interval).split("-"))
+                mask = (weeks_in_state >= start) & (weeks_in_state <= end)
+            else:
+                mask = weeks_in_state == interval
+
+            ssas_in_interval = self.df[mask].iloc[:, SSAColumns.NUMERO_SSA].tolist()
+            ssas_by_interval[str(interval)] = ssas_in_interval
+
+        # Preparar texto customizado para hover
+        hover_text = []
+        for interval, ssas in ssas_by_interval.items():
+            # Limitar a 5 SSAs no hover
+            ssa_preview = "<br>".join(ssas[:5])
+            if len(ssas) > 5:
+                ssa_preview += f"<br>... (+{len(ssas)-5} SSAs)"
+            hover_text.append(
+                f"<b>Intervalo:</b> {interval}<br>"
+                f"<b>Total SSAs:</b> {len(ssas)}<br>"
+                f"<b>Primeiras SSAs:</b><br>{ssa_preview}"
             )
-        ])
+
+        fig = go.Figure(
+            [
+                go.Bar(
+                    x=value_counts.index,
+                    y=value_counts.values,
+                    text=value_counts.values,
+                    textposition="auto",
+                    name="SSAs por Semana",
+                    marker_color="rgb(64, 83, 177)",
+                    hovertext=hover_text,
+                    hoverinfo="text",
+                    customdata=[
+                        ssas_by_interval[str(interval)]
+                        for interval in value_counts.index
+                    ],
+                    hoverlabel=dict(bgcolor="white", font_size=12, font_family="Arial"),
+                )
+            ]
+        )
 
         invalid_count = weeks_in_state.isna().sum()
         total_count = len(weeks_in_state)
@@ -1262,41 +1296,28 @@ class SSAVisualizer:
                 xaxis_title="Intervalo de Semanas no Estado",
                 yaxis_title="Quantidade de SSAs",
                 chart_type="bar",
-                annotations=[{
-                    'text': f"Qualidade dos dados: {((total_count-invalid_count)/total_count*100):.1f}%",
-                    'xref': 'paper',
-                    'yref': 'paper',
-                    'x': 0.98,
-                    'y': 0.98,
-                    'showarrow': False,
-                    'font': {'size': 12}
-                }]
+                annotations=[
+                    {
+                        "text": "Clique nas barras para ver detalhes das SSAs",
+                        "xref": "paper",
+                        "yref": "paper",
+                        "x": 0.98,
+                        "y": 0.02,
+                        "showarrow": False,
+                        "font": {"size": 10, "color": "gray"},
+                        "xanchor": "right",
+                    }
+                ],
             )
         )
 
-        # Adiciona configurações específicas para melhorar a visualização
-        fig.update_layout(
-            bargap=0.2,
-            plot_bgcolor='white',
-            showlegend=False,
-            xaxis=dict(
-                showgrid=True,
-                gridwidth=1,
-                gridcolor='lightgray',
-                tickangle=0,  # Mantém os rótulos horizontais
-            ),
-            yaxis=dict(
-                showgrid=True,
-                gridwidth=1,
-                gridcolor='lightgray',
-                zeroline=True,
-                zerolinecolor='black',
-                zerolinewidth=1
-            ),
-            margin=dict(t=100, l=50, r=50, b=50)  # Ajusta as margens
+        # Configurações adicionais para melhorar a aparência
+        fig.update_traces(
+            hovertemplate=None, hoverlabel_align="left"  # Usar o hover_text customizado
         )
 
         return fig
+
 
 class SSAReporter:
     """Gera relatórios detalhados das SSAs."""
@@ -1670,6 +1691,7 @@ class SSADashboard:
         self.setup_callbacks()
 
     def setup_callbacks(self):
+        """Configura todos os callbacks do dashboard."""
         @self.app.callback(
             [
                 Output("resp-summary-cards", "children"),
@@ -1705,15 +1727,9 @@ class SSADashboard:
             # Gerar gráficos
             fig_prog = self._create_resp_prog_chart(df_filtered)
             fig_exec = self._create_resp_exec_chart(df_filtered)
-            fig_programmed_week = filtered_visualizer.create_week_chart(
-                use_programmed=True
-            )
-            fig_registration_week = filtered_visualizer.create_week_chart(
-                use_programmed=False
-            )
-            detail_style = (
-                {"display": "block"} if resp_prog or resp_exec else {"display": "none"}
-            )
+            fig_programmed_week = filtered_visualizer.create_week_chart(use_programmed=True)
+            fig_registration_week = filtered_visualizer.create_week_chart(use_programmed=False)
+            detail_style = {"display": "block"} if resp_prog or resp_exec else {"display": "none"}
             fig_detail_state = self._create_detail_state_chart(df_filtered)
             fig_detail_week = filtered_visualizer.create_week_chart()
             table_data = self._prepare_table_data(df_filtered)
@@ -1731,6 +1747,82 @@ class SSADashboard:
                 table_data,
                 weeks_fig,
             )
+
+        @self.app.callback(
+            [
+                Output("ssa-modal", "is_open"),
+                Output("ssa-modal-body", "children"),
+                Output("ssa-modal-title", "children"),
+            ],
+            [Input("weeks-in-state-chart", "clickData")],
+            [State("ssa-modal", "is_open")]
+        )
+        def toggle_modal(clickData, is_open):
+            if clickData is None:
+                return False, "", ""
+
+            # Extrair dados do clique
+            point_data = clickData['points'][0]
+            interval = point_data['x']
+            ssas = point_data['customdata']
+
+            # Criar conteúdo do modal
+            ssa_list = html.Div([
+                html.Div([
+                    html.Span(
+                        ssa, 
+                        style={
+                            "cursor": "pointer",
+                            "padding": "5px",
+                            "margin": "2px",
+                            "background": "#f8f9fa",
+                            "border-radius": "3px",
+                            "display": "inline-block",
+                            "transition": "background-color 0.2s"
+                        },
+                        className="ssa-chip",
+                        id={'type': 'ssa-number', 'index': i},
+                        title="Clique para copiar"
+                    )
+                    for i, ssa in enumerate(ssas)
+                ], style={
+                    "max-height": "400px",
+                    "overflow-y": "auto",
+                    "padding": "10px",
+                    "display": "flex",
+                    "flex-wrap": "wrap",
+                    "gap": "5px"
+                })
+            ])
+
+            title = f"SSAs no intervalo {interval} ({len(ssas)} SSAs)"
+
+            return True, ssa_list, title
+
+        # Callback para copiar SSA ao clicar
+        self.app.clientside_callback(
+            """
+            function(n_clicks, id) {
+                if (n_clicks > 0) {
+                    const el = document.getElementById(id);
+                    const text = el.textContent;
+                    navigator.clipboard.writeText(text);
+                    
+                    // Feedback visual
+                    el.style.backgroundColor = '#d4edda';
+                    setTimeout(() => {
+                        el.style.backgroundColor = '#f8f9fa';
+                    }, 500);
+                    
+                    return true;
+                }
+                return false;
+            }
+            """,
+            Output({'type': 'ssa-number', 'index': MATCH}, 'data-copied'),
+            Input({'type': 'ssa-number', 'index': MATCH}, 'n_clicks'),
+            State({'type': 'ssa-number', 'index': MATCH}, 'id'),
+        )
 
     def _get_state_counts(self):
         """Obtém contagem de SSAs por estado."""
@@ -1753,249 +1845,166 @@ class SSADashboard:
         }
 
     def setup_layout(self):
-        """Define o layout do dashboard."""
+        """Define o layout completo do dashboard."""
         stats = self._get_initial_stats()
         state_counts = self._get_state_counts()
 
-        self.app.layout = dbc.Container(
-            [
-                # Header
-                dbc.Row(
-                    [
-                        dbc.Col(
-                            html.H1("Dashboard de SSAs Pendentes", className="text-primary mb-4"),
-                            width=12,
-                        )
-                    ]
-                ),
-                # Filtros
-                dbc.Row(
-                    [
-                        dbc.Col(
-                            [
-                                html.Label("Responsável Programação:"),
-                                dcc.Dropdown(
-                                    id="resp-prog-filter",
-                                    options=[
-                                        {"label": resp, "value": resp}
-                                        for resp in self._get_responsaveis()["programacao"]
-                                    ],
-                                    placeholder="Selecione um responsável...",
-                                ),
-                            ],
-                            width=6,
+        self.app.layout = dbc.Container([
+            # Header
+            dbc.Row([
+                dbc.Col(
+                    html.H1("Dashboard de SSAs Pendentes", className="text-primary mb-4"),
+                    width=12,
+                )
+            ]),
+
+            # Cards de Estado
+            dbc.Row([
+                dbc.Col([
+                    html.H4("SSAs por Estado", className="mb-3"),
+                    self._create_state_cards(state_counts),
+                ], width=12)
+            ], className="mb-4"),
+
+            # Filtros
+            dbc.Row([
+                dbc.Col([
+                    html.Label("Responsável Programação:"),
+                    dcc.Dropdown(
+                        id="resp-prog-filter",
+                        options=[
+                            {"label": resp, "value": resp}
+                            for resp in self._get_responsaveis()["programacao"]
+                        ],
+                        placeholder="Selecione um responsável...",
+                    ),
+                ], width=6),
+                dbc.Col([
+                    html.Label("Responsável Execução:"),
+                    dcc.Dropdown(
+                        id="resp-exec-filter",
+                        options=[
+                            {"label": resp, "value": resp}
+                            for resp in self._get_responsaveis()["execucao"]
+                        ],
+                        placeholder="Selecione um responsável...",
+                    ),
+                ], width=6),
+            ], className="mb-3"),
+
+            # Cards de resumo por responsável
+            html.Div(id="resp-summary-cards", className="mb-4"),
+
+            # Gráfico de tempo no estado
+            dbc.Row([
+                dbc.Col([
+                    dbc.Card([
+                        dbc.CardHeader("Tempo no Estado Atual"),
+                        dbc.CardBody(dcc.Graph(id="weeks-in-state-chart")),
+                    ])
+                ], width=12),
+            ], className="mb-4"),
+
+            # Gráficos por Responsável
+            dbc.Row([
+                dbc.Col([
+                    dbc.Card([
+                        dbc.CardHeader("SSAs por Responsável na Programação"),
+                        dbc.CardBody(dcc.Graph(id="resp-prog-chart")),
+                    ])
+                ], width=6),
+                dbc.Col([
+                    dbc.Card([
+                        dbc.CardHeader("SSAs por Responsável na Execução"),
+                        dbc.CardBody(dcc.Graph(id="resp-exec-chart")),
+                    ])
+                ], width=6),
+            ], className="mb-4"),
+
+            # Gráficos de Semana
+            dbc.Row([
+                dbc.Col([
+                    dbc.Card([
+                        dbc.CardHeader("SSAs Programadas por Semana"),
+                        dbc.CardBody(dcc.Graph(id="programmed-week-chart")),
+                    ])
+                ], width=12),
+            ], className="mb-4"),
+
+            dbc.Row([
+                dbc.Col([
+                    dbc.Card([
+                        dbc.CardHeader("SSAs por Semana de Cadastro"),
+                        dbc.CardBody(dcc.Graph(id="registration-week-chart")),
+                    ])
+                ], width=12),
+            ], className="mb-4"),
+
+            # Seção de detalhamento
+            html.Div([
+                html.H4("Detalhamento por Responsável", className="mb-3"),
+                dbc.Row([
+                    dbc.Col([
+                        dbc.Card([
+                            dbc.CardHeader("SSAs Pendentes por Estado"),
+                            dbc.CardBody(dcc.Graph(id="detail-state-chart")),
+                        ])
+                    ], width=6),
+                    dbc.Col([
+                        dbc.Card([
+                            dbc.CardHeader("SSAs Programadas por Semana"),
+                            dbc.CardBody(dcc.Graph(id="detail-week-chart")),
+                        ])
+                    ], width=6),
+                ], className="mb-4"),
+            ], id="detail-section", style={"display": "none"}),
+
+            # Tabela de SSAs
+            dbc.Row([
+                dbc.Col([
+                    dbc.Card([
+                        dbc.CardHeader("Lista de SSAs"),
+                        dbc.CardBody(
+                            dash_table.DataTable(
+                                id="ssa-table",
+                                columns=[
+                                    {"name": "Número", "id": "numero"},
+                                    {"name": "Estado", "id": "estado"},
+                                    {"name": "Resp. Prog.", "id": "resp_prog"},
+                                    {"name": "Resp. Exec.", "id": "resp_exec"},
+                                    {"name": "Semana Prog.", "id": "semana_prog"},
+                                    {"name": "Prioridade", "id": "prioridade"},
+                                ],
+                                data=self._prepare_table_data(),
+                                page_size=10,
+                                style_table={"overflowX": "auto"},
+                                style_cell={"textAlign": "left"},
+                                style_header={
+                                    "backgroundColor": "rgb(230, 230, 230)",
+                                    "fontWeight": "bold",
+                                },
+                            )
                         ),
-                        dbc.Col(
-                            [
-                                html.Label("Responsável Execução:"),
-                                dcc.Dropdown(
-                                    id="resp-exec-filter",
-                                    options=[
-                                        {"label": resp, "value": resp}
-                                        for resp in self._get_responsaveis()["execucao"]
-                                    ],
-                                    placeholder="Selecione um responsável...",
-                                ),
-                            ],
-                            width=6,
-                        ),
-                    ],
-                    className="mb-3",
+                    ])
+                ], width=12),
+            ]),
+
+            # Modal para exibição das SSAs
+            dbc.Modal([
+                dbc.ModalHeader(dbc.ModalTitle(id="ssa-modal-title")),
+                dbc.ModalBody(id="ssa-modal-body"),
+                dbc.ModalFooter(
+                    dbc.Button(
+                        "Fechar",
+                        id="close-modal",
+                        className="ms-auto",
+                        n_clicks=0
+                    )
                 ),
-                # Cards de Estado
-                dbc.Row(
-                    [
-                        dbc.Col(
-                            [
-                                html.H4("SSAs por Estado", className="mb-3"),
-                                self._create_state_cards(state_counts),
-                            ],
-                            width=12,
-                        )
-                    ],
-                    className="mb-4",
-                ),
-                # Cards de resumo por estado - versão compacta
-                html.Div(id="resp-summary-cards", className="mb-4"),
-                # Gráfico de tempo no estado atual
-                dbc.Row(
-                    [
-                        dbc.Col(
-                            [
-                                dbc.Card(
-                                    [
-                                        dbc.CardHeader("Tempo no Estado Atual"),
-                                        dbc.CardBody(
-                                            dcc.Graph(id="weeks-in-state-chart")
-                                        ),
-                                    ]
-                                )
-                            ],
-                            width=12,
-                        )
-                    ],
-                    className="mb-4",
-                ),
-                # Gráficos por Responsável
-                dbc.Row(
-                    [
-                        dbc.Col(
-                            [
-                                dbc.Card(
-                                    [
-                                        dbc.CardHeader(
-                                            "SSAs por Responsável na Programação"
-                                        ),
-                                        dbc.CardBody(dcc.Graph(id="resp-prog-chart")),
-                                    ]
-                                )
-                            ],
-                            width=6,
-                        ),
-                        dbc.Col(
-                            [
-                                dbc.Card(
-                                    [
-                                        dbc.CardHeader(
-                                            "SSAs por Responsável na Execução"
-                                        ),
-                                        dbc.CardBody(dcc.Graph(id="resp-exec-chart")),
-                                    ]
-                                )
-                            ],
-                            width=6,
-                        ),
-                    ],
-                    className="mb-4",
-                ),
-                # Gráficos de Semana
-                dbc.Row(
-                    [
-                        dbc.Col(
-                            [
-                                dbc.Card(
-                                    [
-                                        dbc.CardHeader("SSAs Programadas por Semana"),
-                                        dbc.CardBody(dcc.Graph(id="programmed-week-chart")),
-                                    ]
-                                )
-                            ],
-                            width=12,
-                        )
-                    ],
-                    className="mb-4",
-                ),
-                dbc.Row(
-                    [
-                        dbc.Col(
-                            [
-                                dbc.Card(
-                                    [
-                                        dbc.CardHeader("SSAs por Semana de Cadastro"),
-                                        dbc.CardBody(dcc.Graph(id="registration-week-chart")),
-                                    ]
-                                )
-                            ],
-                            width=12,
-                        )
-                    ],
-                    className="mb-4",
-                ),
-                # Seção de detalhamento
-                html.Div(
-                    [
-                        html.H4("Detalhamento por Responsável", className="mb-3"),
-                        dbc.Row(
-                            [
-                                dbc.Col(
-                                    [
-                                        dbc.Card(
-                                            [
-                                                dbc.CardHeader(
-                                                    "SSAs Pendentes por Estado"
-                                                ),
-                                                dbc.CardBody(
-                                                    dcc.Graph(id="detail-state-chart")
-                                                ),
-                                            ]
-                                        )
-                                    ],
-                                    width=6,
-                                ),
-                                dbc.Col(
-                                    [
-                                        dbc.Card(
-                                            [
-                                                dbc.CardHeader(
-                                                    "SSAs Programadas por Semana"
-                                                ),
-                                                dbc.CardBody(
-                                                    dcc.Graph(id="detail-week-chart")
-                                                ),
-                                            ]
-                                        )
-                                    ],
-                                    width=6,
-                                ),
-                            ],
-                            className="mb-4",
-                        ),
-                    ],
-                    id="detail-section",
-                    style={"display": "none"},
-                ),
-                # Tabela de SSAs
-                dbc.Row(
-                    [
-                        dbc.Col(
-                            [
-                                dbc.Card(
-                                    [
-                                        dbc.CardHeader("Lista de SSAs"),
-                                        dbc.CardBody(
-                                            dash_table.DataTable(
-                                                id="ssa-table",
-                                                columns=[
-                                                    {"name": "Número", "id": "numero"},
-                                                    {"name": "Estado", "id": "estado"},
-                                                    {
-                                                        "name": "Resp. Prog.",
-                                                        "id": "resp_prog",
-                                                    },
-                                                    {
-                                                        "name": "Resp. Exec.",
-                                                        "id": "resp_exec",
-                                                    },
-                                                    {
-                                                        "name": "Semana Prog.",
-                                                        "id": "semana_prog",
-                                                    },
-                                                    {
-                                                        "name": "Prioridade",
-                                                        "id": "prioridade",
-                                                    },
-                                                ],
-                                                data=self._prepare_table_data(),
-                                                page_size=10,
-                                                style_table={"overflowX": "auto"},
-                                                style_cell={"textAlign": "left"},
-                                                style_header={
-                                                    "backgroundColor": "rgb(230, 230, 230)",
-                                                    "fontWeight": "bold",
-                                                },
-                                            )
-                                        ),
-                                    ]
-                                )
-                            ],
-                            width=12,
-                        )
-                    ]
-                ),
-            ],
-            fluid=True,
-            className="p-4",
-        )
+            ], id="ssa-modal", size="lg", is_open=False),
+
+        ], fluid=True, className="p-4")
+
 
     def _create_state_cards(self, state_counts):
         """Cria cards para cada estado de SSA."""
@@ -2006,7 +2015,7 @@ class SSADashboard:
                 width="auto"
             )
         ]
-        
+
         # Calcula o total e adiciona como primeiro card
         total_ssas = sum(state_counts.values())
         cards.append(
@@ -2035,10 +2044,10 @@ class SSADashboard:
                 width="auto"
             )
         )
-        
+
         # Lista ordenada de estados
         state_list = ['AAD', 'ADM', 'AAT', 'SPG', 'AIM', 'APV', 'APG', 'SCD', 'ADI', 'APL']
-        
+
         # Adiciona os cards de estado na ordem definida
         for state in state_list:
             count = state_counts.get(state, 0)
@@ -2067,7 +2076,7 @@ class SSADashboard:
                     width="auto"
                 )
             )
-        
+
         return dbc.Row(
             cards,
             className="g-2 flex-nowrap align-items-center"  # Alinhamento vertical centralizado
@@ -2135,7 +2144,7 @@ class SSADashboard:
 
         # Lista ordenada de estados
         state_list = ['AAD', 'ADM', 'AAT', 'SPG', 'AIM', 'APV', 'APG', 'SCD', 'ADI', 'APL']
-        
+
         # Um card para cada estado
         for state in state_list:
             count = state_counts.get(state, 0)
