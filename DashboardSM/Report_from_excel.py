@@ -2081,7 +2081,7 @@ class SSADashboard:
         cards = [
             # Label "Usuário:"
             dbc.Col(
-                html.H6("User:", className="mt-2 me-2"),
+                html.H6("Resp.:", className="mt-2 me-2"),
                 width="auto",
                 style={"display": "flex", "alignItems": "center"}
             ),
