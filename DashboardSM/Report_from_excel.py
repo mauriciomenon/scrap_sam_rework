@@ -682,7 +682,7 @@ class SSAWeekAnalyzer:
                     {
                         "year": year,
                         "week": week,
-                        "year_week": f"{year}-W{week:02d}",
+                        "year_week": f"{year}{week:02d}",
                         "ssa_number": row.iloc[SSAColumns.NUMERO_SSA],
                         "prioridade": row.iloc[SSAColumns.GRAU_PRIORIDADE_EMISSAO],
                     }
@@ -703,7 +703,7 @@ class SSAWeekAnalyzer:
 
         # Adiciona coluna com formato ano-semana para display
         analysis["year_week"] = analysis.apply(
-            lambda x: f"{x['year']}-W{x['week']:02d}", axis=1
+            lambda x: f"{x['year']}{x['week']:02d}", axis=1
         )
 
         return analysis.sort_values(["year", "week"])
@@ -2051,7 +2051,7 @@ class SSADashboard:
             for idx, row in df.iterrows()
         ]
 
-    def run_server(self, debug=True, port=8050):
+    def run_server(self, debug=True, port=8080):
         """Inicia o servidor do dashboard."""
         self.app.run_server(debug=debug, port=port, host='0.0.0.0')
 
@@ -2234,7 +2234,7 @@ if __name__ == "__main__":
         # Inicia o dashboard
         logger.info("Iniciando dashboard...")
         dashboard = SSADashboard(df)
-        dashboard.run_server(debug=True, port=8050)
+        dashboard.run_server(debug=True, port=8080)
 
     except Exception as e:
         logger.error(f"Erro durante a execução: {str(e)}")
