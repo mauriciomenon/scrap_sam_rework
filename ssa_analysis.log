@@ -3308,3 +3308,1261 @@ OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disp
 2024-11-07 14:10:21,262 - __main__ - INFO - Relatório Excel gerado com sucesso.
 2024-11-07 14:10:21,262 - __main__ - INFO - Iniciando dashboard...
 2024-11-07 14:10:22,659 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:13:45,373 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:13:45,882 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:13:45,882 - root - INFO - Total de linhas: 175
+2024-11-07 14:13:45,883 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:13:45,883 - root - INFO - 
+Linha 164:
+2024-11-07 14:13:45,884 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:13:45,884 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:13:45,884 - root - INFO -   Dados da linha:
+2024-11-07 14:13:45,885 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:13:45,885 - root - INFO -     Situação: ADI
+2024-11-07 14:13:45,885 - root - INFO -     Derivada de: nan
+2024-11-07 14:13:45,886 - root - INFO -     Localização: K061A006
+2024-11-07 14:13:45,886 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:13:45,886 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:13:45,887 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:13:45,887 - root - INFO -     Emitida Em: nan
+2024-11-07 14:13:45,887 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:13:45,888 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:13:45,888 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:13:45,888 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:13:45,888 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:13:45,889 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:13:45,889 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:13:45,889 - root - INFO -     Execução Simples: Não
+2024-11-07 14:13:45,889 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:13:45,890 - root - INFO -     Semana Programada: nan
+2024-11-07 14:13:45,890 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:13:45,890 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:13:45,891 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:13:45,891 - root - INFO -     Anomalia: nan
+2024-11-07 14:13:45,893 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:13:45,893 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:13:45,931 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:13:45,931 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:13:45,932 - root - INFO - Número: 202415727
+2024-11-07 14:13:45,932 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:13:45,932 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:13:45,933 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:13:45,934 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:13:45,934 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:13:45,934 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:13:45,935 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:13:45,937 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:13:46,060 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:13:46,353 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:13:46,353 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:13:46,379 - __main__ - ERROR - Erro durante a execução: 'SSADashboard' object has no attribute '_create_state_cards'
+2024-11-07 14:13:46,383 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Report_from_excel.py", line 2382, in <module>
+    })
+    
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Report_from_excel.py", line 1669, in __init__
+    self.setup_layout()
+    ~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Report_from_excel.py", line 1810, in setup_layout
+    self._create_state_cards(state_counts),
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SSADashboard' object has no attribute '_create_state_cards'
+
+2024-11-07 14:14:00,231 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:14:00,891 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:14:00,891 - root - INFO - Total de linhas: 175
+2024-11-07 14:14:00,892 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:14:00,892 - root - INFO - 
+Linha 164:
+2024-11-07 14:14:00,892 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:14:00,893 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:14:00,893 - root - INFO -   Dados da linha:
+2024-11-07 14:14:00,894 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:14:00,894 - root - INFO -     Situação: ADI
+2024-11-07 14:14:00,895 - root - INFO -     Derivada de: nan
+2024-11-07 14:14:00,895 - root - INFO -     Localização: K061A006
+2024-11-07 14:14:00,895 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:14:00,895 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:14:00,896 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:14:00,896 - root - INFO -     Emitida Em: nan
+2024-11-07 14:14:00,896 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:14:00,897 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:14:00,897 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:14:00,897 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:14:00,897 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:14:00,898 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:14:00,898 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:14:00,898 - root - INFO -     Execução Simples: Não
+2024-11-07 14:14:00,898 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:14:00,898 - root - INFO -     Semana Programada: nan
+2024-11-07 14:14:00,899 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:14:00,899 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:14:00,899 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:14:00,899 - root - INFO -     Anomalia: nan
+2024-11-07 14:14:00,901 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:14:00,901 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:14:00,942 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:14:00,942 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:14:00,943 - root - INFO - Número: 202415727
+2024-11-07 14:14:00,943 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:14:00,944 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:14:00,945 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:14:00,946 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:14:00,946 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:14:00,947 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:14:00,947 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:14:00,950 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:14:01,092 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:14:01,449 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:14:01,449 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:14:01,498 - dash.dash - INFO - Dash is running on http://0.0.0.0:8080/
+
+2024-11-07 14:14:04,002 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:14:04,607 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:14:04,608 - root - INFO - Total de linhas: 175
+2024-11-07 14:14:04,608 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:14:04,608 - root - INFO - 
+Linha 164:
+2024-11-07 14:14:04,609 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:14:04,609 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:14:04,610 - root - INFO -   Dados da linha:
+2024-11-07 14:14:04,610 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:14:04,610 - root - INFO -     Situação: ADI
+2024-11-07 14:14:04,610 - root - INFO -     Derivada de: nan
+2024-11-07 14:14:04,611 - root - INFO -     Localização: K061A006
+2024-11-07 14:14:04,611 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:14:04,611 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:14:04,612 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:14:04,612 - root - INFO -     Emitida Em: nan
+2024-11-07 14:14:04,612 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:14:04,612 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:14:04,613 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:14:04,613 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:14:04,613 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:14:04,613 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:14:04,614 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:14:04,614 - root - INFO -     Execução Simples: Não
+2024-11-07 14:14:04,614 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:14:04,614 - root - INFO -     Semana Programada: nan
+2024-11-07 14:14:04,614 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:14:04,615 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:14:04,615 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:14:04,615 - root - INFO -     Anomalia: nan
+2024-11-07 14:14:04,617 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:14:04,617 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:14:04,654 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:14:04,655 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:14:04,655 - root - INFO - Número: 202415727
+2024-11-07 14:14:04,655 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:14:04,655 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:14:04,657 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:14:04,657 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:14:04,658 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:14:04,658 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:14:04,659 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:14:04,662 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:14:04,783 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:14:05,090 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:14:05,090 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:14:06,388 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:14:46,133 - root - INFO - Week calculation stats: 25/25 valid calculations
+2024-11-07 14:14:50,770 - root - INFO - Week calculation stats: 24/24 valid calculations
+2024-11-07 14:15:37,320 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:15:37,893 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:15:37,894 - root - INFO - Total de linhas: 175
+2024-11-07 14:15:37,894 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:15:37,895 - root - INFO - 
+Linha 164:
+2024-11-07 14:15:37,895 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:15:37,896 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:15:37,896 - root - INFO -   Dados da linha:
+2024-11-07 14:15:37,897 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:15:37,897 - root - INFO -     Situação: ADI
+2024-11-07 14:15:37,897 - root - INFO -     Derivada de: nan
+2024-11-07 14:15:37,898 - root - INFO -     Localização: K061A006
+2024-11-07 14:15:37,898 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:15:37,898 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:15:37,899 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:15:37,899 - root - INFO -     Emitida Em: nan
+2024-11-07 14:15:37,899 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:15:37,900 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:15:37,900 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:15:37,900 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:15:37,900 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:15:37,901 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:15:37,901 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:15:37,901 - root - INFO -     Execução Simples: Não
+2024-11-07 14:15:37,901 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:15:37,902 - root - INFO -     Semana Programada: nan
+2024-11-07 14:15:37,902 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:15:37,902 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:15:37,902 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:15:37,903 - root - INFO -     Anomalia: nan
+2024-11-07 14:15:37,905 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:15:37,906 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:15:37,975 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:15:37,976 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:15:37,976 - root - INFO - Número: 202415727
+2024-11-07 14:15:37,976 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:15:37,977 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:15:37,978 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:15:37,978 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:15:37,979 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:15:37,979 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:15:37,980 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:15:37,982 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:15:38,123 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:15:38,460 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:15:38,461 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:15:40,154 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:15:48,244 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:15:49,184 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:15:49,184 - root - INFO - Total de linhas: 175
+2024-11-07 14:15:49,185 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:15:49,185 - root - INFO - 
+Linha 164:
+2024-11-07 14:15:49,186 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:15:49,186 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:15:49,187 - root - INFO -   Dados da linha:
+2024-11-07 14:15:49,187 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:15:49,188 - root - INFO -     Situação: ADI
+2024-11-07 14:15:49,188 - root - INFO -     Derivada de: nan
+2024-11-07 14:15:49,188 - root - INFO -     Localização: K061A006
+2024-11-07 14:15:49,189 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:15:49,189 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:15:49,189 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:15:49,190 - root - INFO -     Emitida Em: nan
+2024-11-07 14:15:49,190 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:15:49,191 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:15:49,191 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:15:49,191 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:15:49,192 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:15:49,192 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:15:49,192 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:15:49,193 - root - INFO -     Execução Simples: Não
+2024-11-07 14:15:49,193 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:15:49,193 - root - INFO -     Semana Programada: nan
+2024-11-07 14:15:49,193 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:15:49,194 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:15:49,194 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:15:49,194 - root - INFO -     Anomalia: nan
+2024-11-07 14:15:49,196 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:15:49,197 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:15:49,240 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:15:49,240 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:15:49,241 - root - INFO - Número: 202415727
+2024-11-07 14:15:49,241 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:15:49,241 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:15:49,242 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:15:49,243 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:15:49,243 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:15:49,243 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:15:49,244 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:15:49,247 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:15:49,392 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:15:49,647 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:15:49,648 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:15:51,869 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:16:04,409 - root - INFO - Week calculation stats: 25/25 valid calculations
+2024-11-07 14:16:08,498 - root - INFO - Week calculation stats: 24/24 valid calculations
+2024-11-07 14:18:19,821 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:20:09,257 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:20:09,801 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:20:09,801 - root - INFO - Total de linhas: 175
+2024-11-07 14:20:09,802 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:20:09,802 - root - INFO - 
+Linha 164:
+2024-11-07 14:20:09,803 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:20:09,803 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:20:09,803 - root - INFO -   Dados da linha:
+2024-11-07 14:20:09,803 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:20:09,804 - root - INFO -     Situação: ADI
+2024-11-07 14:20:09,804 - root - INFO -     Derivada de: nan
+2024-11-07 14:20:09,804 - root - INFO -     Localização: K061A006
+2024-11-07 14:20:09,804 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:20:09,804 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:20:09,805 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:20:09,805 - root - INFO -     Emitida Em: nan
+2024-11-07 14:20:09,805 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:20:09,806 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:20:09,806 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:20:09,806 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:20:09,806 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:20:09,806 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:20:09,807 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:20:09,807 - root - INFO -     Execução Simples: Não
+2024-11-07 14:20:09,807 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:20:09,807 - root - INFO -     Semana Programada: nan
+2024-11-07 14:20:09,808 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:20:09,808 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:20:09,808 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:20:09,808 - root - INFO -     Anomalia: nan
+2024-11-07 14:20:09,811 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:20:09,812 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:20:09,868 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:20:09,868 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:20:09,868 - root - INFO - Número: 202415727
+2024-11-07 14:20:09,869 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:20:09,869 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:20:09,870 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:20:09,870 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:20:09,870 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:20:09,871 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:20:09,871 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:20:09,874 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:20:10,019 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:20:10,312 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:20:10,312 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:20:10,333 - __main__ - ERROR - Erro durante a execução: 'SSADashboard' object has no attribute 'setup_layout'
+2024-11-07 14:20:10,337 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Report_from_excel.py", line 2245, in <module>
+    logger.info("Iniciando dashboard...")
+                ^^^^^^^^^^^^^^^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Report_from_excel.py", line 1669, in __init__
+    self.setup_layout()
+    ^^^^^^^^^^^^^^^^^
+AttributeError: 'SSADashboard' object has no attribute 'setup_layout'
+
+2024-11-07 14:26:15,846 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:26:16,808 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:26:16,808 - root - INFO - Total de linhas: 175
+2024-11-07 14:26:16,809 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:26:16,809 - root - INFO - 
+Linha 164:
+2024-11-07 14:26:16,810 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:26:16,810 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:26:16,810 - root - INFO -   Dados da linha:
+2024-11-07 14:26:16,811 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:26:16,811 - root - INFO -     Situação: ADI
+2024-11-07 14:26:16,811 - root - INFO -     Derivada de: nan
+2024-11-07 14:26:16,812 - root - INFO -     Localização: K061A006
+2024-11-07 14:26:16,812 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:26:16,813 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:26:16,813 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:26:16,813 - root - INFO -     Emitida Em: nan
+2024-11-07 14:26:16,813 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:26:16,814 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:26:16,814 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:26:16,815 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:26:16,815 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:26:16,815 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:26:16,815 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:26:16,816 - root - INFO -     Execução Simples: Não
+2024-11-07 14:26:16,816 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:26:16,816 - root - INFO -     Semana Programada: nan
+2024-11-07 14:26:16,816 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:26:16,817 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:26:16,817 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:26:16,817 - root - INFO -     Anomalia: nan
+2024-11-07 14:26:16,819 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:26:16,819 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:26:16,865 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:26:16,865 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:26:16,866 - root - INFO - Número: 202415727
+2024-11-07 14:26:16,866 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:26:16,867 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:26:16,868 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:26:16,868 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:26:16,869 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:26:16,869 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:26:16,869 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:26:16,872 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:26:17,001 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:26:17,239 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:26:17,239 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:26:17,288 - dash.dash - INFO - Dash is running on http://0.0.0.0:8080/
+
+2024-11-07 14:26:19,833 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:26:20,367 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:26:20,367 - root - INFO - Total de linhas: 175
+2024-11-07 14:26:20,368 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:26:20,368 - root - INFO - 
+Linha 164:
+2024-11-07 14:26:20,369 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:26:20,369 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:26:20,369 - root - INFO -   Dados da linha:
+2024-11-07 14:26:20,370 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:26:20,370 - root - INFO -     Situação: ADI
+2024-11-07 14:26:20,370 - root - INFO -     Derivada de: nan
+2024-11-07 14:26:20,371 - root - INFO -     Localização: K061A006
+2024-11-07 14:26:20,371 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:26:20,371 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:26:20,372 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:26:20,372 - root - INFO -     Emitida Em: nan
+2024-11-07 14:26:20,372 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:26:20,373 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:26:20,373 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:26:20,373 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:26:20,373 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:26:20,374 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:26:20,374 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:26:20,374 - root - INFO -     Execução Simples: Não
+2024-11-07 14:26:20,375 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:26:20,375 - root - INFO -     Semana Programada: nan
+2024-11-07 14:26:20,375 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:26:20,375 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:26:20,376 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:26:20,376 - root - INFO -     Anomalia: nan
+2024-11-07 14:26:20,379 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:26:20,380 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:26:20,431 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:26:20,431 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:26:20,432 - root - INFO - Número: 202415727
+2024-11-07 14:26:20,432 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:26:20,433 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:26:20,434 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:26:20,435 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:26:20,435 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:26:20,435 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:26:20,436 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:26:20,440 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:26:20,565 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:26:20,797 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:26:20,797 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:26:25,522 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:26:37,067 - root - INFO - Week calculation stats: 25/25 valid calculations
+2024-11-07 14:26:38,845 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:26:41,569 - root - INFO - Week calculation stats: 24/24 valid calculations
+2024-11-07 14:27:07,625 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:27:55,667 - root - INFO - Week calculation stats: 27/27 valid calculations
+2024-11-07 14:27:57,114 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:28:01,221 - root - INFO - Week calculation stats: 1/1 valid calculations
+2024-11-07 14:28:02,913 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:28:09,691 - root - INFO - Week calculation stats: 25/25 valid calculations
+2024-11-07 14:28:14,735 - root - INFO - Week calculation stats: 24/24 valid calculations
+2024-11-07 14:32:39,751 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:32:40,339 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:32:40,339 - root - INFO - Total de linhas: 175
+2024-11-07 14:32:40,339 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:32:40,340 - root - INFO - 
+Linha 164:
+2024-11-07 14:32:40,340 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:32:40,340 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:32:40,341 - root - INFO -   Dados da linha:
+2024-11-07 14:32:40,341 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:32:40,342 - root - INFO -     Situação: ADI
+2024-11-07 14:32:40,342 - root - INFO -     Derivada de: nan
+2024-11-07 14:32:40,342 - root - INFO -     Localização: K061A006
+2024-11-07 14:32:40,342 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:32:40,343 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:32:40,343 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:32:40,343 - root - INFO -     Emitida Em: nan
+2024-11-07 14:32:40,343 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:32:40,344 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:32:40,344 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:32:40,344 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:32:40,345 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:32:40,345 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:32:40,345 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:32:40,345 - root - INFO -     Execução Simples: Não
+2024-11-07 14:32:40,345 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:32:40,346 - root - INFO -     Semana Programada: nan
+2024-11-07 14:32:40,346 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:32:40,346 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:32:40,346 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:32:40,346 - root - INFO -     Anomalia: nan
+2024-11-07 14:32:40,349 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:32:40,350 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:32:40,394 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:32:40,394 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:32:40,395 - root - INFO - Número: 202415727
+2024-11-07 14:32:40,395 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:32:40,396 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:32:40,397 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:32:40,398 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:32:40,398 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:32:40,399 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:32:40,399 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:32:40,403 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:32:40,548 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:32:40,827 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:32:40,827 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:32:40,842 - __main__ - ERROR - Erro durante a execução: 'SSADashboard' object has no attribute 'setup_layout'
+2024-11-07 14:32:40,846 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Report_from_excel.py", line 2288, in <module>
+    }
+    
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Report_from_excel.py", line 1669, in __init__
+    self.setup_layout()
+    ^^^^^^^^^^^^^^^^^
+AttributeError: 'SSADashboard' object has no attribute 'setup_layout'
+
+2024-11-07 14:34:19,686 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:34:20,167 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:34:20,167 - root - INFO - Total de linhas: 175
+2024-11-07 14:34:20,168 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:34:20,168 - root - INFO - 
+Linha 164:
+2024-11-07 14:34:20,168 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:34:20,169 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:34:20,169 - root - INFO -   Dados da linha:
+2024-11-07 14:34:20,169 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:34:20,169 - root - INFO -     Situação: ADI
+2024-11-07 14:34:20,170 - root - INFO -     Derivada de: nan
+2024-11-07 14:34:20,170 - root - INFO -     Localização: K061A006
+2024-11-07 14:34:20,170 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:34:20,170 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:34:20,170 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:34:20,171 - root - INFO -     Emitida Em: nan
+2024-11-07 14:34:20,171 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:34:20,171 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:34:20,171 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:34:20,171 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:34:20,171 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:34:20,171 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:34:20,171 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:34:20,172 - root - INFO -     Execução Simples: Não
+2024-11-07 14:34:20,172 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:34:20,172 - root - INFO -     Semana Programada: nan
+2024-11-07 14:34:20,172 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:34:20,172 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:34:20,173 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:34:20,173 - root - INFO -     Anomalia: nan
+2024-11-07 14:34:20,175 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:34:20,176 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:34:20,215 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:34:20,215 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:34:20,216 - root - INFO - Número: 202415727
+2024-11-07 14:34:20,216 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:34:20,216 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:34:20,217 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:34:20,218 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:34:20,218 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:34:20,218 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:34:20,219 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:34:20,221 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:34:20,344 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:34:20,615 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:34:20,616 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:34:20,644 - dash.dash - INFO - Dash is running on http://0.0.0.0:8080/
+
+2024-11-07 14:34:22,837 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:34:23,397 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:34:23,398 - root - INFO - Total de linhas: 175
+2024-11-07 14:34:23,398 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:34:23,399 - root - INFO - 
+Linha 164:
+2024-11-07 14:34:23,399 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:34:23,400 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:34:23,400 - root - INFO -   Dados da linha:
+2024-11-07 14:34:23,401 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:34:23,401 - root - INFO -     Situação: ADI
+2024-11-07 14:34:23,401 - root - INFO -     Derivada de: nan
+2024-11-07 14:34:23,402 - root - INFO -     Localização: K061A006
+2024-11-07 14:34:23,402 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:34:23,402 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:34:23,403 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:34:23,403 - root - INFO -     Emitida Em: nan
+2024-11-07 14:34:23,403 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:34:23,404 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:34:23,404 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:34:23,404 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:34:23,405 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:34:23,405 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:34:23,405 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:34:23,405 - root - INFO -     Execução Simples: Não
+2024-11-07 14:34:23,405 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:34:23,406 - root - INFO -     Semana Programada: nan
+2024-11-07 14:34:23,406 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:34:23,406 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:34:23,406 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:34:23,407 - root - INFO -     Anomalia: nan
+2024-11-07 14:34:23,410 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:34:23,410 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:34:23,480 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:34:23,481 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:34:23,482 - root - INFO - Número: 202415727
+2024-11-07 14:34:23,483 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:34:23,483 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:34:23,485 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:34:23,486 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:34:23,487 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:34:23,487 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:34:23,492 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:34:23,497 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:34:23,655 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:34:23,898 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:34:23,898 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:34:25,643 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:34:25,730 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:34:38,827 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:34:59,496 - root - INFO - Week calculation stats: 25/25 valid calculations
+2024-11-07 14:35:05,224 - root - INFO - Week calculation stats: 24/24 valid calculations
+2024-11-07 14:38:20,766 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:38:21,274 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:38:21,274 - root - INFO - Total de linhas: 175
+2024-11-07 14:38:21,275 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:38:21,275 - root - INFO - 
+Linha 164:
+2024-11-07 14:38:21,276 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:38:21,276 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:38:21,276 - root - INFO -   Dados da linha:
+2024-11-07 14:38:21,277 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:38:21,277 - root - INFO -     Situação: ADI
+2024-11-07 14:38:21,277 - root - INFO -     Derivada de: nan
+2024-11-07 14:38:21,277 - root - INFO -     Localização: K061A006
+2024-11-07 14:38:21,277 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:38:21,278 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:38:21,278 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:38:21,278 - root - INFO -     Emitida Em: nan
+2024-11-07 14:38:21,278 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:38:21,279 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:38:21,279 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:38:21,279 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:38:21,279 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:38:21,280 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:38:21,280 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:38:21,280 - root - INFO -     Execução Simples: Não
+2024-11-07 14:38:21,280 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:38:21,281 - root - INFO -     Semana Programada: nan
+2024-11-07 14:38:21,281 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:38:21,281 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:38:21,281 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:38:21,281 - root - INFO -     Anomalia: nan
+2024-11-07 14:38:21,283 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:38:21,284 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:38:21,322 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:38:21,322 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:38:21,323 - root - INFO - Número: 202415727
+2024-11-07 14:38:21,323 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:38:21,323 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:38:21,324 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:38:21,325 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:38:21,325 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:38:21,326 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:38:21,326 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:38:21,328 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:38:21,449 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:38:21,725 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:38:21,725 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:38:21,746 - __main__ - ERROR - Erro durante a execução: 'SSADashboard' object has no attribute '_create_state_cards'
+2024-11-07 14:38:21,750 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Report_from_excel.py", line 2444, in <module>
+    dashboard = SSADashboard(df)
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Report_from_excel.py", line 1669, in __init__
+    self.setup_layout()
+    ~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Report_from_excel.py", line 1811, in setup_layout
+    self._create_state_cards(state_counts),
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SSADashboard' object has no attribute '_create_state_cards'
+
+2024-11-07 14:39:13,179 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:39:13,711 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:39:13,712 - root - INFO - Total de linhas: 175
+2024-11-07 14:39:13,712 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:39:13,713 - root - INFO - 
+Linha 164:
+2024-11-07 14:39:13,713 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:39:13,713 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:39:13,714 - root - INFO -   Dados da linha:
+2024-11-07 14:39:13,714 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:39:13,715 - root - INFO -     Situação: ADI
+2024-11-07 14:39:13,715 - root - INFO -     Derivada de: nan
+2024-11-07 14:39:13,715 - root - INFO -     Localização: K061A006
+2024-11-07 14:39:13,715 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:39:13,716 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:39:13,716 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:39:13,716 - root - INFO -     Emitida Em: nan
+2024-11-07 14:39:13,716 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:39:13,716 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:39:13,717 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:39:13,717 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:39:13,717 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:39:13,717 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:39:13,718 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:39:13,718 - root - INFO -     Execução Simples: Não
+2024-11-07 14:39:13,718 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:39:13,719 - root - INFO -     Semana Programada: nan
+2024-11-07 14:39:13,719 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:39:13,719 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:39:13,720 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:39:13,720 - root - INFO -     Anomalia: nan
+2024-11-07 14:39:13,722 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:39:13,723 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:39:13,763 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:39:13,763 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:39:13,764 - root - INFO - Número: 202415727
+2024-11-07 14:39:13,764 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:39:13,764 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:39:13,765 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:39:13,766 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:39:13,766 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:39:13,766 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:39:13,767 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:39:13,769 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:39:13,895 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:39:14,141 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:39:14,142 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:39:14,175 - dash.dash - INFO - Dash is running on http://0.0.0.0:8080/
+
+2024-11-07 14:39:16,542 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:39:17,062 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:39:17,063 - root - INFO - Total de linhas: 175
+2024-11-07 14:39:17,063 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:39:17,063 - root - INFO - 
+Linha 164:
+2024-11-07 14:39:17,064 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:39:17,064 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:39:17,064 - root - INFO -   Dados da linha:
+2024-11-07 14:39:17,065 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:39:17,065 - root - INFO -     Situação: ADI
+2024-11-07 14:39:17,065 - root - INFO -     Derivada de: nan
+2024-11-07 14:39:17,065 - root - INFO -     Localização: K061A006
+2024-11-07 14:39:17,066 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:39:17,066 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:39:17,066 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:39:17,066 - root - INFO -     Emitida Em: nan
+2024-11-07 14:39:17,067 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:39:17,067 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:39:17,067 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:39:17,067 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:39:17,067 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:39:17,068 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:39:17,068 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:39:17,068 - root - INFO -     Execução Simples: Não
+2024-11-07 14:39:17,068 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:39:17,069 - root - INFO -     Semana Programada: nan
+2024-11-07 14:39:17,069 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:39:17,069 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:39:17,069 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:39:17,069 - root - INFO -     Anomalia: nan
+2024-11-07 14:39:17,071 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:39:17,072 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:39:17,114 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:39:17,115 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:39:17,116 - root - INFO - Número: 202415727
+2024-11-07 14:39:17,116 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:39:17,117 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:39:17,118 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:39:17,118 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:39:17,119 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:39:17,119 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:39:17,119 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:39:17,121 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:39:17,251 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:39:17,500 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:39:17,500 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:39:18,923 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:39:38,947 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:46:16,533 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:46:17,100 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:46:17,101 - root - INFO - Total de linhas: 175
+2024-11-07 14:46:17,101 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:46:17,101 - root - INFO - 
+Linha 164:
+2024-11-07 14:46:17,102 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:46:17,102 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:46:17,102 - root - INFO -   Dados da linha:
+2024-11-07 14:46:17,103 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:46:17,103 - root - INFO -     Situação: ADI
+2024-11-07 14:46:17,103 - root - INFO -     Derivada de: nan
+2024-11-07 14:46:17,103 - root - INFO -     Localização: K061A006
+2024-11-07 14:46:17,104 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:46:17,104 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:46:17,104 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:46:17,104 - root - INFO -     Emitida Em: nan
+2024-11-07 14:46:17,105 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:46:17,105 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:46:17,105 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:46:17,105 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:46:17,106 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:46:17,106 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:46:17,106 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:46:17,106 - root - INFO -     Execução Simples: Não
+2024-11-07 14:46:17,106 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:46:17,107 - root - INFO -     Semana Programada: nan
+2024-11-07 14:46:17,107 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:46:17,107 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:46:17,107 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:46:17,107 - root - INFO -     Anomalia: nan
+2024-11-07 14:46:17,109 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:46:17,110 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:46:17,161 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:46:17,161 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:46:17,162 - root - INFO - Número: 202415727
+2024-11-07 14:46:17,162 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:46:17,162 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:46:17,163 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:46:17,164 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:46:17,164 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:46:17,164 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:46:17,165 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:46:17,168 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:46:17,284 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:46:17,528 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:46:17,528 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:46:17,548 - __main__ - ERROR - Erro durante a execução: 'SSADashboard' object has no attribute '_create_state_cards'
+2024-11-07 14:46:17,554 - __main__ - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Report_from_excel.py", line 2456, in <module>
+    Returns:
+    
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Report_from_excel.py", line 1669, in __init__
+    self.setup_layout()
+    ~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Report_from_excel.py", line 1811, in setup_layout
+    self._create_state_cards(state_counts),
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SSADashboard' object has no attribute '_create_state_cards'
+
+2024-11-07 14:47:18,272 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:47:18,696 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:47:18,696 - root - INFO - Total de linhas: 175
+2024-11-07 14:47:18,697 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:47:18,697 - root - INFO - 
+Linha 164:
+2024-11-07 14:47:18,697 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:47:18,698 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:47:18,698 - root - INFO -   Dados da linha:
+2024-11-07 14:47:18,698 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:47:18,699 - root - INFO -     Situação: ADI
+2024-11-07 14:47:18,699 - root - INFO -     Derivada de: nan
+2024-11-07 14:47:18,699 - root - INFO -     Localização: K061A006
+2024-11-07 14:47:18,699 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:47:18,700 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:47:18,700 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:47:18,700 - root - INFO -     Emitida Em: nan
+2024-11-07 14:47:18,700 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:47:18,701 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:47:18,701 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:47:18,701 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:47:18,701 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:47:18,701 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:47:18,701 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:47:18,702 - root - INFO -     Execução Simples: Não
+2024-11-07 14:47:18,702 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:47:18,702 - root - INFO -     Semana Programada: nan
+2024-11-07 14:47:18,702 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:47:18,703 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:47:18,703 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:47:18,703 - root - INFO -     Anomalia: nan
+2024-11-07 14:47:18,705 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:47:18,706 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:47:18,741 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:47:18,741 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:47:18,741 - root - INFO - Número: 202415727
+2024-11-07 14:47:18,742 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:47:18,742 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:47:18,744 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:47:18,744 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:47:18,744 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:47:18,745 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:47:18,745 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:47:18,748 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:47:18,862 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:47:19,062 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:47:19,063 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:47:19,092 - dash.dash - INFO - Dash is running on http://0.0.0.0:8080/
+
+2024-11-07 14:47:21,369 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:47:21,799 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:47:21,799 - root - INFO - Total de linhas: 175
+2024-11-07 14:47:21,800 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:47:21,800 - root - INFO - 
+Linha 164:
+2024-11-07 14:47:21,800 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:47:21,801 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:47:21,801 - root - INFO -   Dados da linha:
+2024-11-07 14:47:21,801 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:47:21,802 - root - INFO -     Situação: ADI
+2024-11-07 14:47:21,802 - root - INFO -     Derivada de: nan
+2024-11-07 14:47:21,802 - root - INFO -     Localização: K061A006
+2024-11-07 14:47:21,802 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:47:21,803 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:47:21,803 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:47:21,803 - root - INFO -     Emitida Em: nan
+2024-11-07 14:47:21,803 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:47:21,804 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:47:21,804 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:47:21,804 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:47:21,804 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:47:21,804 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:47:21,805 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:47:21,805 - root - INFO -     Execução Simples: Não
+2024-11-07 14:47:21,805 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:47:21,805 - root - INFO -     Semana Programada: nan
+2024-11-07 14:47:21,805 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:47:21,806 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:47:21,806 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:47:21,806 - root - INFO -     Anomalia: nan
+2024-11-07 14:47:21,808 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:47:21,809 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:47:21,844 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:47:21,844 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:47:21,845 - root - INFO - Número: 202415727
+2024-11-07 14:47:21,845 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:47:21,846 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:47:21,847 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:47:21,847 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:47:21,847 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:47:21,848 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:47:21,848 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:47:21,851 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:47:21,964 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:47:22,152 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:47:22,153 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:47:23,357 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:47:38,834 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:47:46,526 - root - INFO - Week calculation stats: 25/25 valid calculations
+2024-11-07 14:48:08,864 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:48:09,292 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:48:09,292 - root - INFO - Total de linhas: 175
+2024-11-07 14:48:09,293 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:48:09,293 - root - INFO - 
+Linha 164:
+2024-11-07 14:48:09,293 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:48:09,294 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:48:09,294 - root - INFO -   Dados da linha:
+2024-11-07 14:48:09,294 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:48:09,295 - root - INFO -     Situação: ADI
+2024-11-07 14:48:09,295 - root - INFO -     Derivada de: nan
+2024-11-07 14:48:09,295 - root - INFO -     Localização: K061A006
+2024-11-07 14:48:09,295 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:48:09,296 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:48:09,296 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:48:09,296 - root - INFO -     Emitida Em: nan
+2024-11-07 14:48:09,296 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:48:09,297 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:48:09,297 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:48:09,297 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:48:09,297 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:48:09,297 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:48:09,298 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:48:09,298 - root - INFO -     Execução Simples: Não
+2024-11-07 14:48:09,298 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:48:09,298 - root - INFO -     Semana Programada: nan
+2024-11-07 14:48:09,299 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:48:09,299 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:48:09,299 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:48:09,299 - root - INFO -     Anomalia: nan
+2024-11-07 14:48:09,301 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:48:09,301 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:48:09,338 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:48:09,338 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:48:09,339 - root - INFO - Número: 202415727
+2024-11-07 14:48:09,339 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:48:09,339 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:48:09,340 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:48:09,341 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:48:09,341 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:48:09,341 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:48:09,341 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:48:09,344 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:48:09,456 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:48:09,653 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:48:09,654 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:48:10,822 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:48:21,120 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:48:21,634 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:48:21,634 - root - INFO - Total de linhas: 175
+2024-11-07 14:48:21,634 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:48:21,635 - root - INFO - 
+Linha 164:
+2024-11-07 14:48:21,635 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:48:21,635 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:48:21,636 - root - INFO -   Dados da linha:
+2024-11-07 14:48:21,636 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:48:21,636 - root - INFO -     Situação: ADI
+2024-11-07 14:48:21,636 - root - INFO -     Derivada de: nan
+2024-11-07 14:48:21,636 - root - INFO -     Localização: K061A006
+2024-11-07 14:48:21,637 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:48:21,637 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:48:21,637 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:48:21,638 - root - INFO -     Emitida Em: nan
+2024-11-07 14:48:21,638 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:48:21,638 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:48:21,638 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:48:21,639 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:48:21,639 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:48:21,639 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:48:21,640 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:48:21,640 - root - INFO -     Execução Simples: Não
+2024-11-07 14:48:21,640 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:48:21,640 - root - INFO -     Semana Programada: nan
+2024-11-07 14:48:21,641 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:48:21,641 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:48:21,641 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:48:21,641 - root - INFO -     Anomalia: nan
+2024-11-07 14:48:21,643 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:48:21,644 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:48:21,681 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:48:21,681 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:48:21,682 - root - INFO - Número: 202415727
+2024-11-07 14:48:21,682 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:48:21,683 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:48:21,684 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:48:21,684 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:48:21,684 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:48:21,685 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:48:21,685 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:48:21,687 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:48:21,810 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:48:22,050 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:48:22,051 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:48:23,147 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:48:33,426 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:48:33,861 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:48:33,861 - root - INFO - Total de linhas: 175
+2024-11-07 14:48:33,862 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:48:33,862 - root - INFO - 
+Linha 164:
+2024-11-07 14:48:33,862 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:48:33,863 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:48:33,863 - root - INFO -   Dados da linha:
+2024-11-07 14:48:33,863 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:48:33,864 - root - INFO -     Situação: ADI
+2024-11-07 14:48:33,864 - root - INFO -     Derivada de: nan
+2024-11-07 14:48:33,864 - root - INFO -     Localização: K061A006
+2024-11-07 14:48:33,864 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:48:33,865 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:48:33,865 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:48:33,865 - root - INFO -     Emitida Em: nan
+2024-11-07 14:48:33,865 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:48:33,865 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:48:33,866 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:48:33,866 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:48:33,866 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:48:33,866 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:48:33,866 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:48:33,867 - root - INFO -     Execução Simples: Não
+2024-11-07 14:48:33,867 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:48:33,867 - root - INFO -     Semana Programada: nan
+2024-11-07 14:48:33,867 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:48:33,868 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:48:33,868 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:48:33,868 - root - INFO -     Anomalia: nan
+2024-11-07 14:48:33,870 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:48:33,870 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:48:33,905 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:48:33,905 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:48:33,905 - root - INFO - Número: 202415727
+2024-11-07 14:48:33,906 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:48:33,906 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:48:33,907 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:48:33,908 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:48:33,908 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:48:33,909 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:48:33,909 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:48:33,911 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:48:34,027 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:48:34,224 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:48:34,224 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:48:35,321 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:48:38,840 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:48:43,779 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:48:44,227 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:48:44,227 - root - INFO - Total de linhas: 175
+2024-11-07 14:48:44,227 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:48:44,228 - root - INFO - 
+Linha 164:
+2024-11-07 14:48:44,228 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:48:44,229 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:48:44,229 - root - INFO -   Dados da linha:
+2024-11-07 14:48:44,229 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:48:44,229 - root - INFO -     Situação: ADI
+2024-11-07 14:48:44,230 - root - INFO -     Derivada de: nan
+2024-11-07 14:48:44,230 - root - INFO -     Localização: K061A006
+2024-11-07 14:48:44,230 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:48:44,230 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:48:44,231 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:48:44,231 - root - INFO -     Emitida Em: nan
+2024-11-07 14:48:44,231 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:48:44,231 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:48:44,231 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:48:44,232 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:48:44,232 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:48:44,232 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:48:44,232 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:48:44,232 - root - INFO -     Execução Simples: Não
+2024-11-07 14:48:44,233 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:48:44,233 - root - INFO -     Semana Programada: nan
+2024-11-07 14:48:44,233 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:48:44,233 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:48:44,233 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:48:44,234 - root - INFO -     Anomalia: nan
+2024-11-07 14:48:44,235 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:48:44,236 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:48:44,271 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:48:44,271 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:48:44,271 - root - INFO - Número: 202415727
+2024-11-07 14:48:44,272 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:48:44,272 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:48:44,273 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:48:44,273 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:48:44,273 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:48:44,274 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:48:44,274 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:48:44,276 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:48:44,387 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:48:44,604 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:48:44,604 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:48:45,728 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:49:00,186 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:49:00,650 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:49:00,650 - root - INFO - Total de linhas: 175
+2024-11-07 14:49:00,650 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:49:00,651 - root - INFO - 
+Linha 164:
+2024-11-07 14:49:00,651 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:49:00,651 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:49:00,652 - root - INFO -   Dados da linha:
+2024-11-07 14:49:00,652 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:49:00,652 - root - INFO -     Situação: ADI
+2024-11-07 14:49:00,652 - root - INFO -     Derivada de: nan
+2024-11-07 14:49:00,653 - root - INFO -     Localização: K061A006
+2024-11-07 14:49:00,653 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:49:00,653 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:49:00,653 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:49:00,653 - root - INFO -     Emitida Em: nan
+2024-11-07 14:49:00,654 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:49:00,654 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:49:00,654 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:49:00,654 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:49:00,655 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:49:00,655 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:49:00,655 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:49:00,655 - root - INFO -     Execução Simples: Não
+2024-11-07 14:49:00,656 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:49:00,656 - root - INFO -     Semana Programada: nan
+2024-11-07 14:49:00,656 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:49:00,656 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:49:00,657 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:49:00,657 - root - INFO -     Anomalia: nan
+2024-11-07 14:49:00,659 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:49:00,660 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:49:00,699 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:49:00,700 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:49:00,700 - root - INFO - Número: 202415727
+2024-11-07 14:49:00,701 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:49:00,701 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:49:00,703 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:49:00,703 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:49:00,703 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:49:00,703 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:49:00,703 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:49:00,706 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:49:00,836 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:49:01,101 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:49:01,102 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:49:02,289 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:49:15,684 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:49:16,200 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:49:16,200 - root - INFO - Total de linhas: 175
+2024-11-07 14:49:16,201 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:49:16,201 - root - INFO - 
+Linha 164:
+2024-11-07 14:49:16,201 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:49:16,202 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:49:16,202 - root - INFO -   Dados da linha:
+2024-11-07 14:49:16,202 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:49:16,203 - root - INFO -     Situação: ADI
+2024-11-07 14:49:16,203 - root - INFO -     Derivada de: nan
+2024-11-07 14:49:16,203 - root - INFO -     Localização: K061A006
+2024-11-07 14:49:16,203 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:49:16,203 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:49:16,204 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:49:16,204 - root - INFO -     Emitida Em: nan
+2024-11-07 14:49:16,204 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:49:16,204 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:49:16,205 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:49:16,205 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:49:16,205 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:49:16,205 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:49:16,205 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:49:16,206 - root - INFO -     Execução Simples: Não
+2024-11-07 14:49:16,206 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:49:16,206 - root - INFO -     Semana Programada: nan
+2024-11-07 14:49:16,206 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:49:16,207 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:49:16,207 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:49:16,207 - root - INFO -     Anomalia: nan
+2024-11-07 14:49:16,209 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:49:16,210 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:49:16,246 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:49:16,246 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:49:16,247 - root - INFO - Número: 202415727
+2024-11-07 14:49:16,247 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:49:16,247 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:49:16,248 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:49:16,249 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:49:16,249 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:49:16,250 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:49:16,250 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:49:16,253 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:49:16,365 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:49:16,569 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:49:16,569 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:49:17,712 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:49:38,788 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:49:44,390 - root - INFO - Week calculation stats: 25/25 valid calculations
+2024-11-07 14:55:15,172 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:55:15,789 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:55:15,789 - root - INFO - Total de linhas: 175
+2024-11-07 14:55:15,790 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:55:15,790 - root - INFO - 
+Linha 164:
+2024-11-07 14:55:15,791 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:55:15,791 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:55:15,791 - root - INFO -   Dados da linha:
+2024-11-07 14:55:15,792 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:55:15,792 - root - INFO -     Situação: ADI
+2024-11-07 14:55:15,792 - root - INFO -     Derivada de: nan
+2024-11-07 14:55:15,793 - root - INFO -     Localização: K061A006
+2024-11-07 14:55:15,793 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:55:15,793 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:55:15,794 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:55:15,794 - root - INFO -     Emitida Em: nan
+2024-11-07 14:55:15,794 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:55:15,795 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:55:15,795 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:55:15,795 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:55:15,795 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:55:15,795 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:55:15,796 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:55:15,796 - root - INFO -     Execução Simples: Não
+2024-11-07 14:55:15,796 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:55:15,796 - root - INFO -     Semana Programada: nan
+2024-11-07 14:55:15,796 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:55:15,797 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:55:15,797 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:55:15,797 - root - INFO -     Anomalia: nan
+2024-11-07 14:55:15,799 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:55:15,800 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:55:15,846 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:55:15,847 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:55:15,847 - root - INFO - Número: 202415727
+2024-11-07 14:55:15,848 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:55:15,848 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:55:15,849 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:55:15,849 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:55:15,850 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:55:15,850 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:55:15,850 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:55:15,853 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:55:15,985 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:55:16,216 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:55:16,217 - __main__ - INFO - Iniciando dashboard...

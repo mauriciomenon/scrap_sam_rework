@@ -1672,6 +1672,7 @@ class SSADashboard:
     def setup_callbacks(self):
         @self.app.callback(
             [
+                Output("resp-summary-cards", "children"),
                 Output("resp-prog-chart", "figure"),
                 Output("resp-exec-chart", "figure"),
                 Output("programmed-week-chart", "figure"),
@@ -1698,7 +1699,10 @@ class SSADashboard:
             # Criar visualizador filtrado
             filtered_visualizer = SSAVisualizer(df_filtered)
 
-            # Gerar gráficos usando o visualizer quando apropriado
+            # Criar os cards de resumo
+            resp_cards = self._create_resp_summary_cards(df_filtered)
+
+            # Gerar gráficos
             fig_prog = self._create_resp_prog_chart(df_filtered)
             fig_exec = self._create_resp_exec_chart(df_filtered)
             fig_programmed_week = filtered_visualizer.create_week_chart(
@@ -1711,13 +1715,12 @@ class SSADashboard:
                 {"display": "block"} if resp_prog or resp_exec else {"display": "none"}
             )
             fig_detail_state = self._create_detail_state_chart(df_filtered)
-            fig_detail_week = (
-                filtered_visualizer.create_week_chart()
-            )  # Use o visualizer diretamente
+            fig_detail_week = filtered_visualizer.create_week_chart()
             table_data = self._prepare_table_data(df_filtered)
             weeks_fig = filtered_visualizer.add_weeks_in_state_chart()
 
             return (
+                resp_cards,
                 fig_prog,
                 fig_exec,
                 fig_programmed_week,
@@ -1760,7 +1763,7 @@ class SSADashboard:
                 dbc.Row(
                     [
                         dbc.Col(
-                            html.H1("Dashboard de SSAs", className="text-primary mb-4"),
+                            html.H1("Dashboard de SSAs Pendentes", className="text-primary mb-4"),
                             width=12,
                         )
                     ]
@@ -1775,9 +1778,7 @@ class SSADashboard:
                                     id="resp-prog-filter",
                                     options=[
                                         {"label": resp, "value": resp}
-                                        for resp in self._get_responsaveis()[
-                                            "programacao"
-                                        ]
+                                        for resp in self._get_responsaveis()["programacao"]
                                     ],
                                     placeholder="Selecione um responsável...",
                                 ),
@@ -1799,7 +1800,7 @@ class SSADashboard:
                             width=6,
                         ),
                     ],
-                    className="mb-4",
+                    className="mb-3",
                 ),
                 # Cards de Estado
                 dbc.Row(
@@ -1814,6 +1815,8 @@ class SSADashboard:
                     ],
                     className="mb-4",
                 ),
+                # Cards de resumo por estado - versão compacta
+                html.Div(id="resp-summary-cards", className="mb-4"),
                 # Gráfico de tempo no estado atual
                 dbc.Row(
                     [
@@ -1865,7 +1868,7 @@ class SSADashboard:
                     ],
                     className="mb-4",
                 ),
-                # Gráficos de Semana (Novos)
+                # Gráficos de Semana
                 dbc.Row(
                     [
                         dbc.Col(
@@ -1996,28 +1999,199 @@ class SSADashboard:
 
     def _create_state_cards(self, state_counts):
         """Cria cards para cada estado de SSA."""
-        cards = []
-        for state, count in state_counts.items():
+        cards = [
+            # Label "Setor:"
+            dbc.Col(
+                html.H6("Setor:", className="mt-3 me-2"),
+                width="auto"
+            )
+        ]
+        
+        # Calcula o total e adiciona como primeiro card
+        total_ssas = sum(state_counts.values())
+        cards.append(
+            dbc.Col(
+                dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                                html.H6("TOTAL", className="card-title text-center mb-0 small"),
+                                html.H3(
+                                    str(total_ssas), 
+                                    className="text-center text-danger fw-bold mb-0",
+                                    style={"fontSize": "1.8rem"}  # Texto um pouco maior
+                                ),
+                            ],
+                            className="p-2"  # Menos padding
+                        )
+                    ],
+                    className="mb-3",
+                    style={
+                        "height": "80px",
+                        "border-left": "4px solid red",
+                        "width": "150px"  # Largura um pouco maior
+                    },
+                ),
+                width="auto"
+            )
+        )
+        
+        # Lista ordenada de estados
+        state_list = ['AAD', 'ADM', 'AAT', 'SPG', 'AIM', 'APV', 'APG', 'SCD', 'ADI', 'APL']
+        
+        # Adiciona os cards de estado na ordem definida
+        for state in state_list:
+            count = state_counts.get(state, 0)
             cards.append(
                 dbc.Col(
                     dbc.Card(
                         [
                             dbc.CardBody(
                                 [
-                                    html.H6(state, className="card-title text-center"),
+                                    html.H6(state, className="card-title text-center mb-0 small"),
                                     html.H3(
-                                        str(count), className="text-center text-primary"
+                                        str(count), 
+                                        className="text-center text-primary mb-0",
+                                        style={"fontSize": "1.8rem"}  # Texto um pouco maior
                                     ),
-                                ]
+                                ],
+                                className="p-2"  # Menos padding
                             )
                         ],
                         className="mb-3",
-                        style={"height": "100px"},
+                        style={
+                            "height": "80px",
+                            "width": "150px"  # Largura um pouco maior
+                        },
                     ),
-                    width=2,
+                    width="auto"
                 )
             )
-        return dbc.Row(cards)
+        
+        return dbc.Row(
+            cards,
+            className="g-2 flex-nowrap align-items-center"  # Alinhamento vertical centralizado
+        )
+
+    def _create_resp_summary_cards(self, df_filtered):
+        """Cria cards compactos para totais por estado."""
+        state_counts = df_filtered.iloc[:, SSAColumns.SITUACAO].value_counts()
+        total_count = len(df_filtered)
+
+        cards = [
+            # Label "Usuário:"
+            dbc.Col(
+                html.H6("User:", className="mt-2 me-2"),
+                width="auto",
+                style={"display": "flex", "alignItems": "center"}
+            ),
+            # Card de Total
+            dbc.Col(
+                dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                                html.Div(
+                                    [
+                                        html.Div(
+                                            "TOTAL",
+                                            className="small text-muted",
+                                            style={
+                                                "lineHeight": "1",
+                                                "marginBottom": "4px"
+                                            }
+                                        ),
+                                        html.Div(
+                                            str(total_count),
+                                            className="h5 m-0 text-danger fw-bold",
+                                            style={"lineHeight": "1"}
+                                        )
+                                    ],
+                                    style={
+                                        "display": "flex",
+                                        "flexDirection": "column",
+                                        "justifyContent": "center",
+                                        "alignItems": "center",
+                                        "height": "100%"
+                                    }
+                                )
+                            ],
+                            className="p-2",
+                            style={"height": "100%"}
+                        )
+                    ],
+                    className="mb-2",
+                    style={
+                        "height": "50px",
+                        "borderLeft": "4px solid red",
+                        "width": "110px",
+                        "display": "flex",
+                        "alignItems": "center"
+                    }
+                ),
+                width="auto"
+            )
+        ]
+
+        # Lista ordenada de estados
+        state_list = ['AAD', 'ADM', 'AAT', 'SPG', 'AIM', 'APV', 'APG', 'SCD', 'ADI', 'APL']
+        
+        # Um card para cada estado
+        for state in state_list:
+            count = state_counts.get(state, 0)
+            cards.append(
+                dbc.Col(
+                    dbc.Card(
+                        [
+                            dbc.CardBody(
+                                [
+                                    html.Div(
+                                        [
+                                            html.Div(
+                                                state,
+                                                className="small text-muted",
+                                                style={
+                                                    "lineHeight": "1",
+                                                    "marginBottom": "4px"
+                                                }
+                                            ),
+                                            html.Div(
+                                                str(count),
+                                                className="h5 m-0 text-primary",
+                                                style={"lineHeight": "1"}
+                                            )
+                                        ],
+                                        style={
+                                            "display": "flex",
+                                            "flexDirection": "column",
+                                            "justifyContent": "center",
+                                            "alignItems": "center",
+                                            "height": "100%"
+                                        }
+                                    )
+                                ],
+                                className="p-2",
+                                style={"height": "100%"}
+                            )
+                        ],
+                        className="mb-2",
+                        style={
+                            "height": "50px",
+                            "width": "110px",
+                            "display": "flex",
+                            "alignItems": "center"
+                        }
+                    ),
+                    width="auto"
+                )
+            )
+
+        return dbc.Row(
+            cards,
+            className="mb-3 g-2 flex-nowrap align-items-center",
+            justify="start",
+            style={"display": "flex", "alignItems": "center"}
+        )
 
     def _prepare_table_data(self):
         """Prepara dados para a tabela."""
