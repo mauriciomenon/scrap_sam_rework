@@ -4566,3 +4566,55 @@ OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disp
 2024-11-07 14:55:15,985 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
 2024-11-07 14:55:16,216 - __main__ - INFO - Relatório Excel gerado com sucesso.
 2024-11-07 14:55:16,217 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:55:24,978 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-07 14:55:25,454 - root - INFO - === Diagnóstico de Datas ===
+2024-11-07 14:55:25,454 - root - INFO - Total de linhas: 175
+2024-11-07 14:55:25,454 - root - INFO - Problemas encontrados: 1
+2024-11-07 14:55:25,455 - root - INFO - 
+Linha 164:
+2024-11-07 14:55:25,455 - root - INFO -   Valor encontrado: nan
+2024-11-07 14:55:25,455 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-07 14:55:25,456 - root - INFO -   Dados da linha:
+2024-11-07 14:55:25,456 - root - INFO -     Número da SSA: 202417496
+2024-11-07 14:55:25,456 - root - INFO -     Situação: ADI
+2024-11-07 14:55:25,456 - root - INFO -     Derivada de: nan
+2024-11-07 14:55:25,457 - root - INFO -     Localização: K061A006
+2024-11-07 14:55:25,457 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-07 14:55:25,457 - root - INFO -     Equipamento: 0919.059-7
+2024-11-07 14:55:25,457 - root - INFO -     Semana de Cadastro: 202444
+2024-11-07 14:55:25,458 - root - INFO -     Emitida Em: nan
+2024-11-07 14:55:25,458 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-07 14:55:25,458 - root - INFO -     Setor Emissor: MEL4
+2024-11-07 14:55:25,458 - root - INFO -     Setor Executor: IEE3
+2024-11-07 14:55:25,459 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-07 14:55:25,459 - root - INFO -     Serviço de Origem: S1
+2024-11-07 14:55:25,459 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-07 14:55:25,459 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-07 14:55:25,459 - root - INFO -     Execução Simples: Não
+2024-11-07 14:55:25,460 - root - INFO -     Responsável na Programação: nan
+2024-11-07 14:55:25,460 - root - INFO -     Semana Programada: nan
+2024-11-07 14:55:25,460 - root - INFO -     Responsável na Execução: nan
+2024-11-07 14:55:25,460 - root - INFO -     Descrição Execução: nan
+2024-11-07 14:55:25,460 - root - INFO -     Sistema de Origem: nan
+2024-11-07 14:55:25,461 - root - INFO -     Anomalia: nan
+2024-11-07 14:55:25,463 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-07 14:55:25,463 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-07 14:55:25,497 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-07 14:55:25,497 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-07 14:55:25,498 - root - INFO - Número: 202415727
+2024-11-07 14:55:25,498 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-07 14:55:25,499 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-07 14:55:25,500 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-07 14:55:25,501 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-07 14:55:25,501 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-07 14:55:25,501 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-07 14:55:25,502 - __main__ - INFO - Gerando relatório inicial...
+2024-11-07 14:55:25,504 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-07 14:55:25,618 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-07 14:55:25,823 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-07 14:55:25,824 - __main__ - INFO - Iniciando dashboard...
+2024-11-07 14:55:39,610 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:55:39,670 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-07 14:56:39,257 - root - INFO - Week calculation stats: 25/25 valid calculations
+2024-11-07 14:56:42,636 - root - INFO - Week calculation stats: 24/24 valid calculations
