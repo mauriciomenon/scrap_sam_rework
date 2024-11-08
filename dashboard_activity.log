@@ -559,3 +559,28 @@ information about how to avoid this problem.
 2024-11-08 15:13:39,075 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-layout
 2024-11-08 15:13:39,075 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-dependencies
 2024-11-08 15:13:39,252 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 15:13:43,368 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 15:13:43,463 - DashboardLogger - INFO - IP: 127.0.0.1 - Nova conexão de IP: 127.0.0.1
+2024-11-08 15:13:43,464 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 15:13:43,473 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-layout
+2024-11-08 15:13:43,474 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-dependencies
+2024-11-08 15:13:43,620 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 15:15:12,812 - DashboardLogger - INFO - IP: 127.0.0.1 - Visualização de SSAs: SSAs no intervalo 240-249
+2024-11-08 15:18:44,061 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 15:18:44,062 - DashboardLogger - INFO - IP: 127.0.0.1 - Atualização automática dos dados
+2024-11-08 15:18:45,059 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 15:23:44,062 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 15:23:44,063 - DashboardLogger - INFO - IP: 127.0.0.1 - Atualização automática dos dados
+2024-11-08 15:23:45,069 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 15:28:44,066 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 15:28:44,068 - DashboardLogger - INFO - IP: 127.0.0.1 - Atualização automática dos dados
+2024-11-08 15:29:39,066 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 15:33:17,882 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /
+2024-11-08 15:33:18,131 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-layout
+2024-11-08 15:33:18,132 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-dependencies
+2024-11-08 15:33:18,147 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_favicon.ico
+2024-11-08 15:33:18,171 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-component-suites/dash/dcc/async-dropdown.js
+2024-11-08 15:33:18,178 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-component-suites/dash/dcc/async-graph.js
+2024-11-08 15:33:18,179 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-component-suites/plotly/package_data/plotly.min.js
+2024-11-08 15:33:18,203 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-highlight.js
+2024-11-08 15:33:18,204 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-table.js
