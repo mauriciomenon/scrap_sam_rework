@@ -596,3 +596,15 @@ information about how to avoid this problem.
 2024-11-08 15:37:19,925 - DashboardLogger - INFO - IP: 172.19.73.18 - Acesso à rota: /_dash-dependencies
 2024-11-08 15:37:19,927 - DashboardLogger - INFO - IP: 172.19.73.18 - Acesso à rota: /_dash-layout
 2024-11-08 15:37:20,181 - DashboardLogger - INFO - IP: 172.19.73.18 - Acesso à rota: /_dash-update-component
+2024-11-08 15:38:53,572 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 15:38:56,596 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 15:38:56,685 - DashboardLogger - INFO - IP: 127.0.0.1 - Nova conexão de IP: 127.0.0.1
+2024-11-08 15:38:56,686 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 15:38:56,802 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-layout
+2024-11-08 15:38:56,803 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-dependencies
+2024-11-08 15:38:56,948 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 15:39:21,685 - DashboardLogger - INFO - IP: 127.0.0.1 - Visualização de SSAs: SSAs cadastradas na semana 202444
+2024-11-08 15:39:27,562 - DashboardLogger - INFO - IP: 127.0.0.1 - Visualização de SSAs: SSAs cadastradas na semana 202443
+2024-11-08 15:39:43,174 - DashboardLogger - INFO - IP: 127.0.0.1 - Visualização de SSAs: SSAs no intervalo 360-369
+2024-11-08 15:43:56,871 - DashboardLogger - INFO - IP: 127.0.0.1 - Atualização automática dos dados
+2024-11-08 15:43:57,151 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
