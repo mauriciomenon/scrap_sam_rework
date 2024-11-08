@@ -411,3 +411,18 @@ information about how to avoid this problem.
 2024-11-08 12:41:48,016 - DashboardLogger - INFO - IP: 127.0.0.1 - Atualização automática dos dados
 2024-11-08 12:41:48,977 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
 2024-11-08 12:43:07,034 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 12:43:16,456 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 12:43:28,949 - DashboardLogger - INFO - IP: 127.0.0.1 - Nova conexão de IP: 127.0.0.1
+2024-11-08 12:43:28,950 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:43:29,030 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-layout
+2024-11-08 12:43:29,030 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-dependencies
+2024-11-08 12:43:29,188 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 12:43:39,003 - DashboardLogger - INFO - IP: 127.0.0.1 - Visualização de SSAs: SSAs do programador LOBO MARTINEZ JUAN ALBERTO
+2024-11-08 12:43:46,229 - DashboardLogger - INFO - IP: 127.0.0.1 - Visualização de SSAs: SSAs do executor MAURICIO MENON
+2024-11-08 12:43:51,736 - DashboardLogger - INFO - IP: 127.0.0.1 - Visualização de SSAs: SSAs programadas na semana 202401
+2024-11-08 12:43:59,822 - DashboardLogger - INFO - IP: 127.0.0.1 - Visualização de SSAs: SSAs cadastradas na semana 202352
+2024-11-08 12:44:06,992 - DashboardLogger - INFO - IP: 127.0.0.1 - Visualização de SSAs: SSAs no intervalo 240-249
+2024-11-08 12:44:59,583 - DashboardLogger - INFO - IP: 127.0.0.1 - Filtros aplicados - Prog: MAURICIO MENON, Exec: None
+2024-11-08 12:45:06,259 - DashboardLogger - INFO - IP: 127.0.0.1 - Filtros aplicados - Prog: MAURICIO MENON, Exec: MAURICIO MENON
+2024-11-08 12:45:33,116 - DashboardLogger - INFO - IP: 127.0.0.1 - Visualização de SSAs: SSAs cadastradas na semana 202405
+2024-11-08 12:45:38,294 - DashboardLogger - INFO - IP: 127.0.0.1 - Visualização de SSAs: SSAs no intervalo 80-89
