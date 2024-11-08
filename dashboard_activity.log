@@ -1,0 +1,391 @@
+2024-11-08 11:00:33,941 - DashboardLogger - ERROR - IP: unknown - Error logging with IP: Working outside of request context.
+
+This typically means that you attempted to use functionality that needed
+an active HTTP request. Consult the documentation on testing for
+information about how to avoid this problem.
+2024-11-08 11:00:37,116 - DashboardLogger - ERROR - IP: unknown - Error logging with IP: Working outside of request context.
+
+This typically means that you attempted to use functionality that needed
+an active HTTP request. Consult the documentation on testing for
+information about how to avoid this problem.
+2024-11-08 11:00:58,668 - DashboardLogger - ERROR - IP: unknown - Error logging with IP: Working outside of request context.
+
+This typically means that you attempted to use functionality that needed
+an active HTTP request. Consult the documentation on testing for
+information about how to avoid this problem.
+2024-11-08 11:01:16,502 - DashboardLogger - ERROR - IP: unknown - Error logging with IP: Working outside of request context.
+
+This typically means that you attempted to use functionality that needed
+an active HTTP request. Consult the documentation on testing for
+information about how to avoid this problem.
+2024-11-08 11:01:19,350 - DashboardLogger - ERROR - IP: unknown - Error logging with IP: Working outside of request context.
+
+This typically means that you attempted to use functionality that needed
+an active HTTP request. Consult the documentation on testing for
+information about how to avoid this problem.
+2024-11-08 11:03:07,298 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 11:03:10,384 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 11:05:07,596 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 11:31:45,320 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 11:31:48,430 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 11:31:59,716 - DashboardLogger - INFO - IP: 127.0.0.1 - Nova conexão de IP: 127.0.0.1
+2024-11-08 11:31:59,717 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /
+2024-11-08 11:31:59,907 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-layout
+2024-11-08 11:31:59,909 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-dependencies
+2024-11-08 11:31:59,921 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_favicon.ico
+2024-11-08 11:31:59,936 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-component-suites/dash/dcc/async-dropdown.js
+2024-11-08 11:31:59,942 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-component-suites/dash/dcc/async-graph.js
+2024-11-08 11:31:59,946 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-component-suites/plotly/package_data/plotly.min.js
+2024-11-08 11:31:59,964 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-highlight.js
+2024-11-08 11:31:59,966 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-table.js
+2024-11-08 11:31:59,998 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 11:31:59,999 - DashboardLogger - INFO - IP: 127.0.0.1 - Filtros aplicados - Prog: None, Exec: None
+2024-11-08 11:32:00,328 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 11:32:02,911 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:32:05,914 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:32:08,908 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:32:11,910 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:32:14,915 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:32:17,916 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:32:20,918 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:32:23,911 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:32:26,910 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:32:29,921 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:32:32,915 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:32:35,924 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:32:38,922 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:32:41,919 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:32:44,914 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:32:47,909 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:32:50,918 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:32:53,909 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:32:56,919 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:32:59,915 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:33:02,920 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:33:05,917 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:33:08,915 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:33:11,913 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:33:14,924 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:33:17,921 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:33:20,918 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:33:23,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:33:26,910 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:33:29,922 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:33:32,918 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:33:35,910 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:33:38,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:33:41,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:33:44,920 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:33:47,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:33:50,919 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:33:53,913 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:33:56,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:33:59,915 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:34:02,922 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:34:05,920 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:34:08,917 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:34:11,924 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:34:14,910 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:34:17,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:34:20,916 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:34:23,912 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:34:26,910 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:34:29,925 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:34:32,922 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:34:35,922 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:34:38,919 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:34:41,914 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:34:44,926 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:34:47,916 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:34:50,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:34:53,914 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:34:56,924 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:34:59,916 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:35:02,912 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:35:05,914 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:35:08,917 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:35:11,922 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:35:14,914 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:35:17,910 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:35:20,913 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:35:23,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:35:26,920 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:35:29,921 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:35:32,911 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:35:35,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:35:38,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:35:41,914 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:35:44,918 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:35:47,925 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:35:50,921 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:35:53,918 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:35:56,921 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:35:59,918 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:36:02,922 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:36:05,925 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:36:08,920 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:36:11,924 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:36:14,925 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:36:17,913 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:36:20,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:36:23,920 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:36:26,919 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:36:29,918 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:36:32,925 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:36:35,917 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:36:38,920 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:36:41,922 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:36:44,914 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:36:47,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:36:50,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:36:53,922 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:36:56,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:36:59,922 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:37:02,924 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:37:05,919 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:37:08,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:37:11,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:37:14,921 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:37:17,911 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:37:20,913 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:37:23,920 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:37:26,918 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:37:29,912 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:37:32,915 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:37:35,919 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:37:38,917 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:37:41,913 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:37:44,920 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:37:47,912 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:37:50,925 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:37:53,915 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:37:56,925 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:37:59,926 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:38:02,922 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:38:05,912 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:38:08,919 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:38:11,925 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:38:14,919 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:38:17,918 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:38:20,920 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:38:23,925 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:38:26,912 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:38:29,920 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:38:32,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:38:35,911 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:38:38,921 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:38:41,927 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:38:44,918 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:38:47,921 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:38:50,912 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:38:53,917 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:38:56,926 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:38:59,920 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:39:02,916 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:39:05,927 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:39:08,925 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:39:11,915 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:39:14,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:39:17,916 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:39:20,917 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:39:23,924 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:39:26,920 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:39:29,925 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:39:32,918 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:39:35,917 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:39:38,927 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:39:41,917 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:39:44,913 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:39:47,913 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:39:50,913 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:39:53,915 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:39:56,922 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:39:59,918 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:40:02,919 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:40:05,912 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:40:08,921 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:40:11,927 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:40:14,919 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:40:17,924 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:40:20,921 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:40:23,922 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:40:26,927 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:40:29,925 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:40:32,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:40:35,922 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:40:38,919 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:40:41,913 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:40:44,924 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:40:47,916 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:40:50,919 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:40:53,925 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:40:56,918 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:40:59,919 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:41:02,914 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:41:05,920 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:41:08,928 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:41:11,926 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:41:14,926 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:41:17,927 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:41:20,914 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:41:23,925 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:41:26,920 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:41:29,928 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:41:32,925 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:41:35,928 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:41:38,919 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:41:41,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:41:44,919 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:41:47,921 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:41:50,925 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:41:53,924 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:41:56,916 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:41:59,924 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:42:02,922 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:42:05,923 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:42:08,914 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:42:11,921 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:42:14,916 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:42:17,916 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:42:20,927 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:42:23,927 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:42:26,926 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:42:29,916 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:42:32,928 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:42:35,929 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:42:38,924 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:42:41,914 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:42:44,914 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:42:47,914 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:42:50,928 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:42:53,956 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:42:56,953 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:42:59,954 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:43:02,948 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 11:43:05,955 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:04:23,881 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 12:04:27,538 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 12:04:27,648 - DashboardLogger - INFO - IP: 127.0.0.1 - Nova conexão de IP: 127.0.0.1
+2024-11-08 12:04:27,649 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:04:27,653 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:04:27,744 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-layout
+2024-11-08 12:04:27,745 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-dependencies
+2024-11-08 12:04:27,905 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 12:04:27,906 - DashboardLogger - INFO - IP: 127.0.0.1 - Filtros aplicados - Prog: None, Exec: None
+2024-11-08 12:04:27,907 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 12:04:29,928 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:04:32,939 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:04:35,925 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:04:38,926 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:04:41,928 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:04:44,931 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:04:47,936 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:04:50,928 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:04:53,934 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:04:56,961 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:04:59,963 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:05:02,960 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:05:05,958 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:05:08,962 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:05:11,962 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:05:14,956 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:05:17,955 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:05:20,967 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:05:23,968 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:05:26,963 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:05:29,964 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:05:32,969 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:05:35,964 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:05:38,966 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:05:41,956 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:05:44,966 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:05:47,969 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:05:50,964 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:05:53,958 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:06:38,968 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:07:38,970 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:01,644 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:02,926 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:05,938 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:08,935 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:11,959 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:14,968 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:17,972 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:20,965 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:23,966 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:26,962 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:29,961 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:32,956 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:35,965 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:38,962 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:41,962 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:44,964 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:47,966 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:50,972 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:53,968 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:56,969 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:08:59,961 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:09:02,969 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:09:05,964 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:09:08,968 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:09:38,969 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:10:38,965 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:11:38,973 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:12:38,958 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:13:38,961 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:14:12,957 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 12:14:21,442 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 12:14:38,968 - DashboardLogger - INFO - IP: 127.0.0.1 - Nova conexão de IP: 127.0.0.1
+2024-11-08 12:14:38,969 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:14:39,037 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-layout
+2024-11-08 12:14:39,039 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-dependencies
+2024-11-08 12:14:39,234 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 12:14:39,235 - DashboardLogger - INFO - IP: 127.0.0.1 - Filtros aplicados - Prog: None, Exec: None
+2024-11-08 12:14:39,235 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 12:14:41,968 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:14:51,554 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 12:15:42,850 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 12:15:46,251 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 12:16:01,532 - DashboardLogger - INFO - IP: 127.0.0.1 - Nova conexão de IP: 127.0.0.1
+2024-11-08 12:16:01,532 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:16:01,688 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-layout
+2024-11-08 12:16:01,688 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-dependencies
+2024-11-08 12:16:01,834 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 12:16:01,835 - DashboardLogger - INFO - IP: 127.0.0.1 - Filtros aplicados - Prog: None, Exec: None
+2024-11-08 12:16:28,330 - DashboardLogger - INFO - IP: 127.0.0.1 - Usuário abriu modal de SSAs do executor: CASTILLO CENTURION ELIAS FRANCISCO
+2024-11-08 12:17:07,945 - DashboardLogger - INFO - IP: 127.0.0.1 - Modal fechado pelo usuário
+2024-11-08 12:18:12,749 - DashboardLogger - INFO - IP: 127.0.0.1 - Usuário abriu modal de SSAs no intervalo: 50-59
+2024-11-08 12:18:54,888 - DashboardLogger - INFO - IP: 127.0.0.1 - Usuário abriu modal de SSAs do programador: SILVA VARGAS FRANCISCO JAVIER
+2024-11-08 12:19:04,488 - DashboardLogger - INFO - IP: 127.0.0.1 - Usuário abriu modal de SSAs do executor: MAURICIO MENON
+2024-11-08 12:19:36,015 - DashboardLogger - INFO - IP: 127.0.0.1 - Usuário abriu modal de SSAs programadas na semana: 202339
+2024-11-08 12:19:40,700 - DashboardLogger - INFO - IP: 127.0.0.1 - Usuário abriu modal de SSAs programadas na semana: 202401
+2024-11-08 12:21:02,964 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:22:55,162 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 12:23:08,508 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 12:23:38,980 - DashboardLogger - INFO - IP: 127.0.0.1 - Nova conexão de IP: 127.0.0.1
+2024-11-08 12:23:38,981 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:23:39,038 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-layout
+2024-11-08 12:23:39,039 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-dependencies
+2024-11-08 12:23:39,208 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 12:23:39,209 - DashboardLogger - INFO - IP: 127.0.0.1 - Filtros aplicados - Prog: None, Exec: None
+2024-11-08 12:24:31,059 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 12:24:38,577 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 12:24:38,970 - DashboardLogger - INFO - IP: 127.0.0.1 - Nova conexão de IP: 127.0.0.1
+2024-11-08 12:24:38,971 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:24:39,026 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-layout
+2024-11-08 12:24:39,028 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-dependencies
+2024-11-08 12:24:39,188 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 12:24:39,190 - DashboardLogger - INFO - IP: 127.0.0.1 - Filtros aplicados - Prog: None, Exec: None
+2024-11-08 12:29:58,417 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 12:30:01,753 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 12:30:07,202 - DashboardLogger - INFO - IP: 127.0.0.1 - Nova conexão de IP: 127.0.0.1
+2024-11-08 12:30:07,203 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:30:07,368 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-layout
+2024-11-08 12:30:07,368 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-dependencies
+2024-11-08 12:30:07,501 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 12:31:35,330 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 12:31:35,548 - DashboardLogger - INFO - IP: 127.0.0.1 - Nova conexão de IP: 127.0.0.1
+2024-11-08 12:31:35,549 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:31:35,625 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-layout
+2024-11-08 12:31:35,625 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-dependencies
+2024-11-08 12:31:35,806 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
