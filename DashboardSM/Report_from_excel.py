@@ -1851,7 +1851,7 @@ class SSADashboard:
 
     def setup_callbacks(self):
         """Configure all dashboard callbacks with enhanced features."""
-        
+
         @self.app.callback(
             [
                 Output("resp-summary-cards", "children"),
@@ -1871,7 +1871,7 @@ class SSADashboard:
             """Update all charts with filter data."""
             if resp_prog or resp_exec:
                 self.logger.log_with_ip('INFO', f'Filtros aplicados - Prog: {resp_prog}, Exec: {resp_exec}')
-            
+
             df_filtered = self.df.copy()
             if resp_prog:
                 df_filtered = df_filtered[
@@ -1899,7 +1899,7 @@ class SSADashboard:
                 "resp_exec",
                 "SSAs por Executor"
             )
-            
+
             # Gráficos de semana com hover e click
             fig_programmed_week = self._enhance_bar_chart(
                 filtered_visualizer.create_week_chart(use_programmed=True),
@@ -1911,9 +1911,9 @@ class SSADashboard:
                 "week_registration",
                 "SSAs Cadastradas"
             )
-            
+
             detail_style = {"display": "block"} if resp_prog or resp_exec else {"display": "none"}
-            
+
             fig_detail_state = self._enhance_bar_chart(
                 self._create_detail_state_chart(df_filtered),
                 "state",
@@ -1924,7 +1924,7 @@ class SSADashboard:
                 "week_detail",
                 "SSAs por Semana"
             )
-            
+
             table_data = self._prepare_table_data(df_filtered)
             weeks_fig = filtered_visualizer.add_weeks_in_state_chart()
 
@@ -2001,10 +2001,10 @@ class SSADashboard:
 
                 if ssas:
                     self.logger.log_with_ip("INFO", f"Visualização de SSAs: {title_prefix} {label}")
-                
+
                 ssa_list = self._create_ssa_list(ssas)
                 title = f"{title_prefix} {label} ({len(ssas)} SSAs)"
-                
+
                 return True, ssa_list, title
 
             return False, "", ""
@@ -2808,16 +2808,15 @@ class SSADashboard:
 
         # Lista ordenada de estados com suas cores e descrições
         state_info = [
-            ("AAD", "#007bff", "Aguardando Detalhamento"),
-            ("ADM", "#28a745", "Aguardando Manutenção"),
-            ("AAT", "#dc3545", "Aguardando Atendimento"),
-            ("SPG", "#ffc107", "Sem Programação"),
-            ("AIM", "#17a2b8", "Aguardando Início Manutenção"),
-            ("APV", "#6610f2", "Aguardando Aprovação"),
-            ("APG", "#fd7e14", "Aguardando Programação"),
-            ("SCD", "#20c997", "Sem Condições"),
-            ("ADI", "#e83e8c", "Aguardando Disponibilidade"),
-            ("APL", "#6c757d", "Aguardando Planejamento"),
+            ("ADI", "#dc3545", "ADI - AGUARDANDO APROVAÇÃO DA DIVISÃO NA EMISSÃO"),
+            ("APL", "#fd7e14", "APL - AGUARDANDO PLANEJAMENTO"),
+            ("APG", "#fd7e14", "APG - AGUARDANDO PROGRAMAÇÃO"),
+            ("AAD", "#007bff", "AAD - AGUARDANDO ATUALIZAÇÃO DE DESENHOS"),
+            ("ADM", "#007bff", "ADM - AGUARDANDO DEPARTAMENTO DE MANUTENÇÃO"),
+            ("AAT", "#007bff", "AAT - AGAURDANDO ATENDIMENTO DE TERCEIROS"),
+            ("APV", "#007bff", "APV - AGUARDANDO PROVISIONAMENTO"),
+            ("AIM", "#007bff", "AIM - AGUARDANDO ENGENHARIA DE MANUTENÇÃO"),
+            ("SCD", "#6c757d", "SCD - SSA CANCELADA AGUARDANDO APROV. DIVISÃO"),
         ]
 
         # Cards para cada estado
@@ -3270,7 +3269,7 @@ class SSADashboard:
         """Creates clickable SSA list for modal."""
         if not ssas or len(ssas) == 0:
             return html.Div("Nenhuma SSA encontrada para este período/categoria.")
-            
+
         return html.Div([
             html.Div([
                 html.Span(
@@ -3316,28 +3315,28 @@ class SSADashboard:
                                 week_mask = self.df.iloc[:, SSAColumns.SEMANA_PROGRAMADA] == str(cat)
                             else:
                                 week_mask = self.df.iloc[:, SSAColumns.SEMANA_CADASTRO] == str(cat)
-                            
+
                             if trace.name:  # Se tem nome, é um gráfico empilhado por prioridade
                                 week_mask = week_mask & (self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == trace.name)
-                            
+
                             week_ssas = self.df[week_mask].iloc[:, SSAColumns.NUMERO_SSA].tolist()
-                            
+
                             # Texto do hover
                             ssa_preview = "<br>".join(week_ssas[:5])
                             if len(week_ssas) > 5:
                                 ssa_preview += f"<br>... (+{len(week_ssas)-5} SSAs)"
-                            
+
                             week_title = f"Semana {cat}"
                             if trace.name:
                                 week_title += f" - {trace.name}"
-                            
+
                             hover_text.append(
                                 f"<b>{week_title}</b><br>"
                                 f"Total: {len(week_ssas)}<br>"
                                 f"SSAs:<br>{ssa_preview}"
                             )
                             customdata.append(week_ssas)
-                    
+
                     else:
                         # Para outros tipos de gráficos (código existente)
                         for cat in trace.x:
@@ -3348,15 +3347,15 @@ class SSADashboard:
                                 mask = self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == cat
                             elif chart_type == "state":
                                 mask = self.df.iloc[:, SSAColumns.SITUACAO] == cat
-                            
+
                             ssas = []
                             if mask is not None:
                                 ssas = self.df[mask].iloc[:, SSAColumns.NUMERO_SSA].tolist()
-                            
+
                             ssa_preview = "<br>".join(ssas[:5])
                             if len(ssas) > 5:
                                 ssa_preview += f"<br>... (+{len(ssas)-5} SSAs)"
-                            
+
                             hover_text.append(
                                 f"<b>{cat}</b><br>"
                                 f"Total: {len(ssas)}<br>"
@@ -3387,7 +3386,7 @@ class SSADashboard:
                             x=1
                         )
                     )
-                    
+
                     fig.update_layout(
                         modebar=dict(
                             remove=['scrollZoom']
@@ -3397,7 +3396,7 @@ class SSADashboard:
         except Exception as e:
             logging.error(f"Erro ao melhorar gráfico: {str(e)}")
             return fig
-        
+
         return fig
 
     def _get_ssas_for_category(self, category, chart_type):
