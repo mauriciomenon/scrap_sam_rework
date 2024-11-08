@@ -26,7 +26,6 @@ DATA_FILE_PATH = r"C:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Downloads\S
 @dataclass
 class SSAData:
     """Estrutura de dados para uma SSA."""
-
     numero: str
     situacao: str
     derivada: Optional[str]
@@ -57,11 +56,7 @@ class SSAData:
             "situacao": self.situacao,
             "setor_executor": self.setor_executor,
             "prioridade": self.prioridade_emissao,
-            "emitida_em": (
-                self.emitida_em.strftime("%Y-%m-%d %H:%M:%S")
-                if self.emitida_em
-                else None
-            ),
+            "emitida_em": self.emitida_em.strftime("%Y-%m-%d %H:%M:%S") if self.emitida_em else None,
         }
 
 
@@ -422,7 +417,6 @@ class DataLoader:
 
 class SSAColumns:
     """Mantém os índices e nomes das colunas."""
-
     # Índices
     NUMERO_SSA = 0
     SITUACAO = 1
@@ -482,29 +476,30 @@ class SSAColumns:
 @dataclass
 class WeekInfo:
     """Represents ISO week information for calculations."""
+
     year: int
     week: int
-    
+
     @classmethod
-    def from_string(cls, week_str: str) -> Optional['WeekInfo']:
+    def from_string(cls, week_str: str) -> Optional["WeekInfo"]:
         """
         Creates WeekInfo from YYYYWW format string.
         Returns None if input is invalid.
-        
+
         Args:
             week_str: String in format 'YYYYWW' (e.g., '202401')
         """
         if not isinstance(week_str, str) or len(week_str) != 6:
             return None
-        
+
         try:
             year = int(week_str[:4])
             week = int(week_str[4:])
-            
+
             # Basic validation
             if year < 2000 or year > 2100 or week < 1 or week > 53:
                 return None
-                
+
             return cls(year=year, week=week)
         except ValueError:
             return None
@@ -512,6 +507,7 @@ class WeekInfo:
     def to_string(self) -> str:
         """Converts WeekInfo back to YYYYWW format."""
         return f"{self.year}{self.week:02d}"
+
 
 class WeekCalculator:
     """Handles ISO week-based calculations with year transition awareness."""
@@ -710,7 +706,6 @@ class SSAWeekAnalyzer:
 
         return analysis.sort_values(["year", "week"])
 
-
     def create_week_chart(self, use_programmed: bool = True) -> go.Figure:
         """Cria gráfico de SSAs por semana."""
         analysis = self.week_analyzer.analyze_weeks(use_programmed)
@@ -800,19 +795,25 @@ class SSAWeekAnalyzer:
         analysis = self.analyze_weeks()
 
         if analysis.empty:
-            return pd.DataFrame({
-                'week_count': pd.Series(dtype='int64'),
-                'cumulative_percent': pd.Series(dtype='float64')
-            })
+            return pd.DataFrame(
+                {
+                    "week_count": pd.Series(dtype="int64"),
+                    "cumulative_percent": pd.Series(dtype="float64"),
+                }
+            )
 
         # Calcular contagem total por semana (soma de todas as prioridades)
-        total_por_semana = analysis.iloc[:, 2:-1].sum(axis=1)  # Soma todas as colunas exceto year, week e year_week
+        total_por_semana = analysis.iloc[:, 2:-1].sum(axis=1)
 
         # Criar análise de distribuição
-        stats = pd.DataFrame({
-            'week_count': total_por_semana,
-            'cumulative_percent': (total_por_semana.cumsum() / total_por_semana.sum() * 100)
-        })
+        stats = pd.DataFrame(
+            {
+                "week_count": total_por_semana,
+                "cumulative_percent": (
+                    total_por_semana.cumsum() / total_por_semana.sum() * 100
+                ),
+            }
+        )
 
         # Adicionar métricas de qualidade
         invalid_count = len(self.df) - total_por_semana.sum()
@@ -821,7 +822,7 @@ class SSAWeekAnalyzer:
         else:
             invalid_percent = 0
 
-        stats.loc['missing_data'] = [invalid_count, invalid_percent]
+        stats.loc["missing_data"] = [invalid_count, invalid_percent]
 
         return stats
 
