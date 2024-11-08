@@ -3162,66 +3162,55 @@ class SSADashboard:
                     hover_text = []
                     customdata = []
 
-                    # Para gráficos empilhados, precisamos combinar os dados
-                    if trace.name and trace.name in [
-                        "S3.7",
-                        "S3.6",
-                        "S3.5",
-                    ]:  # Para gráficos de semana
+                    if chart_type in ["week_programmed", "week_registration"]:
+                        # Para gráficos de semana
                         for i, cat in enumerate(trace.x):
-                            week_ssas = (
-                                self.df[
-                                    (
-                                        self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
-                                        == trace.name
-                                    )
-                                    & (
-                                        self.df.iloc[:, SSAColumns.SEMANA_CADASTRO]
-                                        == str(cat)
-                                    )
-                                ]
-                                .iloc[:, SSAColumns.NUMERO_SSA]
-                                .tolist()
-                            )
-
-                            ssas_by_category[cat] = week_ssas
-
-                            # Criar texto do hover
+                            week_mask = None
+                            if chart_type == "week_programmed":
+                                week_mask = self.df.iloc[:, SSAColumns.SEMANA_PROGRAMADA] == str(cat)
+                            else:
+                                week_mask = self.df.iloc[:, SSAColumns.SEMANA_CADASTRO] == str(cat)
+                            
+                            if trace.name:  # Se tem nome, é um gráfico empilhado por prioridade
+                                week_mask = week_mask & (self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == trace.name)
+                            
+                            week_ssas = self.df[week_mask].iloc[:, SSAColumns.NUMERO_SSA].tolist()
+                            
+                            # Texto do hover
                             ssa_preview = "<br>".join(week_ssas[:5])
                             if len(week_ssas) > 5:
                                 ssa_preview += f"<br>... (+{len(week_ssas)-5} SSAs)"
-
+                            
+                            week_title = f"Semana {cat}"
+                            if trace.name:
+                                week_title += f" - {trace.name}"
+                            
                             hover_text.append(
-                                f"<b>{cat} - {trace.name}</b><br>"
+                                f"<b>{week_title}</b><br>"
                                 f"Total: {len(week_ssas)}<br>"
                                 f"SSAs:<br>{ssa_preview}"
                             )
                             customdata.append(week_ssas)
+                    
                     else:
-                        # Para gráficos normais
+                        # Para outros tipos de gráficos (código existente)
                         for cat in trace.x:
                             mask = None
                             if chart_type == "resp_prog":
-                                mask = (
-                                    self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO]
-                                    == cat
-                                )
+                                mask = self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO] == cat
                             elif chart_type == "resp_exec":
-                                mask = (
-                                    self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == cat
-                                )
+                                mask = self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == cat
                             elif chart_type == "state":
                                 mask = self.df.iloc[:, SSAColumns.SITUACAO] == cat
-
+                            
                             ssas = []
                             if mask is not None:
                                 ssas = self.df[mask].iloc[:, SSAColumns.NUMERO_SSA].tolist()
-
-                            ssas_by_category[cat] = ssas
+                            
                             ssa_preview = "<br>".join(ssas[:5])
                             if len(ssas) > 5:
                                 ssa_preview += f"<br>... (+{len(ssas)-5} SSAs)"
-
+                            
                             hover_text.append(
                                 f"<b>{cat}</b><br>"
                                 f"Total: {len(ssas)}<br>"
@@ -3233,27 +3222,36 @@ class SSADashboard:
                         hovertext=hover_text,
                         hoverinfo="text",
                         customdata=customdata,
-                        hoverlabel=dict(bgcolor="white", font_size=12, font_family="Arial"),
+                        hoverlabel=dict(
+                            bgcolor="white",
+                            font_size=12,
+                            font_family="Arial"
+                        )
                     )
 
                     # Desabilita zoom com scroll do mouse
                     fig.update_layout(
-                        dragmode="pan",  # Muda para pan em vez de zoom
+                        dragmode='pan',
                         showlegend=True,
                         legend=dict(
-                            orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1
-                        ),
+                            orientation="h",
+                            yanchor="bottom",
+                            y=1.02,
+                            xanchor="right",
+                            x=1
+                        )
                     )
-
-                    # Configura comportamento do mouse
+                    
                     fig.update_layout(
-                        modebar=dict(remove=["scrollZoom"])  # Remove zoom com scroll
+                        modebar=dict(
+                            remove=['scrollZoom']
+                        )
                     )
 
         except Exception as e:
             logging.error(f"Erro ao melhorar gráfico: {str(e)}")
             return fig
-
+        
         return fig
 
     def _get_ssas_for_category(self, category, chart_type):

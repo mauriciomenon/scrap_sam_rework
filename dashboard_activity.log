@@ -400,3 +400,14 @@ information about how to avoid this problem.
 2024-11-08 12:32:17,103 - DashboardLogger - INFO - IP: 127.0.0.1 - Filtros aplicados - Prog: CARLOS RONEI ORTIZ, Exec: CARLOS RONEI ORTIZ
 2024-11-08 12:32:19,967 - DashboardLogger - INFO - IP: 127.0.0.1 - Filtros aplicados - Prog: LUCAS COSTA CICARELLI, Exec: CARLOS RONEI ORTIZ
 2024-11-08 12:32:23,054 - DashboardLogger - INFO - IP: 127.0.0.1 - Filtros aplicados - Prog: LUCAS COSTA CICARELLI, Exec: LUCAS COSTA CICARELLI
+2024-11-08 12:36:00,109 - DashboardLogger - INFO - IP: 127.0.0.1 - Visualização de SSAs: SSAs no intervalo 70-79
+2024-11-08 12:36:47,323 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 12:36:47,435 - DashboardLogger - INFO - IP: 127.0.0.1 - Nova conexão de IP: 127.0.0.1
+2024-11-08 12:36:47,436 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:36:47,500 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-layout
+2024-11-08 12:36:47,501 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-dependencies
+2024-11-08 12:36:47,683 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 12:41:48,015 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 12:41:48,016 - DashboardLogger - INFO - IP: 127.0.0.1 - Atualização automática dos dados
+2024-11-08 12:41:48,977 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:43:07,034 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
