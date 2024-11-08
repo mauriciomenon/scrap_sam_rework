@@ -584,3 +584,15 @@ information about how to avoid this problem.
 2024-11-08 15:33:18,179 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-component-suites/plotly/package_data/plotly.min.js
 2024-11-08 15:33:18,203 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-highlight.js
 2024-11-08 15:33:18,204 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-table.js
+2024-11-08 15:34:00,184 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 15:34:03,608 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 15:34:03,695 - DashboardLogger - INFO - IP: 127.0.0.1 - Nova conexão de IP: 127.0.0.1
+2024-11-08 15:34:03,696 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 15:34:03,805 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-layout
+2024-11-08 15:34:03,806 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-dependencies
+2024-11-08 15:34:03,942 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 15:37:19,823 - DashboardLogger - INFO - IP: 172.19.73.18 - Nova conexão de IP: 172.19.73.18
+2024-11-08 15:37:19,824 - DashboardLogger - INFO - IP: 172.19.73.18 - Acesso à rota: /_reload-hash
+2024-11-08 15:37:19,925 - DashboardLogger - INFO - IP: 172.19.73.18 - Acesso à rota: /_dash-dependencies
+2024-11-08 15:37:19,927 - DashboardLogger - INFO - IP: 172.19.73.18 - Acesso à rota: /_dash-layout
+2024-11-08 15:37:20,181 - DashboardLogger - INFO - IP: 172.19.73.18 - Acesso à rota: /_dash-update-component

@@ -1194,12 +1194,12 @@ class SSAVisualizer:
 
     # Update the visualizer's week-related method
     def add_weeks_in_state_chart(self) -> go.Figure:
-            """Cria gráfico mostrando distribuição de SSAs por tempo no estado."""
-            weeks_in_state = self.week_analyzer.calculate_weeks_in_state()
-            valid_weeks = weeks_in_state.dropna()
+        """Cria gráfico mostrando distribuição de SSAs por tempo no estado."""
+        weeks_in_state = self.week_analyzer.calculate_weeks_in_state()
+        valid_weeks = weeks_in_state.dropna()
 
-            if valid_weeks.empty:
-                return go.Figure().update_layout(
+        if valid_weeks.empty:
+            return go.Figure().update_layout(
                     self._get_standard_layout(
                         title="Distribuição de SSAs por Tempo no Estado Atual",
                         xaxis_title="Semanas no Estado",
@@ -1217,45 +1217,45 @@ class SSAVisualizer:
                     )
                 )
 
-            # Agrupa em intervalos de semanas
-            value_counts = valid_weeks.value_counts().sort_index()
-            max_weeks = value_counts.index.max()
+        # Agrupa em intervalos de semanas
+        value_counts = valid_weeks.value_counts().sort_index()
+        max_weeks = value_counts.index.max()
 
-            if max_weeks > 50:
-                bins = list(range(0, int(max_weeks) + 10, 10))
-                labels = [f"{bins[i]}-{bins[i+1]-1}" for i in range(len(bins) - 1)]
-                binned_data = pd.cut(
+        if max_weeks > 50:
+            bins = list(range(0, int(max_weeks) + 10, 10))
+            labels = [f"{bins[i]}-{bins[i+1]-1}" for i in range(len(bins) - 1)]
+            binned_data = pd.cut(
                     value_counts.index, bins=bins, labels=labels, right=False
                 )
-                value_counts = value_counts.groupby(binned_data).sum()
+            value_counts = value_counts.groupby(binned_data).sum()
 
-            # Criar dicionário para armazenar SSAs por intervalo
-            ssas_by_interval = {}
-            hover_text = []
+        # Criar dicionário para armazenar SSAs por intervalo
+        ssas_by_interval = {}
+        hover_text = []
 
-            for interval in value_counts.index:
-                # Encontrar SSAs no intervalo atual
-                if "-" in str(interval):
-                    start, end = map(int, str(interval).split("-"))
-                    mask = (weeks_in_state >= start) & (weeks_in_state <= end)
-                else:
-                    mask = weeks_in_state == interval
+        for interval in value_counts.index:
+            # Encontrar SSAs no intervalo atual
+            if "-" in str(interval):
+                start, end = map(int, str(interval).split("-"))
+                mask = (weeks_in_state >= start) & (weeks_in_state <= end)
+            else:
+                mask = weeks_in_state == interval
 
-                ssas_in_interval = self.df[mask].iloc[:, SSAColumns.NUMERO_SSA].tolist()
-                ssas_by_interval[str(interval)] = ssas_in_interval
+            ssas_in_interval = self.df[mask].iloc[:, SSAColumns.NUMERO_SSA].tolist()
+            ssas_by_interval[str(interval)] = ssas_in_interval
 
-                # Preparar texto customizado para hover
-                ssa_preview = "<br>".join(ssas_in_interval[:5])
-                if len(ssas_in_interval) > 5:
-                    ssa_preview += f"<br>... (+{len(ssas_in_interval)-5} SSAs)"
+            # Preparar texto customizado para hover
+            ssa_preview = "<br>".join(ssas_in_interval[:5])
+            if len(ssas_in_interval) > 5:
+                ssa_preview += f"<br>... (+{len(ssas_in_interval)-5} SSAs)"
 
-                hover_text.append(
+            hover_text.append(
                     f"<b>Intervalo:</b> {interval}<br>"
                     f"<b>Total SSAs:</b> {len(ssas_in_interval)}<br>"
                     f"<b>Primeiras SSAs:</b><br>{ssa_preview}"
                 )
 
-            fig = go.Figure([
+        fig = go.Figure([
                 go.Bar(
                     x=value_counts.index,
                     y=value_counts.values,
@@ -1274,10 +1274,10 @@ class SSAVisualizer:
                 )
             ])
 
-            invalid_count = weeks_in_state.isna().sum()
-            total_count = len(weeks_in_state)
+        invalid_count = weeks_in_state.isna().sum()
+        total_count = len(weeks_in_state)
 
-            fig.update_layout(
+        fig.update_layout(
                 self._get_standard_layout(
                     title=f"Distribuição de SSAs por Tempo no Estado Atual<br><sub>({invalid_count}/{total_count} registros inválidos)</sub>",
                     xaxis_title="Intervalo de Semanas no Estado",
@@ -1298,13 +1298,13 @@ class SSAVisualizer:
                 )
             )
 
-            # Configurações adicionais para melhorar a aparência
-            fig.update_traces(
+        # Configurações adicionais para melhorar a aparência
+        fig.update_traces(
                 hovertemplate=None,  # Usar o hover_text customizado
                 hoverlabel_align="left"
             )
 
-            return fig
+        return fig
 
 
 class SSAReporter:
@@ -1323,7 +1323,6 @@ class SSAReporter:
                 tempo_medio = emitida_em.dt.hour.mean()
             else:
                 tempo_medio = None
-                # Remove o warning e usa um log informativo
                 logging.info(
                     "Tempo médio de emissão não calculado - Algumas datas inválidas"
                 )
@@ -1392,7 +1391,7 @@ class SSAReporter:
                     </div>
                     <div class="metric">
                         <h3>Média de Emissão (hora)</h3>
-                        <p>{stats['tempo_medio_emissao']:.2f}</p>
+                        <p>{stats['tempo_medio_emissao']:.2f if stats['tempo_medio_emissao'] else 'N/A'}</p>
                     </div>
                 </div>
                 
@@ -1443,7 +1442,10 @@ class SSAReporter:
 
             # Gera análise temporal apenas se houver datas válidas
             emitida_em = self.df.iloc[:, SSAColumns.EMITIDA_EM]
-            if pd.api.types.is_datetime64_any_dtype(emitida_em) and not emitida_em.isna().all():
+            if (
+                pd.api.types.is_datetime64_any_dtype(emitida_em)
+                and not emitida_em.isna().all()
+            ):
                 try:
                     temporal_analysis = (
                         self.df.groupby(
@@ -1487,7 +1489,9 @@ class SSAReporter:
                     .agg(
                         {
                             self.df.columns[SSAColumns.NUMERO_SSA]: "count",
-                            self.df.columns[SSAColumns.GRAU_PRIORIDADE_EMISSAO]: lambda x: (
+                            self.df.columns[
+                                SSAColumns.GRAU_PRIORIDADE_EMISSAO
+                            ]: lambda x: (
                                 x.value_counts().index[0] if len(x) > 0 else "N/A"
                             ),
                         }
@@ -1505,9 +1509,9 @@ class SSAReporter:
                 status_analysis = pd.crosstab(
                     [
                         self.df.iloc[:, SSAColumns.SITUACAO],
-                        self.df.iloc[:, SSAColumns.SETOR_EXECUTOR]
+                        self.df.iloc[:, SSAColumns.SETOR_EXECUTOR],
                     ],
-                    self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
+                    self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO],
                 )
                 status_analysis.to_excel(writer, sheet_name="Por Status")
 
@@ -1515,9 +1519,9 @@ class SSAReporter:
                 resp_analysis = pd.crosstab(
                     [
                         self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO],
-                        self.df.iloc[:, SSAColumns.SETOR_EXECUTOR]
+                        self.df.iloc[:, SSAColumns.SETOR_EXECUTOR],
                     ],
-                    self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
+                    self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO],
                 )
                 resp_analysis.to_excel(writer, sheet_name="Por Responsável")
 
@@ -1525,9 +1529,9 @@ class SSAReporter:
                 service_analysis = pd.crosstab(
                     [
                         self.df.iloc[:, SSAColumns.SERVICO_ORIGEM],
-                        self.df.iloc[:, SSAColumns.SETOR_EXECUTOR]
+                        self.df.iloc[:, SSAColumns.SETOR_EXECUTOR],
                     ],
-                    self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
+                    self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO],
                 )
                 service_analysis.to_excel(writer, sheet_name="Por Serviço")
 
@@ -1539,72 +1543,81 @@ class SSAReporter:
                 for worksheet in writer.sheets.values():
                     worksheet.set_zoom(85)  # Ajusta o zoom
                     worksheet.freeze_panes(1, 0)  # Congela primeira linha
-                    
+
                     # Ajusta largura das colunas
                     for idx, col in enumerate(raw_data.columns):
                         series = raw_data.iloc[:, idx]
-                        max_len = max(
-                            series.astype(str).apply(len).max(),  # comprimento máximo dos dados
-                            len(str(series.name))  # comprimento do cabeçalho
-                        ) + 2  # adiciona um pequeno padding
+                        max_len = (
+                            max(
+                                series.astype(str)
+                                .apply(len)
+                                .max(),  # comprimento máximo dos dados
+                                len(str(series.name)),  # comprimento do cabeçalho
+                            )
+                            + 2
+                        )  # adiciona um pequeno padding
                         worksheet.set_column(idx, idx, max_len)
 
                 # Adiciona filtros
                 for sheet_name in writer.sheets:
                     worksheet = writer.sheets[sheet_name]
                     if sheet_name != "Resumo":  # Não adiciona filtro na aba de resumo
-                        worksheet.autofilter(0, 0, raw_data.shape[0], raw_data.shape[1] - 1)
+                        worksheet.autofilter(
+                            0, 0, raw_data.shape[0], raw_data.shape[1] - 1
+                        )
 
             except Exception as e:
                 logging.error(f"Erro ao gerar análises específicas: {str(e)}")
                 logging.error(traceback.format_exc())
 
             try:
-                # Adiciona uma aba de metadados com tratamento de datas nulas
-                valid_dates = emitida_em[emitida_em.notna()]
-                
-                if not valid_dates.empty:
-                    data_inicio = valid_dates.min().strftime('%d/%m/%Y')
-                    data_fim = valid_dates.max().strftime('%d/%m/%Y')
-                    periodo = f"{data_inicio} a {data_fim}"
-                else:
-                    periodo = "Período não disponível"
-
-                metadata = pd.DataFrame([
-                    {"Métrica": "Total de SSAs", "Valor": len(self.df)},
-                    {"Métrica": "Data de Geração", "Valor": datetime.now().strftime("%d/%m/%Y %H:%M:%S")},
-                    {"Métrica": "SSAs por Prioridade", "Valor": dict(self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].value_counts())},
-                    {"Métrica": "SSAs por Status", "Valor": dict(self.df.iloc[:, SSAColumns.SITUACAO].value_counts())},
-                    {"Métrica": "Período Analisado", "Valor": periodo}
-                ])
+                # Adiciona uma aba de metadados
+                metadata = pd.DataFrame(
+                    [
+                        {"Métrica": "Total de SSAs", "Valor": len(self.df)},
+                        {
+                            "Métrica": "Data de Geração",
+                            "Valor": datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+                        },
+                        {
+                            "Métrica": "SSAs por Prioridade",
+                            "Valor": dict(
+                                self.df.iloc[
+                                    :, SSAColumns.GRAU_PRIORIDADE_EMISSAO
+                                ].value_counts()
+                            ),
+                        },
+                        {
+                            "Métrica": "SSAs por Status",
+                            "Valor": dict(
+                                self.df.iloc[:, SSAColumns.SITUACAO].value_counts()
+                            ),
+                        },
+                        {
+                            "Métrica": "Período Analisado",
+                            "Valor": self._get_analysis_period(),
+                        },
+                    ]
+                )
                 metadata.to_excel(writer, sheet_name="Metadados", index=False)
 
             except Exception as e:
                 logging.error(f"Erro ao gerar metadados: {str(e)}")
                 logging.debug(traceback.format_exc())
 
-            # Aplica formatação final
-            try:
-                for sheet_name in writer.sheets:
-                    worksheet = writer.sheets[sheet_name]
-                    worksheet.set_column('A:ZZ', None, None, {'text_wrap': True})  # Habilita wrap de texto
-                    
-                    # Ajusta zoom e visualização
-                    worksheet.set_zoom(85)
-                    if sheet_name == "Dados Completos":
-                        worksheet.freeze_panes(1, 2)  # Congela primeira linha e duas colunas
-                    else:
-                        worksheet.freeze_panes(1, 0)  # Congela apenas primeira linha
+    def _get_analysis_period(self) -> str:
+        """Obtém o período de análise dos dados."""
+        emitida_em = self.df.iloc[:, SSAColumns.EMITIDA_EM]
+        valid_dates = emitida_em[emitida_em.notna()]
 
-            except Exception as e:
-                logging.error(f"Erro ao aplicar formatação final: {str(e)}")
+        if not valid_dates.empty:
+            data_inicio = valid_dates.min().strftime("%d/%m/%Y")
+            data_fim = valid_dates.max().strftime("%d/%m/%Y")
+            return f"{data_inicio} a {data_fim}"
+        return "Período não disponível"
 
-            logging.info(f"Relatório Excel salvo com sucesso em: {filename}")
- 
     def generate_pdf_report(self, filename: str):
         """Gera relatório em PDF."""
-        import pdfkit  # Requer wkhtmltopdf instalado
-
         html_content = self.generate_html_report()
         pdfkit.from_string(html_content, filename)
 
@@ -1626,7 +1639,7 @@ DISTRIBUIÇÃO POR SETOR EXECUTOR:
 EXECUÇÃO SIMPLES:
 {self._format_dict(stats['execucao_simples'])}
 
-Tempo Médio de Emissão (hora): {stats['tempo_medio_emissao']:.2f}
+Tempo Médio de Emissão (hora): {stats['tempo_medio_emissao']:.2f if stats['tempo_medio_emissao'] else 'N/A'}
         """
 
     def _format_dict(self, d: Dict) -> str:
@@ -1635,6 +1648,8 @@ Tempo Médio de Emissão (hora): {stats['tempo_medio_emissao']:.2f}
 
 
 class KPICalculator:
+    """Calcula KPIs e métricas de performance das SSAs."""
+    
     def __init__(self, df: pd.DataFrame):
         self.df = df
 
@@ -1643,12 +1658,10 @@ class KPICalculator:
         return {
             "taxa_programacao": len(
                 self.df[self.df.iloc[:, SSAColumns.SEMANA_PROGRAMADA].notna()]
-            )
-            / len(self.df),
+            ) / len(self.df),
             "taxa_execucao_simples": len(
                 self.df[self.df.iloc[:, SSAColumns.EXECUCAO_SIMPLES] == "Sim"]
-            )
-            / len(self.df),
+            ) / len(self.df),
             "distribuicao_prioridade": self.df.iloc[
                 :, SSAColumns.GRAU_PRIORIDADE_EMISSAO
             ]
@@ -1663,6 +1676,153 @@ class KPICalculator:
             metrics["taxa_programacao"] * 0.5 + metrics["taxa_execucao_simples"] * 0.5
         )
         return round(score * 100, 2)
+
+    def calculate_response_times(self) -> Dict[str, float]:
+        """Calcula tempos de resposta médios por prioridade."""
+        response_times = {}
+        
+        for priority in self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].unique():
+            mask = (
+                self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == priority
+            )
+            priority_data = self.df[mask]
+            
+            if len(priority_data) > 0:
+                # Calcula tempo médio desde emissão até programação
+                mean_time = (
+                    priority_data.iloc[:, SSAColumns.SEMANA_PROGRAMADA].astype(float) -
+                    priority_data.iloc[:, SSAColumns.SEMANA_CADASTRO].astype(float)
+                ).mean()
+                
+                response_times[priority] = mean_time if not pd.isna(mean_time) else None
+                
+        return response_times
+
+    def calculate_sector_performance(self) -> pd.DataFrame:
+        """Calcula performance por setor."""
+        sector_metrics = []
+        
+        for sector in self.df.iloc[:, SSAColumns.SETOR_EXECUTOR].unique():
+            sector_data = self.df[
+                self.df.iloc[:, SSAColumns.SETOR_EXECUTOR] == sector
+            ]
+            
+            total_ssas = len(sector_data)
+            programmed_ssas = len(
+                sector_data[sector_data.iloc[:, SSAColumns.SEMANA_PROGRAMADA].notna()]
+            )
+            critical_ssas = len(
+                sector_data[
+                    sector_data.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == "S3.7"
+                ]
+            )
+            
+            sector_metrics.append({
+                "setor": sector,
+                "total_ssas": total_ssas,
+                "taxa_programacao": (programmed_ssas / total_ssas) if total_ssas > 0 else 0,
+                "ssas_criticas": critical_ssas,
+                "percentual_criticas": (critical_ssas / total_ssas * 100) if total_ssas > 0 else 0
+            })
+        
+        return pd.DataFrame(sector_metrics)
+
+    def calculate_weekly_trends(self) -> pd.DataFrame:
+        """Calcula tendências semanais de SSAs."""
+        weekly_data = []
+        
+        for week in sorted(self.df.iloc[:, SSAColumns.SEMANA_CADASTRO].unique()):
+            week_data = self.df[
+                self.df.iloc[:, SSAColumns.SEMANA_CADASTRO] == week
+            ]
+            
+            total_ssas = len(week_data)
+            programmed = len(
+                week_data[week_data.iloc[:, SSAColumns.SEMANA_PROGRAMADA].notna()]
+            )
+            critical = len(
+                week_data[
+                    week_data.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == "S3.7"
+                ]
+            )
+            
+            weekly_data.append({
+                "semana": week,
+                "total_ssas": total_ssas,
+                "programadas": programmed,
+                "criticas": critical,
+                "taxa_programacao": (programmed / total_ssas) if total_ssas > 0 else 0
+            })
+        
+        return pd.DataFrame(weekly_data)
+
+    def get_key_metrics_summary(self) -> Dict:
+        """Retorna um resumo das métricas principais."""
+        total_ssas = len(self.df)
+        metrics = self.calculate_efficiency_metrics()
+        health_score = self.get_overall_health_score()
+        
+        # Calcula média de tempo de resposta para SSAs críticas
+        response_times = self.calculate_response_times()
+        critical_response = response_times.get("S3.7")
+        
+        return {
+            "total_ssas": total_ssas,
+            "health_score": health_score,
+            "taxa_programacao": metrics["taxa_programacao"] * 100,
+            "taxa_execucao_simples": metrics["taxa_execucao_simples"] * 100,
+            "tempo_resposta_criticas": critical_response,
+            "distribuicao_prioridade": metrics["distribuicao_prioridade"]
+        }
+
+    def calculate_backlog_metrics(self) -> Dict:
+        """Calcula métricas relacionadas ao backlog de SSAs."""
+        total_backlog = len(self.df)
+        backlog_by_priority = self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].value_counts().to_dict()
+        backlog_by_sector = self.df.iloc[:, SSAColumns.SETOR_EXECUTOR].value_counts().to_dict()
+        
+        # Calcula idade média do backlog
+        backlog_age = None
+        emitida_em = self.df.iloc[:, SSAColumns.EMITIDA_EM]
+        if pd.api.types.is_datetime64_any_dtype(emitida_em):
+            valid_dates = emitida_em.dropna()
+            if not valid_dates.empty:
+                current_date = pd.Timestamp.now()
+                backlog_age = (current_date - valid_dates).mean().days
+        
+        return {
+            "total_backlog": total_backlog,
+            "by_priority": backlog_by_priority,
+            "by_sector": backlog_by_sector,
+            "average_age_days": backlog_age
+        }
+
+    def calculate_risk_metrics(self) -> Dict:
+        """Calcula métricas de risco baseadas em prioridade e tempo de espera."""
+        risk_metrics = {
+            "high_risk": 0,    # SSAs críticas com mais de 2 semanas
+            "medium_risk": 0,  # SSAs críticas com 1-2 semanas ou normais com >4 semanas
+            "low_risk": 0      # Demais SSAs
+        }
+        
+        weeks_in_state = pd.to_numeric(
+            self.df.iloc[:, SSAColumns.SEMANA_CADASTRO],
+            errors='coerce'
+        )
+        current_week = int(date.today().strftime("%Y%W"))
+        
+        for idx, row in self.df.iterrows():
+            weeks_waiting = current_week - weeks_in_state[idx] if pd.notna(weeks_in_state[idx]) else 0
+            is_critical = row.iloc[SSAColumns.GRAU_PRIORIDADE_EMISSAO] == "S3.7"
+            
+            if is_critical and weeks_waiting > 2:
+                risk_metrics["high_risk"] += 1
+            elif (is_critical and weeks_waiting > 1) or (not is_critical and weeks_waiting > 4):
+                risk_metrics["medium_risk"] += 1
+            else:
+                risk_metrics["low_risk"] += 1
+        
+        return risk_metrics
 
 
 class SSADashboard:
