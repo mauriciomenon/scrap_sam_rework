@@ -9359,3 +9359,106 @@ OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disp
 2024-11-08 15:10:32,206 - DashboardLogger - INFO - Acesso à rota: /_dash-dependencies
 2024-11-08 15:10:32,344 - DashboardLogger - INFO - Acesso à rota: /_dash-update-component
 2024-11-08 15:10:33,729 - root - INFO - Week calculation stats: 175/175 valid calculations
+2024-11-08 15:12:49,565 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-08 15:12:50,085 - root - INFO - === Diagnóstico de Datas ===
+2024-11-08 15:12:50,085 - root - INFO - Total de linhas: 175
+2024-11-08 15:12:50,085 - root - INFO - Problemas encontrados: 1
+2024-11-08 15:12:50,086 - root - INFO - 
+Linha 164:
+2024-11-08 15:12:50,087 - root - INFO -   Valor encontrado: nan
+2024-11-08 15:12:50,087 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-08 15:12:50,087 - root - INFO -   Dados da linha:
+2024-11-08 15:12:50,088 - root - INFO -     Número da SSA: 202417496
+2024-11-08 15:12:50,088 - root - INFO -     Situação: ADI
+2024-11-08 15:12:50,089 - root - INFO -     Derivada de: nan
+2024-11-08 15:12:50,089 - root - INFO -     Localização: K061A006
+2024-11-08 15:12:50,090 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-08 15:12:50,090 - root - INFO -     Equipamento: 0919.059-7
+2024-11-08 15:12:50,091 - root - INFO -     Semana de Cadastro: 202444
+2024-11-08 15:12:50,091 - root - INFO -     Emitida Em: nan
+2024-11-08 15:12:50,092 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-08 15:12:50,093 - root - INFO -     Setor Emissor: MEL4
+2024-11-08 15:12:50,093 - root - INFO -     Setor Executor: IEE3
+2024-11-08 15:12:50,093 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-08 15:12:50,094 - root - INFO -     Serviço de Origem: S1
+2024-11-08 15:12:50,094 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-08 15:12:50,094 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-08 15:12:50,095 - root - INFO -     Execução Simples: Não
+2024-11-08 15:12:50,095 - root - INFO -     Responsável na Programação: nan
+2024-11-08 15:12:50,095 - root - INFO -     Semana Programada: nan
+2024-11-08 15:12:50,096 - root - INFO -     Responsável na Execução: nan
+2024-11-08 15:12:50,096 - root - INFO -     Descrição Execução: nan
+2024-11-08 15:12:50,097 - root - INFO -     Sistema de Origem: nan
+2024-11-08 15:12:50,097 - root - INFO -     Anomalia: nan
+2024-11-08 15:12:50,099 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-08 15:12:50,100 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-08 15:12:50,148 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-08 15:12:50,148 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-08 15:12:50,149 - root - INFO - Número: 202415727
+2024-11-08 15:12:50,149 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-08 15:12:50,149 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-08 15:12:50,150 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-08 15:12:50,151 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-08 15:12:50,151 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-08 15:12:50,152 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-08 15:12:50,152 - __main__ - INFO - Gerando relatório inicial...
+2024-11-08 15:12:50,155 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-08 15:12:50,283 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-08 15:12:50,536 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-08 15:12:50,536 - __main__ - INFO - Iniciando dashboard...
+2024-11-08 15:12:50,562 - DashboardLogger - INFO - Iniciando servidor do dashboard
+2024-11-08 15:13:34,627 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-08 15:13:35,260 - root - INFO - === Diagnóstico de Datas ===
+2024-11-08 15:13:35,260 - root - INFO - Total de linhas: 175
+2024-11-08 15:13:35,260 - root - INFO - Problemas encontrados: 1
+2024-11-08 15:13:35,261 - root - INFO - 
+Linha 164:
+2024-11-08 15:13:35,261 - root - INFO -   Valor encontrado: nan
+2024-11-08 15:13:35,261 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-08 15:13:35,262 - root - INFO -   Dados da linha:
+2024-11-08 15:13:35,262 - root - INFO -     Número da SSA: 202417496
+2024-11-08 15:13:35,262 - root - INFO -     Situação: ADI
+2024-11-08 15:13:35,263 - root - INFO -     Derivada de: nan
+2024-11-08 15:13:35,263 - root - INFO -     Localização: K061A006
+2024-11-08 15:13:35,264 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-08 15:13:35,264 - root - INFO -     Equipamento: 0919.059-7
+2024-11-08 15:13:35,264 - root - INFO -     Semana de Cadastro: 202444
+2024-11-08 15:13:35,265 - root - INFO -     Emitida Em: nan
+2024-11-08 15:13:35,265 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-08 15:13:35,266 - root - INFO -     Setor Emissor: MEL4
+2024-11-08 15:13:35,266 - root - INFO -     Setor Executor: IEE3
+2024-11-08 15:13:35,266 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-08 15:13:35,267 - root - INFO -     Serviço de Origem: S1
+2024-11-08 15:13:35,267 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-08 15:13:35,267 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-08 15:13:35,268 - root - INFO -     Execução Simples: Não
+2024-11-08 15:13:35,268 - root - INFO -     Responsável na Programação: nan
+2024-11-08 15:13:35,269 - root - INFO -     Semana Programada: nan
+2024-11-08 15:13:35,269 - root - INFO -     Responsável na Execução: nan
+2024-11-08 15:13:35,269 - root - INFO -     Descrição Execução: nan
+2024-11-08 15:13:35,270 - root - INFO -     Sistema de Origem: nan
+2024-11-08 15:13:35,270 - root - INFO -     Anomalia: nan
+2024-11-08 15:13:35,273 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-08 15:13:35,273 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-08 15:13:35,324 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-08 15:13:35,325 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-08 15:13:35,325 - root - INFO - Número: 202415727
+2024-11-08 15:13:35,326 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-08 15:13:35,326 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-08 15:13:35,327 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-08 15:13:35,328 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 175
+2024-11-08 15:13:35,328 - __main__ - INFO - Convertidos 175 registros para objetos SSAData
+2024-11-08 15:13:35,329 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-08 15:13:35,329 - __main__ - INFO - Gerando relatório inicial...
+2024-11-08 15:13:35,333 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-08 15:13:35,523 - root - INFO - Relatório Excel salvo com sucesso em: relatorio_ssas.xlsx
+2024-11-08 15:13:35,752 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-08 15:13:35,752 - __main__ - INFO - Iniciando dashboard...
+2024-11-08 15:13:35,778 - DashboardLogger - INFO - Iniciando servidor do dashboard
+2024-11-08 15:13:39,058 - DashboardLogger - INFO - Nova conexão de IP: 127.0.0.1
+2024-11-08 15:13:39,059 - DashboardLogger - INFO - Acesso à rota: /_reload-hash
+2024-11-08 15:13:39,075 - DashboardLogger - INFO - Acesso à rota: /_dash-layout
+2024-11-08 15:13:39,075 - DashboardLogger - INFO - Acesso à rota: /_dash-dependencies
+2024-11-08 15:13:39,252 - DashboardLogger - INFO - Acesso à rota: /_dash-update-component

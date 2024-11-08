@@ -832,7 +832,7 @@ class SSAVisualizer:
 
     def __init__(self, df: pd.DataFrame):
         self.df = df
-        self.week_analyzer = SSAWeekAnalyzer(df)  # Adicionar analisador de semanas
+        self.week_analyzer = SSAWeekAnalyzer(df)
 
     def _get_standard_layout(
         self,
@@ -969,10 +969,12 @@ class SSAVisualizer:
         )
 
         fig.update_layout(
-            title=f"Distribuição de SSAs por {SSAColumns.get_name(SSAColumns.GRAU_PRIORIDADE_EMISSAO)}",
-            xaxis_title="Grau de Prioridade",
-            yaxis_title="Quantidade",
-            template="plotly_white",
+            self._get_standard_layout(
+                title=f"Distribuição de SSAs por {SSAColumns.get_name(SSAColumns.GRAU_PRIORIDADE_EMISSAO)}",
+                xaxis_title="Grau de Prioridade",
+                yaxis_title="Quantidade",
+                chart_type="bar",
+            )
         )
 
         return fig
@@ -998,10 +1000,12 @@ class SSAVisualizer:
         )
 
         fig.update_layout(
-            title="Distribuição de SSAs entre Setores",
-            xaxis_title=SSAColumns.get_name(SSAColumns.SETOR_EXECUTOR),
-            yaxis_title=SSAColumns.get_name(SSAColumns.SETOR_EMISSOR),
-            template="plotly_white",
+            self._get_standard_layout(
+                title="Distribuição de SSAs entre Setores",
+                xaxis_title=SSAColumns.get_name(SSAColumns.SETOR_EXECUTOR),
+                yaxis_title=SSAColumns.get_name(SSAColumns.SETOR_EMISSOR),
+                chart_type="heatmap",
+            )
         )
 
         return fig
@@ -1025,11 +1029,12 @@ class SSAVisualizer:
         )
 
         fig.update_layout(
-            title="Timeline de Emissão de SSAs",
-            xaxis_title=SSAColumns.get_name(SSAColumns.EMITIDA_EM),
-            yaxis_title="Quantidade de SSAs",
-            template="plotly_white",
-            showlegend=True,
+            self._get_standard_layout(
+                title="Timeline de Emissão de SSAs",
+                xaxis_title=SSAColumns.get_name(SSAColumns.EMITIDA_EM),
+                yaxis_title="Quantidade de SSAs",
+                chart_type="line",
+            )
         )
 
         return fig
@@ -1051,11 +1056,13 @@ class SSAVisualizer:
         )
 
         fig.update_layout(
-            title="Top 10 Equipamentos com mais SSAs",
-            xaxis_title="Quantidade de SSAs",
-            yaxis_title=SSAColumns.get_name(SSAColumns.EQUIPAMENTO),
-            template="plotly_white",
-            height=500,  # Altura maior para acomodar os nomes
+            self._get_standard_layout(
+                title="Top 10 Equipamentos com mais SSAs",
+                xaxis_title="Quantidade de SSAs",
+                yaxis_title=SSAColumns.get_name(SSAColumns.EQUIPAMENTO),
+                chart_type="bar",
+                height=500,  # Altura maior para acomodar os nomes
+            )
         )
 
         return fig
@@ -1068,6 +1075,7 @@ class SSAVisualizer:
         )
 
         fig = go.Figure()
+
         for priority in priority_by_date.columns:
             fig.add_trace(
                 go.Scatter(
@@ -1079,11 +1087,12 @@ class SSAVisualizer:
             )
 
         fig.update_layout(
-            title="Evolução das Prioridades ao Longo do Tempo",
-            xaxis_title="Data",
-            yaxis_title="Quantidade de SSAs",
-            template="plotly_white",
-            showlegend=True,
+            self._get_standard_layout(
+                title="Evolução das Prioridades ao Longo do Tempo",
+                xaxis_title="Data",
+                yaxis_title="Quantidade de SSAs",
+                chart_type="line",
+            )
         )
 
         return fig
@@ -1102,6 +1111,7 @@ class SSAVisualizer:
         )
 
         fig = go.Figure()
+
         for priority in workload.columns:
             fig.add_trace(
                 go.Bar(
@@ -1119,7 +1129,8 @@ class SSAVisualizer:
                 xaxis_title=SSAColumns.get_name(SSAColumns.SETOR_EXECUTOR),
                 yaxis_title="Quantidade de SSAs",
                 x_values=workload.index,
-                barmode="stack"
+                chart_type="bar",
+                barmode="stack",
             )
         )
 
@@ -1132,22 +1143,6 @@ class SSAVisualizer:
         Args:
             use_programmed: Se True, usa semana_programada, senão usa semana_cadastro
         """
-        week_info = self.week_analyzer.analyze_week_distribution()
-
-        if week_info.empty:
-            return go.Figure().update_layout(
-                title="SSAs por Semana",
-                annotations=[
-                    {
-                        "text": "Não há dados válidos disponíveis",
-                        "xref": "paper",
-                        "yref": "paper",
-                        "showarrow": False,
-                        "font": {"size": 14},
-                    }
-                ],
-            )
-
         analysis = self.week_analyzer.analyze_weeks(use_programmed)
 
         if analysis.empty:
@@ -1185,93 +1180,82 @@ class SSAVisualizer:
         )
 
         fig.update_layout(
-            title=title_text,
-            xaxis_title="Ano-Semana (ISO)",
-            yaxis_title="Quantidade de SSAs",
-            barmode="stack",
-            template="plotly_white",
-            showlegend=True,
-            xaxis={"tickangle": -45},
-            annotations=[
-                {
-                    "text": f"Anos: {analysis['year'].min()} - {analysis['year'].max()}",
-                    "xref": "paper",
-                    "yref": "paper",
-                    "x": 0.98,
-                    "y": 0.98,
-                    "showarrow": False,
-                    "font": {"size": 12},
-                }
-            ],
+            self._get_standard_layout(
+                title=title_text,
+                xaxis_title="Ano-Semana (ISO)",
+                yaxis_title="Quantidade de SSAs",
+                x_values=analysis["year_week"],
+                chart_type="bar",
+                barmode="stack",
+            )
         )
 
         return fig
 
     # Update the visualizer's week-related method
     def add_weeks_in_state_chart(self) -> go.Figure:
-        """Cria gráfico mostrando distribuição de SSAs por tempo no estado."""
-        weeks_in_state = self.week_analyzer.calculate_weeks_in_state()
-        valid_weeks = weeks_in_state.dropna()
+            """Cria gráfico mostrando distribuição de SSAs por tempo no estado."""
+            weeks_in_state = self.week_analyzer.calculate_weeks_in_state()
+            valid_weeks = weeks_in_state.dropna()
 
-        if valid_weeks.empty:
-            return go.Figure().update_layout(
-                self._get_standard_layout(
-                    title="Distribuição de SSAs por Tempo no Estado Atual",
-                    xaxis_title="Semanas no Estado",
-                    yaxis_title="Quantidade de SSAs",
-                    chart_type="bar",
-                    annotations=[
-                        {
-                            "text": "Não há dados válidos disponíveis",
-                            "xref": "paper",
-                            "yref": "paper",
-                            "showarrow": False,
-                            "font": {"size": 14},
-                        }
-                    ],
+            if valid_weeks.empty:
+                return go.Figure().update_layout(
+                    self._get_standard_layout(
+                        title="Distribuição de SSAs por Tempo no Estado Atual",
+                        xaxis_title="Semanas no Estado",
+                        yaxis_title="Quantidade de SSAs",
+                        chart_type="bar",
+                        annotations=[
+                            {
+                                "text": "Não há dados válidos disponíveis",
+                                "xref": "paper",
+                                "yref": "paper",
+                                "showarrow": False,
+                                "font": {"size": 14},
+                            }
+                        ],
+                    )
                 )
-            )
 
-        # Agrupa em intervalos de semanas
-        value_counts = valid_weeks.value_counts().sort_index()
-        max_weeks = value_counts.index.max()
+            # Agrupa em intervalos de semanas
+            value_counts = valid_weeks.value_counts().sort_index()
+            max_weeks = value_counts.index.max()
 
-        if max_weeks > 50:
-            bins = list(range(0, int(max_weeks) + 10, 10))
-            labels = [f"{bins[i]}-{bins[i+1]-1}" for i in range(len(bins) - 1)]
-            binned_data = pd.cut(
-                value_counts.index, bins=bins, labels=labels, right=False
-            )
-            value_counts = value_counts.groupby(binned_data).sum()
+            if max_weeks > 50:
+                bins = list(range(0, int(max_weeks) + 10, 10))
+                labels = [f"{bins[i]}-{bins[i+1]-1}" for i in range(len(bins) - 1)]
+                binned_data = pd.cut(
+                    value_counts.index, bins=bins, labels=labels, right=False
+                )
+                value_counts = value_counts.groupby(binned_data).sum()
 
-        # Criar dicionário para armazenar SSAs por intervalo
-        ssas_by_interval = {}
-        for interval in value_counts.index:
-            # Encontrar SSAs no intervalo atual
-            if "-" in str(interval):
-                start, end = map(int, str(interval).split("-"))
-                mask = (weeks_in_state >= start) & (weeks_in_state <= end)
-            else:
-                mask = weeks_in_state == interval
+            # Criar dicionário para armazenar SSAs por intervalo
+            ssas_by_interval = {}
+            hover_text = []
 
-            ssas_in_interval = self.df[mask].iloc[:, SSAColumns.NUMERO_SSA].tolist()
-            ssas_by_interval[str(interval)] = ssas_in_interval
+            for interval in value_counts.index:
+                # Encontrar SSAs no intervalo atual
+                if "-" in str(interval):
+                    start, end = map(int, str(interval).split("-"))
+                    mask = (weeks_in_state >= start) & (weeks_in_state <= end)
+                else:
+                    mask = weeks_in_state == interval
 
-        # Preparar texto customizado para hover
-        hover_text = []
-        for interval, ssas in ssas_by_interval.items():
-            # Limitar a 5 SSAs no hover
-            ssa_preview = "<br>".join(ssas[:5])
-            if len(ssas) > 5:
-                ssa_preview += f"<br>... (+{len(ssas)-5} SSAs)"
-            hover_text.append(
-                f"<b>Intervalo:</b> {interval}<br>"
-                f"<b>Total SSAs:</b> {len(ssas)}<br>"
-                f"<b>Primeiras SSAs:</b><br>{ssa_preview}"
-            )
+                ssas_in_interval = self.df[mask].iloc[:, SSAColumns.NUMERO_SSA].tolist()
+                ssas_by_interval[str(interval)] = ssas_in_interval
 
-        fig = go.Figure(
-            [
+                # Preparar texto customizado para hover
+                ssa_preview = "<br>".join(ssas_in_interval[:5])
+                if len(ssas_in_interval) > 5:
+                    ssa_preview += f"<br>... (+{len(ssas_in_interval)-5} SSAs)"
+
+                hover_text.append(
+                    f"<b>Intervalo:</b> {interval}<br>"
+                    f"<b>Total SSAs:</b> {len(ssas_in_interval)}<br>"
+                    f"<b>Primeiras SSAs:</b><br>{ssa_preview}"
+                )
+
+            fig = go.Figure([
                 go.Bar(
                     x=value_counts.index,
                     y=value_counts.values,
@@ -1281,45 +1265,46 @@ class SSAVisualizer:
                     marker_color="rgb(64, 83, 177)",
                     hovertext=hover_text,
                     hoverinfo="text",
-                    customdata=[
-                        ssas_by_interval[str(interval)]
-                        for interval in value_counts.index
-                    ],
-                    hoverlabel=dict(bgcolor="white", font_size=12, font_family="Arial"),
+                    customdata=[ssas_by_interval[str(interval)] for interval in value_counts.index],
+                    hoverlabel=dict(
+                        bgcolor="white",
+                        font_size=12,
+                        font_family="Arial"
+                    ),
                 )
-            ]
-        )
+            ])
 
-        invalid_count = weeks_in_state.isna().sum()
-        total_count = len(weeks_in_state)
+            invalid_count = weeks_in_state.isna().sum()
+            total_count = len(weeks_in_state)
 
-        fig.update_layout(
-            self._get_standard_layout(
-                title=f"Distribuição de SSAs por Tempo no Estado Atual<br><sub>({invalid_count}/{total_count} registros inválidos)</sub>",
-                xaxis_title="Intervalo de Semanas no Estado",
-                yaxis_title="Quantidade de SSAs",
-                chart_type="bar",
-                annotations=[
-                    {
-                        "text": "Clique nas barras para ver detalhes das SSAs",
-                        "xref": "paper",
-                        "yref": "paper",
-                        "x": 0.98,
-                        "y": 0.02,
-                        "showarrow": False,
-                        "font": {"size": 10, "color": "gray"},
-                        "xanchor": "right",
-                    }
-                ],
+            fig.update_layout(
+                self._get_standard_layout(
+                    title=f"Distribuição de SSAs por Tempo no Estado Atual<br><sub>({invalid_count}/{total_count} registros inválidos)</sub>",
+                    xaxis_title="Intervalo de Semanas no Estado",
+                    yaxis_title="Quantidade de SSAs",
+                    chart_type="bar",
+                    annotations=[
+                        {
+                            "text": "Clique nas barras para ver detalhes das SSAs",
+                            "xref": "paper",
+                            "yref": "paper",
+                            "x": 0.98,
+                            "y": 0.02,
+                            "showarrow": False,
+                            "font": {"size": 10, "color": "gray"},
+                            "xanchor": "right",
+                        }
+                    ],
+                )
             )
-        )
 
-        # Configurações adicionais para melhorar a aparência
-        fig.update_traces(
-            hovertemplate=None, hoverlabel_align="left"  # Usar o hover_text customizado
-        )
+            # Configurações adicionais para melhorar a aparência
+            fig.update_traces(
+                hovertemplate=None,  # Usar o hover_text customizado
+                hoverlabel_align="left"
+            )
 
-        return fig
+            return fig
 
 
 class SSAReporter:
