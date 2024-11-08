@@ -389,3 +389,14 @@ information about how to avoid this problem.
 2024-11-08 12:31:35,625 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-layout
 2024-11-08 12:31:35,625 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-dependencies
 2024-11-08 12:31:35,806 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 12:32:00,267 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 12:32:03,728 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 12:32:06,555 - DashboardLogger - INFO - IP: 127.0.0.1 - Nova conexão de IP: 127.0.0.1
+2024-11-08 12:32:06,556 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 12:32:06,626 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-layout
+2024-11-08 12:32:06,627 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-dependencies
+2024-11-08 12:32:06,765 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
+2024-11-08 12:32:12,701 - DashboardLogger - INFO - IP: 127.0.0.1 - Filtros aplicados - Prog: CARLOS RONEI ORTIZ, Exec: None
+2024-11-08 12:32:17,103 - DashboardLogger - INFO - IP: 127.0.0.1 - Filtros aplicados - Prog: CARLOS RONEI ORTIZ, Exec: CARLOS RONEI ORTIZ
+2024-11-08 12:32:19,967 - DashboardLogger - INFO - IP: 127.0.0.1 - Filtros aplicados - Prog: LUCAS COSTA CICARELLI, Exec: CARLOS RONEI ORTIZ
+2024-11-08 12:32:23,054 - DashboardLogger - INFO - IP: 127.0.0.1 - Filtros aplicados - Prog: LUCAS COSTA CICARELLI, Exec: LUCAS COSTA CICARELLI
