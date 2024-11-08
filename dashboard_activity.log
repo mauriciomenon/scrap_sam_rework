@@ -546,3 +546,9 @@ information about how to avoid this problem.
 2024-11-08 15:09:51,900 - DashboardLogger - INFO - IP: 127.0.0.1 - Atualização automática dos dados
 2024-11-08 15:09:51,992 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-layout
 2024-11-08 15:09:51,993 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-dependencies
+2024-11-08 15:10:32,059 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-08 15:10:32,187 - DashboardLogger - INFO - IP: 127.0.0.1 - Nova conexão de IP: 127.0.0.1
+2024-11-08 15:10:32,188 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_reload-hash
+2024-11-08 15:10:32,205 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-layout
+2024-11-08 15:10:32,206 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-dependencies
+2024-11-08 15:10:32,344 - DashboardLogger - INFO - IP: 127.0.0.1 - Acesso à rota: /_dash-update-component
