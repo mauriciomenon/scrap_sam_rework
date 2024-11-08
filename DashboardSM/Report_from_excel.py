@@ -3510,6 +3510,92 @@ class LogManager:
         """Return set of currently connected IPs."""
         return self.connected_ips
 
+    def clear_old_logs(self, days: int = 30):
+        """Limpa logs antigos do arquivo de log."""
+        try:
+            log_file = "dashboard_activity.log"
+            if not os.path.exists(log_file):
+                return
+            
+            # Lê todas as linhas do arquivo
+            with open(log_file, 'r', encoding='utf-8') as f:
+                lines = f.readlines()
+            
+            # Filtra apenas logs recentes
+            cutoff_date = datetime.now() - timedelta(days=days)
+            recent_logs = []
+            
+            for line in lines:
+                try:
+                    # Extrai a data do log (assume formato padrão no início da linha)
+                    log_date_str = line.split('-')[0].strip()
+                    log_date = datetime.strptime(log_date_str, "%Y-%m-%d %H:%M:%S,%f")
+                    
+                    if log_date >= cutoff_date:
+                        recent_logs.append(line)
+                except (ValueError, IndexError):
+                    # Se não conseguir extrair a data, mantém o log
+                    recent_logs.append(line)
+            
+            # Reescreve o arquivo apenas com logs recentes
+            with open(log_file, 'w', encoding='utf-8') as f:
+                f.writelines(recent_logs)
+                
+            self.logger.info(f"Logs mais antigos que {days} dias foram removidos")
+            
+        except Exception as e:
+            self.logger.error(f"Erro ao limpar logs antigos: {str(e)}")
+
+    def backup_logs(self, backup_dir: str = "log_backups"):
+        """Cria backup dos logs atuais."""
+        try:
+            if not os.path.exists(backup_dir):
+                os.makedirs(backup_dir)
+            
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            backup_file = os.path.join(backup_dir, f"dashboard_activity_{timestamp}.log")
+            
+            # Copia o arquivo de log atual
+            shutil.copy2("dashboard_activity.log", backup_file)
+            
+            # Compacta o backup
+            with zipfile.ZipFile(f"{backup_file}.zip", 'w', zipfile.ZIP_DEFLATED) as zipf:
+                zipf.write(backup_file, os.path.basename(backup_file))
+            
+            # Remove o arquivo não compactado
+            os.remove(backup_file)
+            
+            self.logger.info(f"Backup dos logs criado: {backup_file}.zip")
+            
+        except Exception as e:
+            self.logger.error(f"Erro ao criar backup dos logs: {str(e)}")
+
+    def get_log_statistics(self) -> Dict:
+        """Retorna estatísticas dos logs."""
+        stats = {
+            "total_users": len(self.active_users),
+            "total_connections": len(self.connected_ips),
+            "active_users": len([u for u, info in self.active_users.items() 
+                               if (datetime.now() - info["last_activity"]).seconds < 3600]),
+            "total_actions": sum(info["action_count"] for info in self.active_users.values()),
+            "last_connection": None,
+            "most_active_ip": None,
+            "most_actions": 0
+        }
+        
+        if self.active_users:
+            # Encontra o usuário mais recente
+            latest_user = max(self.active_users.items(), 
+                            key=lambda x: x[1]["last_activity"])
+            stats["last_connection"] = latest_user[1]["last_activity"]
+            
+            # Encontra o usuário mais ativo
+            most_active = max(self.active_users.items(), 
+                            key=lambda x: x[1]["action_count"])
+            stats["most_active_ip"] = most_active[0]
+            stats["most_actions"] = most_active[1]["action_count"]
+        
+        return stats
 
 def check_dependencies():
     """Verifica e instala dependências necessárias."""
