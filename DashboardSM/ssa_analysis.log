@@ -2564,3 +2564,128 @@ OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disp
             ^^^^^^^^^^^^^^^^^^^^^^^
 AttributeError: 'SSADashboard' object has no attribute '_get_initial_stats'
 
+2024-11-11 11:51:26,320 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-11 11:51:27,106 - root - INFO - Convertidos 179 registros para SSAData
+2024-11-11 11:51:27,106 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-11 11:51:27,106 - root - INFO - Número: 202415727
+2024-11-11 11:51:27,107 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-11 11:51:27,107 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-11 11:51:27,108 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 179
+2024-11-11 11:51:27,108 - __main__ - INFO - Convertidos 179 registros para objetos SSAData
+2024-11-11 11:51:27,109 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-11 11:51:27,109 - __main__ - INFO - Gerando relatório inicial...
+2024-11-11 11:51:27,112 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-11 11:51:27,440 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-11 11:51:27,441 - __main__ - INFO - Iniciando dashboard...
+2024-11-11 11:51:27,474 - DashboardLogger - INFO - Iniciando servidor do dashboard
+2024-11-11 11:51:27,476 - dash.dash - INFO - Dash is running on http://0.0.0.0:8080/
+
+2024-11-11 11:51:29,725 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-11 11:51:30,226 - root - INFO - Convertidos 179 registros para SSAData
+2024-11-11 11:51:30,227 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-11 11:51:30,227 - root - INFO - Número: 202415727
+2024-11-11 11:51:30,228 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-11 11:51:30,228 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-11 11:51:30,229 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 179
+2024-11-11 11:51:30,229 - __main__ - INFO - Convertidos 179 registros para objetos SSAData
+2024-11-11 11:51:30,230 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-11 11:51:30,230 - __main__ - INFO - Gerando relatório inicial...
+2024-11-11 11:51:30,233 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-11 11:51:30,548 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-11 11:51:30,549 - __main__ - INFO - Iniciando dashboard...
+2024-11-11 11:51:30,570 - DashboardLogger - INFO - Iniciando servidor do dashboard
+2024-11-11 11:51:38,824 - DashboardLogger - INFO - Nova conexão de IP: 127.0.0.1
+2024-11-11 11:51:38,825 - DashboardLogger - INFO - Acesso à rota: /
+2024-11-11 11:51:38,856 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/deps/polyfill@7.v2_14_1m1731335188.12.1.min.js
+2024-11-11 11:51:38,864 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/deps/react@16.v2_14_1m1731335189.14.0.js
+2024-11-11 11:51:38,865 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/deps/react-dom@16.v2_14_1m1731335189.14.0.js
+2024-11-11 11:51:38,865 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/deps/prop-types@15.v2_14_1m1731335188.8.1.js
+2024-11-11 11:51:38,865 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash_bootstrap_components/_components/dash_bootstrap_components.v1_5_0m1731335207.min.js
+2024-11-11 11:51:38,866 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash-renderer/build/dash_renderer.v2_14_1m1731335188.dev.js
+2024-11-11 11:51:38,887 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dcc/dash_core_components.v2_12_1m1731335188.js
+2024-11-11 11:51:38,888 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dcc/dash_core_components-shared.v2_12_1m1731335188.js
+2024-11-11 11:51:38,897 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/html/dash_html_components.v2_0_15m1731335189.min.js
+2024-11-11 11:51:38,904 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash_table/bundle.v5_2_8m1731335188.js
+2024-11-11 11:51:39,162 - DashboardLogger - INFO - Acesso à rota: /_dash-layout
+2024-11-11 11:51:39,163 - DashboardLogger - INFO - Acesso à rota: /_dash-dependencies
+2024-11-11 11:51:39,179 - DashboardLogger - INFO - Acesso à rota: /_favicon.ico
+2024-11-11 11:51:39,201 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dcc/async-dropdown.js
+2024-11-11 11:51:39,209 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dcc/async-graph.js
+2024-11-11 11:51:39,214 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/plotly/package_data/plotly.min.js
+2024-11-11 11:51:39,237 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash_table/async-highlight.js
+2024-11-11 11:51:39,239 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash_table/async-table.js
+2024-11-11 11:51:39,255 - DashboardLogger - INFO - Acesso à rota: /_dash-update-component
+2024-11-11 11:51:42,178 - DashboardLogger - INFO - Acesso à rota: /_reload-hash
+2024-11-11 11:51:45,041 - root - INFO - Week calculation stats: 179/179 valid calculations
+2024-11-11 14:06:10,525 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-11 14:06:11,483 - root - INFO - Convertidos 179 registros para SSAData
+2024-11-11 14:06:11,484 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-11 14:06:11,484 - root - INFO - Número: 202415727
+2024-11-11 14:06:11,485 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-11 14:06:11,486 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-11 14:06:11,487 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 179
+2024-11-11 14:06:11,487 - __main__ - INFO - Convertidos 179 registros para objetos SSAData
+2024-11-11 14:06:11,488 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-11 14:06:11,488 - __main__ - INFO - Gerando relatório inicial...
+2024-11-11 14:06:11,491 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-11 14:06:11,912 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-11 14:06:11,912 - __main__ - INFO - Iniciando dashboard...
+2024-11-11 14:06:11,960 - DashboardLogger - INFO - Iniciando servidor do dashboard
+2024-11-11 14:06:11,963 - dash.dash - INFO - Dash is running on http://0.0.0.0:8080/
+
+2024-11-11 14:06:14,492 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-11 14:06:15,022 - root - INFO - Convertidos 179 registros para SSAData
+2024-11-11 14:06:15,022 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-11 14:06:15,023 - root - INFO - Número: 202415727
+2024-11-11 14:06:15,023 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-11 14:06:15,024 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-11 14:06:15,024 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 179
+2024-11-11 14:06:15,025 - __main__ - INFO - Convertidos 179 registros para objetos SSAData
+2024-11-11 14:06:15,025 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-11 14:06:15,025 - __main__ - INFO - Gerando relatório inicial...
+2024-11-11 14:06:15,028 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-11 14:06:15,410 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-11 14:06:15,411 - __main__ - INFO - Iniciando dashboard...
+2024-11-11 14:06:15,436 - DashboardLogger - INFO - Iniciando servidor do dashboard
+2024-11-11 16:45:27,333 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-11 16:45:28,169 - root - INFO - Convertidos 179 registros para SSAData
+2024-11-11 16:45:28,169 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-11 16:45:28,170 - root - INFO - Número: 202415727
+2024-11-11 16:45:28,170 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-11 16:45:28,171 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-11 16:45:28,172 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 179
+2024-11-11 16:45:28,172 - __main__ - INFO - Convertidos 179 registros para objetos SSAData
+2024-11-11 16:45:28,172 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-11 16:45:28,173 - __main__ - INFO - Gerando relatório inicial...
+2024-11-11 16:45:28,177 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-11 16:45:28,599 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-11 16:45:28,600 - __main__ - INFO - Iniciando dashboard...
+2024-11-11 16:45:28,643 - DashboardLogger - INFO - Iniciando servidor do dashboard
+2024-11-11 16:45:34,860 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-11 16:45:35,344 - root - INFO - Convertidos 179 registros para SSAData
+2024-11-11 16:45:35,345 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-11 16:45:35,345 - root - INFO - Número: 202415727
+2024-11-11 16:45:35,345 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-11 16:45:35,346 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-11 16:45:35,346 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 179
+2024-11-11 16:45:35,347 - __main__ - INFO - Convertidos 179 registros para objetos SSAData
+2024-11-11 16:45:35,347 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-11 16:45:35,347 - __main__ - INFO - Gerando relatório inicial...
+2024-11-11 16:45:35,349 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-11 16:45:35,668 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-11 16:45:35,668 - __main__ - INFO - Iniciando dashboard...
+2024-11-11 16:45:35,689 - DashboardLogger - INFO - Iniciando servidor do dashboard
+2024-11-11 16:46:54,679 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-11 16:46:55,174 - root - INFO - Convertidos 179 registros para SSAData
+2024-11-11 16:46:55,174 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-11 16:46:55,175 - root - INFO - Número: 202415727
+2024-11-11 16:46:55,175 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-11 16:46:55,176 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-11 16:46:55,176 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 179
+2024-11-11 16:46:55,177 - __main__ - INFO - Convertidos 179 registros para objetos SSAData
+2024-11-11 16:46:55,177 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-11 16:46:55,177 - __main__ - INFO - Gerando relatório inicial...
+2024-11-11 16:46:55,180 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-11 16:46:55,493 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-11 16:46:55,494 - __main__ - INFO - Iniciando dashboard...
+2024-11-11 16:46:55,515 - DashboardLogger - INFO - Iniciando servidor do dashboard

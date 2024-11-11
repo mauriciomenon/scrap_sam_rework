@@ -16,12 +16,16 @@ import traceback
 from flask import request
 import xlsxwriter
 import pdfkit
+import os
+import timedelta
+import zipfile
+import shutil
 
 # Depois de todos os imports
 warnings.filterwarnings("ignore")
 
 # Configuração do caminho do arquivo no início do script
-DATA_FILE_PATH = r"C:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Downloads\SSAs Pendentes Geral - 05-11-2024_0753AM.xlsx"
+DATA_FILE_PATH = r"C:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Downloads\SSAs Pendentes Geral - 11-11-2024_0904AM.xlsx"
 
 @dataclass
 class SSAData:

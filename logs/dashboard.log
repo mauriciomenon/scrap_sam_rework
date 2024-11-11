@@ -1,0 +1,251 @@
+2024-11-11 11:12:52,611 - root - INFO - === Diagnóstico de Datas ===
+2024-11-11 11:12:52,612 - root - INFO - Total de linhas: 175
+2024-11-11 11:12:52,612 - root - INFO - Problemas encontrados: 1
+2024-11-11 11:12:52,612 - root - INFO - 
+Linha 164:
+2024-11-11 11:12:52,613 - root - INFO -   Valor encontrado: nan
+2024-11-11 11:12:52,613 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-11 11:12:52,613 - root - INFO -   Dados da linha:
+2024-11-11 11:12:52,614 - root - INFO -     Número da SSA: 202417496
+2024-11-11 11:12:52,614 - root - INFO -     Situação: ADI
+2024-11-11 11:12:52,615 - root - INFO -     Derivada de: nan
+2024-11-11 11:12:52,616 - root - INFO -     Localização: K061A006
+2024-11-11 11:12:52,616 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-11 11:12:52,616 - root - INFO -     Equipamento: 0919.059-7
+2024-11-11 11:12:52,617 - root - INFO -     Semana de Cadastro: 202444
+2024-11-11 11:12:52,621 - root - INFO -     Emitida Em: nan
+2024-11-11 11:12:52,623 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-11 11:12:52,624 - root - INFO -     Setor Emissor: MEL4
+2024-11-11 11:12:52,632 - root - INFO -     Setor Executor: IEE3
+2024-11-11 11:12:52,636 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-11 11:12:52,637 - root - INFO -     Serviço de Origem: S1
+2024-11-11 11:12:52,638 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-11 11:12:52,638 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-11 11:12:52,639 - root - INFO -     Execução Simples: Não
+2024-11-11 11:12:52,639 - root - INFO -     Responsável na Programação: nan
+2024-11-11 11:12:52,640 - root - INFO -     Semana Programada: nan
+2024-11-11 11:12:52,641 - root - INFO -     Responsável na Execução: nan
+2024-11-11 11:12:52,643 - root - INFO -     Descrição Execução: nan
+2024-11-11 11:12:52,644 - root - INFO -     Sistema de Origem: nan
+2024-11-11 11:12:52,644 - root - INFO -     Anomalia: nan
+2024-11-11 11:12:52,647 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-11 11:12:52,648 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-11 11:12:52,767 - root - ERROR - Erro ao converter linha 0: name 'fields' is not defined
+2024-11-11 11:12:52,768 - root - ERROR - Erro ao converter linha 1: name 'fields' is not defined
+2024-11-11 11:12:52,768 - root - ERROR - Erro ao converter linha 2: name 'fields' is not defined
+2024-11-11 11:12:52,769 - root - ERROR - Erro ao converter linha 3: name 'fields' is not defined
+2024-11-11 11:12:52,770 - root - ERROR - Erro ao converter linha 4: name 'fields' is not defined
+2024-11-11 11:12:52,770 - root - ERROR - Erro ao converter linha 5: name 'fields' is not defined
+2024-11-11 11:12:52,771 - root - ERROR - Erro ao converter linha 6: name 'fields' is not defined
+2024-11-11 11:12:52,771 - root - ERROR - Erro ao converter linha 7: name 'fields' is not defined
+2024-11-11 11:12:52,772 - root - ERROR - Erro ao converter linha 8: name 'fields' is not defined
+2024-11-11 11:12:52,772 - root - ERROR - Erro ao converter linha 9: name 'fields' is not defined
+2024-11-11 11:12:52,773 - root - ERROR - Erro ao converter linha 10: name 'fields' is not defined
+2024-11-11 11:12:52,774 - root - ERROR - Erro ao converter linha 11: name 'fields' is not defined
+2024-11-11 11:12:52,775 - root - ERROR - Erro ao converter linha 12: name 'fields' is not defined
+2024-11-11 11:12:52,775 - root - ERROR - Erro ao converter linha 13: name 'fields' is not defined
+2024-11-11 11:12:52,775 - root - ERROR - Erro ao converter linha 14: name 'fields' is not defined
+2024-11-11 11:12:52,776 - root - ERROR - Erro ao converter linha 15: name 'fields' is not defined
+2024-11-11 11:12:52,776 - root - ERROR - Erro ao converter linha 16: name 'fields' is not defined
+2024-11-11 11:12:52,776 - root - ERROR - Erro ao converter linha 17: name 'fields' is not defined
+2024-11-11 11:12:52,777 - root - ERROR - Erro ao converter linha 18: name 'fields' is not defined
+2024-11-11 11:12:52,777 - root - ERROR - Erro ao converter linha 19: name 'fields' is not defined
+2024-11-11 11:12:52,777 - root - ERROR - Erro ao converter linha 20: name 'fields' is not defined
+2024-11-11 11:12:52,778 - root - ERROR - Erro ao converter linha 21: name 'fields' is not defined
+2024-11-11 11:12:52,778 - root - ERROR - Erro ao converter linha 22: name 'fields' is not defined
+2024-11-11 11:12:52,778 - root - ERROR - Erro ao converter linha 23: name 'fields' is not defined
+2024-11-11 11:12:52,779 - root - ERROR - Erro ao converter linha 24: name 'fields' is not defined
+2024-11-11 11:12:52,779 - root - ERROR - Erro ao converter linha 25: name 'fields' is not defined
+2024-11-11 11:12:52,779 - root - ERROR - Erro ao converter linha 26: name 'fields' is not defined
+2024-11-11 11:12:52,780 - root - ERROR - Erro ao converter linha 27: name 'fields' is not defined
+2024-11-11 11:12:52,780 - root - ERROR - Erro ao converter linha 28: name 'fields' is not defined
+2024-11-11 11:12:52,780 - root - ERROR - Erro ao converter linha 29: name 'fields' is not defined
+2024-11-11 11:12:52,781 - root - ERROR - Erro ao converter linha 30: name 'fields' is not defined
+2024-11-11 11:12:52,781 - root - ERROR - Erro ao converter linha 31: name 'fields' is not defined
+2024-11-11 11:12:52,782 - root - ERROR - Erro ao converter linha 32: name 'fields' is not defined
+2024-11-11 11:12:52,782 - root - ERROR - Erro ao converter linha 33: name 'fields' is not defined
+2024-11-11 11:12:52,782 - root - ERROR - Erro ao converter linha 34: name 'fields' is not defined
+2024-11-11 11:12:52,783 - root - ERROR - Erro ao converter linha 35: name 'fields' is not defined
+2024-11-11 11:12:52,783 - root - ERROR - Erro ao converter linha 36: name 'fields' is not defined
+2024-11-11 11:12:52,783 - root - ERROR - Erro ao converter linha 37: name 'fields' is not defined
+2024-11-11 11:12:52,784 - root - ERROR - Erro ao converter linha 38: name 'fields' is not defined
+2024-11-11 11:12:52,789 - root - ERROR - Erro ao converter linha 39: name 'fields' is not defined
+2024-11-11 11:12:52,790 - root - ERROR - Erro ao converter linha 40: name 'fields' is not defined
+2024-11-11 11:12:52,791 - root - ERROR - Erro ao converter linha 41: name 'fields' is not defined
+2024-11-11 11:12:52,791 - root - ERROR - Erro ao converter linha 42: name 'fields' is not defined
+2024-11-11 11:12:52,792 - root - ERROR - Erro ao converter linha 43: name 'fields' is not defined
+2024-11-11 11:12:52,793 - root - ERROR - Erro ao converter linha 44: name 'fields' is not defined
+2024-11-11 11:12:52,794 - root - ERROR - Erro ao converter linha 45: name 'fields' is not defined
+2024-11-11 11:12:52,795 - root - ERROR - Erro ao converter linha 46: name 'fields' is not defined
+2024-11-11 11:12:52,795 - root - ERROR - Erro ao converter linha 47: name 'fields' is not defined
+2024-11-11 11:12:52,796 - root - ERROR - Erro ao converter linha 48: name 'fields' is not defined
+2024-11-11 11:12:52,796 - root - ERROR - Erro ao converter linha 49: name 'fields' is not defined
+2024-11-11 11:12:52,797 - root - ERROR - Erro ao converter linha 50: name 'fields' is not defined
+2024-11-11 11:12:52,797 - root - ERROR - Erro ao converter linha 51: name 'fields' is not defined
+2024-11-11 11:12:52,797 - root - ERROR - Erro ao converter linha 52: name 'fields' is not defined
+2024-11-11 11:12:52,798 - root - ERROR - Erro ao converter linha 53: name 'fields' is not defined
+2024-11-11 11:12:52,798 - root - ERROR - Erro ao converter linha 54: name 'fields' is not defined
+2024-11-11 11:12:52,798 - root - ERROR - Erro ao converter linha 55: name 'fields' is not defined
+2024-11-11 11:12:52,798 - root - ERROR - Erro ao converter linha 56: name 'fields' is not defined
+2024-11-11 11:12:52,799 - root - ERROR - Erro ao converter linha 57: name 'fields' is not defined
+2024-11-11 11:12:52,799 - root - ERROR - Erro ao converter linha 58: name 'fields' is not defined
+2024-11-11 11:12:52,799 - root - ERROR - Erro ao converter linha 59: name 'fields' is not defined
+2024-11-11 11:12:52,800 - root - ERROR - Erro ao converter linha 60: name 'fields' is not defined
+2024-11-11 11:12:52,803 - root - ERROR - Erro ao converter linha 61: name 'fields' is not defined
+2024-11-11 11:12:52,805 - root - ERROR - Erro ao converter linha 62: name 'fields' is not defined
+2024-11-11 11:12:52,806 - root - ERROR - Erro ao converter linha 63: name 'fields' is not defined
+2024-11-11 11:12:52,808 - root - ERROR - Erro ao converter linha 64: name 'fields' is not defined
+2024-11-11 11:12:52,809 - root - ERROR - Erro ao converter linha 65: name 'fields' is not defined
+2024-11-11 11:12:52,810 - root - ERROR - Erro ao converter linha 66: name 'fields' is not defined
+2024-11-11 11:12:52,810 - root - ERROR - Erro ao converter linha 67: name 'fields' is not defined
+2024-11-11 11:12:52,811 - root - ERROR - Erro ao converter linha 68: name 'fields' is not defined
+2024-11-11 11:12:52,812 - root - ERROR - Erro ao converter linha 69: name 'fields' is not defined
+2024-11-11 11:12:52,813 - root - ERROR - Erro ao converter linha 70: name 'fields' is not defined
+2024-11-11 11:12:52,813 - root - ERROR - Erro ao converter linha 71: name 'fields' is not defined
+2024-11-11 11:12:52,814 - root - ERROR - Erro ao converter linha 72: name 'fields' is not defined
+2024-11-11 11:12:52,815 - root - ERROR - Erro ao converter linha 73: name 'fields' is not defined
+2024-11-11 11:12:52,815 - root - ERROR - Erro ao converter linha 74: name 'fields' is not defined
+2024-11-11 11:12:52,816 - root - ERROR - Erro ao converter linha 75: name 'fields' is not defined
+2024-11-11 11:12:52,817 - root - ERROR - Erro ao converter linha 76: name 'fields' is not defined
+2024-11-11 11:12:52,817 - root - ERROR - Erro ao converter linha 77: name 'fields' is not defined
+2024-11-11 11:12:52,818 - root - ERROR - Erro ao converter linha 78: name 'fields' is not defined
+2024-11-11 11:12:52,818 - root - ERROR - Erro ao converter linha 79: name 'fields' is not defined
+2024-11-11 11:12:52,819 - root - ERROR - Erro ao converter linha 80: name 'fields' is not defined
+2024-11-11 11:12:52,820 - root - ERROR - Erro ao converter linha 81: name 'fields' is not defined
+2024-11-11 11:12:52,821 - root - ERROR - Erro ao converter linha 82: name 'fields' is not defined
+2024-11-11 11:12:52,822 - root - ERROR - Erro ao converter linha 83: name 'fields' is not defined
+2024-11-11 11:12:52,824 - root - ERROR - Erro ao converter linha 84: name 'fields' is not defined
+2024-11-11 11:12:52,824 - root - ERROR - Erro ao converter linha 85: name 'fields' is not defined
+2024-11-11 11:12:52,825 - root - ERROR - Erro ao converter linha 86: name 'fields' is not defined
+2024-11-11 11:12:52,827 - root - ERROR - Erro ao converter linha 87: name 'fields' is not defined
+2024-11-11 11:12:52,830 - root - ERROR - Erro ao converter linha 88: name 'fields' is not defined
+2024-11-11 11:12:52,830 - root - ERROR - Erro ao converter linha 89: name 'fields' is not defined
+2024-11-11 11:12:52,831 - root - ERROR - Erro ao converter linha 90: name 'fields' is not defined
+2024-11-11 11:12:52,831 - root - ERROR - Erro ao converter linha 91: name 'fields' is not defined
+2024-11-11 11:12:52,831 - root - ERROR - Erro ao converter linha 92: name 'fields' is not defined
+2024-11-11 11:12:52,832 - root - ERROR - Erro ao converter linha 93: name 'fields' is not defined
+2024-11-11 11:12:52,832 - root - ERROR - Erro ao converter linha 94: name 'fields' is not defined
+2024-11-11 11:12:52,832 - root - ERROR - Erro ao converter linha 95: name 'fields' is not defined
+2024-11-11 11:12:52,833 - root - ERROR - Erro ao converter linha 96: name 'fields' is not defined
+2024-11-11 11:12:52,833 - root - ERROR - Erro ao converter linha 97: name 'fields' is not defined
+2024-11-11 11:12:52,833 - root - ERROR - Erro ao converter linha 98: name 'fields' is not defined
+2024-11-11 11:12:52,834 - root - ERROR - Erro ao converter linha 99: name 'fields' is not defined
+2024-11-11 11:12:52,834 - root - ERROR - Erro ao converter linha 100: name 'fields' is not defined
+2024-11-11 11:12:52,834 - root - ERROR - Erro ao converter linha 101: name 'fields' is not defined
+2024-11-11 11:12:52,835 - root - ERROR - Erro ao converter linha 102: name 'fields' is not defined
+2024-11-11 11:12:52,836 - root - ERROR - Erro ao converter linha 103: name 'fields' is not defined
+2024-11-11 11:12:52,836 - root - ERROR - Erro ao converter linha 104: name 'fields' is not defined
+2024-11-11 11:12:52,836 - root - ERROR - Erro ao converter linha 105: name 'fields' is not defined
+2024-11-11 11:12:52,837 - root - ERROR - Erro ao converter linha 106: name 'fields' is not defined
+2024-11-11 11:12:52,838 - root - ERROR - Erro ao converter linha 107: name 'fields' is not defined
+2024-11-11 11:12:52,838 - root - ERROR - Erro ao converter linha 108: name 'fields' is not defined
+2024-11-11 11:12:52,839 - root - ERROR - Erro ao converter linha 109: name 'fields' is not defined
+2024-11-11 11:12:52,839 - root - ERROR - Erro ao converter linha 110: name 'fields' is not defined
+2024-11-11 11:12:52,840 - root - ERROR - Erro ao converter linha 111: name 'fields' is not defined
+2024-11-11 11:12:52,840 - root - ERROR - Erro ao converter linha 112: name 'fields' is not defined
+2024-11-11 11:12:52,840 - root - ERROR - Erro ao converter linha 113: name 'fields' is not defined
+2024-11-11 11:12:52,841 - root - ERROR - Erro ao converter linha 114: name 'fields' is not defined
+2024-11-11 11:12:52,842 - root - ERROR - Erro ao converter linha 115: name 'fields' is not defined
+2024-11-11 11:12:52,843 - root - ERROR - Erro ao converter linha 116: name 'fields' is not defined
+2024-11-11 11:12:52,843 - root - ERROR - Erro ao converter linha 117: name 'fields' is not defined
+2024-11-11 11:12:52,844 - root - ERROR - Erro ao converter linha 118: name 'fields' is not defined
+2024-11-11 11:12:52,844 - root - ERROR - Erro ao converter linha 119: name 'fields' is not defined
+2024-11-11 11:12:52,844 - root - ERROR - Erro ao converter linha 120: name 'fields' is not defined
+2024-11-11 11:12:52,845 - root - ERROR - Erro ao converter linha 121: name 'fields' is not defined
+2024-11-11 11:12:52,845 - root - ERROR - Erro ao converter linha 122: name 'fields' is not defined
+2024-11-11 11:12:52,845 - root - ERROR - Erro ao converter linha 123: name 'fields' is not defined
+2024-11-11 11:12:52,846 - root - ERROR - Erro ao converter linha 124: name 'fields' is not defined
+2024-11-11 11:12:52,846 - root - ERROR - Erro ao converter linha 125: name 'fields' is not defined
+2024-11-11 11:12:52,846 - root - ERROR - Erro ao converter linha 126: name 'fields' is not defined
+2024-11-11 11:12:52,846 - root - ERROR - Erro ao converter linha 127: name 'fields' is not defined
+2024-11-11 11:12:52,847 - root - ERROR - Erro ao converter linha 128: name 'fields' is not defined
+2024-11-11 11:12:52,847 - root - ERROR - Erro ao converter linha 129: name 'fields' is not defined
+2024-11-11 11:12:52,847 - root - ERROR - Erro ao converter linha 130: name 'fields' is not defined
+2024-11-11 11:12:52,848 - root - ERROR - Erro ao converter linha 131: name 'fields' is not defined
+2024-11-11 11:12:52,848 - root - ERROR - Erro ao converter linha 132: name 'fields' is not defined
+2024-11-11 11:12:52,848 - root - ERROR - Erro ao converter linha 133: name 'fields' is not defined
+2024-11-11 11:12:52,849 - root - ERROR - Erro ao converter linha 134: name 'fields' is not defined
+2024-11-11 11:12:52,849 - root - ERROR - Erro ao converter linha 135: name 'fields' is not defined
+2024-11-11 11:12:52,849 - root - ERROR - Erro ao converter linha 136: name 'fields' is not defined
+2024-11-11 11:12:52,850 - root - ERROR - Erro ao converter linha 137: name 'fields' is not defined
+2024-11-11 11:12:52,850 - root - ERROR - Erro ao converter linha 138: name 'fields' is not defined
+2024-11-11 11:12:52,850 - root - ERROR - Erro ao converter linha 139: name 'fields' is not defined
+2024-11-11 11:12:52,850 - root - ERROR - Erro ao converter linha 140: name 'fields' is not defined
+2024-11-11 11:12:52,851 - root - ERROR - Erro ao converter linha 141: name 'fields' is not defined
+2024-11-11 11:12:52,851 - root - ERROR - Erro ao converter linha 142: name 'fields' is not defined
+2024-11-11 11:12:52,852 - root - ERROR - Erro ao converter linha 143: name 'fields' is not defined
+2024-11-11 11:12:52,852 - root - ERROR - Erro ao converter linha 144: name 'fields' is not defined
+2024-11-11 11:12:52,852 - root - ERROR - Erro ao converter linha 145: name 'fields' is not defined
+2024-11-11 11:12:52,853 - root - ERROR - Erro ao converter linha 146: name 'fields' is not defined
+2024-11-11 11:12:52,853 - root - ERROR - Erro ao converter linha 147: name 'fields' is not defined
+2024-11-11 11:12:52,854 - root - ERROR - Erro ao converter linha 148: name 'fields' is not defined
+2024-11-11 11:12:52,855 - root - ERROR - Erro ao converter linha 149: name 'fields' is not defined
+2024-11-11 11:12:52,855 - root - ERROR - Erro ao converter linha 150: name 'fields' is not defined
+2024-11-11 11:12:52,857 - root - ERROR - Erro ao converter linha 151: name 'fields' is not defined
+2024-11-11 11:12:52,858 - root - ERROR - Erro ao converter linha 152: name 'fields' is not defined
+2024-11-11 11:12:52,858 - root - ERROR - Erro ao converter linha 153: name 'fields' is not defined
+2024-11-11 11:12:52,858 - root - ERROR - Erro ao converter linha 154: name 'fields' is not defined
+2024-11-11 11:12:52,859 - root - ERROR - Erro ao converter linha 155: name 'fields' is not defined
+2024-11-11 11:12:52,859 - root - ERROR - Erro ao converter linha 156: name 'fields' is not defined
+2024-11-11 11:12:52,860 - root - ERROR - Erro ao converter linha 157: name 'fields' is not defined
+2024-11-11 11:12:52,860 - root - ERROR - Erro ao converter linha 158: name 'fields' is not defined
+2024-11-11 11:12:52,860 - root - ERROR - Erro ao converter linha 159: name 'fields' is not defined
+2024-11-11 11:12:52,861 - root - ERROR - Erro ao converter linha 160: name 'fields' is not defined
+2024-11-11 11:12:52,861 - root - ERROR - Erro ao converter linha 161: name 'fields' is not defined
+2024-11-11 11:12:52,862 - root - ERROR - Erro ao converter linha 162: name 'fields' is not defined
+2024-11-11 11:12:52,862 - root - ERROR - Erro ao converter linha 163: name 'fields' is not defined
+2024-11-11 11:12:52,862 - root - ERROR - Erro ao converter linha 164: name 'fields' is not defined
+2024-11-11 11:12:52,863 - root - ERROR - Erro ao converter linha 165: name 'fields' is not defined
+2024-11-11 11:12:52,863 - root - ERROR - Erro ao converter linha 166: name 'fields' is not defined
+2024-11-11 11:12:52,864 - root - ERROR - Erro ao converter linha 167: name 'fields' is not defined
+2024-11-11 11:12:52,864 - root - ERROR - Erro ao converter linha 168: name 'fields' is not defined
+2024-11-11 11:12:52,864 - root - ERROR - Erro ao converter linha 169: name 'fields' is not defined
+2024-11-11 11:12:52,865 - root - ERROR - Erro ao converter linha 170: name 'fields' is not defined
+2024-11-11 11:12:52,865 - root - ERROR - Erro ao converter linha 171: name 'fields' is not defined
+2024-11-11 11:12:52,866 - root - ERROR - Erro ao converter linha 172: name 'fields' is not defined
+2024-11-11 11:12:52,866 - root - ERROR - Erro ao converter linha 173: name 'fields' is not defined
+2024-11-11 11:12:52,866 - root - ERROR - Erro ao converter linha 174: name 'fields' is not defined
+2024-11-11 11:12:52,867 - root - INFO - Convertidos 0 registros para SSAData
+2024-11-11 11:12:52,867 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-11 11:12:52,890 - root - ERROR - Erro ao iniciar aplicação: name 'SSAVisualizer' is not defined
+2024-11-11 11:37:12,640 - root - INFO - === Diagnóstico de Datas ===
+2024-11-11 11:37:12,640 - root - INFO - Total de linhas: 175
+2024-11-11 11:37:12,640 - root - INFO - Problemas encontrados: 1
+2024-11-11 11:37:12,640 - root - INFO - 
+Linha 164:
+2024-11-11 11:37:12,641 - root - INFO -   Valor encontrado: nan
+2024-11-11 11:37:12,641 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-11 11:37:12,641 - root - INFO -   Dados da linha:
+2024-11-11 11:37:12,641 - root - INFO -     Número da SSA: 202417496
+2024-11-11 11:37:12,641 - root - INFO -     Situação: ADI
+2024-11-11 11:37:12,641 - root - INFO -     Derivada de: nan
+2024-11-11 11:37:12,642 - root - INFO -     Localização: K061A006
+2024-11-11 11:37:12,642 - root - INFO -     Descrição da Localização: UNIDADE TERMINAL REMOTA - UTR640
+2024-11-11 11:37:12,642 - root - INFO -     Equipamento: 0919.059-7
+2024-11-11 11:37:12,642 - root - INFO -     Semana de Cadastro: 202444
+2024-11-11 11:37:12,642 - root - INFO -     Emitida Em: nan
+2024-11-11 11:37:12,643 - root - INFO -     Descrição da SSA: Favor actualizar y disponibilidad diseño 6006DC00028P(1)R4 según anexo en el sistema SATedms. Ref: SSA 202407033.
+OBS: este diseño contempla todas las CTM del 10 al 15, confirmado en campo disponibilidad para inclusión de todos puntos.
+2024-11-11 11:37:12,643 - root - INFO -     Setor Emissor: MEL4
+2024-11-11 11:37:12,643 - root - INFO -     Setor Executor: IEE3
+2024-11-11 11:37:12,644 - root - INFO -     Solicitante: SALINAS MARTINEZ PABLO CESAR
+2024-11-11 11:37:12,644 - root - INFO -     Serviço de Origem: S1
+2024-11-11 11:37:12,644 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-11 11:37:12,644 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-11 11:37:12,644 - root - INFO -     Execução Simples: Não
+2024-11-11 11:37:12,645 - root - INFO -     Responsável na Programação: nan
+2024-11-11 11:37:12,645 - root - INFO -     Semana Programada: nan
+2024-11-11 11:37:12,645 - root - INFO -     Responsável na Execução: nan
+2024-11-11 11:37:12,645 - root - INFO -     Descrição Execução: nan
+2024-11-11 11:37:12,645 - root - INFO -     Sistema de Origem: nan
+2024-11-11 11:37:12,646 - root - INFO -     Anomalia: nan
+2024-11-11 11:37:12,647 - root - ERROR - Encontradas 1 datas inválidas
+2024-11-11 11:37:12,648 - root - ERROR - Linha 164: Data inválida - verificar valor original
+2024-11-11 11:37:12,696 - root - INFO - Convertidos 175 registros para SSAData
+2024-11-11 11:37:12,696 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-11 11:37:12,696 - root - INFO - Número: 202415727
+2024-11-11 11:37:12,697 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-11 11:37:12,697 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-11 11:37:12,699 - root - WARNING - Problemas encontrados nos dados: 1 data inválida
+2024-11-11 11:37:12,736 - root - ERROR - Erro ao iniciar aplicação: name 'SSAVisualizer' is not defined
