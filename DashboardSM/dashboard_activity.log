@@ -731,3 +731,9 @@
 2024-11-12 12:34:16,371 - DashboardLogger - INFO - IP: 172.19.73.18 - Acesso à rota: /_dash-dependencies
 2024-11-12 12:34:16,594 - DashboardLogger - INFO - IP: 172.19.73.18 - Acesso à rota: /_dash-update-component
 2024-11-12 12:34:26,317 - DashboardLogger - INFO - IP: 172.19.73.18 - Visualização de SSAs: SSAs do executor CASTILLO CENTURION ELIAS FRANCISCO
+2024-11-12 12:36:12,129 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-12 12:36:14,209 - DashboardLogger - INFO - IP: 172.19.73.21 - Nova conexão de IP: 172.19.73.21
+2024-11-12 12:36:14,210 - DashboardLogger - INFO - IP: 172.19.73.21 - Acesso à rota: /_reload-hash
+2024-11-12 12:36:14,280 - DashboardLogger - INFO - IP: 172.19.73.21 - Acesso à rota: /_dash-layout
+2024-11-12 12:36:14,282 - DashboardLogger - INFO - IP: 172.19.73.21 - Acesso à rota: /_dash-dependencies
+2024-11-12 12:36:14,456 - DashboardLogger - INFO - IP: 172.19.73.21 - Acesso à rota: /_dash-update-component
