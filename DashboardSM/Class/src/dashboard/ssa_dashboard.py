@@ -204,7 +204,7 @@ class SSADashboard:
                     title="Clique para copiar"
                 ) for i, ssa in enumerate(ssas) if ssa
             ], style={
-                "max-height": "400px",
+                "max-height": "500px",
                 "overflow-y": "auto",
                 "padding": "10px",
                 "display": "flex",
@@ -565,35 +565,42 @@ class SSADashboard:
             if trigger_id == "close-modal":
                 return False, "", ""
 
-            click_mapping = {
-                "weeks-in-state-chart": (weeks_click, "SSAs no intervalo"),
-                "resp-prog-chart": (prog_click, "SSAs do programador"),
-                "resp-exec-chart": (exec_click, "SSAs do executor"),
-                "programmed-week-chart": (prog_week_click, "SSAs programadas na semana"),
-                "registration-week-chart": (reg_week_click, "SSAs cadastradas na semana"),
-                "detail-state-chart": (detail_state_click, "SSAs no estado"),
-                "detail-week-chart": (detail_week_click, "SSAs na semana (detalhe)")
-            }
+            try:
+                click_mapping = {
+                    "weeks-in-state-chart": (weeks_click, "SSAs no intervalo"),
+                    "resp-prog-chart": (prog_click, "SSAs do programador"),
+                    "resp-exec-chart": (exec_click, "SSAs do executor"),
+                    "programmed-week-chart": (prog_week_click, "SSAs programadas na semana"),
+                    "registration-week-chart": (reg_week_click, "SSAs cadastradas na semana"),
+                    "detail-state-chart": (detail_state_click, "SSAs no estado"),
+                    "detail-week-chart": (detail_week_click, "SSAs na semana (detalhe)")
+                }
 
-            if trigger_id in click_mapping:
-                click_data, title_prefix = click_mapping[trigger_id]
-                if click_data is None:
-                    return False, "", ""
+                if trigger_id in click_mapping:
+                    click_data, title_prefix = click_mapping[trigger_id]
+                    if not click_data or "points" not in click_data or not click_data["points"]:
+                        return False, "", ""
 
-                point_data = click_data["points"][0]
-                label = point_data["x"]
-                ssas = point_data.get("customdata", [])
+                    point_data = click_data["points"][0]
+                    label = point_data.get("x", "")
+                    ssas = point_data.get("customdata", [])
 
-                if ssas:
-                    self.logger.log_with_ip(
-                        "INFO",
-                        f"Visualização de SSAs: {title_prefix} {label}"
-                    )
+                    if isinstance(ssas, (list, tuple)):
+                        ssas = [str(ssa).strip() for ssa in ssas if ssa]
+                    else:
+                        ssas = []
 
-                ssa_list = self._create_ssa_list(ssas)
-                title = f"{title_prefix} {label} ({len(ssas)} SSAs)"
+                    if ssas:
+                        self.logger.log_with_ip("INFO", f"Visualização de SSAs: {title_prefix} {label}")
 
-                return True, ssa_list, title
+                    ssa_list = self._create_ssa_list(ssas)
+                    title = f"{title_prefix} {label} ({len(ssas)} SSAs)"
+
+                    return True, ssa_list, title
+
+            except Exception as e:
+                self.logger.log_with_ip("ERROR", f"Erro no modal: {str(e)}")
+                return False, "", ""
 
             return False, "", ""
 
@@ -785,12 +792,15 @@ class SSADashboard:
             style={
                 "overflowX": "auto",
                 "overflowY": "hidden",
-                "paddingBottom": "5px",
+                "paddingBottom": "18px",  # aumenta o espaço abaixo dos cards
+                "marginBottom": "30px",  # adiciona margem após a seção dos cards
                 "position": "sticky",
                 "top": "0",
                 "backgroundColor": "white",
                 "zIndex": "1000",
                 "boxShadow": "0 2px 4px rgba(0,0,0,0.1)",
+                "minHeight": "90px",  # Adicionado altura mínima
+                "paddingTop": "10px",  # Adicionado padding top
             },
         )
 
@@ -799,402 +809,622 @@ class SSADashboard:
         stats = self._get_initial_stats()
         state_counts = self._get_state_counts()
 
-        self.app.layout = dbc.Container([
-            # Header
-            dbc.Row([
-                dbc.Col([
-                    html.Div([
-                        html.H1(
-                            "Dashboard de SSAs Pendentes",
-                            className="text-primary mb-0",
-                        ),
-                        html.Small(
-                            f"Atualizado em: {datetime.now().strftime('%d/%m/%Y %H:%M')}",
-                            className="text-muted",
-                        ),
-                    ])
-                ], width=12),
-            ], className="mb-4 pt-3"),
-
-            # Linha com estatísticas gerais
-            dbc.Row([
-                dbc.Col([
-                    dbc.Card([
-                        dbc.CardBody([
-                            html.H5("Total de SSAs", className="text-muted mb-2"),
-                            html.H3(f"{stats['total']:,}", className="text-primary mb-0"),
-                        ])
-                    ])
-                ], width=3),
-                dbc.Col([
-                    dbc.Card([
-                        dbc.CardBody([
-                            html.H5("SSAs Críticas (S3.7)", className="text-muted mb-2"),
-                            html.H3(f"{stats['criticas']:,}", className="text-warning mb-0"),
-                        ])
-                    ])
-                ], width=3),
-                dbc.Col([
-                    dbc.Card([
-                        dbc.CardBody([
-                            html.H5("Setores Envolvidos", className="text-muted mb-2"),
-                            html.H3(
-                                f"{len(stats['por_setor']):,}",
-                                className="text-success mb-0"
-                            ),
-                        ])
-                    ])
-                ], width=3),
-                dbc.Col([
-                    dbc.Card([
-                        dbc.CardBody([
-                            html.H5("Estados Ativos", className="text-muted mb-2"),
-                            html.H3(
-                                f"{len(stats['por_estado']):,}",
-                                className="text-info mb-0"
-                            ),
-                        ])
-                    ])
-                ], width=3),
-            ], className="mb-4"),
-
-            # Filtros expandidos
-            dbc.Row([
-                dbc.Col([
-                    html.Label("Responsável Programação:", className="fw-bold"),
-                    dcc.Dropdown(
-                        id="resp-prog-filter",
-                        options=[
-                            {"label": resp, "value": resp}
-                            for resp in self._get_responsaveis()["programacao"]
-                        ],
-                        placeholder="Selecione um responsável...",
-                        className="mb-2",
-                        clearable=True,
-                    ),
-                ], width=3),
-                dbc.Col([
-                    html.Label("Responsável Execução:", className="fw-bold"),
-                    dcc.Dropdown(
-                        id="resp-exec-filter",
-                        options=[
-                            {"label": resp, "value": resp}
-                            for resp in self._get_responsaveis()["execucao"]
-                        ],
-                        placeholder="Selecione um responsável...",
-                        className="mb-2",
-                        clearable=True,
-                    ),
-                ], width=3),
-                dbc.Col([
-                    html.Label("Setor Emissor:", className="fw-bold"),
-                    dcc.Dropdown(
-                        id="setor-emissor-filter",
-                        options=[
-                            {"label": setor, "value": setor}
-                            for setor in sorted(self.df.iloc[:, SSAColumns.SETOR_EMISSOR].unique())
-                        ],
-                        placeholder="Selecione um setor emissor...",
-                        className="mb-2",
-                        clearable=True,
-                    ),
-                ], width=3),
-                dbc.Col([
-                    html.Label("Setor Executor:", className="fw-bold"),
-                    dcc.Dropdown(
-                        id="setor-executor-filter",
-                        options=[
-                            {"label": setor, "value": setor}
-                            for setor in sorted(self.df.iloc[:, SSAColumns.SETOR_EXECUTOR].unique())
-                        ],
-                        placeholder="Selecione um setor executor...",
-                        className="mb-2",
-                        clearable=True,
-                    ),
-                ], width=3),
-            ], className="mb-3"),
-
-            # Cards de resumo do usuário
-            dbc.Row([
-                dbc.Col([
-                    html.Div(id="resp-summary-cards")
-                ], width=12)
-            ], className="mb-4"),
-
-            # Gráficos principais
-            dbc.Row([
-                dbc.Col([
-                    dbc.Card([
-                        dbc.CardHeader(
-                            "SSAs por Responsável na Programação",
-                            className="fw-bold bg-light",
-                        ),
-                        dbc.CardBody([
-                            dbc.Spinner(
-                                dcc.Graph(
-                                    id="resp-prog-chart",
-                                    config=self._get_chart_config(),
-                                ),
-                                color="primary",
-                            )
-                        ])
-                    ], className="h-100 shadow-sm")
-                ], width=6),
-                dbc.Col([
-                    dbc.Card([
-                        dbc.CardHeader(
-                            "SSAs por Responsável na Execução",
-                            className="fw-bold bg-light",
-                        ),
-                        dbc.CardBody([
-                            dbc.Spinner(
-                                dcc.Graph(
-                                    id="resp-exec-chart",
-                                    config=self._get_chart_config(),
-                                ),
-                                color="primary",
-                            )
-                        ])
-                    ], className="h-100 shadow-sm")
-                ], width=6),
-            ], className="mb-4"),
-
-            # Gráficos de Semana
-            dbc.Row([
-                dbc.Col([
-                    dbc.Card([
-                        dbc.CardHeader(
-                            "SSAs Programadas por Semana",
-                            className="fw-bold bg-light",
-                        ),
-                        dbc.CardBody([
-                            dbc.Spinner(
-                                dcc.Graph(
-                                    id="programmed-week-chart",
-                                    config=self._get_chart_config(),
-                                ),
-                                color="primary",
-                            )
-                        ])
-                    ], className="shadow-sm")
-                ], width=12),
-            ], className="mb-4"),
-
-            dbc.Row([
-                dbc.Col([
-                    dbc.Card([
-                        dbc.CardHeader(
-                            "SSAs por Semana de Cadastro",
-                            className="fw-bold bg-light",
-                        ),
-                        dbc.CardBody([
-                            dbc.Spinner(
-                                dcc.Graph(
-                                    id="registration-week-chart",
-                                    config=self._get_chart_config(),
-                                ),
-                                color="primary",
-                            )
-                        ])
-                    ], className="shadow-sm")
-                ], width=12),
-            ], className="mb-4"),
-
-            # Gráfico de tempo no estado
-            dbc.Row([
-                dbc.Col([
-                    dbc.Card([
-                        dbc.CardHeader(
-                            "Tempo no Estado Atual",
-                            className="fw-bold bg-light",
-                        ),
-                        dbc.CardBody([
-                            dbc.Spinner(
-                                dcc.Graph(
-                                    id="weeks-in-state-chart",
-                                    config=self._get_chart_config(),
-                                ),
-                                color="primary",
-                            )
-                        ])
-                    ], className="shadow-sm")
-                ], width=12),
-            ], className="mb-4"),
-
-            # Seção de detalhamento
-            html.Div([
-                dbc.Row([
-                    dbc.Col([
-                        html.H4(
-                            "Detalhamento por Responsável",
-                            className="mb-3 fw-bold text-primary"
-                        )
-                    ], width=12)
-                ]),
-                dbc.Row([
-                    dbc.Col([
-                        dbc.Card([
-                            dbc.CardHeader(
-                                "SSAs Pendentes por Estado",
-                                className="fw-bold bg-light",
-                            ),
-                            dbc.CardBody([
-                                dbc.Spinner(
-                                    dcc.Graph(
-                                        id="detail-state-chart",
-                                        config=self._get_chart_config(),
-                                    ),
-                                    color="primary",
+        self.app.layout = dbc.Container(
+            [
+                # Header
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                html.Div(
+                                    [
+                                        html.H1(
+                                            "Dashboard de SSAs Pendentes",
+                                            className="text-primary mb-0",
+                                        ),
+                                        html.Small(
+                                            f"Atualizado em: {datetime.now().strftime('%d/%m/%Y %H:%M')}",
+                                            className="text-muted",
+                                        ),
+                                    ]
                                 )
-                            ])
-                        ], className="shadow-sm")
-                    ], width=6),
-                    dbc.Col([
-                        dbc.Card([
-                            dbc.CardHeader(
-                                "SSAs por Semana (Detalhado)",
-                                className="fw-bold bg-light",
-                            ),
-                            dbc.CardBody([
-                                dbc.Spinner(
-                                    dcc.Graph(
-                                        id="detail-week-chart",
-                                        config=self._get_chart_config(),
-                                    ),
-                                    color="primary",
+                            ],
+                            width=12,
+                        ),
+                    ],
+                    className="mb-4 pt-3",
+                ),
+                # Linha com estatísticas gerais
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                dbc.Card(
+                                    [
+                                        dbc.CardBody(
+                                            [
+                                                html.H5(
+                                                    "Total de SSAs",
+                                                    className="text-muted mb-2",
+                                                ),
+                                                html.H3(
+                                                    f"{stats['total']:,}",
+                                                    className="text-primary mb-0",
+                                                ),
+                                            ]
+                                        )
+                                    ]
                                 )
-                            ])
-                        ], className="shadow-sm")
-                    ], width=6),
-                ], className="mb-4"),
-            ], id="detail-section", style={"display": "none"}),
-
-            # Tabela de SSAs
-            dbc.Row([
-                dbc.Col([
-                    dbc.Card([
-                        dbc.CardHeader([
-                            html.Div([
-                                html.Span(
-                                    "Lista de SSAs",
-                                    className="fw-bold"
+                            ],
+                            width=3,
+                        ),
+                        dbc.Col(
+                            [
+                                dbc.Card(
+                                    [
+                                        dbc.CardBody(
+                                            [
+                                                html.H5(
+                                                    "SSAs Críticas (S3.7)",
+                                                    className="text-muted mb-2",
+                                                ),
+                                                html.H3(
+                                                    f"{stats['criticas']:,}",
+                                                    className="text-warning mb-0",
+                                                ),
+                                            ]
+                                        )
+                                    ]
+                                )
+                            ],
+                            width=3,
+                        ),
+                        dbc.Col(
+                            [
+                                dbc.Card(
+                                    [
+                                        dbc.CardBody(
+                                            [
+                                                html.H5(
+                                                    "Setores Envolvidos",
+                                                    className="text-muted mb-2",
+                                                ),
+                                                html.H3(
+                                                    f"{len(stats['por_setor']):,}",
+                                                    className="text-success mb-0",
+                                                ),
+                                            ]
+                                        )
+                                    ]
+                                )
+                            ],
+                            width=3,
+                        ),
+                        dbc.Col(
+                            [
+                                dbc.Card(
+                                    [
+                                        dbc.CardBody(
+                                            [
+                                                html.H5(
+                                                    "Estados Ativos",
+                                                    className="text-muted mb-2",
+                                                ),
+                                                html.H3(
+                                                    f"{len(stats['por_estado']):,}",
+                                                    className="text-info mb-0",
+                                                ),
+                                            ]
+                                        )
+                                    ]
+                                )
+                            ],
+                            width=3,
+                        ),
+                    ],
+                    className="mb-4",
+                ),
+                # Filtros expandidos
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                html.Label(
+                                    "Responsável Programação:", className="fw-bold"
                                 ),
+                                dcc.Dropdown(
+                                    id="resp-prog-filter",
+                                    options=[
+                                        {"label": resp, "value": resp}
+                                        for resp in self._get_responsaveis()[
+                                            "programacao"
+                                        ]
+                                    ],
+                                    placeholder="Selecione um responsável...",
+                                    className="mb-2",
+                                    clearable=True,
+                                ),
+                            ],
+                            width=3,
+                        ),
+                        dbc.Col(
+                            [
+                                html.Label(
+                                    "Responsável Execução:", className="fw-bold"
+                                ),
+                                dcc.Dropdown(
+                                    id="resp-exec-filter",
+                                    options=[
+                                        {"label": resp, "value": resp}
+                                        for resp in self._get_responsaveis()["execucao"]
+                                    ],
+                                    placeholder="Selecione um responsável...",
+                                    className="mb-2",
+                                    clearable=True,
+                                ),
+                            ],
+                            width=3,
+                        ),
+                        dbc.Col(
+                            [
+                                html.Label("Setor Emissor:", className="fw-bold"),
+                                dcc.Dropdown(
+                                    id="setor-emissor-filter",
+                                    options=[
+                                        {"label": setor, "value": setor}
+                                        for setor in sorted(
+                                            self.df.iloc[
+                                                :, SSAColumns.SETOR_EMISSOR
+                                            ].unique()
+                                        )
+                                    ],
+                                    placeholder="Selecione um setor emissor...",
+                                    className="mb-2",
+                                    clearable=True,
+                                ),
+                            ],
+                            width=3,
+                        ),
+                        dbc.Col(
+                            [
+                                html.Label("Setor Executor:", className="fw-bold"),
+                                dcc.Dropdown(
+                                    id="setor-executor-filter",
+                                    options=[
+                                        {"label": setor, "value": setor}
+                                        for setor in sorted(
+                                            self.df.iloc[
+                                                :, SSAColumns.SETOR_EXECUTOR
+                                            ].unique()
+                                        )
+                                    ],
+                                    placeholder="Selecione um setor executor...",
+                                    className="mb-2",
+                                    clearable=True,
+                                ),
+                            ],
+                            width=3,
+                        ),
+                    ],
+                    className="mb-3",
+                    style={
+                        "position": "relative",
+                        "zIndex": "1001",  # Maior que o zIndex dos cards para ficar por cima!
+                        "backgroundColor": "white",
+                        "padding": "10px 0",
+                    },
+                ),
+                # Cards de resumo do usuário
+                dbc.Row(
+                    [dbc.Col([html.Div(id="resp-summary-cards")], width=12)],
+                    className="mb-4",
+                ),
+                # Gráficos principais
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                dbc.Card(
+                                    [
+                                        dbc.CardHeader(
+                                            "SSAs por Responsável na Programação",
+                                            className="fw-bold bg-light",
+                                        ),
+                                        dbc.CardBody(
+                                            [
+                                                dbc.Spinner(
+                                                    dcc.Graph(
+                                                        id="resp-prog-chart",
+                                                        config=self._get_chart_config(),
+                                                    ),
+                                                    color="primary",
+                                                )
+                                            ]
+                                        ),
+                                    ],
+                                    className="h-100 shadow-sm",
+                                )
+                            ],
+                            width=6,
+                        ),
+                        dbc.Col(
+                            [
+                                dbc.Card(
+                                    [
+                                        dbc.CardHeader(
+                                            "SSAs por Responsável na Execução",
+                                            className="fw-bold bg-light",
+                                        ),
+                                        dbc.CardBody(
+                                            [
+                                                dbc.Spinner(
+                                                    dcc.Graph(
+                                                        id="resp-exec-chart",
+                                                        config=self._get_chart_config(),
+                                                    ),
+                                                    color="primary",
+                                                )
+                                            ]
+                                        ),
+                                    ],
+                                    className="h-100 shadow-sm",
+                                )
+                            ],
+                            width=6,
+                        ),
+                    ],
+                    className="mb-4",
+                ),
+                # Gráficos de Semana
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                dbc.Card(
+                                    [
+                                        dbc.CardHeader(
+                                            "SSAs Programadas por Semana",
+                                            className="fw-bold bg-light",
+                                        ),
+                                        dbc.CardBody(
+                                            [
+                                                dbc.Spinner(
+                                                    dcc.Graph(
+                                                        id="programmed-week-chart",
+                                                        config=self._get_chart_config(),
+                                                    ),
+                                                    color="primary",
+                                                )
+                                            ]
+                                        ),
+                                    ],
+                                    className="shadow-sm",
+                                )
+                            ],
+                            width=12,
+                        ),
+                    ],
+                    className="mb-4",
+                ),
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                dbc.Card(
+                                    [
+                                        dbc.CardHeader(
+                                            "SSAs por Semana de Cadastro",
+                                            className="fw-bold bg-light",
+                                        ),
+                                        dbc.CardBody(
+                                            [
+                                                dbc.Spinner(
+                                                    dcc.Graph(
+                                                        id="registration-week-chart",
+                                                        config=self._get_chart_config(),
+                                                    ),
+                                                    color="primary",
+                                                )
+                                            ]
+                                        ),
+                                    ],
+                                    className="shadow-sm",
+                                )
+                            ],
+                            width=12,
+                        ),
+                    ],
+                    className="mb-4",
+                ),
+                # Gráfico de tempo no estado
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                dbc.Card(
+                                    [
+                                        dbc.CardHeader(
+                                            "Tempo no Estado Atual",
+                                            className="fw-bold bg-light",
+                                        ),
+                                        dbc.CardBody(
+                                            [
+                                                dbc.Spinner(
+                                                    dcc.Graph(
+                                                        id="weeks-in-state-chart",
+                                                        config=self._get_chart_config(),
+                                                    ),
+                                                    color="primary",
+                                                )
+                                            ]
+                                        ),
+                                    ],
+                                    className="shadow-sm",
+                                )
+                            ],
+                            width=12,
+                        ),
+                    ],
+                    className="mb-4",
+                ),
+                # Seção de detalhamento
+                html.Div(
+                    [
+                        dbc.Row(
+                            [
+                                dbc.Col(
+                                    [
+                                        html.H4(
+                                            "Detalhamento por Responsável",
+                                            className="mb-3 fw-bold text-primary",
+                                        )
+                                    ],
+                                    width=12,
+                                )
+                            ]
+                        ),
+                        dbc.Row(
+                            [
+                                dbc.Col(
+                                    [
+                                        dbc.Card(
+                                            [
+                                                dbc.CardHeader(
+                                                    "SSAs Pendentes por Estado",
+                                                    className="fw-bold bg-light",
+                                                ),
+                                                dbc.CardBody(
+                                                    [
+                                                        dbc.Spinner(
+                                                            dcc.Graph(
+                                                                id="detail-state-chart",
+                                                                config=self._get_chart_config(),
+                                                            ),
+                                                            color="primary",
+                                                        )
+                                                    ]
+                                                ),
+                                            ],
+                                            className="shadow-sm",
+                                        )
+                                    ],
+                                    width=6,
+                                ),
+                                dbc.Col(
+                                    [
+                                        dbc.Card(
+                                            [
+                                                dbc.CardHeader(
+                                                    "SSAs por Semana (Detalhado)",
+                                                    className="fw-bold bg-light",
+                                                ),
+                                                dbc.CardBody(
+                                                    [
+                                                        dbc.Spinner(
+                                                            dcc.Graph(
+                                                                id="detail-week-chart",
+                                                                config=self._get_chart_config(),
+                                                            ),
+                                                            color="primary",
+                                                        )
+                                                    ]
+                                                ),
+                                            ],
+                                            className="shadow-sm",
+                                        )
+                                    ],
+                                    width=6,
+                                ),
+                            ],
+                            className="mb-4",
+                        ),
+                    ],
+                    id="detail-section",
+                    style={"display": "none"},
+                ),
+                # Tabela de SSAs
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                dbc.Card(
+                                    [
+                                        dbc.CardHeader(
+                                            [
+                                                html.Div(
+                                                    [
+                                                        html.Span(
+                                                            "Lista de SSAs",
+                                                            className="fw-bold",
+                                                        ),
+                                                        html.Small(
+                                                            " (Clique nas colunas para ordenar)",
+                                                            className="text-muted ms-2",
+                                                        ),
+                                                    ]
+                                                )
+                                            ],
+                                            className="bg-light",
+                                        ),
+                                        dbc.CardBody(
+                                            [
+                                                dash_table.DataTable(
+                                                    id="ssa-table",
+                                                    columns=[
+                                                        {
+                                                            "name": "Número",
+                                                            "id": "numero",
+                                                        },
+                                                        {
+                                                            "name": "Estado",
+                                                            "id": "estado",
+                                                        },
+                                                        {
+                                                            "name": "Setor Emissor",
+                                                            "id": "setor_emissor",
+                                                        },
+                                                        {
+                                                            "name": "Setor Executor",
+                                                            "id": "setor_executor",
+                                                        },
+                                                        {
+                                                            "name": "Resp. Prog.",
+                                                            "id": "resp_prog",
+                                                        },
+                                                        {
+                                                            "name": "Resp. Exec.",
+                                                            "id": "resp_exec",
+                                                        },
+                                                        {
+                                                            "name": "Semana Prog.",
+                                                            "id": "semana_prog",
+                                                        },
+                                                        {
+                                                            "name": "Prioridade",
+                                                            "id": "prioridade",
+                                                        },
+                                                        {
+                                                            "name": "Data Emissão",
+                                                            "id": "data_emissao",
+                                                        },
+                                                        {
+                                                            "name": "Descrição",
+                                                            "id": "descricao",
+                                                        },
+                                                    ],
+                                                    style_table={
+                                                        "overflowX": "auto",
+                                                        "minWidth": "100%",
+                                                    },
+                                                    style_cell={
+                                                        "textAlign": "left",
+                                                        "padding": "10px",
+                                                        "whiteSpace": "normal",
+                                                        "height": "auto",
+                                                        "minWidth": "100px",
+                                                        "maxWidth": "200px",
+                                                    },
+                                                    style_cell_conditional=[
+                                                        {
+                                                            "if": {
+                                                                "column_id": "descricao"
+                                                            },
+                                                            "maxWidth": "300px",
+                                                            "textOverflow": "ellipsis",
+                                                        }
+                                                    ],
+                                                    style_header={
+                                                        "backgroundColor": "rgb(230, 230, 230)",
+                                                        "fontWeight": "bold",
+                                                        "textAlign": "center",
+                                                        "padding": "10px",
+                                                    },
+                                                    style_data_conditional=[
+                                                        {
+                                                            "if": {"row_index": "odd"},
+                                                            "backgroundColor": "rgb(248, 248, 248)",
+                                                        },
+                                                        {
+                                                            "if": {
+                                                                "filter_query": "{prioridade} eq 'S3.7'"
+                                                            },
+                                                            "backgroundColor": "#fff3cd",
+                                                            "color": "#856404",
+                                                        },
+                                                    ],
+                                                    page_size=10,
+                                                    page_current=0,
+                                                    sort_action="native",
+                                                    sort_mode="multi",
+                                                    filter_action="native",
+                                                    tooltip_data=[],
+                                                    tooltip_duration=None,
+                                                    style_as_list_view=True,
+                                                )
+                                            ]
+                                        ),
+                                    ],
+                                    className="shadow-sm",
+                                )
+                            ],
+                            width=12,
+                        ),
+                    ]
+                ),
+                # Modal para exibição das SSAs
+                dbc.Modal(
+                    [
+                        dbc.ModalHeader(
+                            [dbc.ModalTitle(id="ssa-modal-title")], close_button=True
+                        ),
+                        dbc.ModalBody([html.Div(id="ssa-modal-body")]),
+                        dbc.ModalFooter(
+                            [
                                 html.Small(
-                                    " (Clique nas colunas para ordenar)",
-                                    className="text-muted ms-2",
+                                    "Clique nas SSAs para copiar",
+                                    className="text-muted me-auto",
                                 ),
-                            ])
-                        ], className="bg-light"),
-                        dbc.CardBody([
-                            dash_table.DataTable(
-                                id="ssa-table",
-                                columns=[
-                                    {"name": "Número", "id": "numero"},
-                                    {"name": "Estado", "id": "estado"},
-                                    {"name": "Setor Emissor", "id": "setor_emissor"},
-                                    {"name": "Setor Executor", "id": "setor_executor"},
-                                    {"name": "Resp. Prog.", "id": "resp_prog"},
-                                    {"name": "Resp. Exec.", "id": "resp_exec"},
-                                    {"name": "Semana Prog.", "id": "semana_prog"},
-                                    {"name": "Prioridade", "id": "prioridade"},
-                                    {"name": "Data Emissão", "id": "data_emissao"},
-                                    {"name": "Descrição", "id": "descricao"},
-                                ],
-                                style_table={
-                                    "overflowX": "auto",
-                                    "minWidth": "100%",
-                                },
-                                style_cell={
-                                    "textAlign": "left",
-                                    "padding": "10px",
-                                    "whiteSpace": "normal",
-                                    "height": "auto",
-                                    "minWidth": "100px",
-                                    "maxWidth": "200px",
-                                },
-                                style_cell_conditional=[
-                                    {
-                                        "if": {"column_id": "descricao"},
-                                        "maxWidth": "300px",
-                                        "textOverflow": "ellipsis",
-                                    }
-                                ],
-                                style_header={
-                                    "backgroundColor": "rgb(230, 230, 230)",
-                                    "fontWeight": "bold",
-                                    "textAlign": "center",
-                                    "padding": "10px",
-                                },
-                                style_data_conditional=[
-                                    {
-                                        "if": {"row_index": "odd"},
-                                        "backgroundColor": "rgb(248, 248, 248)",
-                                    },
-                                    {
-                                        "if": {"filter_query": "{prioridade} eq 'S3.7'"},
-                                        "backgroundColor": "#fff3cd",
-                                        "color": "#856404",
-                                    },
-                                ],
-                                page_size=10,
-                                page_current=0,
-                                sort_action="native",
-                                sort_mode="multi",
-                                filter_action="native",
-                                tooltip_data=[],
-                                tooltip_duration=None,
-                                style_as_list_view=True,
-                            )
-                        ])
-                    ], className="shadow-sm")
-                ], width=12),
-            ]),
-
-            # Modal para exibição das SSAs
-            dbc.Modal([
-                dbc.ModalHeader([
-                    dbc.ModalTitle(id="ssa-modal-title")
-                ], close_button=True),
-                dbc.ModalBody([
-                    html.Div(id="ssa-modal-body")
-                ]),
-                dbc.ModalFooter([
-                    html.Small(
-                        "Clique nas SSAs para copiar",
-                        className="text-muted me-auto",
-                    ),
-                    dbc.Button(
-                        "Fechar",
-                        id="close-modal",
-                        className="ms-auto",
-                        color="secondary",
-                    ),
-                ])
-            ], id="ssa-modal", size="lg", is_open=False),
-
-            # Store para dados de estado
-            dcc.Store(id="state-data"),
-
-            # Intervalo para atualização automática
-            dcc.Interval(
-                id="interval-component",
-                interval=5 * 60 * 1000,  # 5 minutos em milissegundos
-                n_intervals=0,
-            ),
-
-            # Footer
-            dbc.Row([
-                dbc.Col([
-                    html.Hr(),
-                    html.Small(
-                        f"© {datetime.now().year} Dashboard SSAs - Versão 1.0",
-                        className="text-muted",
-                    ),
-                ], width=12, className="text-center py-3")
-            ])
-
-        ], fluid=True, className="p-4")
-
+                                dbc.Button(
+                                    "Fechar",
+                                    id="close-modal",
+                                    className="ms-auto",
+                                    color="secondary",
+                                ),
+                            ]
+                        ),
+                    ],
+                    id="ssa-modal",
+                    size="lg",
+                    is_open=False,
+                ),
+                # Store para dados de estado
+                dcc.Store(id="state-data"),
+                # Intervalo para atualização automática
+                dcc.Interval(
+                    id="interval-component",
+                    interval=5 * 60 * 1000,  # 5 minutos em milissegundos
+                    n_intervals=0,
+                ),
+                # Footer
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                html.Hr(),
+                                html.Small(
+                                    f"© {datetime.now().year} Dashboard SSAs - Versão 1.0",
+                                    className="text-muted",
+                                ),
+                            ],
+                            width=12,
+                            className="text-center py-3",
+                        )
+                    ]
+                ),
+            ],
+            fluid=True,
+            className="p-4",
+        )
 
     def setup_callbacks(self):
         """Configure all dashboard callbacks with enhanced features."""

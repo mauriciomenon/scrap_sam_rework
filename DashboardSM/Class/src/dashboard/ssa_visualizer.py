@@ -369,42 +369,49 @@ class WeekAnalyzer:
             except ValueError:
                 return None
 
-        weeks_in_state = self.df.iloc[:, SSAColumns.SEMANA_CADASTRO].apply(
-            get_week_number
-        )
-        current_week = int(self.current_date.strftime("%W"))
+        weeks_in_state = self.df.iloc[:, SSAColumns.SEMANA_CADASTRO].apply(get_week_number)
+        current_week = int(self.current_date.strftime("%Y%W")[4:])
 
+        # Garante que a diferença seja sempre positiva
         return weeks_in_state.apply(
-            lambda x: current_week - x if x is not None else None
+            lambda x: max(0, current_week - x) if x is not None else None
         )
+
 
     def analyze_weeks(self, use_programmed: bool = True) -> pd.DataFrame:
         """Analisa distribuição de SSAs por semana."""
         week_column = (
-            SSAColumns.SEMANA_PROGRAMADA
-            if use_programmed
-            else SSAColumns.SEMANA_CADASTRO
+            SSAColumns.SEMANA_PROGRAMADA if use_programmed else SSAColumns.SEMANA_CADASTRO
         )
 
         week_data = []
         for _, row in self.df.iterrows():
             week_str = str(row.iloc[week_column])
             if len(week_str) == 6:  # Formato correto YYYYWW
-                year = int(week_str[:4])
-                week = int(week_str[4:])
-                week_data.append(
-                    {
-                        "year": year,
-                        "week": week,
-                        "year_week": week_str,
-                        "prioridade": row.iloc[SSAColumns.GRAU_PRIORIDADE_EMISSAO],
-                    }
-                )
+                try:
+                    year = int(week_str[:4])
+                    week = int(week_str[4:])
+
+                    # Validação básica para evitar semanas inválidas
+                    if week > 0 and week <= 53:  # Semanas válidas são de 1 a 53
+                        week_data.append(
+                            {
+                                "year": year,
+                                "week": week,
+                                "year_week": week_str,
+                                "prioridade": row.iloc[SSAColumns.GRAU_PRIORIDADE_EMISSAO],
+                            }
+                        )
+                except ValueError:
+                    continue
 
         if not week_data:
             return pd.DataFrame()
 
         df_weeks = pd.DataFrame(week_data)
+        if df_weeks.empty:
+            return df_weeks
+
         analysis = (
             df_weeks.groupby(["year", "week", "prioridade"])
             .size()
