@@ -1021,3 +1021,17 @@
 2024-11-12 16:18:14,292 - DashboardLogger - INFO - IP: 172.19.73.21 - Acesso à rota: /_dash-dependencies
 2024-11-12 16:18:14,438 - DashboardLogger - INFO - IP: 172.19.73.21 - Acesso à rota: /_dash-update-component
 2024-11-12 16:18:55,636 - DashboardLogger - INFO - IP: 172.19.73.18 - Filtros aplicados - Prog: MAURICIO MENON, Exec: None, Emissor: None, Executor: None
+2024-11-12 16:21:32,967 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-12 16:21:35,435 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-12 16:21:35,515 - DashboardLogger - INFO - IP: 172.19.73.18 - Nova conexão de IP: 172.19.73.18
+2024-11-12 16:21:35,515 - DashboardLogger - INFO - IP: 172.19.73.18 - Acesso à rota: /_reload-hash
+2024-11-12 16:21:35,593 - DashboardLogger - INFO - IP: 172.19.73.18 - Acesso à rota: /_dash-layout
+2024-11-12 16:21:35,597 - DashboardLogger - INFO - IP: 172.19.73.18 - Acesso à rota: /_dash-dependencies
+2024-11-12 16:21:35,826 - DashboardLogger - INFO - IP: 172.19.73.18 - Acesso à rota: /_dash-update-component
+2024-11-12 16:21:44,751 - DashboardLogger - INFO - IP: 172.19.73.18 - Visualização de SSAs: SSAs programadas na semana 202408
+2024-11-12 16:21:59,291 - DashboardLogger - INFO - IP: 172.19.73.18 - Visualização de SSAs: SSAs cadastradas na semana 202352
+2024-11-12 16:22:14,254 - DashboardLogger - INFO - IP: 172.19.73.21 - Nova conexão de IP: 172.19.73.21
+2024-11-12 16:22:14,254 - DashboardLogger - INFO - IP: 172.19.73.21 - Acesso à rota: /_reload-hash
+2024-11-12 16:22:14,321 - DashboardLogger - INFO - IP: 172.19.73.21 - Acesso à rota: /_dash-layout
+2024-11-12 16:22:14,323 - DashboardLogger - INFO - IP: 172.19.73.21 - Acesso à rota: /_dash-dependencies
+2024-11-12 16:22:14,465 - DashboardLogger - INFO - IP: 172.19.73.21 - Acesso à rota: /_dash-update-component
