@@ -8,6 +8,7 @@ from .data.ssa_data import SSAData
 from .data.ssa_columns import SSAColumns
 from .utils.log_manager import LogManager
 from .utils.date_utils import diagnose_dates
+from .utils.file_manager import FileManager
 
 
 __all__ = [
@@ -17,6 +18,7 @@ __all__ = [
     "SSAColumns",
     "LogManager",
     "diagnose_dates",
+    "FileManager",
 ]
 
 __version__ = "3.0.0"

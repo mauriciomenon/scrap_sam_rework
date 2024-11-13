@@ -213,91 +213,92 @@ class SSADashboard:
             })
         ])
 
-    def _enhance_bar_chart(self, fig, chart_type, title):
+
+    def _enhance_bar_chart(self, fig, chart_type, title, df_filtered=None):
         """Enhances bar chart with hover info and clickable data."""
+        df_to_use = df_filtered if df_filtered is not None else self.df
+
         try:
             for trace in fig.data:
                 if isinstance(trace, go.Bar):
-                    ssas_by_category = {}
                     hover_text = []
                     customdata = []
 
-                    if chart_type in ["week_programmed", "week_registration"]:
-                        # Para gráficos de semana
-                        for i, cat in enumerate(trace.x):
-                            week_mask = None
-                            if chart_type == "week_programmed":
-                                week_mask = self.df.iloc[:, SSAColumns.SEMANA_PROGRAMADA] == str(cat)
-                            else:
-                                week_mask = self.df.iloc[:, SSAColumns.SEMANA_CADASTRO] == str(cat)
-
-                            if trace.name:  # Se tem nome, é um gráfico empilhado por prioridade
-                                week_mask = week_mask & (self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == trace.name)
-
-                            week_ssas = self.df[week_mask].iloc[:, SSAColumns.NUMERO_SSA].tolist()
-
-                            # Texto do hover
-                            ssa_preview = "<br>".join(week_ssas[:5])
-                            if len(week_ssas) > 5:
-                                ssa_preview += f"<br>... (+{len(week_ssas)-5} SSAs)"
-
-                            week_title = f"Semana {cat}"
-                            if trace.name:
-                                week_title += f" - {trace.name}"
-
-                            hover_text.append(
-                                f"<b>{week_title}</b><br>"
-                                f"Total: {len(week_ssas)}<br>"
-                                f"SSAs:<br>{ssa_preview}"
+                    for i, cat in enumerate(trace.x):
+                        mask = None
+                        if chart_type == "resp_prog":
+                            mask = (
+                                df_to_use.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO] == cat
                             )
-                            customdata.append(week_ssas)
+                        elif chart_type == "resp_exec":
+                            mask = df_to_use.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == cat
+                        elif chart_type == "state":
+                            mask = df_to_use.iloc[:, SSAColumns.SITUACAO] == cat
+                        elif chart_type == "week_programmed":
+                            mask = df_to_use.iloc[:, SSAColumns.SEMANA_PROGRAMADA] == str(
+                                cat
+                            )
+                            if (
+                                trace.name
+                            ):  # Se tem nome, é um gráfico empilhado por prioridade
+                                mask = mask & (
+                                    df_to_use.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
+                                    == trace.name
+                                )
+                        elif chart_type == "week_registration":
+                            mask = df_to_use.iloc[:, SSAColumns.SEMANA_CADASTRO] == str(cat)
+                            if trace.name:
+                                mask = mask & (
+                                    df_to_use.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
+                                    == trace.name
+                                )
+                        else:
+                            continue
 
-                    else:
-                        # Para outros tipos de gráficos
-                        for cat in trace.x:
-                            mask = None
-                            if chart_type == "resp_prog":
-                                mask = self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO] == cat
-                            elif chart_type == "resp_exec":
-                                mask = self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == cat
-                            elif chart_type == "state":
-                                mask = self.df.iloc[:, SSAColumns.SITUACAO] == cat
-
+                        if mask is not None:
+                            ssas = df_to_use[mask].iloc[:, SSAColumns.NUMERO_SSA].tolist()
+                        else:
                             ssas = []
-                            if mask is not None:
-                                ssas = self.df[mask].iloc[:, SSAColumns.NUMERO_SSA].tolist()
 
-                            hover_text.append(self._create_hover_text(ssas, str(cat)))
-                            customdata.append(ssas)
+                        # Atualiza o valor da barra para refletir os dados filtrados
+                        if i < len(trace.y):
+                            trace.y[i] = len(ssas)
+
+                        # Texto do hover
+                        ssa_preview = "<br>".join(ssas[:5])
+                        if len(ssas) > 5:
+                            ssa_preview += f"<br>... (+{len(ssas)-5} SSAs)"
+
+                        title_text = str(cat)
+                        if trace.name:
+                            title_text += f" - {trace.name}"
+
+                        hover_text.append(
+                            f"<b>{title_text}</b><br>"
+                            f"Total SSAs: {len(ssas)}<br>"
+                            f"SSAs:<br>{ssa_preview}"
+                        )
+                        customdata.append(ssas)
 
                     trace.update(
+                        text=trace.y,  # Atualiza os rótulos das barras
                         hovertext=hover_text,
                         hoverinfo="text",
                         customdata=customdata,
-                        hoverlabel=dict(
-                            bgcolor="white",
-                            font_size=12,
-                            font_family="Arial"
-                        )
+                        textposition="auto",
+                        hoverlabel=dict(bgcolor="white", font_size=12, font_family="Arial"),
                     )
 
-                    # Configurações para desabilitar zoom com scroll e outras opções
-                    fig.update_layout(
-                        dragmode='pan',
-                        showlegend=True,
-                        legend=dict(
-                            orientation="h",
-                            yanchor="bottom",
-                            y=1.02,
-                            xanchor="right",
-                            x=1
-                        ),
-                        modebar=dict(
-                            remove=['scrollZoom', 'autoScale2d']
-                        ),
-                        xaxis=dict(fixedrange=True),
-                        yaxis=dict(fixedrange=True)
-                    )
+            fig.update_layout(
+                dragmode="pan",
+                showlegend=True,
+                legend=dict(
+                    orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1
+                ),
+                modebar=dict(remove=["scrollZoom", "autoScale2d"]),
+                xaxis=dict(fixedrange=True),
+                yaxis=dict(fixedrange=True),
+            )
 
         except Exception as e:
             logging.error(f"Erro ao melhorar gráfico: {str(e)}")
@@ -309,14 +310,16 @@ class SSADashboard:
         """Cria o gráfico de responsáveis na programação."""
         resp_prog_counts = df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO].value_counts()
 
-        fig = go.Figure(data=[
-            go.Bar(
-                x=resp_prog_counts.index,
-                y=resp_prog_counts.values,
-                text=resp_prog_counts.values,
-                textposition="auto",
-            )
-        ])
+        fig = go.Figure(
+            data=[
+                go.Bar(
+                    x=resp_prog_counts.index,
+                    y=resp_prog_counts.values,
+                    text=resp_prog_counts.values,
+                    textposition="auto",
+                )
+            ]
+        )
 
         fig.update_layout(
             title="SSAs por Responsável na Programação",
@@ -442,30 +445,22 @@ class SSADashboard:
             """Update all charts with filter data."""
             if any([resp_prog, resp_exec, setor_emissor, setor_executor]):
                 self.logger.log_with_ip(
-                    'INFO', 
-                    f'Filtros aplicados - Prog: {resp_prog}, Exec: {resp_exec}, '
-                    f'Emissor: {setor_emissor}, Executor: {setor_executor}'
+                    "INFO",
+                    f"Filtros aplicados - Prog: {resp_prog}, Exec: {resp_exec}, "
+                    f"Emissor: {setor_emissor}, Executor: {setor_executor}",
                 )
 
             df_filtered = self.df.copy()
 
             # Aplicar filtros
             if resp_prog:
-                df_filtered = df_filtered[
-                    df_filtered.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO] == resp_prog
-                ]
+                df_filtered = df_filtered[df_filtered.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO] == resp_prog]
             if resp_exec:
-                df_filtered = df_filtered[
-                    df_filtered.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == resp_exec
-                ]
+                df_filtered = df_filtered[df_filtered.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == resp_exec]
             if setor_emissor:
-                df_filtered = df_filtered[
-                    df_filtered.iloc[:, SSAColumns.SETOR_EMISSOR] == setor_emissor
-                ]
+                df_filtered = df_filtered[df_filtered.iloc[:, SSAColumns.SETOR_EMISSOR] == setor_emissor]
             if setor_executor:
-                df_filtered = df_filtered[
-                    df_filtered.iloc[:, SSAColumns.SETOR_EXECUTOR] == setor_executor
-                ]
+                df_filtered = df_filtered[df_filtered.iloc[:, SSAColumns.SETOR_EXECUTOR] == setor_executor]
 
             # Criar visualizador filtrado
             filtered_visualizer = SSAVisualizer(df_filtered)
@@ -477,24 +472,30 @@ class SSADashboard:
             fig_prog = self._enhance_bar_chart(
                 self._create_resp_prog_chart(df_filtered),
                 "resp_prog",
-                "SSAs por Programador"
+                "SSAs por Programador",
+                df_filtered
             )
+
             fig_exec = self._enhance_bar_chart(
                 self._create_resp_exec_chart(df_filtered),
                 "resp_exec",
-                "SSAs por Executor"
+                "SSAs por Executor",
+                df_filtered
             )
 
             # Gráficos de semana com hover e click
             fig_programmed_week = self._enhance_bar_chart(
                 filtered_visualizer.create_week_chart(use_programmed=True),
                 "week_programmed",
-                "SSAs Programadas"
+                "SSAs Programadas",
+                df_filtered
             )
+
             fig_registration_week = self._enhance_bar_chart(
                 filtered_visualizer.create_week_chart(use_programmed=False),
                 "week_registration",
-                "SSAs Cadastradas"
+                "SSAs Cadastradas",
+                df_filtered
             )
 
             detail_style = {"display": "block"} if any([resp_prog, resp_exec, setor_emissor, setor_executor]) else {"display": "none"}
@@ -502,12 +503,15 @@ class SSADashboard:
             fig_detail_state = self._enhance_bar_chart(
                 self._create_detail_state_chart(df_filtered),
                 "state",
-                "SSAs por Estado"
+                "SSAs por Estado",
+                df_filtered
             )
+
             fig_detail_week = self._enhance_bar_chart(
                 filtered_visualizer.create_week_chart(),
                 "week_detail",
-                "SSAs por Semana"
+                "SSAs por Semana",
+                df_filtered
             )
 
             table_data = self._prepare_table_data(df_filtered)

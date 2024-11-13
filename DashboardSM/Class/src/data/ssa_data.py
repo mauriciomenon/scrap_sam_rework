@@ -49,7 +49,7 @@ class SSAData:
         # Validações específicas
         if not self.numero:
             raise ValueError("Número da SSA não pode ser vazio")
-        
+
         if not self.situacao:
             raise ValueError("Situação não pode ser vazia")
 

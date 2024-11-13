@@ -13,6 +13,8 @@ sys.path.append(current_dir)
 # Imports dos módulos locais
 from src.dashboard.ssa_dashboard import SSADashboard
 from src.data.data_loader import DataLoader
+from src.utils.file_manager import FileManager
+from src.utils.log_manager import LogManager
 
 # Configurações globais
 warnings.filterwarnings("ignore")
@@ -43,12 +45,28 @@ def main():
         # Configura logging
         setup_logging()
 
-        # Configura o caminho do arquivo Excel
-        DATA_FILE_PATH = r"C:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Downloads\SSAs Pendentes Geral - 05-11-2024_0753AM.xlsx"
+        # Configura diretórios e file manager
+        base_dir = Path(os.getcwd())
+        downloads_dir = base_dir / "downloads"
+        downloads_dir.mkdir(exist_ok=True)
 
-        # Cria diretórios necessários
-        for directory in ["logs", "downloads"]:
-            os.makedirs(directory, exist_ok=True)
+        file_manager = FileManager(str(downloads_dir))
+
+        try:
+            # Tenta obter o arquivo mais recente
+            latest_file = file_manager.get_latest_file("ssa_pendentes")
+            file_info = file_manager.get_file_info(latest_file)
+            DATA_FILE_PATH = latest_file  # Usando o caminho completo retornado
+            print(f"\nUsando arquivo: {file_info['name']}")
+            print(
+                f"Última modificação: {file_info['modified'].strftime('%d/%m/%Y %H:%M:%S')}"
+            )
+        except FileNotFoundError:
+            # Fallback para o caminho padrão se não encontrar arquivo
+            DATA_FILE_PATH = os.path.join(
+                str(downloads_dir), "SSAs Pendentes Geral - 05-11-2024_0753AM.xlsx"
+            )
+            print(f"\nUsando arquivo padrão: {os.path.basename(DATA_FILE_PATH)}")
 
         print(
             """

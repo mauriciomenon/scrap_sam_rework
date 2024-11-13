@@ -171,6 +171,9 @@ class SSAVisualizer:
 
         fig = go.Figure()
 
+        # Usar o DataFrame filtrado do visualizador
+        df = self.df
+
         for priority in analysis.columns[2:-1]:  # Exclui year, week e year_week
             fig.add_trace(
                 go.Bar(
@@ -201,7 +204,6 @@ class SSAVisualizer:
 
         return fig
 
-
     def add_weeks_in_state_chart(self) -> go.Figure:
         """Cria gráfico mostrando distribuição de SSAs por tempo no estado."""
         weeks_in_state = self.week_analyzer.calculate_weeks_in_state()
@@ -216,11 +218,14 @@ class SSAVisualizer:
                     chart_type="bar",
                     annotations=[
                         {
-                            "text": "Não há dados válidos disponíveis",
+                            "text": "Clique nas barras para ver detalhes das SSAs",
                             "xref": "paper",
                             "yref": "paper",
+                            "x": 0.98,
+                            "y": 0.02,
                             "showarrow": False,
-                            "font": {"size": 14},
+                            "font": {"size": 10, "color": "gray"},
+                            "xanchor": "right",
                         }
                     ],
                 )
@@ -384,22 +389,27 @@ class WeekAnalyzer:
             SSAColumns.SEMANA_PROGRAMADA if use_programmed else SSAColumns.SEMANA_CADASTRO
         )
 
+        # Usar o DataFrame filtrado aqui
+        df_to_use = self.df
+
         week_data = []
-        for _, row in self.df.iterrows():
+        for _, row in df_to_use.iterrows():  # Usar df_to_use ao invés de self.df
             week_str = str(row.iloc[week_column])
             if len(week_str) == 6:  # Formato correto YYYYWW
                 try:
                     year = int(week_str[:4])
                     week = int(week_str[4:])
 
-                    # Validação básica para evitar semanas inválidas
-                    if week > 0 and week <= 53:  # Semanas válidas são de 1 a 53
+                    if week > 0 and week <= 53:
                         week_data.append(
                             {
                                 "year": year,
                                 "week": week,
                                 "year_week": week_str,
                                 "prioridade": row.iloc[SSAColumns.GRAU_PRIORIDADE_EMISSAO],
+                                "numero_ssa": row.iloc[
+                                    SSAColumns.NUMERO_SSA
+                                ],  # Adicionar número da SSA
                             }
                         )
                 except ValueError:
@@ -409,17 +419,15 @@ class WeekAnalyzer:
             return pd.DataFrame()
 
         df_weeks = pd.DataFrame(week_data)
-        if df_weeks.empty:
-            return df_weeks
 
+        # Agrupar mantendo os números das SSAs
         analysis = (
             df_weeks.groupby(["year", "week", "prioridade"])
-            .size()
-            .unstack(fill_value=0)
+            .agg({"numero_ssa": list, "year_week": "first"})  # Manter lista de SSAs
             .reset_index()
         )
-        analysis["year_week"] = analysis.apply(
-            lambda x: f"{x['year']}{x['week']:02d}", axis=1
-        )
+
+        # Criar contagem
+        analysis["count"] = analysis["numero_ssa"].apply(len)
 
         return analysis.sort_values(["year", "week"])

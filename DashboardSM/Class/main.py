@@ -42,6 +42,7 @@ from src.data.ssa_data import SSAData
 from src.data.ssa_columns import SSAColumns
 from src.utils.log_manager import LogManager
 from src.utils.date_utils import diagnose_dates
+from src.utils.file_manager import FileManager
 
 # Configurações globais
 warnings.filterwarnings("ignore")
@@ -108,6 +109,20 @@ def load_configuration():
 def initialize_dashboard(config):
     """Inicializa o dashboard com as configurações fornecidas."""
     try:
+        # Inicializa o gerenciador de arquivos
+        file_manager = FileManager(os.path.dirname(config["DATA_FILE_PATH"]))
+
+        # Verifica se existe arquivo mais recente
+        try:
+            latest_file = file_manager.get_latest_file("ssa_pendentes")
+            if latest_file != config["DATA_FILE_PATH"]:
+                logger.info(f"Encontrado arquivo mais recente: {latest_file}")
+                config["DATA_FILE_PATH"] = latest_file
+        except FileNotFoundError:
+            logger.warning(
+                "Usando arquivo configurado pois não foi encontrado mais recente"
+            )
+
         # Carrega os dados
         logger.info("Iniciando carregamento dos dados...")
         loader = DataLoader(config["DATA_FILE_PATH"])
