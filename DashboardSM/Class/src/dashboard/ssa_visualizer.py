@@ -151,37 +151,44 @@ class SSAVisualizer:
 
         return fig
 
+
     def create_week_chart(self, use_programmed: bool = True) -> go.Figure:
-        """Cria gráfico de SSAs por semana."""
+        """Cria gráfico de SSAs por semana com dados completos."""
         analysis = self.week_analyzer.analyze_weeks(use_programmed)
 
         if analysis.empty:
             return go.Figure().update_layout(
-                title="SSAs por Semana",
-                annotations=[
-                    {
-                        "text": "Não há dados válidos disponíveis",
-                        "xref": "paper",
-                        "yref": "paper",
-                        "showarrow": False,
-                        "font": {"size": 14},
-                    }
-                ],
+                title=(
+                    "SSAs Programadas por Semana"
+                    if use_programmed
+                    else "SSAs por Semana de Cadastro"
+                )
             )
+
+        # Criar um DataFrame pivotado para mostrar prioridades por semana
+        pivot_data = pd.pivot_table(
+            analysis,
+            values="count",
+            index="year_week",
+            columns="prioridade",
+            fill_value=0,
+            aggfunc="sum",
+        )
 
         fig = go.Figure()
 
-        # Usar o DataFrame filtrado do visualizador
-        df = self.df
-
-        for priority in analysis.columns[2:-1]:  # Exclui year, week e year_week
+        # Adicionar barras para cada prioridade
+        for priority in pivot_data.columns:
             fig.add_trace(
                 go.Bar(
                     name=priority,
-                    x=analysis["year_week"],
-                    y=analysis[priority],
-                    text=analysis[priority],
+                    x=pivot_data.index,
+                    y=pivot_data[priority],
+                    text=pivot_data[priority],
                     textposition="auto",
+                    customdata=analysis[analysis["prioridade"] == priority][
+                        "numero_ssa"
+                    ].tolist(),
                 )
             )
 
@@ -192,20 +199,24 @@ class SSAVisualizer:
         )
 
         fig.update_layout(
-            self._get_standard_layout(
-                title=title_text,
-                xaxis_title="Ano-Semana (ISO)",
-                yaxis_title="Quantidade de SSAs",
-                x_values=analysis["year_week"],
-                chart_type="bar",
-                barmode="stack",
-            )
+            title=title_text,
+            xaxis_title="Ano-Semana (ISO)",
+            yaxis_title="Quantidade de SSAs",
+            template="plotly_white",
+            barmode="stack",
+            showlegend=True,
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+            xaxis={"tickangle": -45},
+            margin={"l": 50, "r": 20, "t": 50, "b": 100},
         )
 
         return fig
 
-    def add_weeks_in_state_chart(self) -> go.Figure:
+    def add_weeks_in_state_chart(self, df_filtered=None) -> go.Figure:
         """Cria gráfico mostrando distribuição de SSAs por tempo no estado."""
+        # Usar DataFrame filtrado se fornecido
+        df_to_use = df_filtered if df_filtered is not None else self.df
+
         weeks_in_state = self.week_analyzer.calculate_weeks_in_state()
         valid_weeks = weeks_in_state.dropna()
 
@@ -216,6 +227,7 @@ class SSAVisualizer:
                     xaxis_title="Semanas no Estado",
                     yaxis_title="Quantidade de SSAs",
                     chart_type="bar",
+                    showlegend=False,
                     annotations=[
                         {
                             "text": "Clique nas barras para ver detalhes das SSAs",
@@ -257,31 +269,29 @@ class SSAVisualizer:
                     else:
                         continue
                 else:
-                    # Se não for um intervalo, trata como valor único
                     try:
                         interval_value = float(interval)
                         mask = weeks_in_state == interval_value
                     except (ValueError, TypeError):
                         continue
 
-                ssas = self.df[mask].iloc[:, SSAColumns.NUMERO_SSA].tolist()
+                # Usar DataFrame filtrado para obter SSAs
+                ssas = df_to_use[mask].iloc[:, SSAColumns.NUMERO_SSA].tolist()
                 ssas_by_interval[str(interval)] = ssas
 
                 ssa_preview = "<br>".join(ssas[:5])
                 if len(ssas) > 5:
                     ssa_preview += f"<br>... (+{len(ssas)-5} SSAs)"
 
+                # Remover número do intervalo do hover
                 hover_text.append(
-                    f"<b>Intervalo:</b> {interval}<br>"
-                    f"<b>Total SSAs:</b> {len(ssas)}<br>"
-                    f"<b>Primeiras SSAs:</b><br>{ssa_preview}"
+                    f"<b>Total SSAs:</b> {len(ssas)}<br>" f"<b>SSAs:</b><br>{ssa_preview}"
                 )
 
             except Exception as e:
                 logging.warning(f"Erro ao processar intervalo {interval}: {str(e)}")
                 continue
 
-        # Remove intervalos vazios ou inválidos
         valid_indices = [
             i for i in range(len(hover_text)) if str(value_counts.index[i]).strip() != ""
         ]
@@ -293,15 +303,7 @@ class SSAVisualizer:
                     xaxis_title="Semanas no Estado",
                     yaxis_title="Quantidade de SSAs",
                     chart_type="bar",
-                    annotations=[
-                        {
-                            "text": "Não há dados válidos disponíveis após filtro",
-                            "xref": "paper",
-                            "yref": "paper",
-                            "showarrow": False,
-                            "font": {"size": 14},
-                        }
-                    ],
+                    showlegend=False,
                 )
             )
 
@@ -318,6 +320,7 @@ class SSAVisualizer:
                     hoverinfo="text",
                     customdata=[list(ssas_by_interval.values())[i] for i in valid_indices],
                     hoverlabel=dict(bgcolor="white", font_size=12, font_family="Arial"),
+                    showlegend=False,
                 )
             ]
         )
@@ -327,10 +330,11 @@ class SSAVisualizer:
 
         fig.update_layout(
             self._get_standard_layout(
-                title=f"Distribuição de SSAs por Tempo no Estado Atual<br><sub>({invalid_count}/{total_count} registros inválidos)</sub>",
+                title="Distribuição de SSAs por Tempo no Estado Atual",
                 xaxis_title="Intervalo de Semanas no Estado",
                 yaxis_title="Quantidade de SSAs",
                 chart_type="bar",
+                showlegend=False,
                 annotations=[
                     {
                         "text": "Clique nas barras para ver detalhes das SSAs",
@@ -384,35 +388,33 @@ class WeekAnalyzer:
 
 
     def analyze_weeks(self, use_programmed: bool = True) -> pd.DataFrame:
-        """Analisa distribuição de SSAs por semana."""
+        """Analisa distribuição de SSAs por semana com validação melhorada."""
         week_column = (
             SSAColumns.SEMANA_PROGRAMADA if use_programmed else SSAColumns.SEMANA_CADASTRO
         )
 
-        # Usar o DataFrame filtrado aqui
-        df_to_use = self.df
-
         week_data = []
-        for _, row in df_to_use.iterrows():  # Usar df_to_use ao invés de self.df
+        for _, row in self.df.iterrows():
             week_str = str(row.iloc[week_column])
-            if len(week_str) == 6:  # Formato correto YYYYWW
+            if pd.notna(week_str) and week_str != "None" and week_str != "":
                 try:
-                    year = int(week_str[:4])
-                    week = int(week_str[4:])
+                    if len(week_str) == 6:  # Formato correto YYYYWW
+                        year = int(week_str[:4])
+                        week = int(week_str[4:])
 
-                    if week > 0 and week <= 53:
-                        week_data.append(
-                            {
-                                "year": year,
-                                "week": week,
-                                "year_week": week_str,
-                                "prioridade": row.iloc[SSAColumns.GRAU_PRIORIDADE_EMISSAO],
-                                "numero_ssa": row.iloc[
-                                    SSAColumns.NUMERO_SSA
-                                ],  # Adicionar número da SSA
-                            }
-                        )
-                except ValueError:
+                        if 0 < week <= 53 and 2000 <= year <= 2100:  # Validação básica
+                            week_data.append(
+                                {
+                                    "year": year,
+                                    "week": week,
+                                    "year_week": week_str,
+                                    "prioridade": row.iloc[
+                                        SSAColumns.GRAU_PRIORIDADE_EMISSAO
+                                    ],
+                                    "numero_ssa": row.iloc[SSAColumns.NUMERO_SSA],
+                                }
+                            )
+                except (ValueError, TypeError):
                     continue
 
         if not week_data:
@@ -420,14 +422,17 @@ class WeekAnalyzer:
 
         df_weeks = pd.DataFrame(week_data)
 
-        # Agrupar mantendo os números das SSAs
+        # Organizar os dados
         analysis = (
-            df_weeks.groupby(["year", "week", "prioridade"])
-            .agg({"numero_ssa": list, "year_week": "first"})  # Manter lista de SSAs
+            df_weeks.groupby(["year_week", "prioridade"])
+            .agg({"numero_ssa": lambda x: list(x), "year": "first", "week": "first"})
             .reset_index()
         )
 
-        # Criar contagem
-        analysis["count"] = analysis["numero_ssa"].apply(len)
+        # Adicionar contagem
+        analysis["count"] = analysis["numero_ssa"].str.len()
 
-        return analysis.sort_values(["year", "week"])
+        # Ordenar por ano e semana
+        analysis = analysis.sort_values(["year", "week"])
+
+        return analysis

@@ -213,7 +213,6 @@ class SSADashboard:
             })
         ])
 
-
     def _enhance_bar_chart(self, fig, chart_type, title, df_filtered=None):
         """Enhances bar chart with hover info and clickable data."""
         df_to_use = df_filtered if df_filtered is not None else self.df
@@ -376,15 +375,18 @@ class SSADashboard:
             "APL": "#6c757d",  # Cinza
         }
 
-        fig = go.Figure(data=[
-            go.Bar(
-                x=state_counts.index,
-                y=state_counts.values,
-                text=state_counts.values,
-                textposition="auto",
-                marker_color=[state_colors.get(state, "#6c757d") for state in state_counts.index]
-            )
-        ])
+        fig = go.Figure(
+            data=[
+                go.Bar(
+                    x=state_counts.index,
+                    y=state_counts.values,
+                    text=state_counts.values,
+                    textposition="auto",
+                    showlegend=False,
+                    marker_color="rgb(64, 83, 177)",
+                )
+            ]
+        )
 
         fig.update_layout(
             title="SSAs Pendentes por Estado",
@@ -478,7 +480,7 @@ class SSADashboard:
 
             fig_exec = self._enhance_bar_chart(
                 self._create_resp_exec_chart(df_filtered),
-                "resp_exec",
+                "resp_exec", 
                 "SSAs por Executor",
                 df_filtered
             )
