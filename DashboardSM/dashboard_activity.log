@@ -3007,3 +3007,22 @@
 2024-11-14 14:22:43,472 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
 2024-11-14 14:23:11,412 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
 2024-11-14 14:23:21,424 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-14 14:23:25,471 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-14 14:23:43,194 - DashboardLogger - INFO - IP: 172.19.73.38 - Nova conexão de IP: 172.19.73.38
+2024-11-14 14:23:43,195 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 14:23:43,265 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-layout
+2024-11-14 14:23:43,271 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-dependencies
+2024-11-14 14:23:43,446 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 14:25:10,234 - DashboardLogger - INFO - IP: 172.19.73.38 - Visualização de SSAs: SSAs no intervalo 41
+2024-11-14 14:25:32,134 - DashboardLogger - INFO - IP: 172.19.73.38 - Visualização de SSAs: SSAs no intervalo 34
+2024-11-14 14:25:39,043 - DashboardLogger - INFO - IP: 172.19.73.38 - Visualização de SSAs: SSAs no intervalo 27
+2024-11-14 14:28:44,196 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 14:28:44,197 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 14:28:46,184 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 14:33:46,190 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 14:38:44,199 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 14:38:44,201 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 14:38:46,190 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 14:43:45,204 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 14:43:45,205 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 14:43:46,198 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
