@@ -3216,3 +3216,19 @@
 2024-11-14 16:42:49,391 - DashboardLogger - INFO - IP: 172.19.73.38 - Visualização de SSAs: SSAs do executor CASTILLO CENTURION ELIAS FRANCISCO
 2024-11-14 16:43:08,230 - DashboardLogger - INFO - IP: 172.19.73.38 - Visualização de SSAs: SSAs do executor MAURICIO MENON
 2024-11-14 16:43:25,189 - DashboardLogger - INFO - IP: 172.19.73.38 - Visualização de SSAs: SSAs no intervalo 27 semanas
+2024-11-14 16:48:53,673 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-14 16:48:56,823 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-14 16:48:59,427 - DashboardLogger - INFO - IP: 172.19.73.38 - Nova conexão de IP: 172.19.73.38
+2024-11-14 16:48:59,428 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /
+2024-11-14 16:48:59,732 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-layout
+2024-11-14 16:48:59,739 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-dependencies
+2024-11-14 16:48:59,749 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_favicon.ico
+2024-11-14 16:48:59,807 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dcc/async-dropdown.js
+2024-11-14 16:48:59,835 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dcc/async-graph.js
+2024-11-14 16:48:59,839 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/plotly/package_data/plotly.min.js
+2024-11-14 16:48:59,862 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-highlight.js
+2024-11-14 16:48:59,863 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-table.js
+2024-11-14 16:48:59,923 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 16:49:02,796 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 16:49:05,421 - DashboardLogger - INFO - IP: 172.19.73.38 - Visualização de SSAs: SSAs cadastradas na semana 202352
+2024-11-14 16:49:17,418 - DashboardLogger - INFO - IP: 172.19.73.38 - Visualização de SSAs: SSAs cadastradas na semana 202327
