@@ -3048,3 +3048,39 @@
 2024-11-14 14:54:14,987 - DashboardLogger - INFO - IP: 172.19.73.38 - Filtros aplicados - Prog: None, Exec: None, Emissor: IEE1, Executor: IEE3
 2024-11-14 14:54:31,160 - DashboardLogger - INFO - IP: 172.19.73.38 - Filtros aplicados - Prog: None, Exec: None, Emissor: None, Executor: IEE3
 2024-11-14 14:54:35,290 - DashboardLogger - INFO - IP: 172.19.73.38 - Filtros aplicados - Prog: MAURICIO MENON, Exec: None, Emissor: None, Executor: None
+2024-11-14 14:56:20,210 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 14:56:43,218 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 15:01:20,205 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 15:02:43,218 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 15:06:21,219 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 15:06:21,221 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 15:08:43,223 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 15:11:44,215 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 15:11:44,216 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 15:13:43,225 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 15:19:43,228 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 15:21:44,216 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 15:21:44,216 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 15:24:43,230 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 15:26:44,219 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 15:26:44,220 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 15:29:43,230 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 15:35:43,235 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 15:36:44,227 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 15:36:44,228 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 15:41:43,235 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 15:46:43,239 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 15:46:44,234 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 15:46:44,235 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 15:51:43,247 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 15:53:07,614 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-14 15:53:12,238 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-14 15:53:43,243 - DashboardLogger - INFO - IP: 172.19.73.38 - Nova conexão de IP: 172.19.73.38
+2024-11-14 15:53:43,244 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 15:53:43,315 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-dependencies
+2024-11-14 15:53:43,317 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-layout
+2024-11-14 15:53:43,502 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 15:57:12,878 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-14 15:57:16,644 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-14 15:57:25,310 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-14 15:57:39,116 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard

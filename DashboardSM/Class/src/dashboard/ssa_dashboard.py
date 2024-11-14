@@ -1650,3 +1650,23 @@ class SSADashboard:
             if n:  # Só atualiza após o primeiro intervalo
                 self.logger.log_with_ip("INFO", "Atualização automática dos dados")
             return {}
+
+
+    def _create_empty_chart(self, title: str) -> go.Figure:
+        """Creates an empty chart with a title when no data is available."""
+        return go.Figure().update_layout(
+            title=title,
+            xaxis_title="",
+            yaxis_title="",
+            annotations=[
+                {
+                    "text": "Nenhum dado disponível para os filtros selecionados",
+                    "xref": "paper",
+                    "yref": "paper",
+                    "showarrow": False,
+                    "font": {"size": 14},
+                    "x": 0.5,
+                    "y": 0.5,
+                }
+            ],
+        )

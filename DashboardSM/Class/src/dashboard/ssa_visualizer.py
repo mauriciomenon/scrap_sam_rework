@@ -226,12 +226,10 @@ class SSAVisualizer:
 
         if max_weeks > 50:
             bins = list(range(0, int(max_weeks) + 10, 10))
-            # Criar rótulos mais descritivos
             labels = [f"{bins[i]}-{bins[i+1]-1} semanas" for i in range(len(bins) - 1)]
             binned_data = pd.cut(value_counts.index, bins=bins, labels=labels, right=False)
             value_counts = value_counts.groupby(binned_data).sum()
         else:
-            # Para intervalos menores, usar semanas individuais
             value_counts.index = [f"{int(x)} semanas" for x in value_counts.index]
 
         hover_text = []
@@ -347,7 +345,6 @@ class WeekAnalyzer:
             lambda x: max(0, current_week - x) if x is not None else None
         )
 
-
     def analyze_weeks(self, use_programmed: bool = True) -> pd.DataFrame:
         """Analisa distribuição de SSAs por semana com validação melhorada."""
         week_column = (
@@ -397,3 +394,23 @@ class WeekAnalyzer:
         analysis = analysis.sort_values(["year", "week"])
 
         return analysis
+
+
+    def _create_empty_chart(self) -> go.Figure:
+        """Creates an empty chart with a title when no data is available."""
+        return go.Figure().update_layout(
+            title="Distribuição de SSAs por Tempo no Estado Atual",
+            xaxis_title="",
+            yaxis_title="",
+            annotations=[
+                {
+                    "text": "Nenhum dado disponível para os filtros selecionados",
+                    "xref": "paper",
+                    "yref": "paper",
+                    "showarrow": False,
+                    "font": {"size": 14},
+                    "x": 0.5,
+                    "y": 0.5,
+                }
+            ],
+        )
