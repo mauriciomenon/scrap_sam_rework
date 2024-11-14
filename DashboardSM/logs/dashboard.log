@@ -27878,3 +27878,23 @@ Responsável Programação: 'VILLAR RIVAS ALBERTO'
 2024-11-14 14:45:55,072 - root - INFO - ssas_sem_responsavel: 40
 2024-11-14 14:45:55,072 - root - INFO - setores_executores: 1
 2024-11-14 14:45:55,099 - DashboardLogger - INFO - Iniciando servidor do dashboard
+2024-11-14 14:46:19,277 - DashboardLogger - INFO - Nova conexão de IP: 172.19.73.38
+2024-11-14 14:46:19,278 - DashboardLogger - INFO - Acesso à rota: /_reload-hash
+2024-11-14 14:46:19,362 - DashboardLogger - INFO - Acesso à rota: /_dash-layout
+2024-11-14 14:46:19,364 - DashboardLogger - INFO - Acesso à rota: /_dash-dependencies
+2024-11-14 14:46:19,543 - DashboardLogger - INFO - Acesso à rota: /_dash-update-component
+2024-11-14 14:46:33,621 - DashboardLogger - INFO - Visualização de SSAs: SSAs no intervalo 27 semanas
+2024-11-14 14:46:45,249 - DashboardLogger - INFO - Visualização de SSAs: SSAs cadastradas na semana 202352
+2024-11-14 14:50:13,066 - DashboardLogger - INFO - Visualização de SSAs: SSAs cadastradas na semana 202344
+2024-11-14 14:50:25,250 - DashboardLogger - INFO - Visualização de SSAs: SSAs programadas na semana 202401
+2024-11-14 14:50:34,213 - DashboardLogger - INFO - Visualização de SSAs: SSAs no intervalo 34 semanas
+2024-11-14 14:50:52,854 - DashboardLogger - INFO - Filtros aplicados - Prog: None, Exec: MAURICIO MENON, Emissor: None, Executor: None
+2024-11-14 14:51:19,476 - DashboardLogger - INFO - Atualização automática dos dados
+2024-11-14 14:51:21,331 - DashboardLogger - INFO - Acesso à rota: /_reload-hash
+2024-11-14 14:53:47,624 - DashboardLogger - INFO - Acesso à rota: /_dash-update-component
+2024-11-14 14:53:49,869 - DashboardLogger - INFO - Filtros aplicados - Prog: CARLOS RONEI ORTIZ, Exec: None, Emissor: None, Executor: None
+2024-11-14 14:53:53,551 - DashboardLogger - INFO - Filtros aplicados - Prog: CASTILLO CENTURION ELIAS FRANCISCO, Exec: None, Emissor: None, Executor: None
+2024-11-14 14:54:06,647 - DashboardLogger - INFO - Filtros aplicados - Prog: None, Exec: None, Emissor: IEE1, Executor: None
+2024-11-14 14:54:14,987 - DashboardLogger - INFO - Filtros aplicados - Prog: None, Exec: None, Emissor: IEE1, Executor: IEE3
+2024-11-14 14:54:31,160 - DashboardLogger - INFO - Filtros aplicados - Prog: None, Exec: None, Emissor: None, Executor: IEE3
+2024-11-14 14:54:35,290 - DashboardLogger - INFO - Filtros aplicados - Prog: MAURICIO MENON, Exec: None, Emissor: None, Executor: None
