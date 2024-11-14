@@ -30644,3 +30644,22 @@ Responsável Programação: 'VILLAR RIVAS ALBERTO'
 2024-11-14 15:57:43,786 - root - INFO - ssas_sem_responsavel: 40
 2024-11-14 15:57:43,786 - root - INFO - setores_executores: 1
 2024-11-14 15:57:43,811 - DashboardLogger - INFO - Iniciando servidor do dashboard
+2024-11-14 15:57:48,638 - DashboardLogger - INFO - Nova conexão de IP: 172.19.73.38
+2024-11-14 15:57:48,639 - DashboardLogger - INFO - Acesso à rota: /_reload-hash
+2024-11-14 15:57:48,717 - DashboardLogger - INFO - Acesso à rota: /_dash-layout
+2024-11-14 15:57:48,718 - DashboardLogger - INFO - Acesso à rota: /_dash-dependencies
+2024-11-14 15:57:48,879 - DashboardLogger - INFO - Acesso à rota: /_dash-update-component
+2024-11-14 15:58:02,592 - DashboardLogger - INFO - Visualização de SSAs: SSAs no intervalo 27 semanas
+2024-11-14 15:59:41,631 - DashboardLogger - INFO - Visualização de SSAs: SSAs programadas na semana 202401
+2024-11-14 15:59:50,422 - DashboardLogger - INFO - Filtros aplicados - Prog: MAURICIO MENON, Exec: None, Emissor: None, Executor: None
+2024-11-14 16:00:07,808 - DashboardLogger - INFO - Filtros aplicados - Prog: MAURICIO MENON, Exec: MAURICIO MENON, Emissor: None, Executor: None
+2024-11-14 16:00:27,157 - DashboardLogger - INFO - Visualização de SSAs: SSAs programadas na semana 202444
+2024-11-14 16:00:53,898 - DashboardLogger - INFO - Filtros aplicados - Prog: MAURICIO MENON, Exec: MAURICIO MENON, Emissor: IEE1, Executor: None
+2024-11-14 16:01:21,975 - DashboardLogger - INFO - Visualização de SSAs: SSAs do executor MAURICIO MENON
+2024-11-14 16:01:28,984 - DashboardLogger - INFO - Filtros aplicados - Prog: MAURICIO MENON, Exec: MAURICIO MENON, Emissor: IEE1, Executor: IEE3
+2024-11-14 16:01:38,506 - DashboardLogger - INFO - Filtros aplicados - Prog: MAURICIO MENON, Exec: None, Emissor: IEE1, Executor: IEE3
+2024-11-14 16:01:39,920 - DashboardLogger - INFO - Filtros aplicados - Prog: None, Exec: None, Emissor: IEE1, Executor: IEE3
+2024-11-14 16:02:49,259 - DashboardLogger - INFO - Acesso à rota: /_reload-hash
+2024-11-14 16:02:49,260 - DashboardLogger - INFO - Acesso à rota: /_dash-update-component
+2024-11-14 16:02:49,261 - DashboardLogger - INFO - Atualização automática dos dados
+2024-11-14 16:05:09,601 - DashboardLogger - INFO - Visualização de SSAs: SSAs cadastradas na semana 202421
