@@ -3104,3 +3104,14 @@
 2024-11-14 16:02:49,260 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
 2024-11-14 16:02:49,261 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
 2024-11-14 16:05:09,601 - DashboardLogger - INFO - IP: 172.19.73.38 - Visualização de SSAs: SSAs cadastradas na semana 202421
+2024-11-14 16:06:37,945 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /
+2024-11-14 16:06:38,238 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-layout
+2024-11-14 16:06:38,244 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-dependencies
+2024-11-14 16:06:38,248 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_favicon.ico
+2024-11-14 16:06:38,310 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dcc/async-dropdown.js
+2024-11-14 16:06:38,338 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dcc/async-graph.js
+2024-11-14 16:06:38,340 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/plotly/package_data/plotly.min.js
+2024-11-14 16:06:38,377 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-table.js
+2024-11-14 16:06:38,384 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-highlight.js
+2024-11-14 16:08:43,257 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 16:10:54,794 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard

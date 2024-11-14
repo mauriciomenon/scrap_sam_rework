@@ -180,38 +180,87 @@ class SSADashboard:
             f"<b>Primeiras SSAs:</b><br>{ssa_preview}"
         )
 
+
     def _create_ssa_list(self, ssas):
-        """Creates clickable SSA list for modal."""
+        """Creates clickable SSA list with copy and link functionality."""
         if not ssas or len(ssas) == 0:
             return html.Div("Nenhuma SSA encontrada para este período/categoria.")
 
-        return html.Div([
-            html.Div([
-                html.Span(
-                    str(ssa),  # Garante que é string
+        return html.Div(
+            [
+                html.Button(
+                    f"Copiar todas as SSAs ({len(ssas)})",
+                    id="copy-all-button",
+                    n_clicks=0,
                     style={
+                        "marginBottom": "10px",
+                        "padding": "5px 10px",
+                        "backgroundColor": "#f8f9fa",
+                        "border": "1px solid #dee2e6",
+                        "borderRadius": "4px",
                         "cursor": "pointer",
-                        "padding": "5px",
-                        "margin": "2px",
-                        "background": "#f8f9fa",
-                        "border-radius": "3px",
-                        "display": "inline-block",
-                        "transition": "background-color 0.2s",
-                        "user-select": "all",  # Permite selecionar todo o texto
                     },
-                    className="ssa-chip",
-                    id={"type": "ssa-number", "index": i},
-                    title="Clique para copiar"
-                ) for i, ssa in enumerate(ssas) if ssa
-            ], style={
-                "max-height": "500px",
-                "overflow-y": "auto",
-                "padding": "10px",
-                "display": "flex",
-                "flex-wrap": "wrap",
-                "gap": "5px",
-            })
-        ])
+                ),
+                html.Div(
+                    ",".join(str(ssa) for ssa in ssas),
+                    id="all-ssas-text",
+                    style={"display": "none"},
+                ),
+                html.Div(
+                    [
+                        html.Div(
+                            [
+                                html.A(
+                                    str(ssa),
+                                    href=f"https://osprd.itaipu/SAM_SMA/SSAPublicView.aspx?SerialNumber={ssa}&language=pt",
+                                    target="_blank",
+                                    style={
+                                        "textDecoration": "none",
+                                        "color": "inherit",
+                                        "display": "inline-block",
+                                        "width": "100%",
+                                        "height": "100%",
+                                    },
+                                ),
+                                html.Button(
+                                    "📋",
+                                    style={
+                                        "marginLeft": "5px",
+                                        "cursor": "pointer",
+                                        "border": "none",
+                                        "background": "none",
+                                        "padding": "0 5px",
+                                    },
+                                    **{
+                                        "data-clipboard": str(ssa)
+                                    },  # For copy functionality
+                                ),
+                            ],
+                            style={
+                                "padding": "5px",
+                                "margin": "2px",
+                                "background": "#f8f9fa",
+                                "borderRadius": "3px",
+                                "display": "flex",
+                                "alignItems": "center",
+                                "justifyContent": "space-between",
+                                "transition": "background-color 0.2s",
+                            },
+                        )
+                        for ssa in ssas
+                        if ssa
+                    ],
+                    style={
+                        "maxHeight": "500px",
+                        "overflowY": "auto",
+                        "padding": "10px",
+                        "display": "flex",
+                        "flexDirection": "column",
+                        "gap": "5px",
+                    },
+                ),
+            ]
+        )
 
     def _enhance_bar_chart(self, fig, chart_type, title, df_filtered=None):
         """Enhances bar chart with hover info and clickable data."""
@@ -1650,7 +1699,6 @@ class SSADashboard:
             if n:  # Só atualiza após o primeiro intervalo
                 self.logger.log_with_ip("INFO", "Atualização automática dos dados")
             return {}
-
 
     def _create_empty_chart(self, title: str) -> go.Figure:
         """Creates an empty chart with a title when no data is available."""
