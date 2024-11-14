@@ -151,7 +151,6 @@ class SSAVisualizer:
 
         return fig
 
-
     def create_week_chart(self, use_programmed: bool = True) -> go.Figure:
         """Cria gráfico de SSAs por semana com dados completos."""
         analysis = self.week_analyzer.analyze_weeks(use_programmed)
@@ -212,46 +211,28 @@ class SSAVisualizer:
 
         return fig
 
+
     def add_weeks_in_state_chart(self, df_filtered=None) -> go.Figure:
         """Cria gráfico mostrando distribuição de SSAs por tempo no estado."""
-        # Usar DataFrame filtrado se fornecido
         df_to_use = df_filtered if df_filtered is not None else self.df
-
         weeks_in_state = self.week_analyzer.calculate_weeks_in_state()
         valid_weeks = weeks_in_state.dropna()
 
         if valid_weeks.empty:
-            return go.Figure().update_layout(
-                self._get_standard_layout(
-                    title="Distribuição de SSAs por Tempo no Estado Atual",
-                    xaxis_title="Semanas no Estado",
-                    yaxis_title="Quantidade de SSAs",
-                    chart_type="bar",
-                    showlegend=False,
-                    annotations=[
-                        {
-                            "text": "Clique nas barras para ver detalhes das SSAs",
-                            "xref": "paper",
-                            "yref": "paper",
-                            "x": 0.98,
-                            "y": 0.02,
-                            "showarrow": False,
-                            "font": {"size": 10, "color": "gray"},
-                            "xanchor": "right",
-                        }
-                    ],
-                )
-            )
+            return self._create_empty_chart()
 
-        # Agrupa em intervalos de semanas
         value_counts = valid_weeks.value_counts().sort_index()
         max_weeks = value_counts.index.max()
 
         if max_weeks > 50:
             bins = list(range(0, int(max_weeks) + 10, 10))
-            labels = [f"{bins[i]}-{bins[i+1]-1}" for i in range(len(bins) - 1)]
+            # Criar rótulos mais descritivos
+            labels = [f"{bins[i]}-{bins[i+1]-1} semanas" for i in range(len(bins) - 1)]
             binned_data = pd.cut(value_counts.index, bins=bins, labels=labels, right=False)
             value_counts = value_counts.groupby(binned_data).sum()
+        else:
+            # Para intervalos menores, usar semanas individuais
+            value_counts.index = [f"{int(x)} semanas" for x in value_counts.index]
 
         hover_text = []
         ssas_by_interval = {}
@@ -262,20 +243,12 @@ class SSAVisualizer:
 
             try:
                 if isinstance(interval, str) and "-" in interval:
-                    parts = interval.split("-")
-                    if len(parts) == 2 and parts[0].strip() and parts[1].strip():
-                        start, end = map(int, parts)
-                        mask = (weeks_in_state >= start) & (weeks_in_state <= end)
-                    else:
-                        continue
+                    start, end = map(lambda x: int(x.split()[0]), interval.split("-"))
+                    mask = (weeks_in_state >= start) & (weeks_in_state <= end)
                 else:
-                    try:
-                        interval_value = float(interval)
-                        mask = weeks_in_state == interval_value
-                    except (ValueError, TypeError):
-                        continue
+                    weeks = int(interval.split()[0])
+                    mask = weeks_in_state == weeks
 
-                # Usar DataFrame filtrado para obter SSAs
                 ssas = df_to_use[mask].iloc[:, SSAColumns.NUMERO_SSA].tolist()
                 ssas_by_interval[str(interval)] = ssas
 
@@ -283,9 +256,10 @@ class SSAVisualizer:
                 if len(ssas) > 5:
                     ssa_preview += f"<br>... (+{len(ssas)-5} SSAs)"
 
-                # Remover número do intervalo do hover
                 hover_text.append(
-                    f"<b>Total SSAs:</b> {len(ssas)}<br>" f"<b>SSAs:</b><br>{ssa_preview}"
+                    f"<b>{interval}</b><br>"
+                    f"<b>Total SSAs:</b> {len(ssas)}<br>"
+                    f"<b>SSAs:</b><br>{ssa_preview}"
                 )
 
             except Exception as e:
@@ -297,15 +271,7 @@ class SSAVisualizer:
         ]
 
         if not valid_indices:
-            return go.Figure().update_layout(
-                self._get_standard_layout(
-                    title="Distribuição de SSAs por Tempo no Estado Atual",
-                    xaxis_title="Semanas no Estado",
-                    yaxis_title="Quantidade de SSAs",
-                    chart_type="bar",
-                    showlegend=False,
-                )
-            )
+            return self._create_empty_chart()
 
         fig = go.Figure(
             [
@@ -325,32 +291,27 @@ class SSAVisualizer:
             ]
         )
 
-        invalid_count = weeks_in_state.isna().sum()
-        total_count = len(weeks_in_state)
-
         fig.update_layout(
-            self._get_standard_layout(
-                title="Distribuição de SSAs por Tempo no Estado Atual",
-                xaxis_title="Intervalo de Semanas no Estado",
-                yaxis_title="Quantidade de SSAs",
-                chart_type="bar",
-                showlegend=False,
-                annotations=[
-                    {
-                        "text": "Clique nas barras para ver detalhes das SSAs",
-                        "xref": "paper",
-                        "yref": "paper",
-                        "x": 0.98,
-                        "y": 0.02,
-                        "showarrow": False,
-                        "font": {"size": 10, "color": "gray"},
-                        "xanchor": "right",
-                    }
-                ],
-            )
+            title="Distribuição de SSAs por Tempo no Estado Atual",
+            xaxis_title="Tempo no Estado",
+            yaxis_title="Quantidade de SSAs",
+            template="plotly_white",
+            showlegend=False,
+            xaxis={"tickangle": -45},
+            margin={"l": 50, "r": 20, "t": 50, "b": 100},
+            annotations=[
+                {
+                    "text": "Clique nas barras para ver detalhes das SSAs",
+                    "xref": "paper",
+                    "yref": "paper",
+                    "x": 0.98,
+                    "y": 0.02,
+                    "showarrow": False,
+                    "font": {"size": 10, "color": "gray"},
+                    "xanchor": "right",
+                }
+            ],
         )
-
-        fig.update_traces(hovertemplate=None, hoverlabel_align="left")
 
         return fig
 
