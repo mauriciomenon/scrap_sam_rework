@@ -3115,3 +3115,104 @@
 2024-11-14 16:06:38,384 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-highlight.js
 2024-11-14 16:08:43,257 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
 2024-11-14 16:10:54,794 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-14 16:11:07,544 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-14 16:11:12,855 - DashboardLogger - INFO - IP: 172.19.73.38 - Nova conexão de IP: 172.19.73.38
+2024-11-14 16:11:12,855 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 16:11:12,939 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-dependencies
+2024-11-14 16:11:12,940 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-layout
+2024-11-14 16:11:13,093 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 16:11:17,970 - DashboardLogger - INFO - IP: 172.19.73.38 - Visualização de SSAs: SSAs do executor CASTILLO CENTURION ELIAS FRANCISCO
+2024-11-14 16:14:35,961 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /
+2024-11-14 16:14:36,234 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_favicon.ico
+2024-11-14 16:14:36,298 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dcc/async-dropdown.js
+2024-11-14 16:14:36,329 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dcc/async-graph.js
+2024-11-14 16:14:36,330 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/plotly/package_data/plotly.min.js
+2024-11-14 16:14:36,366 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-highlight.js
+2024-11-14 16:14:36,375 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-table.js
+2024-11-14 16:14:48,137 - DashboardLogger - INFO - IP: 172.19.73.38 - Visualização de SSAs: SSAs do executor MAURICIO MENON
+2024-11-14 16:15:01,874 - DashboardLogger - INFO - IP: 172.19.73.38 - Filtros aplicados - Prog: None, Exec: MAURICIO MENON, Emissor: None, Executor: None
+2024-11-14 16:16:15,222 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 16:16:30,690 - DashboardLogger - INFO - IP: 172.30.65.112 - Nova conexão de IP: 172.30.65.112
+2024-11-14 16:16:30,691 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /
+2024-11-14 16:16:31,179 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/deps/polyfill@7.v2_14_1m1731335188.12.1.min.js
+2024-11-14 16:16:31,182 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/deps/react@16.v2_14_1m1731335189.14.0.js
+2024-11-14 16:16:31,183 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/deps/react-dom@16.v2_14_1m1731335189.14.0.js
+2024-11-14 16:16:31,191 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/deps/prop-types@15.v2_14_1m1731335188.8.1.js
+2024-11-14 16:16:31,191 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/dash-renderer/build/dash_renderer.v2_14_1m1731335188.dev.js
+2024-11-14 16:16:31,193 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash_bootstrap_components/_components/dash_bootstrap_components.v1_5_0m1731335207.min.js
+2024-11-14 16:16:31,918 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/dcc/dash_core_components.v2_12_1m1731335188.js
+2024-11-14 16:16:31,918 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/dcc/dash_core_components-shared.v2_12_1m1731335188.js
+2024-11-14 16:16:31,919 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/html/dash_html_components.v2_0_15m1731335189.min.js
+2024-11-14 16:16:32,000 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/dash_table/bundle.v5_2_8m1731335188.js
+2024-11-14 16:16:33,349 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-layout
+2024-11-14 16:16:33,351 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-dependencies
+2024-11-14 16:16:33,352 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_favicon.ico
+2024-11-14 16:16:33,416 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/dcc/async-dropdown.js
+2024-11-14 16:16:33,447 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/dcc/async-graph.js
+2024-11-14 16:16:33,455 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/plotly/package_data/plotly.min.js
+2024-11-14 16:16:33,510 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-highlight.js
+2024-11-14 16:16:33,527 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-table.js
+2024-11-14 16:16:33,655 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-update-component
+2024-11-14 16:16:35,457 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 16:16:36,360 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_reload-hash
+2024-11-14 16:17:33,700 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/dcc/dash_core_components.js.map
+2024-11-14 16:17:34,017 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/dcc/dash_core_components-shared.js.map
+2024-11-14 16:17:34,026 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/html/dash_html_components.min.js.map
+2024-11-14 16:17:34,027 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/dash_table/bundle.js.map
+2024-11-14 16:17:34,060 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/dcc/async-graph.js.map
+2024-11-14 16:17:34,084 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/dcc/async-dropdown.js.map
+2024-11-14 16:17:34,182 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-highlight.js.map
+2024-11-14 16:17:34,213 - DashboardLogger - INFO - IP: 172.30.65.112 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-table.js.map
+2024-11-14 16:19:36,330 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 16:25:29,846 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-14 16:25:32,224 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-14 16:25:39,574 - DashboardLogger - INFO - IP: 172.19.73.38 - Nova conexão de IP: 172.19.73.38
+2024-11-14 16:25:39,575 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /
+2024-11-14 16:25:39,623 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/deps/polyfill@7.v2_14_1m1731335188.12.1.min.js
+2024-11-14 16:25:39,642 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/deps/react@16.v2_14_1m1731335189.14.0.js
+2024-11-14 16:25:39,695 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/deps/react-dom@16.v2_14_1m1731335189.14.0.js
+2024-11-14 16:25:39,697 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/deps/prop-types@15.v2_14_1m1731335188.8.1.js
+2024-11-14 16:25:39,702 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash_bootstrap_components/_components/dash_bootstrap_components.v1_5_0m1731335207.min.js
+2024-11-14 16:25:39,703 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dash-renderer/build/dash_renderer.v2_14_1m1731335188.dev.js
+2024-11-14 16:25:40,001 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dcc/dash_core_components.v2_12_1m1731335188.js
+2024-11-14 16:25:40,018 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dcc/dash_core_components-shared.v2_12_1m1731335188.js
+2024-11-14 16:25:40,024 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/html/dash_html_components.v2_0_15m1731335189.min.js
+2024-11-14 16:25:40,033 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dash_table/bundle.v5_2_8m1731335188.js
+2024-11-14 16:25:41,379 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-layout
+2024-11-14 16:25:41,381 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-dependencies
+2024-11-14 16:25:41,384 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_favicon.ico
+2024-11-14 16:25:41,457 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dcc/async-dropdown.js
+2024-11-14 16:25:41,474 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/plotly/package_data/plotly.min.js
+2024-11-14 16:25:41,475 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dcc/async-graph.js
+2024-11-14 16:25:41,515 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-highlight.js
+2024-11-14 16:25:41,524 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-table.js
+2024-11-14 16:25:41,527 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 16:25:44,377 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 16:30:41,516 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 16:30:44,380 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 16:35:42,262 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 16:35:42,263 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 16:35:45,255 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 16:40:54,213 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dcc/async-dropdown.js
+2024-11-14 16:40:54,236 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dcc/async-graph.js
+2024-11-14 16:40:54,245 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/plotly/package_data/plotly.min.js
+2024-11-14 16:40:54,693 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 16:40:55,087 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-highlight.js
+2024-11-14 16:40:55,090 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-component-suites/dash/dash_table/async-table.js
+2024-11-14 16:40:57,554 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 16:41:49,355 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-14 16:41:49,538 - DashboardLogger - INFO - IP: 172.19.73.38 - Nova conexão de IP: 172.19.73.38
+2024-11-14 16:41:49,539 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 16:41:49,595 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-dependencies
+2024-11-14 16:41:49,596 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-layout
+2024-11-14 16:41:49,858 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 16:41:57,236 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-14 16:42:32,343 - DashboardLogger - INFO - IP: system - Iniciando servidor do dashboard
+2024-11-14 16:42:43,280 - DashboardLogger - INFO - IP: 172.19.73.38 - Nova conexão de IP: 172.19.73.38
+2024-11-14 16:42:43,281 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 16:42:43,339 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-layout
+2024-11-14 16:42:43,344 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-dependencies
+2024-11-14 16:42:43,606 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 16:42:49,391 - DashboardLogger - INFO - IP: 172.19.73.38 - Visualização de SSAs: SSAs do executor CASTILLO CENTURION ELIAS FRANCISCO
+2024-11-14 16:43:08,230 - DashboardLogger - INFO - IP: 172.19.73.38 - Visualização de SSAs: SSAs do executor MAURICIO MENON
+2024-11-14 16:43:25,189 - DashboardLogger - INFO - IP: 172.19.73.38 - Visualização de SSAs: SSAs no intervalo 27 semanas

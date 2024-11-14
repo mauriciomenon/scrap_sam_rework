@@ -31449,3 +31449,2844 @@ Responsável Programação: 'VILLAR RIVAS ALBERTO'
 2024-11-14 16:11:07,519 - root - INFO - ssas_sem_responsavel: 40
 2024-11-14 16:11:07,519 - root - INFO - setores_executores: 1
 2024-11-14 16:11:07,544 - DashboardLogger - INFO - Iniciando servidor do dashboard
+2024-11-14 16:11:12,855 - DashboardLogger - INFO - Nova conexão de IP: 172.19.73.38
+2024-11-14 16:11:12,855 - DashboardLogger - INFO - Acesso à rota: /_reload-hash
+2024-11-14 16:11:12,939 - DashboardLogger - INFO - Acesso à rota: /_dash-dependencies
+2024-11-14 16:11:12,940 - DashboardLogger - INFO - Acesso à rota: /_dash-layout
+2024-11-14 16:11:13,093 - DashboardLogger - INFO - Acesso à rota: /_dash-update-component
+2024-11-14 16:11:17,970 - DashboardLogger - INFO - Visualização de SSAs: SSAs do executor CASTILLO CENTURION ELIAS FRANCISCO
+2024-11-14 16:14:35,961 - DashboardLogger - INFO - Acesso à rota: /
+2024-11-14 16:14:36,234 - DashboardLogger - INFO - Acesso à rota: /_favicon.ico
+2024-11-14 16:14:36,298 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dcc/async-dropdown.js
+2024-11-14 16:14:36,329 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dcc/async-graph.js
+2024-11-14 16:14:36,330 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/plotly/package_data/plotly.min.js
+2024-11-14 16:14:36,366 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash_table/async-highlight.js
+2024-11-14 16:14:36,375 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash_table/async-table.js
+2024-11-14 16:14:48,137 - DashboardLogger - INFO - Visualização de SSAs: SSAs do executor MAURICIO MENON
+2024-11-14 16:15:01,874 - DashboardLogger - INFO - Filtros aplicados - Prog: None, Exec: MAURICIO MENON, Emissor: None, Executor: None
+2024-11-14 16:16:15,222 - DashboardLogger - INFO - Acesso à rota: /_reload-hash
+2024-11-14 16:16:30,690 - DashboardLogger - INFO - Nova conexão de IP: 172.30.65.112
+2024-11-14 16:16:30,691 - DashboardLogger - INFO - Acesso à rota: /
+2024-11-14 16:16:31,179 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/deps/polyfill@7.v2_14_1m1731335188.12.1.min.js
+2024-11-14 16:16:31,182 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/deps/react@16.v2_14_1m1731335189.14.0.js
+2024-11-14 16:16:31,183 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/deps/react-dom@16.v2_14_1m1731335189.14.0.js
+2024-11-14 16:16:31,191 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/deps/prop-types@15.v2_14_1m1731335188.8.1.js
+2024-11-14 16:16:31,191 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash-renderer/build/dash_renderer.v2_14_1m1731335188.dev.js
+2024-11-14 16:16:31,193 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash_bootstrap_components/_components/dash_bootstrap_components.v1_5_0m1731335207.min.js
+2024-11-14 16:16:31,918 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dcc/dash_core_components.v2_12_1m1731335188.js
+2024-11-14 16:16:31,918 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dcc/dash_core_components-shared.v2_12_1m1731335188.js
+2024-11-14 16:16:31,919 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/html/dash_html_components.v2_0_15m1731335189.min.js
+2024-11-14 16:16:32,000 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash_table/bundle.v5_2_8m1731335188.js
+2024-11-14 16:16:33,349 - DashboardLogger - INFO - Acesso à rota: /_dash-layout
+2024-11-14 16:16:33,351 - DashboardLogger - INFO - Acesso à rota: /_dash-dependencies
+2024-11-14 16:16:33,352 - DashboardLogger - INFO - Acesso à rota: /_favicon.ico
+2024-11-14 16:16:33,416 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dcc/async-dropdown.js
+2024-11-14 16:16:33,447 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dcc/async-graph.js
+2024-11-14 16:16:33,455 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/plotly/package_data/plotly.min.js
+2024-11-14 16:16:33,510 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash_table/async-highlight.js
+2024-11-14 16:16:33,527 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash_table/async-table.js
+2024-11-14 16:16:33,655 - DashboardLogger - INFO - Acesso à rota: /_dash-update-component
+2024-11-14 16:16:35,457 - DashboardLogger - INFO - Acesso à rota: /_dash-update-component
+2024-11-14 16:16:36,360 - DashboardLogger - INFO - Acesso à rota: /_reload-hash
+2024-11-14 16:17:33,700 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dcc/dash_core_components.js.map
+2024-11-14 16:17:34,017 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dcc/dash_core_components-shared.js.map
+2024-11-14 16:17:34,026 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/html/dash_html_components.min.js.map
+2024-11-14 16:17:34,027 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash_table/bundle.js.map
+2024-11-14 16:17:34,060 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dcc/async-graph.js.map
+2024-11-14 16:17:34,084 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dcc/async-dropdown.js.map
+2024-11-14 16:17:34,182 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash_table/async-highlight.js.map
+2024-11-14 16:17:34,213 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash_table/async-table.js.map
+2024-11-14 16:19:36,330 - DashboardLogger - INFO - Atualização automática dos dados
+2024-11-14 16:25:29,147 - root - INFO - Arquivo mais recente encontrado: SSAs Pendentes Geral - 14-11-2024_0423PM.xlsx (14/11/2024 16:23)
+2024-11-14 16:25:29,150 - root - INFO - Iniciando carregamento do arquivo: C:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\downloads\SSAs Pendentes Geral - 14-11-2024_0423PM.xlsx
+2024-11-14 16:25:29,530 - root - INFO - Arquivo carregado. Total de linhas: 189
+2024-11-14 16:25:29,705 - root - INFO - === Diagnóstico de Datas ===
+2024-11-14 16:25:29,706 - root - INFO - Total de linhas: 189
+2024-11-14 16:25:29,706 - root - INFO - Problemas encontrados: 2
+2024-11-14 16:25:29,706 - root - INFO - 
+Linha 169:
+2024-11-14 16:25:29,707 - root - INFO -   Valor encontrado: nan
+2024-11-14 16:25:29,707 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-14 16:25:29,707 - root - INFO -   Dados da linha:
+2024-11-14 16:25:29,707 - root - INFO -     Número da SSA: 202418235
+2024-11-14 16:25:29,708 - root - INFO -     Situação: ASE
+2024-11-14 16:25:29,708 - root - INFO -     Derivada de: nan
+2024-11-14 16:25:29,708 - root - INFO -     Localização: G097D001
+2024-11-14 16:25:29,708 - root - INFO -     Descrição da Localização: UNIDADE DE AQUISICAO DE DADOS - DAUC C1
+2024-11-14 16:25:29,709 - root - INFO -     Equipamento: 0889.004-8
+2024-11-14 16:25:29,709 - root - INFO -     Semana de Cadastro: 202446
+2024-11-14 16:25:29,709 - root - INFO -     Emitida Em: nan
+2024-11-14 16:25:29,709 - root - INFO -     Descrição da SSA: Atualizar os desenhos 6609-DC-15230, Folha 322 e 6639-DF-A7791, Folha 27. Modificação necessária devido a execução da SSA 202401607.
+2024-11-14 16:25:29,709 - root - INFO -     Setor Emissor: MEL4
+2024-11-14 16:25:29,710 - root - INFO -     Setor Executor: IEE3
+2024-11-14 16:25:29,710 - root - INFO -     Solicitante: OTAVIO ALEXANDRE NICOLAU
+2024-11-14 16:25:29,710 - root - INFO -     Serviço de Origem: S1
+2024-11-14 16:25:29,710 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-14 16:25:29,710 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-14 16:25:29,711 - root - INFO -     Execução Simples: Não
+2024-11-14 16:25:29,711 - root - INFO -     Responsável na Programação: nan
+2024-11-14 16:25:29,711 - root - INFO -     Semana Programada: nan
+2024-11-14 16:25:29,712 - root - INFO -     Responsável na Execução: nan
+2024-11-14 16:25:29,712 - root - INFO -     Descrição Execução: nan
+2024-11-14 16:25:29,712 - root - INFO -     Sistema de Origem: nan
+2024-11-14 16:25:29,713 - root - INFO -     Anomalia: nan
+2024-11-14 16:25:29,713 - root - INFO - 
+Linha 170:
+2024-11-14 16:25:29,713 - root - INFO -   Valor encontrado: nan
+2024-11-14 16:25:29,714 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-14 16:25:29,714 - root - INFO -   Dados da linha:
+2024-11-14 16:25:29,714 - root - INFO -     Número da SSA: 202418234
+2024-11-14 16:25:29,715 - root - INFO -     Situação: ASE
+2024-11-14 16:25:29,715 - root - INFO -     Derivada de: nan
+2024-11-14 16:25:29,716 - root - INFO -     Localização: G097E001
+2024-11-14 16:25:29,716 - root - INFO -     Descrição da Localização: UNIDADE DE AQUISICAO DE DADOS - DAUC F1
+2024-11-14 16:25:29,716 - root - INFO -     Equipamento: 0889.006-4
+2024-11-14 16:25:29,717 - root - INFO -     Semana de Cadastro: 202446
+2024-11-14 16:25:29,717 - root - INFO -     Emitida Em: nan
+2024-11-14 16:25:29,717 - root - INFO -     Descrição da SSA: Atualizar os desenhos 6609-DC-A8360, Folha 330 e 6639-DF-A7802, Folha 19+. Modificação necessária devido a execução da SSA 202401605.
+2024-11-14 16:25:29,717 - root - INFO -     Setor Emissor: MEL4
+2024-11-14 16:25:29,717 - root - INFO -     Setor Executor: IEE3
+2024-11-14 16:25:29,718 - root - INFO -     Solicitante: OTAVIO ALEXANDRE NICOLAU
+2024-11-14 16:25:29,718 - root - INFO -     Serviço de Origem: S1
+2024-11-14 16:25:29,718 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-14 16:25:29,718 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-14 16:25:29,719 - root - INFO -     Execução Simples: Não
+2024-11-14 16:25:29,719 - root - INFO -     Responsável na Programação: nan
+2024-11-14 16:25:29,719 - root - INFO -     Semana Programada: nan
+2024-11-14 16:25:29,719 - root - INFO -     Responsável na Execução: nan
+2024-11-14 16:25:29,719 - root - INFO -     Descrição Execução: nan
+2024-11-14 16:25:29,719 - root - INFO -     Sistema de Origem: nan
+2024-11-14 16:25:29,719 - root - INFO -     Anomalia: nan
+2024-11-14 16:25:29,722 - root - ERROR - Encontradas 2 datas inválidas
+2024-11-14 16:25:29,722 - root - ERROR - Linha 169: Data inválida - verificar valor original
+2024-11-14 16:25:29,723 - root - ERROR - Linha 170: Data inválida - verificar valor original
+2024-11-14 16:25:29,760 - root - INFO - === Estatísticas de Conversão ===
+2024-11-14 16:25:29,760 - root - INFO - Total de registros convertidos: 189
+2024-11-14 16:25:29,761 - root - INFO - Responsáveis execução únicos: 9
+2024-11-14 16:25:29,761 - root - INFO - Responsáveis programação únicos: 9
+2024-11-14 16:25:29,762 - root - INFO - 
+=== Validação de Responsáveis Execução ===
+2024-11-14 16:25:29,762 - root - INFO - 
+Responsável Execução: 'ACOSTA FERNANDEZ RAMON ARIEL'
+2024-11-14 16:25:29,762 - root - INFO - Total SSAs: 4
+2024-11-14 16:25:29,763 - root - INFO - Números das SSAs:
+2024-11-14 16:25:29,763 - root - INFO -   - SSA 202414242: APV
+2024-11-14 16:25:29,763 - root - INFO -   - SSA 202311075: AAT
+2024-11-14 16:25:29,764 - root - INFO -   - SSA 202416825: AAD
+2024-11-14 16:25:29,764 - root - INFO -   - SSA 202208082: ADM
+2024-11-14 16:25:29,764 - root - INFO - 
+Responsável Execução: 'CARLOS RONEI ORTIZ'
+2024-11-14 16:25:29,765 - root - INFO - Total SSAs: 1
+2024-11-14 16:25:29,765 - root - INFO - Números das SSAs:
+2024-11-14 16:25:29,765 - root - INFO -   - SSA 202210834: ADM
+2024-11-14 16:25:29,766 - root - INFO - 
+Responsável Execução: 'CASTILLO CENTURION ELIAS FRANCISCO'
+2024-11-14 16:25:29,766 - root - INFO - Total SSAs: 54
+2024-11-14 16:25:29,766 - root - INFO - Números das SSAs:
+2024-11-14 16:25:29,767 - root - INFO -   - SSA 202403587: AAD
+2024-11-14 16:25:29,767 - root - INFO -   - SSA 202403586: AAD
+2024-11-14 16:25:29,767 - root - INFO -   - SSA 202315283: AAT
+2024-11-14 16:25:29,768 - root - INFO -   - SSA 202412180: AAT
+2024-11-14 16:25:29,768 - root - INFO -   - SSA 202407487: AAT
+2024-11-14 16:25:29,768 - root - INFO -   - SSA 202407289: AAD
+2024-11-14 16:25:29,768 - root - INFO -   - SSA 202320659: AAD
+2024-11-14 16:25:29,768 - root - INFO -   - SSA 202320542: AAD
+2024-11-14 16:25:29,769 - root - INFO -   - SSA 202320540: AAD
+2024-11-14 16:25:29,769 - root - INFO -   - SSA 202320539: AAD
+2024-11-14 16:25:29,769 - root - INFO -   - SSA 202320538: AAD
+2024-11-14 16:25:29,769 - root - INFO -   - SSA 202320537: AAD
+2024-11-14 16:25:29,769 - root - INFO -   - SSA 202320535: AAD
+2024-11-14 16:25:29,769 - root - INFO -   - SSA 202320534: AAD
+2024-11-14 16:25:29,770 - root - INFO -   - SSA 202320531: AAD
+2024-11-14 16:25:29,770 - root - INFO -   - SSA 202320530: AAD
+2024-11-14 16:25:29,770 - root - INFO -   - SSA 202320528: AAD
+2024-11-14 16:25:29,770 - root - INFO -   - SSA 202320526: AAD
+2024-11-14 16:25:29,771 - root - INFO -   - SSA 202320524: AAD
+2024-11-14 16:25:29,771 - root - INFO -   - SSA 202320523: AAD
+2024-11-14 16:25:29,771 - root - INFO -   - SSA 202320521: AAD
+2024-11-14 16:25:29,771 - root - INFO -   - SSA 202320517: AAD
+2024-11-14 16:25:29,772 - root - INFO -   - SSA 202320516: AAD
+2024-11-14 16:25:29,772 - root - INFO -   - SSA 202320514: AAD
+2024-11-14 16:25:29,772 - root - INFO -   - SSA 202318314: AAD
+2024-11-14 16:25:29,772 - root - INFO -   - SSA 202317673: AAD
+2024-11-14 16:25:29,772 - root - INFO -   - SSA 202317672: AAD
+2024-11-14 16:25:29,773 - root - INFO -   - SSA 202317668: AAD
+2024-11-14 16:25:29,773 - root - INFO -   - SSA 202317666: AAD
+2024-11-14 16:25:29,773 - root - INFO -   - SSA 202317664: AAD
+2024-11-14 16:25:29,773 - root - INFO -   - SSA 202317660: AAD
+2024-11-14 16:25:29,773 - root - INFO -   - SSA 202317659: AAD
+2024-11-14 16:25:29,774 - root - INFO -   - SSA 202317650: AAD
+2024-11-14 16:25:29,774 - root - INFO -   - SSA 202317649: AAD
+2024-11-14 16:25:29,774 - root - INFO -   - SSA 202317648: AAD
+2024-11-14 16:25:29,774 - root - INFO -   - SSA 202317647: AAD
+2024-11-14 16:25:29,774 - root - INFO -   - SSA 202317646: AAD
+2024-11-14 16:25:29,774 - root - INFO -   - SSA 202317645: AAD
+2024-11-14 16:25:29,775 - root - INFO -   - SSA 202317644: AAD
+2024-11-14 16:25:29,775 - root - INFO -   - SSA 202317640: AAD
+2024-11-14 16:25:29,775 - root - INFO -   - SSA 202317638: AAD
+2024-11-14 16:25:29,775 - root - INFO -   - SSA 202317635: AAD
+2024-11-14 16:25:29,775 - root - INFO -   - SSA 202315965: AAT
+2024-11-14 16:25:29,776 - root - INFO -   - SSA 202314852: AAD
+2024-11-14 16:25:29,776 - root - INFO -   - SSA 202314218: AAT
+2024-11-14 16:25:29,776 - root - INFO -   - SSA 202314188: AAT
+2024-11-14 16:25:29,776 - root - INFO -   - SSA 202311500: AAT
+2024-11-14 16:25:29,776 - root - INFO -   - SSA 202311498: AAT
+2024-11-14 16:25:29,776 - root - INFO -   - SSA 202216567: AAT
+2024-11-14 16:25:29,776 - root - INFO -   - SSA 202209306: AAT
+2024-11-14 16:25:29,777 - root - INFO -   - SSA 202209304: AAT
+2024-11-14 16:25:29,777 - root - INFO -   - SSA 202209302: AAT
+2024-11-14 16:25:29,777 - root - INFO -   - SSA 202209300: AAT
+2024-11-14 16:25:29,777 - root - INFO -   - SSA 202208500: AAT
+2024-11-14 16:25:29,777 - root - INFO - 
+Responsável Execução: 'LOBO MARTINEZ JUAN ALBERTO'
+2024-11-14 16:25:29,777 - root - INFO - Total SSAs: 15
+2024-11-14 16:25:29,777 - root - INFO - Números das SSAs:
+2024-11-14 16:25:29,778 - root - INFO -   - SSA 202315984: AAD
+2024-11-14 16:25:29,778 - root - INFO -   - SSA 202309302: AAT
+2024-11-14 16:25:29,778 - root - INFO -   - SSA 202223791: AAT
+2024-11-14 16:25:29,778 - root - INFO -   - SSA 202315520: AAD
+2024-11-14 16:25:29,778 - root - INFO -   - SSA 202312375: AAD
+2024-11-14 16:25:29,778 - root - INFO -   - SSA 202308982: AAT
+2024-11-14 16:25:29,778 - root - INFO -   - SSA 202305650: AAT
+2024-11-14 16:25:29,778 - root - INFO -   - SSA 202304925: ADM
+2024-11-14 16:25:29,779 - root - INFO -   - SSA 202225124: AAT
+2024-11-14 16:25:29,779 - root - INFO -   - SSA 202316054: AAD
+2024-11-14 16:25:29,779 - root - INFO -   - SSA 202316049: AAD
+2024-11-14 16:25:29,779 - root - INFO -   - SSA 202316041: AAD
+2024-11-14 16:25:29,779 - root - INFO -   - SSA 202316015: AAD
+2024-11-14 16:25:29,779 - root - INFO -   - SSA 202316013: AAD
+2024-11-14 16:25:29,780 - root - INFO -   - SSA 202316010: AAD
+2024-11-14 16:25:29,780 - root - INFO - 
+Responsável Execução: 'LUCAS COSTA CICARELLI'
+2024-11-14 16:25:29,780 - root - INFO - Total SSAs: 13
+2024-11-14 16:25:29,780 - root - INFO - Números das SSAs:
+2024-11-14 16:25:29,780 - root - INFO -   - SSA 202304752: ADM
+2024-11-14 16:25:29,780 - root - INFO -   - SSA 202408000: ADM
+2024-11-14 16:25:29,780 - root - INFO -   - SSA 202310372: ADM
+2024-11-14 16:25:29,781 - root - INFO -   - SSA 202307936: ADM
+2024-11-14 16:25:29,781 - root - INFO -   - SSA 202307932: ADM
+2024-11-14 16:25:29,781 - root - INFO -   - SSA 202307928: ADM
+2024-11-14 16:25:29,781 - root - INFO -   - SSA 202307925: ADM
+2024-11-14 16:25:29,781 - root - INFO -   - SSA 202307921: ADM
+2024-11-14 16:25:29,781 - root - INFO -   - SSA 202307918: ADM
+2024-11-14 16:25:29,782 - root - INFO -   - SSA 202320392: AAT
+2024-11-14 16:25:29,782 - root - INFO -   - SSA 202209853: ADM
+2024-11-14 16:25:29,782 - root - INFO -   - SSA 202209298: AAT
+2024-11-14 16:25:29,782 - root - INFO -   - SSA 202209296: AAT
+2024-11-14 16:25:29,782 - root - INFO - 
+Responsável Execução: 'MARCOS ALOE YAMAMOTO'
+2024-11-14 16:25:29,782 - root - INFO - Total SSAs: 1
+2024-11-14 16:25:29,782 - root - INFO - Números das SSAs:
+2024-11-14 16:25:29,782 - root - INFO -   - SSA 202219292: ADM
+2024-11-14 16:25:29,783 - root - INFO - 
+Responsável Execução: 'MAURICIO MENON'
+2024-11-14 16:25:29,783 - root - INFO - Total SSAs: 29
+2024-11-14 16:25:29,783 - root - INFO - Números das SSAs:
+2024-11-14 16:25:29,783 - root - INFO -   - SSA 202410873: ADM
+2024-11-14 16:25:29,783 - root - INFO -   - SSA 202408589: AAD
+2024-11-14 16:25:29,783 - root - INFO -   - SSA 202404353: AAD
+2024-11-14 16:25:29,783 - root - INFO -   - SSA 202404349: AAD
+2024-11-14 16:25:29,784 - root - INFO -   - SSA 202403569: AAD
+2024-11-14 16:25:29,784 - root - INFO -   - SSA 202401930: ADM
+2024-11-14 16:25:29,784 - root - INFO -   - SSA 202303449: AAD
+2024-11-14 16:25:29,784 - root - INFO -   - SSA 202303082: AAD
+2024-11-14 16:25:29,784 - root - INFO -   - SSA 202300670: ADM
+2024-11-14 16:25:29,784 - root - INFO -   - SSA 202417275: AAD
+2024-11-14 16:25:29,784 - root - INFO -   - SSA 202414170: ADM
+2024-11-14 16:25:29,784 - root - INFO -   - SSA 202412309: AAD
+2024-11-14 16:25:29,784 - root - INFO -   - SSA 202412189: AAD
+2024-11-14 16:25:29,785 - root - INFO -   - SSA 202410056: ADM
+2024-11-14 16:25:29,785 - root - INFO -   - SSA 202410051: ADM
+2024-11-14 16:25:29,785 - root - INFO -   - SSA 202409449: ADM
+2024-11-14 16:25:29,785 - root - INFO -   - SSA 202408797: AAT
+2024-11-14 16:25:29,785 - root - INFO -   - SSA 202401838: AAT
+2024-11-14 16:25:29,785 - root - INFO -   - SSA 202315901: AAD
+2024-11-14 16:25:29,785 - root - INFO -   - SSA 202312371: AAT
+2024-11-14 16:25:29,785 - root - INFO -   - SSA 202308411: AAT
+2024-11-14 16:25:29,786 - root - INFO -   - SSA 202307247: ADM
+2024-11-14 16:25:29,786 - root - INFO -   - SSA 202204716: AAD
+2024-11-14 16:25:29,786 - root - INFO -   - SSA 202418061: ADM
+2024-11-14 16:25:29,786 - root - INFO -   - SSA 202318166: ADM
+2024-11-14 16:25:29,786 - root - INFO -   - SSA 202316930: AAD
+2024-11-14 16:25:29,786 - root - INFO -   - SSA 202316141: AAT
+2024-11-14 16:25:29,786 - root - INFO -   - SSA 202304641: AAT
+2024-11-14 16:25:29,786 - root - INFO -   - SSA 202304639: AAT
+2024-11-14 16:25:29,787 - root - INFO - 
+Responsável Execução: 'SILVA VARGAS FRANCISCO JAVIER'
+2024-11-14 16:25:29,787 - root - INFO - Total SSAs: 10
+2024-11-14 16:25:29,787 - root - INFO - Números das SSAs:
+2024-11-14 16:25:29,787 - root - INFO -   - SSA 202316469: AAT
+2024-11-14 16:25:29,787 - root - INFO -   - SSA 202418023: ADM
+2024-11-14 16:25:29,787 - root - INFO -   - SSA 202414182: AAD
+2024-11-14 16:25:29,787 - root - INFO -   - SSA 202413188: ADM
+2024-11-14 16:25:29,787 - root - INFO -   - SSA 202408102: ADM
+2024-11-14 16:25:29,788 - root - INFO -   - SSA 202408089: AAT
+2024-11-14 16:25:29,788 - root - INFO -   - SSA 202406019: AAT
+2024-11-14 16:25:29,788 - root - INFO -   - SSA 202418019: AAT
+2024-11-14 16:25:29,788 - root - INFO -   - SSA 202416065: ADM
+2024-11-14 16:25:29,788 - root - INFO -   - SSA 202410326: AAT
+2024-11-14 16:25:29,788 - root - INFO - 
+Responsável Execução: 'VILLAR RIVAS ALBERTO'
+2024-11-14 16:25:29,788 - root - INFO - Total SSAs: 15
+2024-11-14 16:25:29,788 - root - INFO - Números das SSAs:
+2024-11-14 16:25:29,789 - root - INFO -   - SSA 202411981: ADM
+2024-11-14 16:25:29,789 - root - INFO -   - SSA 202410715: ADM
+2024-11-14 16:25:29,789 - root - INFO -   - SSA 202407349: ADM
+2024-11-14 16:25:29,789 - root - INFO -   - SSA 202402751: ADM
+2024-11-14 16:25:29,789 - root - INFO -   - SSA 202402415: AAT
+2024-11-14 16:25:29,789 - root - INFO -   - SSA 202402414: AAT
+2024-11-14 16:25:29,789 - root - INFO -   - SSA 202401484: ADM
+2024-11-14 16:25:29,789 - root - INFO -   - SSA 202401482: ADM
+2024-11-14 16:25:29,789 - root - INFO -   - SSA 202320822: AIM
+2024-11-14 16:25:29,790 - root - INFO -   - SSA 202318398: AAT
+2024-11-14 16:25:29,790 - root - INFO -   - SSA 202313969: AIM
+2024-11-14 16:25:29,790 - root - INFO -   - SSA 202310994: AIM
+2024-11-14 16:25:29,790 - root - INFO -   - SSA 202310985: AIM
+2024-11-14 16:25:29,790 - root - INFO -   - SSA 202310952: AIM
+2024-11-14 16:25:29,790 - root - INFO -   - SSA 202316688: AIM
+2024-11-14 16:25:29,791 - root - INFO - 
+=== Validação de Responsáveis Programação ===
+2024-11-14 16:25:29,791 - root - INFO - 
+Responsável Programação: 'ACOSTA FERNANDEZ RAMON ARIEL'
+2024-11-14 16:25:29,791 - root - INFO - Total SSAs: 5
+2024-11-14 16:25:29,791 - root - INFO - Números das SSAs:
+2024-11-14 16:25:29,791 - root - INFO -   - SSA 202414242: APV
+2024-11-14 16:25:29,792 - root - INFO -   - SSA 202311075: AAT
+2024-11-14 16:25:29,792 - root - INFO -   - SSA 202416825: AAD
+2024-11-14 16:25:29,792 - root - INFO -   - SSA 202416554: SPG
+2024-11-14 16:25:29,792 - root - INFO -   - SSA 202208082: ADM
+2024-11-14 16:25:29,792 - root - INFO - 
+Responsável Programação: 'CARLOS RONEI ORTIZ'
+2024-11-14 16:25:29,792 - root - INFO - Total SSAs: 3
+2024-11-14 16:25:29,793 - root - INFO - Números das SSAs:
+2024-11-14 16:25:29,793 - root - INFO -   - SSA 202305650: AAT
+2024-11-14 16:25:29,793 - root - INFO -   - SSA 202210834: ADM
+2024-11-14 16:25:29,793 - root - INFO -   - SSA 202209853: ADM
+2024-11-14 16:25:29,793 - root - INFO - 
+Responsável Programação: 'CASTILLO CENTURION ELIAS FRANCISCO'
+2024-11-14 16:25:29,793 - root - INFO - Total SSAs: 54
+2024-11-14 16:25:29,794 - root - INFO - Números das SSAs:
+2024-11-14 16:25:29,794 - root - INFO -   - SSA 202403587: AAD
+2024-11-14 16:25:29,794 - root - INFO -   - SSA 202403586: AAD
+2024-11-14 16:25:29,794 - root - INFO -   - SSA 202315283: AAT
+2024-11-14 16:25:29,794 - root - INFO -   - SSA 202412180: AAT
+2024-11-14 16:25:29,794 - root - INFO -   - SSA 202407487: AAT
+2024-11-14 16:25:29,794 - root - INFO -   - SSA 202407289: AAD
+2024-11-14 16:25:29,795 - root - INFO -   - SSA 202320659: AAD
+2024-11-14 16:25:29,795 - root - INFO -   - SSA 202320542: AAD
+2024-11-14 16:25:29,795 - root - INFO -   - SSA 202320540: AAD
+2024-11-14 16:25:29,795 - root - INFO -   - SSA 202320539: AAD
+2024-11-14 16:25:29,795 - root - INFO -   - SSA 202320538: AAD
+2024-11-14 16:25:29,795 - root - INFO -   - SSA 202320537: AAD
+2024-11-14 16:25:29,795 - root - INFO -   - SSA 202320535: AAD
+2024-11-14 16:25:29,796 - root - INFO -   - SSA 202320534: AAD
+2024-11-14 16:25:29,796 - root - INFO -   - SSA 202320531: AAD
+2024-11-14 16:25:29,796 - root - INFO -   - SSA 202320530: AAD
+2024-11-14 16:25:29,796 - root - INFO -   - SSA 202320528: AAD
+2024-11-14 16:25:29,796 - root - INFO -   - SSA 202320526: AAD
+2024-11-14 16:25:29,796 - root - INFO -   - SSA 202320524: AAD
+2024-11-14 16:25:29,796 - root - INFO -   - SSA 202320523: AAD
+2024-11-14 16:25:29,797 - root - INFO -   - SSA 202320521: AAD
+2024-11-14 16:25:29,797 - root - INFO -   - SSA 202320517: AAD
+2024-11-14 16:25:29,797 - root - INFO -   - SSA 202320516: AAD
+2024-11-14 16:25:29,797 - root - INFO -   - SSA 202320514: AAD
+2024-11-14 16:25:29,797 - root - INFO -   - SSA 202318314: AAD
+2024-11-14 16:25:29,797 - root - INFO -   - SSA 202317673: AAD
+2024-11-14 16:25:29,797 - root - INFO -   - SSA 202317672: AAD
+2024-11-14 16:25:29,797 - root - INFO -   - SSA 202317668: AAD
+2024-11-14 16:25:29,798 - root - INFO -   - SSA 202317666: AAD
+2024-11-14 16:25:29,798 - root - INFO -   - SSA 202317664: AAD
+2024-11-14 16:25:29,798 - root - INFO -   - SSA 202317660: AAD
+2024-11-14 16:25:29,798 - root - INFO -   - SSA 202317659: AAD
+2024-11-14 16:25:29,798 - root - INFO -   - SSA 202317650: AAD
+2024-11-14 16:25:29,798 - root - INFO -   - SSA 202317649: AAD
+2024-11-14 16:25:29,798 - root - INFO -   - SSA 202317648: AAD
+2024-11-14 16:25:29,798 - root - INFO -   - SSA 202317647: AAD
+2024-11-14 16:25:29,798 - root - INFO -   - SSA 202317646: AAD
+2024-11-14 16:25:29,799 - root - INFO -   - SSA 202317645: AAD
+2024-11-14 16:25:29,799 - root - INFO -   - SSA 202317644: AAD
+2024-11-14 16:25:29,799 - root - INFO -   - SSA 202317640: AAD
+2024-11-14 16:25:29,799 - root - INFO -   - SSA 202317638: AAD
+2024-11-14 16:25:29,799 - root - INFO -   - SSA 202317635: AAD
+2024-11-14 16:25:29,799 - root - INFO -   - SSA 202315965: AAT
+2024-11-14 16:25:29,799 - root - INFO -   - SSA 202314852: AAD
+2024-11-14 16:25:29,799 - root - INFO -   - SSA 202314218: AAT
+2024-11-14 16:25:29,800 - root - INFO -   - SSA 202314188: AAT
+2024-11-14 16:25:29,800 - root - INFO -   - SSA 202311500: AAT
+2024-11-14 16:25:29,800 - root - INFO -   - SSA 202311498: AAT
+2024-11-14 16:25:29,800 - root - INFO -   - SSA 202216567: AAT
+2024-11-14 16:25:29,800 - root - INFO -   - SSA 202209306: AAT
+2024-11-14 16:25:29,800 - root - INFO -   - SSA 202209304: AAT
+2024-11-14 16:25:29,801 - root - INFO -   - SSA 202209302: AAT
+2024-11-14 16:25:29,801 - root - INFO -   - SSA 202209300: AAT
+2024-11-14 16:25:29,801 - root - INFO -   - SSA 202208500: AAT
+2024-11-14 16:25:29,801 - root - INFO - 
+Responsável Programação: 'LOBO MARTINEZ JUAN ALBERTO'
+2024-11-14 16:25:29,801 - root - INFO - Total SSAs: 18
+2024-11-14 16:25:29,802 - root - INFO - Números das SSAs:
+2024-11-14 16:25:29,802 - root - INFO -   - SSA 202315984: AAD
+2024-11-14 16:25:29,802 - root - INFO -   - SSA 202309302: AAT
+2024-11-14 16:25:29,802 - root - INFO -   - SSA 202223791: AAT
+2024-11-14 16:25:29,802 - root - INFO -   - SSA 202315901: AAD
+2024-11-14 16:25:29,802 - root - INFO -   - SSA 202315520: AAD
+2024-11-14 16:25:29,802 - root - INFO -   - SSA 202310994: AIM
+2024-11-14 16:25:29,802 - root - INFO -   - SSA 202308982: AAT
+2024-11-14 16:25:29,803 - root - INFO -   - SSA 202307247: ADM
+2024-11-14 16:25:29,803 - root - INFO -   - SSA 202304925: ADM
+2024-11-14 16:25:29,803 - root - INFO -   - SSA 202225124: AAT
+2024-11-14 16:25:29,803 - root - INFO -   - SSA 202316930: AAD
+2024-11-14 16:25:29,803 - root - INFO -   - SSA 202316688: AIM
+2024-11-14 16:25:29,803 - root - INFO -   - SSA 202316054: AAD
+2024-11-14 16:25:29,803 - root - INFO -   - SSA 202316049: AAD
+2024-11-14 16:25:29,803 - root - INFO -   - SSA 202316041: AAD
+2024-11-14 16:25:29,803 - root - INFO -   - SSA 202316015: AAD
+2024-11-14 16:25:29,804 - root - INFO -   - SSA 202316013: AAD
+2024-11-14 16:25:29,804 - root - INFO -   - SSA 202316010: AAD
+2024-11-14 16:25:29,804 - root - INFO - 
+Responsável Programação: 'LUCAS COSTA CICARELLI'
+2024-11-14 16:25:29,804 - root - INFO - Total SSAs: 10
+2024-11-14 16:25:29,804 - root - INFO - Números das SSAs:
+2024-11-14 16:25:29,804 - root - INFO -   - SSA 202408000: ADM
+2024-11-14 16:25:29,804 - root - INFO -   - SSA 202307936: ADM
+2024-11-14 16:25:29,804 - root - INFO -   - SSA 202307932: ADM
+2024-11-14 16:25:29,805 - root - INFO -   - SSA 202307928: ADM
+2024-11-14 16:25:29,805 - root - INFO -   - SSA 202307925: ADM
+2024-11-14 16:25:29,805 - root - INFO -   - SSA 202307921: ADM
+2024-11-14 16:25:29,805 - root - INFO -   - SSA 202307918: ADM
+2024-11-14 16:25:29,805 - root - INFO -   - SSA 202320392: AAT
+2024-11-14 16:25:29,805 - root - INFO -   - SSA 202209298: AAT
+2024-11-14 16:25:29,806 - root - INFO -   - SSA 202209296: AAT
+2024-11-14 16:25:29,806 - root - INFO - 
+Responsável Programação: 'MARCOS ALOE YAMAMOTO'
+2024-11-14 16:25:29,806 - root - INFO - Total SSAs: 1
+2024-11-14 16:25:29,806 - root - INFO - Números das SSAs:
+2024-11-14 16:25:29,807 - root - INFO -   - SSA 202219292: ADM
+2024-11-14 16:25:29,807 - root - INFO - 
+Responsável Programação: 'MAURICIO MENON'
+2024-11-14 16:25:29,807 - root - INFO - Total SSAs: 27
+2024-11-14 16:25:29,808 - root - INFO - Números das SSAs:
+2024-11-14 16:25:29,808 - root - INFO -   - SSA 202410873: ADM
+2024-11-14 16:25:29,808 - root - INFO -   - SSA 202408589: AAD
+2024-11-14 16:25:29,808 - root - INFO -   - SSA 202404353: AAD
+2024-11-14 16:25:29,808 - root - INFO -   - SSA 202404349: AAD
+2024-11-14 16:25:29,809 - root - INFO -   - SSA 202403569: AAD
+2024-11-14 16:25:29,809 - root - INFO -   - SSA 202401930: ADM
+2024-11-14 16:25:29,809 - root - INFO -   - SSA 202303449: AAD
+2024-11-14 16:25:29,809 - root - INFO -   - SSA 202303082: AAD
+2024-11-14 16:25:29,809 - root - INFO -   - SSA 202300670: ADM
+2024-11-14 16:25:29,809 - root - INFO -   - SSA 202417275: AAD
+2024-11-14 16:25:29,810 - root - INFO -   - SSA 202414170: ADM
+2024-11-14 16:25:29,810 - root - INFO -   - SSA 202412309: AAD
+2024-11-14 16:25:29,810 - root - INFO -   - SSA 202412189: AAD
+2024-11-14 16:25:29,810 - root - INFO -   - SSA 202410056: ADM
+2024-11-14 16:25:29,810 - root - INFO -   - SSA 202410051: ADM
+2024-11-14 16:25:29,811 - root - INFO -   - SSA 202409449: ADM
+2024-11-14 16:25:29,811 - root - INFO -   - SSA 202408797: AAT
+2024-11-14 16:25:29,811 - root - INFO -   - SSA 202401838: AAT
+2024-11-14 16:25:29,811 - root - INFO -   - SSA 202312375: AAD
+2024-11-14 16:25:29,812 - root - INFO -   - SSA 202312371: AAT
+2024-11-14 16:25:29,812 - root - INFO -   - SSA 202308411: AAT
+2024-11-14 16:25:29,812 - root - INFO -   - SSA 202204716: AAD
+2024-11-14 16:25:29,812 - root - INFO -   - SSA 202418061: ADM
+2024-11-14 16:25:29,812 - root - INFO -   - SSA 202318166: ADM
+2024-11-14 16:25:29,812 - root - INFO -   - SSA 202316141: AAT
+2024-11-14 16:25:29,812 - root - INFO -   - SSA 202304641: AAT
+2024-11-14 16:25:29,813 - root - INFO -   - SSA 202304639: AAT
+2024-11-14 16:25:29,813 - root - INFO - 
+Responsável Programação: 'SILVA VARGAS FRANCISCO JAVIER'
+2024-11-14 16:25:29,813 - root - INFO - Total SSAs: 25
+2024-11-14 16:25:29,813 - root - INFO - Números das SSAs:
+2024-11-14 16:25:29,813 - root - INFO -   - SSA 202407782: SPG
+2024-11-14 16:25:29,813 - root - INFO -   - SSA 202405093: SPG
+2024-11-14 16:25:29,813 - root - INFO -   - SSA 202404581: SPG
+2024-11-14 16:25:29,813 - root - INFO -   - SSA 202317755: SPG
+2024-11-14 16:25:29,814 - root - INFO -   - SSA 202316469: AAT
+2024-11-14 16:25:29,814 - root - INFO -   - SSA 202304752: ADM
+2024-11-14 16:25:29,814 - root - INFO -   - SSA 202418047: SPG
+2024-11-14 16:25:29,814 - root - INFO -   - SSA 202418023: ADM
+2024-11-14 16:25:29,814 - root - INFO -   - SSA 202414182: AAD
+2024-11-14 16:25:29,814 - root - INFO -   - SSA 202413188: ADM
+2024-11-14 16:25:29,814 - root - INFO -   - SSA 202413077: SCD
+2024-11-14 16:25:29,814 - root - INFO -   - SSA 202412872: SPG
+2024-11-14 16:25:29,815 - root - INFO -   - SSA 202412811: SPG
+2024-11-14 16:25:29,815 - root - INFO -   - SSA 202412570: SPG
+2024-11-14 16:25:29,815 - root - INFO -   - SSA 202409608: SPG
+2024-11-14 16:25:29,815 - root - INFO -   - SSA 202408102: ADM
+2024-11-14 16:25:29,815 - root - INFO -   - SSA 202408089: AAT
+2024-11-14 16:25:29,816 - root - INFO -   - SSA 202406019: AAT
+2024-11-14 16:25:29,816 - root - INFO -   - SSA 202404436: SPG
+2024-11-14 16:25:29,816 - root - INFO -   - SSA 202310985: AIM
+2024-11-14 16:25:29,816 - root - INFO -   - SSA 202310952: AIM
+2024-11-14 16:25:29,816 - root - INFO -   - SSA 202310372: ADM
+2024-11-14 16:25:29,816 - root - INFO -   - SSA 202418019: AAT
+2024-11-14 16:25:29,816 - root - INFO -   - SSA 202416065: ADM
+2024-11-14 16:25:29,817 - root - INFO -   - SSA 202410326: AAT
+2024-11-14 16:25:29,817 - root - INFO - 
+Responsável Programação: 'VILLAR RIVAS ALBERTO'
+2024-11-14 16:25:29,817 - root - INFO - Total SSAs: 11
+2024-11-14 16:25:29,817 - root - INFO - Números das SSAs:
+2024-11-14 16:25:29,817 - root - INFO -   - SSA 202411981: ADM
+2024-11-14 16:25:29,817 - root - INFO -   - SSA 202410715: ADM
+2024-11-14 16:25:29,817 - root - INFO -   - SSA 202407349: ADM
+2024-11-14 16:25:29,818 - root - INFO -   - SSA 202402751: ADM
+2024-11-14 16:25:29,818 - root - INFO -   - SSA 202402415: AAT
+2024-11-14 16:25:29,818 - root - INFO -   - SSA 202402414: AAT
+2024-11-14 16:25:29,818 - root - INFO -   - SSA 202401484: ADM
+2024-11-14 16:25:29,818 - root - INFO -   - SSA 202401482: ADM
+2024-11-14 16:25:29,818 - root - INFO -   - SSA 202320822: AIM
+2024-11-14 16:25:29,818 - root - INFO -   - SSA 202318398: AAT
+2024-11-14 16:25:29,818 - root - INFO -   - SSA 202313969: AIM
+2024-11-14 16:25:29,818 - root - INFO - 
+=== Primeiro Objeto Convertido (Verificação) ===
+2024-11-14 16:25:29,819 - root - INFO - Número: 202415727
+2024-11-14 16:25:29,819 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-14 16:25:29,819 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-14 16:25:29,819 - root - INFO - Setor executor: IEE3
+2024-11-14 16:25:29,819 - root - INFO - Responsável execução: None
+2024-11-14 16:25:29,819 - root - INFO - Responsável programação: None
+2024-11-14 16:25:29,820 - root - INFO - === Estatísticas do Carregamento ===
+2024-11-14 16:25:29,821 - root - INFO - Total de registros: 189
+2024-11-14 16:25:29,821 - root - INFO - SSAs válidas: 189
+2024-11-14 16:25:29,821 - root - INFO - total_ssas: 189
+2024-11-14 16:25:29,821 - root - INFO - ssas_com_responsavel: 142
+2024-11-14 16:25:29,822 - root - INFO - ssas_sem_responsavel: 47
+2024-11-14 16:25:29,822 - root - INFO - setores_executores: 1
+2024-11-14 16:25:29,823 - root - WARNING - Problemas encontrados nos dados: 2 datas inválidas
+2024-11-14 16:25:29,846 - DashboardLogger - INFO - Iniciando servidor do dashboard
+2024-11-14 16:25:29,848 - dash.dash - INFO - Dash is running on http://0.0.0.0:8080/
+
+2024-11-14 16:25:31,557 - root - INFO - Arquivo mais recente encontrado: SSAs Pendentes Geral - 14-11-2024_0423PM.xlsx (14/11/2024 16:23)
+2024-11-14 16:25:31,560 - root - INFO - Iniciando carregamento do arquivo: C:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\downloads\SSAs Pendentes Geral - 14-11-2024_0423PM.xlsx
+2024-11-14 16:25:31,945 - root - INFO - Arquivo carregado. Total de linhas: 189
+2024-11-14 16:25:32,089 - root - INFO - === Diagnóstico de Datas ===
+2024-11-14 16:25:32,089 - root - INFO - Total de linhas: 189
+2024-11-14 16:25:32,090 - root - INFO - Problemas encontrados: 2
+2024-11-14 16:25:32,090 - root - INFO - 
+Linha 169:
+2024-11-14 16:25:32,090 - root - INFO -   Valor encontrado: nan
+2024-11-14 16:25:32,091 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-14 16:25:32,091 - root - INFO -   Dados da linha:
+2024-11-14 16:25:32,091 - root - INFO -     Número da SSA: 202418235
+2024-11-14 16:25:32,091 - root - INFO -     Situação: ASE
+2024-11-14 16:25:32,092 - root - INFO -     Derivada de: nan
+2024-11-14 16:25:32,092 - root - INFO -     Localização: G097D001
+2024-11-14 16:25:32,092 - root - INFO -     Descrição da Localização: UNIDADE DE AQUISICAO DE DADOS - DAUC C1
+2024-11-14 16:25:32,092 - root - INFO -     Equipamento: 0889.004-8
+2024-11-14 16:25:32,092 - root - INFO -     Semana de Cadastro: 202446
+2024-11-14 16:25:32,093 - root - INFO -     Emitida Em: nan
+2024-11-14 16:25:32,093 - root - INFO -     Descrição da SSA: Atualizar os desenhos 6609-DC-15230, Folha 322 e 6639-DF-A7791, Folha 27. Modificação necessária devido a execução da SSA 202401607.
+2024-11-14 16:25:32,093 - root - INFO -     Setor Emissor: MEL4
+2024-11-14 16:25:32,093 - root - INFO -     Setor Executor: IEE3
+2024-11-14 16:25:32,093 - root - INFO -     Solicitante: OTAVIO ALEXANDRE NICOLAU
+2024-11-14 16:25:32,094 - root - INFO -     Serviço de Origem: S1
+2024-11-14 16:25:32,094 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-14 16:25:32,094 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-14 16:25:32,094 - root - INFO -     Execução Simples: Não
+2024-11-14 16:25:32,094 - root - INFO -     Responsável na Programação: nan
+2024-11-14 16:25:32,095 - root - INFO -     Semana Programada: nan
+2024-11-14 16:25:32,095 - root - INFO -     Responsável na Execução: nan
+2024-11-14 16:25:32,095 - root - INFO -     Descrição Execução: nan
+2024-11-14 16:25:32,095 - root - INFO -     Sistema de Origem: nan
+2024-11-14 16:25:32,095 - root - INFO -     Anomalia: nan
+2024-11-14 16:25:32,095 - root - INFO - 
+Linha 170:
+2024-11-14 16:25:32,096 - root - INFO -   Valor encontrado: nan
+2024-11-14 16:25:32,096 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-14 16:25:32,096 - root - INFO -   Dados da linha:
+2024-11-14 16:25:32,096 - root - INFO -     Número da SSA: 202418234
+2024-11-14 16:25:32,096 - root - INFO -     Situação: ASE
+2024-11-14 16:25:32,096 - root - INFO -     Derivada de: nan
+2024-11-14 16:25:32,097 - root - INFO -     Localização: G097E001
+2024-11-14 16:25:32,097 - root - INFO -     Descrição da Localização: UNIDADE DE AQUISICAO DE DADOS - DAUC F1
+2024-11-14 16:25:32,097 - root - INFO -     Equipamento: 0889.006-4
+2024-11-14 16:25:32,097 - root - INFO -     Semana de Cadastro: 202446
+2024-11-14 16:25:32,097 - root - INFO -     Emitida Em: nan
+2024-11-14 16:25:32,097 - root - INFO -     Descrição da SSA: Atualizar os desenhos 6609-DC-A8360, Folha 330 e 6639-DF-A7802, Folha 19+. Modificação necessária devido a execução da SSA 202401605.
+2024-11-14 16:25:32,097 - root - INFO -     Setor Emissor: MEL4
+2024-11-14 16:25:32,098 - root - INFO -     Setor Executor: IEE3
+2024-11-14 16:25:32,098 - root - INFO -     Solicitante: OTAVIO ALEXANDRE NICOLAU
+2024-11-14 16:25:32,098 - root - INFO -     Serviço de Origem: S1
+2024-11-14 16:25:32,098 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-14 16:25:32,098 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-14 16:25:32,098 - root - INFO -     Execução Simples: Não
+2024-11-14 16:25:32,099 - root - INFO -     Responsável na Programação: nan
+2024-11-14 16:25:32,099 - root - INFO -     Semana Programada: nan
+2024-11-14 16:25:32,099 - root - INFO -     Responsável na Execução: nan
+2024-11-14 16:25:32,099 - root - INFO -     Descrição Execução: nan
+2024-11-14 16:25:32,099 - root - INFO -     Sistema de Origem: nan
+2024-11-14 16:25:32,099 - root - INFO -     Anomalia: nan
+2024-11-14 16:25:32,101 - root - ERROR - Encontradas 2 datas inválidas
+2024-11-14 16:25:32,102 - root - ERROR - Linha 169: Data inválida - verificar valor original
+2024-11-14 16:25:32,102 - root - ERROR - Linha 170: Data inválida - verificar valor original
+2024-11-14 16:25:32,140 - root - INFO - === Estatísticas de Conversão ===
+2024-11-14 16:25:32,141 - root - INFO - Total de registros convertidos: 189
+2024-11-14 16:25:32,141 - root - INFO - Responsáveis execução únicos: 9
+2024-11-14 16:25:32,141 - root - INFO - Responsáveis programação únicos: 9
+2024-11-14 16:25:32,142 - root - INFO - 
+=== Validação de Responsáveis Execução ===
+2024-11-14 16:25:32,143 - root - INFO - 
+Responsável Execução: 'ACOSTA FERNANDEZ RAMON ARIEL'
+2024-11-14 16:25:32,143 - root - INFO - Total SSAs: 4
+2024-11-14 16:25:32,143 - root - INFO - Números das SSAs:
+2024-11-14 16:25:32,144 - root - INFO -   - SSA 202414242: APV
+2024-11-14 16:25:32,144 - root - INFO -   - SSA 202311075: AAT
+2024-11-14 16:25:32,144 - root - INFO -   - SSA 202416825: AAD
+2024-11-14 16:25:32,145 - root - INFO -   - SSA 202208082: ADM
+2024-11-14 16:25:32,145 - root - INFO - 
+Responsável Execução: 'CARLOS RONEI ORTIZ'
+2024-11-14 16:25:32,145 - root - INFO - Total SSAs: 1
+2024-11-14 16:25:32,145 - root - INFO - Números das SSAs:
+2024-11-14 16:25:32,146 - root - INFO -   - SSA 202210834: ADM
+2024-11-14 16:25:32,146 - root - INFO - 
+Responsável Execução: 'CASTILLO CENTURION ELIAS FRANCISCO'
+2024-11-14 16:25:32,146 - root - INFO - Total SSAs: 54
+2024-11-14 16:25:32,146 - root - INFO - Números das SSAs:
+2024-11-14 16:25:32,146 - root - INFO -   - SSA 202403587: AAD
+2024-11-14 16:25:32,146 - root - INFO -   - SSA 202403586: AAD
+2024-11-14 16:25:32,147 - root - INFO -   - SSA 202315283: AAT
+2024-11-14 16:25:32,147 - root - INFO -   - SSA 202412180: AAT
+2024-11-14 16:25:32,147 - root - INFO -   - SSA 202407487: AAT
+2024-11-14 16:25:32,147 - root - INFO -   - SSA 202407289: AAD
+2024-11-14 16:25:32,147 - root - INFO -   - SSA 202320659: AAD
+2024-11-14 16:25:32,147 - root - INFO -   - SSA 202320542: AAD
+2024-11-14 16:25:32,147 - root - INFO -   - SSA 202320540: AAD
+2024-11-14 16:25:32,147 - root - INFO -   - SSA 202320539: AAD
+2024-11-14 16:25:32,148 - root - INFO -   - SSA 202320538: AAD
+2024-11-14 16:25:32,148 - root - INFO -   - SSA 202320537: AAD
+2024-11-14 16:25:32,148 - root - INFO -   - SSA 202320535: AAD
+2024-11-14 16:25:32,148 - root - INFO -   - SSA 202320534: AAD
+2024-11-14 16:25:32,148 - root - INFO -   - SSA 202320531: AAD
+2024-11-14 16:25:32,148 - root - INFO -   - SSA 202320530: AAD
+2024-11-14 16:25:32,148 - root - INFO -   - SSA 202320528: AAD
+2024-11-14 16:25:32,148 - root - INFO -   - SSA 202320526: AAD
+2024-11-14 16:25:32,148 - root - INFO -   - SSA 202320524: AAD
+2024-11-14 16:25:32,149 - root - INFO -   - SSA 202320523: AAD
+2024-11-14 16:25:32,149 - root - INFO -   - SSA 202320521: AAD
+2024-11-14 16:25:32,149 - root - INFO -   - SSA 202320517: AAD
+2024-11-14 16:25:32,149 - root - INFO -   - SSA 202320516: AAD
+2024-11-14 16:25:32,149 - root - INFO -   - SSA 202320514: AAD
+2024-11-14 16:25:32,149 - root - INFO -   - SSA 202318314: AAD
+2024-11-14 16:25:32,149 - root - INFO -   - SSA 202317673: AAD
+2024-11-14 16:25:32,149 - root - INFO -   - SSA 202317672: AAD
+2024-11-14 16:25:32,150 - root - INFO -   - SSA 202317668: AAD
+2024-11-14 16:25:32,150 - root - INFO -   - SSA 202317666: AAD
+2024-11-14 16:25:32,150 - root - INFO -   - SSA 202317664: AAD
+2024-11-14 16:25:32,150 - root - INFO -   - SSA 202317660: AAD
+2024-11-14 16:25:32,150 - root - INFO -   - SSA 202317659: AAD
+2024-11-14 16:25:32,150 - root - INFO -   - SSA 202317650: AAD
+2024-11-14 16:25:32,151 - root - INFO -   - SSA 202317649: AAD
+2024-11-14 16:25:32,151 - root - INFO -   - SSA 202317648: AAD
+2024-11-14 16:25:32,151 - root - INFO -   - SSA 202317647: AAD
+2024-11-14 16:25:32,151 - root - INFO -   - SSA 202317646: AAD
+2024-11-14 16:25:32,151 - root - INFO -   - SSA 202317645: AAD
+2024-11-14 16:25:32,152 - root - INFO -   - SSA 202317644: AAD
+2024-11-14 16:25:32,152 - root - INFO -   - SSA 202317640: AAD
+2024-11-14 16:25:32,152 - root - INFO -   - SSA 202317638: AAD
+2024-11-14 16:25:32,152 - root - INFO -   - SSA 202317635: AAD
+2024-11-14 16:25:32,153 - root - INFO -   - SSA 202315965: AAT
+2024-11-14 16:25:32,153 - root - INFO -   - SSA 202314852: AAD
+2024-11-14 16:25:32,153 - root - INFO -   - SSA 202314218: AAT
+2024-11-14 16:25:32,153 - root - INFO -   - SSA 202314188: AAT
+2024-11-14 16:25:32,153 - root - INFO -   - SSA 202311500: AAT
+2024-11-14 16:25:32,153 - root - INFO -   - SSA 202311498: AAT
+2024-11-14 16:25:32,153 - root - INFO -   - SSA 202216567: AAT
+2024-11-14 16:25:32,153 - root - INFO -   - SSA 202209306: AAT
+2024-11-14 16:25:32,154 - root - INFO -   - SSA 202209304: AAT
+2024-11-14 16:25:32,154 - root - INFO -   - SSA 202209302: AAT
+2024-11-14 16:25:32,154 - root - INFO -   - SSA 202209300: AAT
+2024-11-14 16:25:32,154 - root - INFO -   - SSA 202208500: AAT
+2024-11-14 16:25:32,154 - root - INFO - 
+Responsável Execução: 'LOBO MARTINEZ JUAN ALBERTO'
+2024-11-14 16:25:32,154 - root - INFO - Total SSAs: 15
+2024-11-14 16:25:32,154 - root - INFO - Números das SSAs:
+2024-11-14 16:25:32,155 - root - INFO -   - SSA 202315984: AAD
+2024-11-14 16:25:32,155 - root - INFO -   - SSA 202309302: AAT
+2024-11-14 16:25:32,155 - root - INFO -   - SSA 202223791: AAT
+2024-11-14 16:25:32,155 - root - INFO -   - SSA 202315520: AAD
+2024-11-14 16:25:32,155 - root - INFO -   - SSA 202312375: AAD
+2024-11-14 16:25:32,155 - root - INFO -   - SSA 202308982: AAT
+2024-11-14 16:25:32,155 - root - INFO -   - SSA 202305650: AAT
+2024-11-14 16:25:32,155 - root - INFO -   - SSA 202304925: ADM
+2024-11-14 16:25:32,156 - root - INFO -   - SSA 202225124: AAT
+2024-11-14 16:25:32,156 - root - INFO -   - SSA 202316054: AAD
+2024-11-14 16:25:32,156 - root - INFO -   - SSA 202316049: AAD
+2024-11-14 16:25:32,156 - root - INFO -   - SSA 202316041: AAD
+2024-11-14 16:25:32,156 - root - INFO -   - SSA 202316015: AAD
+2024-11-14 16:25:32,156 - root - INFO -   - SSA 202316013: AAD
+2024-11-14 16:25:32,156 - root - INFO -   - SSA 202316010: AAD
+2024-11-14 16:25:32,157 - root - INFO - 
+Responsável Execução: 'LUCAS COSTA CICARELLI'
+2024-11-14 16:25:32,157 - root - INFO - Total SSAs: 13
+2024-11-14 16:25:32,157 - root - INFO - Números das SSAs:
+2024-11-14 16:25:32,157 - root - INFO -   - SSA 202304752: ADM
+2024-11-14 16:25:32,157 - root - INFO -   - SSA 202408000: ADM
+2024-11-14 16:25:32,157 - root - INFO -   - SSA 202310372: ADM
+2024-11-14 16:25:32,158 - root - INFO -   - SSA 202307936: ADM
+2024-11-14 16:25:32,158 - root - INFO -   - SSA 202307932: ADM
+2024-11-14 16:25:32,158 - root - INFO -   - SSA 202307928: ADM
+2024-11-14 16:25:32,158 - root - INFO -   - SSA 202307925: ADM
+2024-11-14 16:25:32,158 - root - INFO -   - SSA 202307921: ADM
+2024-11-14 16:25:32,158 - root - INFO -   - SSA 202307918: ADM
+2024-11-14 16:25:32,158 - root - INFO -   - SSA 202320392: AAT
+2024-11-14 16:25:32,158 - root - INFO -   - SSA 202209853: ADM
+2024-11-14 16:25:32,159 - root - INFO -   - SSA 202209298: AAT
+2024-11-14 16:25:32,159 - root - INFO -   - SSA 202209296: AAT
+2024-11-14 16:25:32,159 - root - INFO - 
+Responsável Execução: 'MARCOS ALOE YAMAMOTO'
+2024-11-14 16:25:32,159 - root - INFO - Total SSAs: 1
+2024-11-14 16:25:32,159 - root - INFO - Números das SSAs:
+2024-11-14 16:25:32,159 - root - INFO -   - SSA 202219292: ADM
+2024-11-14 16:25:32,159 - root - INFO - 
+Responsável Execução: 'MAURICIO MENON'
+2024-11-14 16:25:32,159 - root - INFO - Total SSAs: 29
+2024-11-14 16:25:32,160 - root - INFO - Números das SSAs:
+2024-11-14 16:25:32,160 - root - INFO -   - SSA 202410873: ADM
+2024-11-14 16:25:32,160 - root - INFO -   - SSA 202408589: AAD
+2024-11-14 16:25:32,160 - root - INFO -   - SSA 202404353: AAD
+2024-11-14 16:25:32,160 - root - INFO -   - SSA 202404349: AAD
+2024-11-14 16:25:32,160 - root - INFO -   - SSA 202403569: AAD
+2024-11-14 16:25:32,160 - root - INFO -   - SSA 202401930: ADM
+2024-11-14 16:25:32,160 - root - INFO -   - SSA 202303449: AAD
+2024-11-14 16:25:32,161 - root - INFO -   - SSA 202303082: AAD
+2024-11-14 16:25:32,161 - root - INFO -   - SSA 202300670: ADM
+2024-11-14 16:25:32,161 - root - INFO -   - SSA 202417275: AAD
+2024-11-14 16:25:32,161 - root - INFO -   - SSA 202414170: ADM
+2024-11-14 16:25:32,161 - root - INFO -   - SSA 202412309: AAD
+2024-11-14 16:25:32,161 - root - INFO -   - SSA 202412189: AAD
+2024-11-14 16:25:32,161 - root - INFO -   - SSA 202410056: ADM
+2024-11-14 16:25:32,162 - root - INFO -   - SSA 202410051: ADM
+2024-11-14 16:25:32,162 - root - INFO -   - SSA 202409449: ADM
+2024-11-14 16:25:32,162 - root - INFO -   - SSA 202408797: AAT
+2024-11-14 16:25:32,162 - root - INFO -   - SSA 202401838: AAT
+2024-11-14 16:25:32,162 - root - INFO -   - SSA 202315901: AAD
+2024-11-14 16:25:32,162 - root - INFO -   - SSA 202312371: AAT
+2024-11-14 16:25:32,163 - root - INFO -   - SSA 202308411: AAT
+2024-11-14 16:25:32,163 - root - INFO -   - SSA 202307247: ADM
+2024-11-14 16:25:32,163 - root - INFO -   - SSA 202204716: AAD
+2024-11-14 16:25:32,163 - root - INFO -   - SSA 202418061: ADM
+2024-11-14 16:25:32,163 - root - INFO -   - SSA 202318166: ADM
+2024-11-14 16:25:32,163 - root - INFO -   - SSA 202316930: AAD
+2024-11-14 16:25:32,163 - root - INFO -   - SSA 202316141: AAT
+2024-11-14 16:25:32,163 - root - INFO -   - SSA 202304641: AAT
+2024-11-14 16:25:32,163 - root - INFO -   - SSA 202304639: AAT
+2024-11-14 16:25:32,164 - root - INFO - 
+Responsável Execução: 'SILVA VARGAS FRANCISCO JAVIER'
+2024-11-14 16:25:32,164 - root - INFO - Total SSAs: 10
+2024-11-14 16:25:32,164 - root - INFO - Números das SSAs:
+2024-11-14 16:25:32,164 - root - INFO -   - SSA 202316469: AAT
+2024-11-14 16:25:32,164 - root - INFO -   - SSA 202418023: ADM
+2024-11-14 16:25:32,164 - root - INFO -   - SSA 202414182: AAD
+2024-11-14 16:25:32,164 - root - INFO -   - SSA 202413188: ADM
+2024-11-14 16:25:32,164 - root - INFO -   - SSA 202408102: ADM
+2024-11-14 16:25:32,165 - root - INFO -   - SSA 202408089: AAT
+2024-11-14 16:25:32,165 - root - INFO -   - SSA 202406019: AAT
+2024-11-14 16:25:32,165 - root - INFO -   - SSA 202418019: AAT
+2024-11-14 16:25:32,165 - root - INFO -   - SSA 202416065: ADM
+2024-11-14 16:25:32,165 - root - INFO -   - SSA 202410326: AAT
+2024-11-14 16:25:32,165 - root - INFO - 
+Responsável Execução: 'VILLAR RIVAS ALBERTO'
+2024-11-14 16:25:32,165 - root - INFO - Total SSAs: 15
+2024-11-14 16:25:32,165 - root - INFO - Números das SSAs:
+2024-11-14 16:25:32,166 - root - INFO -   - SSA 202411981: ADM
+2024-11-14 16:25:32,166 - root - INFO -   - SSA 202410715: ADM
+2024-11-14 16:25:32,166 - root - INFO -   - SSA 202407349: ADM
+2024-11-14 16:25:32,166 - root - INFO -   - SSA 202402751: ADM
+2024-11-14 16:25:32,166 - root - INFO -   - SSA 202402415: AAT
+2024-11-14 16:25:32,167 - root - INFO -   - SSA 202402414: AAT
+2024-11-14 16:25:32,167 - root - INFO -   - SSA 202401484: ADM
+2024-11-14 16:25:32,167 - root - INFO -   - SSA 202401482: ADM
+2024-11-14 16:25:32,167 - root - INFO -   - SSA 202320822: AIM
+2024-11-14 16:25:32,167 - root - INFO -   - SSA 202318398: AAT
+2024-11-14 16:25:32,168 - root - INFO -   - SSA 202313969: AIM
+2024-11-14 16:25:32,168 - root - INFO -   - SSA 202310994: AIM
+2024-11-14 16:25:32,168 - root - INFO -   - SSA 202310985: AIM
+2024-11-14 16:25:32,168 - root - INFO -   - SSA 202310952: AIM
+2024-11-14 16:25:32,168 - root - INFO -   - SSA 202316688: AIM
+2024-11-14 16:25:32,169 - root - INFO - 
+=== Validação de Responsáveis Programação ===
+2024-11-14 16:25:32,169 - root - INFO - 
+Responsável Programação: 'ACOSTA FERNANDEZ RAMON ARIEL'
+2024-11-14 16:25:32,169 - root - INFO - Total SSAs: 5
+2024-11-14 16:25:32,169 - root - INFO - Números das SSAs:
+2024-11-14 16:25:32,170 - root - INFO -   - SSA 202414242: APV
+2024-11-14 16:25:32,170 - root - INFO -   - SSA 202311075: AAT
+2024-11-14 16:25:32,170 - root - INFO -   - SSA 202416825: AAD
+2024-11-14 16:25:32,170 - root - INFO -   - SSA 202416554: SPG
+2024-11-14 16:25:32,170 - root - INFO -   - SSA 202208082: ADM
+2024-11-14 16:25:32,170 - root - INFO - 
+Responsável Programação: 'CARLOS RONEI ORTIZ'
+2024-11-14 16:25:32,170 - root - INFO - Total SSAs: 3
+2024-11-14 16:25:32,171 - root - INFO - Números das SSAs:
+2024-11-14 16:25:32,171 - root - INFO -   - SSA 202305650: AAT
+2024-11-14 16:25:32,171 - root - INFO -   - SSA 202210834: ADM
+2024-11-14 16:25:32,171 - root - INFO -   - SSA 202209853: ADM
+2024-11-14 16:25:32,171 - root - INFO - 
+Responsável Programação: 'CASTILLO CENTURION ELIAS FRANCISCO'
+2024-11-14 16:25:32,172 - root - INFO - Total SSAs: 54
+2024-11-14 16:25:32,172 - root - INFO - Números das SSAs:
+2024-11-14 16:25:32,172 - root - INFO -   - SSA 202403587: AAD
+2024-11-14 16:25:32,172 - root - INFO -   - SSA 202403586: AAD
+2024-11-14 16:25:32,172 - root - INFO -   - SSA 202315283: AAT
+2024-11-14 16:25:32,172 - root - INFO -   - SSA 202412180: AAT
+2024-11-14 16:25:32,172 - root - INFO -   - SSA 202407487: AAT
+2024-11-14 16:25:32,172 - root - INFO -   - SSA 202407289: AAD
+2024-11-14 16:25:32,173 - root - INFO -   - SSA 202320659: AAD
+2024-11-14 16:25:32,173 - root - INFO -   - SSA 202320542: AAD
+2024-11-14 16:25:32,173 - root - INFO -   - SSA 202320540: AAD
+2024-11-14 16:25:32,173 - root - INFO -   - SSA 202320539: AAD
+2024-11-14 16:25:32,173 - root - INFO -   - SSA 202320538: AAD
+2024-11-14 16:25:32,173 - root - INFO -   - SSA 202320537: AAD
+2024-11-14 16:25:32,173 - root - INFO -   - SSA 202320535: AAD
+2024-11-14 16:25:32,173 - root - INFO -   - SSA 202320534: AAD
+2024-11-14 16:25:32,174 - root - INFO -   - SSA 202320531: AAD
+2024-11-14 16:25:32,174 - root - INFO -   - SSA 202320530: AAD
+2024-11-14 16:25:32,174 - root - INFO -   - SSA 202320528: AAD
+2024-11-14 16:25:32,174 - root - INFO -   - SSA 202320526: AAD
+2024-11-14 16:25:32,174 - root - INFO -   - SSA 202320524: AAD
+2024-11-14 16:25:32,174 - root - INFO -   - SSA 202320523: AAD
+2024-11-14 16:25:32,175 - root - INFO -   - SSA 202320521: AAD
+2024-11-14 16:25:32,175 - root - INFO -   - SSA 202320517: AAD
+2024-11-14 16:25:32,175 - root - INFO -   - SSA 202320516: AAD
+2024-11-14 16:25:32,175 - root - INFO -   - SSA 202320514: AAD
+2024-11-14 16:25:32,175 - root - INFO -   - SSA 202318314: AAD
+2024-11-14 16:25:32,175 - root - INFO -   - SSA 202317673: AAD
+2024-11-14 16:25:32,175 - root - INFO -   - SSA 202317672: AAD
+2024-11-14 16:25:32,176 - root - INFO -   - SSA 202317668: AAD
+2024-11-14 16:25:32,176 - root - INFO -   - SSA 202317666: AAD
+2024-11-14 16:25:32,176 - root - INFO -   - SSA 202317664: AAD
+2024-11-14 16:25:32,176 - root - INFO -   - SSA 202317660: AAD
+2024-11-14 16:25:32,176 - root - INFO -   - SSA 202317659: AAD
+2024-11-14 16:25:32,176 - root - INFO -   - SSA 202317650: AAD
+2024-11-14 16:25:32,177 - root - INFO -   - SSA 202317649: AAD
+2024-11-14 16:25:32,177 - root - INFO -   - SSA 202317648: AAD
+2024-11-14 16:25:32,177 - root - INFO -   - SSA 202317647: AAD
+2024-11-14 16:25:32,177 - root - INFO -   - SSA 202317646: AAD
+2024-11-14 16:25:32,177 - root - INFO -   - SSA 202317645: AAD
+2024-11-14 16:25:32,177 - root - INFO -   - SSA 202317644: AAD
+2024-11-14 16:25:32,177 - root - INFO -   - SSA 202317640: AAD
+2024-11-14 16:25:32,177 - root - INFO -   - SSA 202317638: AAD
+2024-11-14 16:25:32,178 - root - INFO -   - SSA 202317635: AAD
+2024-11-14 16:25:32,178 - root - INFO -   - SSA 202315965: AAT
+2024-11-14 16:25:32,178 - root - INFO -   - SSA 202314852: AAD
+2024-11-14 16:25:32,178 - root - INFO -   - SSA 202314218: AAT
+2024-11-14 16:25:32,178 - root - INFO -   - SSA 202314188: AAT
+2024-11-14 16:25:32,178 - root - INFO -   - SSA 202311500: AAT
+2024-11-14 16:25:32,178 - root - INFO -   - SSA 202311498: AAT
+2024-11-14 16:25:32,178 - root - INFO -   - SSA 202216567: AAT
+2024-11-14 16:25:32,179 - root - INFO -   - SSA 202209306: AAT
+2024-11-14 16:25:32,179 - root - INFO -   - SSA 202209304: AAT
+2024-11-14 16:25:32,179 - root - INFO -   - SSA 202209302: AAT
+2024-11-14 16:25:32,179 - root - INFO -   - SSA 202209300: AAT
+2024-11-14 16:25:32,179 - root - INFO -   - SSA 202208500: AAT
+2024-11-14 16:25:32,179 - root - INFO - 
+Responsável Programação: 'LOBO MARTINEZ JUAN ALBERTO'
+2024-11-14 16:25:32,179 - root - INFO - Total SSAs: 18
+2024-11-14 16:25:32,179 - root - INFO - Números das SSAs:
+2024-11-14 16:25:32,180 - root - INFO -   - SSA 202315984: AAD
+2024-11-14 16:25:32,180 - root - INFO -   - SSA 202309302: AAT
+2024-11-14 16:25:32,180 - root - INFO -   - SSA 202223791: AAT
+2024-11-14 16:25:32,180 - root - INFO -   - SSA 202315901: AAD
+2024-11-14 16:25:32,180 - root - INFO -   - SSA 202315520: AAD
+2024-11-14 16:25:32,180 - root - INFO -   - SSA 202310994: AIM
+2024-11-14 16:25:32,180 - root - INFO -   - SSA 202308982: AAT
+2024-11-14 16:25:32,180 - root - INFO -   - SSA 202307247: ADM
+2024-11-14 16:25:32,180 - root - INFO -   - SSA 202304925: ADM
+2024-11-14 16:25:32,181 - root - INFO -   - SSA 202225124: AAT
+2024-11-14 16:25:32,181 - root - INFO -   - SSA 202316930: AAD
+2024-11-14 16:25:32,181 - root - INFO -   - SSA 202316688: AIM
+2024-11-14 16:25:32,181 - root - INFO -   - SSA 202316054: AAD
+2024-11-14 16:25:32,181 - root - INFO -   - SSA 202316049: AAD
+2024-11-14 16:25:32,181 - root - INFO -   - SSA 202316041: AAD
+2024-11-14 16:25:32,181 - root - INFO -   - SSA 202316015: AAD
+2024-11-14 16:25:32,182 - root - INFO -   - SSA 202316013: AAD
+2024-11-14 16:25:32,182 - root - INFO -   - SSA 202316010: AAD
+2024-11-14 16:25:32,182 - root - INFO - 
+Responsável Programação: 'LUCAS COSTA CICARELLI'
+2024-11-14 16:25:32,182 - root - INFO - Total SSAs: 10
+2024-11-14 16:25:32,183 - root - INFO - Números das SSAs:
+2024-11-14 16:25:32,183 - root - INFO -   - SSA 202408000: ADM
+2024-11-14 16:25:32,183 - root - INFO -   - SSA 202307936: ADM
+2024-11-14 16:25:32,183 - root - INFO -   - SSA 202307932: ADM
+2024-11-14 16:25:32,183 - root - INFO -   - SSA 202307928: ADM
+2024-11-14 16:25:32,184 - root - INFO -   - SSA 202307925: ADM
+2024-11-14 16:25:32,184 - root - INFO -   - SSA 202307921: ADM
+2024-11-14 16:25:32,184 - root - INFO -   - SSA 202307918: ADM
+2024-11-14 16:25:32,184 - root - INFO -   - SSA 202320392: AAT
+2024-11-14 16:25:32,184 - root - INFO -   - SSA 202209298: AAT
+2024-11-14 16:25:32,184 - root - INFO -   - SSA 202209296: AAT
+2024-11-14 16:25:32,185 - root - INFO - 
+Responsável Programação: 'MARCOS ALOE YAMAMOTO'
+2024-11-14 16:25:32,185 - root - INFO - Total SSAs: 1
+2024-11-14 16:25:32,185 - root - INFO - Números das SSAs:
+2024-11-14 16:25:32,185 - root - INFO -   - SSA 202219292: ADM
+2024-11-14 16:25:32,185 - root - INFO - 
+Responsável Programação: 'MAURICIO MENON'
+2024-11-14 16:25:32,185 - root - INFO - Total SSAs: 27
+2024-11-14 16:25:32,186 - root - INFO - Números das SSAs:
+2024-11-14 16:25:32,186 - root - INFO -   - SSA 202410873: ADM
+2024-11-14 16:25:32,186 - root - INFO -   - SSA 202408589: AAD
+2024-11-14 16:25:32,186 - root - INFO -   - SSA 202404353: AAD
+2024-11-14 16:25:32,186 - root - INFO -   - SSA 202404349: AAD
+2024-11-14 16:25:32,187 - root - INFO -   - SSA 202403569: AAD
+2024-11-14 16:25:32,187 - root - INFO -   - SSA 202401930: ADM
+2024-11-14 16:25:32,187 - root - INFO -   - SSA 202303449: AAD
+2024-11-14 16:25:32,187 - root - INFO -   - SSA 202303082: AAD
+2024-11-14 16:25:32,187 - root - INFO -   - SSA 202300670: ADM
+2024-11-14 16:25:32,188 - root - INFO -   - SSA 202417275: AAD
+2024-11-14 16:25:32,188 - root - INFO -   - SSA 202414170: ADM
+2024-11-14 16:25:32,188 - root - INFO -   - SSA 202412309: AAD
+2024-11-14 16:25:32,188 - root - INFO -   - SSA 202412189: AAD
+2024-11-14 16:25:32,188 - root - INFO -   - SSA 202410056: ADM
+2024-11-14 16:25:32,188 - root - INFO -   - SSA 202410051: ADM
+2024-11-14 16:25:32,189 - root - INFO -   - SSA 202409449: ADM
+2024-11-14 16:25:32,189 - root - INFO -   - SSA 202408797: AAT
+2024-11-14 16:25:32,189 - root - INFO -   - SSA 202401838: AAT
+2024-11-14 16:25:32,189 - root - INFO -   - SSA 202312375: AAD
+2024-11-14 16:25:32,189 - root - INFO -   - SSA 202312371: AAT
+2024-11-14 16:25:32,189 - root - INFO -   - SSA 202308411: AAT
+2024-11-14 16:25:32,190 - root - INFO -   - SSA 202204716: AAD
+2024-11-14 16:25:32,190 - root - INFO -   - SSA 202418061: ADM
+2024-11-14 16:25:32,190 - root - INFO -   - SSA 202318166: ADM
+2024-11-14 16:25:32,190 - root - INFO -   - SSA 202316141: AAT
+2024-11-14 16:25:32,190 - root - INFO -   - SSA 202304641: AAT
+2024-11-14 16:25:32,190 - root - INFO -   - SSA 202304639: AAT
+2024-11-14 16:25:32,190 - root - INFO - 
+Responsável Programação: 'SILVA VARGAS FRANCISCO JAVIER'
+2024-11-14 16:25:32,190 - root - INFO - Total SSAs: 25
+2024-11-14 16:25:32,191 - root - INFO - Números das SSAs:
+2024-11-14 16:25:32,191 - root - INFO -   - SSA 202407782: SPG
+2024-11-14 16:25:32,191 - root - INFO -   - SSA 202405093: SPG
+2024-11-14 16:25:32,191 - root - INFO -   - SSA 202404581: SPG
+2024-11-14 16:25:32,191 - root - INFO -   - SSA 202317755: SPG
+2024-11-14 16:25:32,191 - root - INFO -   - SSA 202316469: AAT
+2024-11-14 16:25:32,192 - root - INFO -   - SSA 202304752: ADM
+2024-11-14 16:25:32,192 - root - INFO -   - SSA 202418047: SPG
+2024-11-14 16:25:32,192 - root - INFO -   - SSA 202418023: ADM
+2024-11-14 16:25:32,192 - root - INFO -   - SSA 202414182: AAD
+2024-11-14 16:25:32,192 - root - INFO -   - SSA 202413188: ADM
+2024-11-14 16:25:32,193 - root - INFO -   - SSA 202413077: SCD
+2024-11-14 16:25:32,193 - root - INFO -   - SSA 202412872: SPG
+2024-11-14 16:25:32,193 - root - INFO -   - SSA 202412811: SPG
+2024-11-14 16:25:32,193 - root - INFO -   - SSA 202412570: SPG
+2024-11-14 16:25:32,193 - root - INFO -   - SSA 202409608: SPG
+2024-11-14 16:25:32,193 - root - INFO -   - SSA 202408102: ADM
+2024-11-14 16:25:32,193 - root - INFO -   - SSA 202408089: AAT
+2024-11-14 16:25:32,193 - root - INFO -   - SSA 202406019: AAT
+2024-11-14 16:25:32,194 - root - INFO -   - SSA 202404436: SPG
+2024-11-14 16:25:32,194 - root - INFO -   - SSA 202310985: AIM
+2024-11-14 16:25:32,194 - root - INFO -   - SSA 202310952: AIM
+2024-11-14 16:25:32,194 - root - INFO -   - SSA 202310372: ADM
+2024-11-14 16:25:32,194 - root - INFO -   - SSA 202418019: AAT
+2024-11-14 16:25:32,194 - root - INFO -   - SSA 202416065: ADM
+2024-11-14 16:25:32,194 - root - INFO -   - SSA 202410326: AAT
+2024-11-14 16:25:32,194 - root - INFO - 
+Responsável Programação: 'VILLAR RIVAS ALBERTO'
+2024-11-14 16:25:32,195 - root - INFO - Total SSAs: 11
+2024-11-14 16:25:32,195 - root - INFO - Números das SSAs:
+2024-11-14 16:25:32,195 - root - INFO -   - SSA 202411981: ADM
+2024-11-14 16:25:32,195 - root - INFO -   - SSA 202410715: ADM
+2024-11-14 16:25:32,195 - root - INFO -   - SSA 202407349: ADM
+2024-11-14 16:25:32,195 - root - INFO -   - SSA 202402751: ADM
+2024-11-14 16:25:32,195 - root - INFO -   - SSA 202402415: AAT
+2024-11-14 16:25:32,195 - root - INFO -   - SSA 202402414: AAT
+2024-11-14 16:25:32,196 - root - INFO -   - SSA 202401484: ADM
+2024-11-14 16:25:32,196 - root - INFO -   - SSA 202401482: ADM
+2024-11-14 16:25:32,196 - root - INFO -   - SSA 202320822: AIM
+2024-11-14 16:25:32,196 - root - INFO -   - SSA 202318398: AAT
+2024-11-14 16:25:32,196 - root - INFO -   - SSA 202313969: AIM
+2024-11-14 16:25:32,196 - root - INFO - 
+=== Primeiro Objeto Convertido (Verificação) ===
+2024-11-14 16:25:32,197 - root - INFO - Número: 202415727
+2024-11-14 16:25:32,197 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-14 16:25:32,197 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-14 16:25:32,197 - root - INFO - Setor executor: IEE3
+2024-11-14 16:25:32,198 - root - INFO - Responsável execução: None
+2024-11-14 16:25:32,198 - root - INFO - Responsável programação: None
+2024-11-14 16:25:32,199 - root - INFO - === Estatísticas do Carregamento ===
+2024-11-14 16:25:32,200 - root - INFO - Total de registros: 189
+2024-11-14 16:25:32,200 - root - INFO - SSAs válidas: 189
+2024-11-14 16:25:32,200 - root - INFO - total_ssas: 189
+2024-11-14 16:25:32,200 - root - INFO - ssas_com_responsavel: 142
+2024-11-14 16:25:32,200 - root - INFO - ssas_sem_responsavel: 47
+2024-11-14 16:25:32,201 - root - INFO - setores_executores: 1
+2024-11-14 16:25:32,202 - root - WARNING - Problemas encontrados nos dados: 2 datas inválidas
+2024-11-14 16:25:32,224 - DashboardLogger - INFO - Iniciando servidor do dashboard
+2024-11-14 16:25:39,574 - DashboardLogger - INFO - Nova conexão de IP: 172.19.73.38
+2024-11-14 16:25:39,575 - DashboardLogger - INFO - Acesso à rota: /
+2024-11-14 16:25:39,623 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/deps/polyfill@7.v2_14_1m1731335188.12.1.min.js
+2024-11-14 16:25:39,642 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/deps/react@16.v2_14_1m1731335189.14.0.js
+2024-11-14 16:25:39,695 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/deps/react-dom@16.v2_14_1m1731335189.14.0.js
+2024-11-14 16:25:39,697 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/deps/prop-types@15.v2_14_1m1731335188.8.1.js
+2024-11-14 16:25:39,702 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash_bootstrap_components/_components/dash_bootstrap_components.v1_5_0m1731335207.min.js
+2024-11-14 16:25:39,703 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash-renderer/build/dash_renderer.v2_14_1m1731335188.dev.js
+2024-11-14 16:25:40,001 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dcc/dash_core_components.v2_12_1m1731335188.js
+2024-11-14 16:25:40,018 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dcc/dash_core_components-shared.v2_12_1m1731335188.js
+2024-11-14 16:25:40,024 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/html/dash_html_components.v2_0_15m1731335189.min.js
+2024-11-14 16:25:40,033 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash_table/bundle.v5_2_8m1731335188.js
+2024-11-14 16:25:41,379 - DashboardLogger - INFO - Acesso à rota: /_dash-layout
+2024-11-14 16:25:41,381 - DashboardLogger - INFO - Acesso à rota: /_dash-dependencies
+2024-11-14 16:25:41,384 - DashboardLogger - INFO - Acesso à rota: /_favicon.ico
+2024-11-14 16:25:41,457 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dcc/async-dropdown.js
+2024-11-14 16:25:41,474 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/plotly/package_data/plotly.min.js
+2024-11-14 16:25:41,475 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dcc/async-graph.js
+2024-11-14 16:25:41,515 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash_table/async-highlight.js
+2024-11-14 16:25:41,524 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash_table/async-table.js
+2024-11-14 16:25:41,527 - DashboardLogger - INFO - Acesso à rota: /_dash-update-component
+2024-11-14 16:25:44,377 - DashboardLogger - INFO - Acesso à rota: /_reload-hash
+2024-11-14 16:30:41,516 - DashboardLogger - INFO - Atualização automática dos dados
+2024-11-14 16:30:44,380 - DashboardLogger - INFO - Acesso à rota: /_reload-hash
+2024-11-14 16:35:42,262 - DashboardLogger - INFO - Acesso à rota: /_dash-update-component
+2024-11-14 16:35:42,263 - DashboardLogger - INFO - Atualização automática dos dados
+2024-11-14 16:35:45,255 - DashboardLogger - INFO - Acesso à rota: /_reload-hash
+2024-11-14 16:40:54,213 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dcc/async-dropdown.js
+2024-11-14 16:40:54,236 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dcc/async-graph.js
+2024-11-14 16:40:54,245 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/plotly/package_data/plotly.min.js
+2024-11-14 16:40:54,693 - DashboardLogger - INFO - Acesso à rota: /_dash-update-component
+2024-11-14 16:40:55,087 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash_table/async-highlight.js
+2024-11-14 16:40:55,090 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash_table/async-table.js
+2024-11-14 16:40:57,554 - DashboardLogger - INFO - Acesso à rota: /_reload-hash
+2024-11-14 16:41:48,200 - root - INFO - Arquivo mais recente encontrado: SSAs Pendentes Geral - 14-11-2024_0423PM.xlsx (14/11/2024 16:23)
+2024-11-14 16:41:48,203 - root - INFO - Iniciando carregamento do arquivo: C:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\downloads\SSAs Pendentes Geral - 14-11-2024_0423PM.xlsx
+2024-11-14 16:41:49,021 - root - INFO - Arquivo carregado. Total de linhas: 189
+2024-11-14 16:41:49,184 - root - INFO - === Diagnóstico de Datas ===
+2024-11-14 16:41:49,185 - root - INFO - Total de linhas: 189
+2024-11-14 16:41:49,185 - root - INFO - Problemas encontrados: 2
+2024-11-14 16:41:49,185 - root - INFO - 
+Linha 169:
+2024-11-14 16:41:49,186 - root - INFO -   Valor encontrado: nan
+2024-11-14 16:41:49,186 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-14 16:41:49,186 - root - INFO -   Dados da linha:
+2024-11-14 16:41:49,187 - root - INFO -     Número da SSA: 202418235
+2024-11-14 16:41:49,187 - root - INFO -     Situação: ASE
+2024-11-14 16:41:49,187 - root - INFO -     Derivada de: nan
+2024-11-14 16:41:49,187 - root - INFO -     Localização: G097D001
+2024-11-14 16:41:49,187 - root - INFO -     Descrição da Localização: UNIDADE DE AQUISICAO DE DADOS - DAUC C1
+2024-11-14 16:41:49,188 - root - INFO -     Equipamento: 0889.004-8
+2024-11-14 16:41:49,188 - root - INFO -     Semana de Cadastro: 202446
+2024-11-14 16:41:49,188 - root - INFO -     Emitida Em: nan
+2024-11-14 16:41:49,188 - root - INFO -     Descrição da SSA: Atualizar os desenhos 6609-DC-15230, Folha 322 e 6639-DF-A7791, Folha 27. Modificação necessária devido a execução da SSA 202401607.
+2024-11-14 16:41:49,188 - root - INFO -     Setor Emissor: MEL4
+2024-11-14 16:41:49,188 - root - INFO -     Setor Executor: IEE3
+2024-11-14 16:41:49,189 - root - INFO -     Solicitante: OTAVIO ALEXANDRE NICOLAU
+2024-11-14 16:41:49,189 - root - INFO -     Serviço de Origem: S1
+2024-11-14 16:41:49,189 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-14 16:41:49,189 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-14 16:41:49,189 - root - INFO -     Execução Simples: Não
+2024-11-14 16:41:49,189 - root - INFO -     Responsável na Programação: nan
+2024-11-14 16:41:49,189 - root - INFO -     Semana Programada: nan
+2024-11-14 16:41:49,190 - root - INFO -     Responsável na Execução: nan
+2024-11-14 16:41:49,190 - root - INFO -     Descrição Execução: nan
+2024-11-14 16:41:49,190 - root - INFO -     Sistema de Origem: nan
+2024-11-14 16:41:49,190 - root - INFO -     Anomalia: nan
+2024-11-14 16:41:49,190 - root - INFO - 
+Linha 170:
+2024-11-14 16:41:49,190 - root - INFO -   Valor encontrado: nan
+2024-11-14 16:41:49,191 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-14 16:41:49,191 - root - INFO -   Dados da linha:
+2024-11-14 16:41:49,191 - root - INFO -     Número da SSA: 202418234
+2024-11-14 16:41:49,191 - root - INFO -     Situação: ASE
+2024-11-14 16:41:49,192 - root - INFO -     Derivada de: nan
+2024-11-14 16:41:49,192 - root - INFO -     Localização: G097E001
+2024-11-14 16:41:49,192 - root - INFO -     Descrição da Localização: UNIDADE DE AQUISICAO DE DADOS - DAUC F1
+2024-11-14 16:41:49,192 - root - INFO -     Equipamento: 0889.006-4
+2024-11-14 16:41:49,192 - root - INFO -     Semana de Cadastro: 202446
+2024-11-14 16:41:49,192 - root - INFO -     Emitida Em: nan
+2024-11-14 16:41:49,192 - root - INFO -     Descrição da SSA: Atualizar os desenhos 6609-DC-A8360, Folha 330 e 6639-DF-A7802, Folha 19+. Modificação necessária devido a execução da SSA 202401605.
+2024-11-14 16:41:49,193 - root - INFO -     Setor Emissor: MEL4
+2024-11-14 16:41:49,193 - root - INFO -     Setor Executor: IEE3
+2024-11-14 16:41:49,193 - root - INFO -     Solicitante: OTAVIO ALEXANDRE NICOLAU
+2024-11-14 16:41:49,193 - root - INFO -     Serviço de Origem: S1
+2024-11-14 16:41:49,193 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-14 16:41:49,193 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-14 16:41:49,193 - root - INFO -     Execução Simples: Não
+2024-11-14 16:41:49,193 - root - INFO -     Responsável na Programação: nan
+2024-11-14 16:41:49,194 - root - INFO -     Semana Programada: nan
+2024-11-14 16:41:49,194 - root - INFO -     Responsável na Execução: nan
+2024-11-14 16:41:49,194 - root - INFO -     Descrição Execução: nan
+2024-11-14 16:41:49,194 - root - INFO -     Sistema de Origem: nan
+2024-11-14 16:41:49,194 - root - INFO -     Anomalia: nan
+2024-11-14 16:41:49,196 - root - ERROR - Encontradas 2 datas inválidas
+2024-11-14 16:41:49,196 - root - ERROR - Linha 169: Data inválida - verificar valor original
+2024-11-14 16:41:49,196 - root - ERROR - Linha 170: Data inválida - verificar valor original
+2024-11-14 16:41:49,239 - root - INFO - === Estatísticas de Conversão ===
+2024-11-14 16:41:49,239 - root - INFO - Total de registros convertidos: 189
+2024-11-14 16:41:49,239 - root - INFO - Responsáveis execução únicos: 9
+2024-11-14 16:41:49,240 - root - INFO - Responsáveis programação únicos: 9
+2024-11-14 16:41:49,240 - root - INFO - 
+=== Validação de Responsáveis Execução ===
+2024-11-14 16:41:49,241 - root - INFO - 
+Responsável Execução: 'ACOSTA FERNANDEZ RAMON ARIEL'
+2024-11-14 16:41:49,241 - root - INFO - Total SSAs: 4
+2024-11-14 16:41:49,242 - root - INFO - Números das SSAs:
+2024-11-14 16:41:49,242 - root - INFO -   - SSA 202414242: APV
+2024-11-14 16:41:49,242 - root - INFO -   - SSA 202311075: AAT
+2024-11-14 16:41:49,242 - root - INFO -   - SSA 202416825: AAD
+2024-11-14 16:41:49,243 - root - INFO -   - SSA 202208082: ADM
+2024-11-14 16:41:49,243 - root - INFO - 
+Responsável Execução: 'CARLOS RONEI ORTIZ'
+2024-11-14 16:41:49,243 - root - INFO - Total SSAs: 1
+2024-11-14 16:41:49,243 - root - INFO - Números das SSAs:
+2024-11-14 16:41:49,244 - root - INFO -   - SSA 202210834: ADM
+2024-11-14 16:41:49,244 - root - INFO - 
+Responsável Execução: 'CASTILLO CENTURION ELIAS FRANCISCO'
+2024-11-14 16:41:49,244 - root - INFO - Total SSAs: 54
+2024-11-14 16:41:49,244 - root - INFO - Números das SSAs:
+2024-11-14 16:41:49,245 - root - INFO -   - SSA 202403587: AAD
+2024-11-14 16:41:49,245 - root - INFO -   - SSA 202403586: AAD
+2024-11-14 16:41:49,245 - root - INFO -   - SSA 202315283: AAT
+2024-11-14 16:41:49,245 - root - INFO -   - SSA 202412180: AAT
+2024-11-14 16:41:49,245 - root - INFO -   - SSA 202407487: AAT
+2024-11-14 16:41:49,246 - root - INFO -   - SSA 202407289: AAD
+2024-11-14 16:41:49,246 - root - INFO -   - SSA 202320659: AAD
+2024-11-14 16:41:49,246 - root - INFO -   - SSA 202320542: AAD
+2024-11-14 16:41:49,246 - root - INFO -   - SSA 202320540: AAD
+2024-11-14 16:41:49,246 - root - INFO -   - SSA 202320539: AAD
+2024-11-14 16:41:49,247 - root - INFO -   - SSA 202320538: AAD
+2024-11-14 16:41:49,247 - root - INFO -   - SSA 202320537: AAD
+2024-11-14 16:41:49,247 - root - INFO -   - SSA 202320535: AAD
+2024-11-14 16:41:49,247 - root - INFO -   - SSA 202320534: AAD
+2024-11-14 16:41:49,247 - root - INFO -   - SSA 202320531: AAD
+2024-11-14 16:41:49,247 - root - INFO -   - SSA 202320530: AAD
+2024-11-14 16:41:49,248 - root - INFO -   - SSA 202320528: AAD
+2024-11-14 16:41:49,248 - root - INFO -   - SSA 202320526: AAD
+2024-11-14 16:41:49,248 - root - INFO -   - SSA 202320524: AAD
+2024-11-14 16:41:49,248 - root - INFO -   - SSA 202320523: AAD
+2024-11-14 16:41:49,248 - root - INFO -   - SSA 202320521: AAD
+2024-11-14 16:41:49,248 - root - INFO -   - SSA 202320517: AAD
+2024-11-14 16:41:49,248 - root - INFO -   - SSA 202320516: AAD
+2024-11-14 16:41:49,249 - root - INFO -   - SSA 202320514: AAD
+2024-11-14 16:41:49,249 - root - INFO -   - SSA 202318314: AAD
+2024-11-14 16:41:49,249 - root - INFO -   - SSA 202317673: AAD
+2024-11-14 16:41:49,249 - root - INFO -   - SSA 202317672: AAD
+2024-11-14 16:41:49,249 - root - INFO -   - SSA 202317668: AAD
+2024-11-14 16:41:49,249 - root - INFO -   - SSA 202317666: AAD
+2024-11-14 16:41:49,250 - root - INFO -   - SSA 202317664: AAD
+2024-11-14 16:41:49,250 - root - INFO -   - SSA 202317660: AAD
+2024-11-14 16:41:49,250 - root - INFO -   - SSA 202317659: AAD
+2024-11-14 16:41:49,250 - root - INFO -   - SSA 202317650: AAD
+2024-11-14 16:41:49,250 - root - INFO -   - SSA 202317649: AAD
+2024-11-14 16:41:49,251 - root - INFO -   - SSA 202317648: AAD
+2024-11-14 16:41:49,251 - root - INFO -   - SSA 202317647: AAD
+2024-11-14 16:41:49,251 - root - INFO -   - SSA 202317646: AAD
+2024-11-14 16:41:49,251 - root - INFO -   - SSA 202317645: AAD
+2024-11-14 16:41:49,252 - root - INFO -   - SSA 202317644: AAD
+2024-11-14 16:41:49,252 - root - INFO -   - SSA 202317640: AAD
+2024-11-14 16:41:49,252 - root - INFO -   - SSA 202317638: AAD
+2024-11-14 16:41:49,252 - root - INFO -   - SSA 202317635: AAD
+2024-11-14 16:41:49,253 - root - INFO -   - SSA 202315965: AAT
+2024-11-14 16:41:49,253 - root - INFO -   - SSA 202314852: AAD
+2024-11-14 16:41:49,253 - root - INFO -   - SSA 202314218: AAT
+2024-11-14 16:41:49,253 - root - INFO -   - SSA 202314188: AAT
+2024-11-14 16:41:49,254 - root - INFO -   - SSA 202311500: AAT
+2024-11-14 16:41:49,254 - root - INFO -   - SSA 202311498: AAT
+2024-11-14 16:41:49,254 - root - INFO -   - SSA 202216567: AAT
+2024-11-14 16:41:49,254 - root - INFO -   - SSA 202209306: AAT
+2024-11-14 16:41:49,254 - root - INFO -   - SSA 202209304: AAT
+2024-11-14 16:41:49,255 - root - INFO -   - SSA 202209302: AAT
+2024-11-14 16:41:49,255 - root - INFO -   - SSA 202209300: AAT
+2024-11-14 16:41:49,255 - root - INFO -   - SSA 202208500: AAT
+2024-11-14 16:41:49,255 - root - INFO - 
+Responsável Execução: 'LOBO MARTINEZ JUAN ALBERTO'
+2024-11-14 16:41:49,255 - root - INFO - Total SSAs: 15
+2024-11-14 16:41:49,256 - root - INFO - Números das SSAs:
+2024-11-14 16:41:49,256 - root - INFO -   - SSA 202315984: AAD
+2024-11-14 16:41:49,256 - root - INFO -   - SSA 202309302: AAT
+2024-11-14 16:41:49,256 - root - INFO -   - SSA 202223791: AAT
+2024-11-14 16:41:49,256 - root - INFO -   - SSA 202315520: AAD
+2024-11-14 16:41:49,256 - root - INFO -   - SSA 202312375: AAD
+2024-11-14 16:41:49,257 - root - INFO -   - SSA 202308982: AAT
+2024-11-14 16:41:49,257 - root - INFO -   - SSA 202305650: AAT
+2024-11-14 16:41:49,257 - root - INFO -   - SSA 202304925: ADM
+2024-11-14 16:41:49,258 - root - INFO -   - SSA 202225124: AAT
+2024-11-14 16:41:49,258 - root - INFO -   - SSA 202316054: AAD
+2024-11-14 16:41:49,258 - root - INFO -   - SSA 202316049: AAD
+2024-11-14 16:41:49,258 - root - INFO -   - SSA 202316041: AAD
+2024-11-14 16:41:49,259 - root - INFO -   - SSA 202316015: AAD
+2024-11-14 16:41:49,259 - root - INFO -   - SSA 202316013: AAD
+2024-11-14 16:41:49,259 - root - INFO -   - SSA 202316010: AAD
+2024-11-14 16:41:49,260 - root - INFO - 
+Responsável Execução: 'LUCAS COSTA CICARELLI'
+2024-11-14 16:41:49,260 - root - INFO - Total SSAs: 13
+2024-11-14 16:41:49,260 - root - INFO - Números das SSAs:
+2024-11-14 16:41:49,260 - root - INFO -   - SSA 202304752: ADM
+2024-11-14 16:41:49,261 - root - INFO -   - SSA 202408000: ADM
+2024-11-14 16:41:49,261 - root - INFO -   - SSA 202310372: ADM
+2024-11-14 16:41:49,261 - root - INFO -   - SSA 202307936: ADM
+2024-11-14 16:41:49,261 - root - INFO -   - SSA 202307932: ADM
+2024-11-14 16:41:49,261 - root - INFO -   - SSA 202307928: ADM
+2024-11-14 16:41:49,262 - root - INFO -   - SSA 202307925: ADM
+2024-11-14 16:41:49,262 - root - INFO -   - SSA 202307921: ADM
+2024-11-14 16:41:49,262 - root - INFO -   - SSA 202307918: ADM
+2024-11-14 16:41:49,262 - root - INFO -   - SSA 202320392: AAT
+2024-11-14 16:41:49,262 - root - INFO -   - SSA 202209853: ADM
+2024-11-14 16:41:49,262 - root - INFO -   - SSA 202209298: AAT
+2024-11-14 16:41:49,262 - root - INFO -   - SSA 202209296: AAT
+2024-11-14 16:41:49,263 - root - INFO - 
+Responsável Execução: 'MARCOS ALOE YAMAMOTO'
+2024-11-14 16:41:49,263 - root - INFO - Total SSAs: 1
+2024-11-14 16:41:49,263 - root - INFO - Números das SSAs:
+2024-11-14 16:41:49,263 - root - INFO -   - SSA 202219292: ADM
+2024-11-14 16:41:49,263 - root - INFO - 
+Responsável Execução: 'MAURICIO MENON'
+2024-11-14 16:41:49,263 - root - INFO - Total SSAs: 29
+2024-11-14 16:41:49,264 - root - INFO - Números das SSAs:
+2024-11-14 16:41:49,264 - root - INFO -   - SSA 202410873: ADM
+2024-11-14 16:41:49,264 - root - INFO -   - SSA 202408589: AAD
+2024-11-14 16:41:49,264 - root - INFO -   - SSA 202404353: AAD
+2024-11-14 16:41:49,264 - root - INFO -   - SSA 202404349: AAD
+2024-11-14 16:41:49,265 - root - INFO -   - SSA 202403569: AAD
+2024-11-14 16:41:49,265 - root - INFO -   - SSA 202401930: ADM
+2024-11-14 16:41:49,265 - root - INFO -   - SSA 202303449: AAD
+2024-11-14 16:41:49,265 - root - INFO -   - SSA 202303082: AAD
+2024-11-14 16:41:49,265 - root - INFO -   - SSA 202300670: ADM
+2024-11-14 16:41:49,266 - root - INFO -   - SSA 202417275: AAD
+2024-11-14 16:41:49,266 - root - INFO -   - SSA 202414170: ADM
+2024-11-14 16:41:49,266 - root - INFO -   - SSA 202412309: AAD
+2024-11-14 16:41:49,266 - root - INFO -   - SSA 202412189: AAD
+2024-11-14 16:41:49,266 - root - INFO -   - SSA 202410056: ADM
+2024-11-14 16:41:49,266 - root - INFO -   - SSA 202410051: ADM
+2024-11-14 16:41:49,266 - root - INFO -   - SSA 202409449: ADM
+2024-11-14 16:41:49,266 - root - INFO -   - SSA 202408797: AAT
+2024-11-14 16:41:49,267 - root - INFO -   - SSA 202401838: AAT
+2024-11-14 16:41:49,267 - root - INFO -   - SSA 202315901: AAD
+2024-11-14 16:41:49,267 - root - INFO -   - SSA 202312371: AAT
+2024-11-14 16:41:49,267 - root - INFO -   - SSA 202308411: AAT
+2024-11-14 16:41:49,268 - root - INFO -   - SSA 202307247: ADM
+2024-11-14 16:41:49,268 - root - INFO -   - SSA 202204716: AAD
+2024-11-14 16:41:49,268 - root - INFO -   - SSA 202418061: ADM
+2024-11-14 16:41:49,268 - root - INFO -   - SSA 202318166: ADM
+2024-11-14 16:41:49,268 - root - INFO -   - SSA 202316930: AAD
+2024-11-14 16:41:49,268 - root - INFO -   - SSA 202316141: AAT
+2024-11-14 16:41:49,269 - root - INFO -   - SSA 202304641: AAT
+2024-11-14 16:41:49,269 - root - INFO -   - SSA 202304639: AAT
+2024-11-14 16:41:49,269 - root - INFO - 
+Responsável Execução: 'SILVA VARGAS FRANCISCO JAVIER'
+2024-11-14 16:41:49,269 - root - INFO - Total SSAs: 10
+2024-11-14 16:41:49,270 - root - INFO - Números das SSAs:
+2024-11-14 16:41:49,270 - root - INFO -   - SSA 202316469: AAT
+2024-11-14 16:41:49,270 - root - INFO -   - SSA 202418023: ADM
+2024-11-14 16:41:49,270 - root - INFO -   - SSA 202414182: AAD
+2024-11-14 16:41:49,271 - root - INFO -   - SSA 202413188: ADM
+2024-11-14 16:41:49,271 - root - INFO -   - SSA 202408102: ADM
+2024-11-14 16:41:49,271 - root - INFO -   - SSA 202408089: AAT
+2024-11-14 16:41:49,271 - root - INFO -   - SSA 202406019: AAT
+2024-11-14 16:41:49,272 - root - INFO -   - SSA 202418019: AAT
+2024-11-14 16:41:49,272 - root - INFO -   - SSA 202416065: ADM
+2024-11-14 16:41:49,272 - root - INFO -   - SSA 202410326: AAT
+2024-11-14 16:41:49,273 - root - INFO - 
+Responsável Execução: 'VILLAR RIVAS ALBERTO'
+2024-11-14 16:41:49,273 - root - INFO - Total SSAs: 15
+2024-11-14 16:41:49,273 - root - INFO - Números das SSAs:
+2024-11-14 16:41:49,274 - root - INFO -   - SSA 202411981: ADM
+2024-11-14 16:41:49,274 - root - INFO -   - SSA 202410715: ADM
+2024-11-14 16:41:49,274 - root - INFO -   - SSA 202407349: ADM
+2024-11-14 16:41:49,274 - root - INFO -   - SSA 202402751: ADM
+2024-11-14 16:41:49,274 - root - INFO -   - SSA 202402415: AAT
+2024-11-14 16:41:49,274 - root - INFO -   - SSA 202402414: AAT
+2024-11-14 16:41:49,275 - root - INFO -   - SSA 202401484: ADM
+2024-11-14 16:41:49,275 - root - INFO -   - SSA 202401482: ADM
+2024-11-14 16:41:49,275 - root - INFO -   - SSA 202320822: AIM
+2024-11-14 16:41:49,275 - root - INFO -   - SSA 202318398: AAT
+2024-11-14 16:41:49,275 - root - INFO -   - SSA 202313969: AIM
+2024-11-14 16:41:49,276 - root - INFO -   - SSA 202310994: AIM
+2024-11-14 16:41:49,276 - root - INFO -   - SSA 202310985: AIM
+2024-11-14 16:41:49,276 - root - INFO -   - SSA 202310952: AIM
+2024-11-14 16:41:49,276 - root - INFO -   - SSA 202316688: AIM
+2024-11-14 16:41:49,276 - root - INFO - 
+=== Validação de Responsáveis Programação ===
+2024-11-14 16:41:49,276 - root - INFO - 
+Responsável Programação: 'ACOSTA FERNANDEZ RAMON ARIEL'
+2024-11-14 16:41:49,277 - root - INFO - Total SSAs: 5
+2024-11-14 16:41:49,277 - root - INFO - Números das SSAs:
+2024-11-14 16:41:49,277 - root - INFO -   - SSA 202414242: APV
+2024-11-14 16:41:49,277 - root - INFO -   - SSA 202311075: AAT
+2024-11-14 16:41:49,277 - root - INFO -   - SSA 202416825: AAD
+2024-11-14 16:41:49,277 - root - INFO -   - SSA 202416554: SPG
+2024-11-14 16:41:49,278 - root - INFO -   - SSA 202208082: ADM
+2024-11-14 16:41:49,278 - root - INFO - 
+Responsável Programação: 'CARLOS RONEI ORTIZ'
+2024-11-14 16:41:49,278 - root - INFO - Total SSAs: 3
+2024-11-14 16:41:49,278 - root - INFO - Números das SSAs:
+2024-11-14 16:41:49,278 - root - INFO -   - SSA 202305650: AAT
+2024-11-14 16:41:49,278 - root - INFO -   - SSA 202210834: ADM
+2024-11-14 16:41:49,278 - root - INFO -   - SSA 202209853: ADM
+2024-11-14 16:41:49,279 - root - INFO - 
+Responsável Programação: 'CASTILLO CENTURION ELIAS FRANCISCO'
+2024-11-14 16:41:49,279 - root - INFO - Total SSAs: 54
+2024-11-14 16:41:49,279 - root - INFO - Números das SSAs:
+2024-11-14 16:41:49,279 - root - INFO -   - SSA 202403587: AAD
+2024-11-14 16:41:49,279 - root - INFO -   - SSA 202403586: AAD
+2024-11-14 16:41:49,280 - root - INFO -   - SSA 202315283: AAT
+2024-11-14 16:41:49,280 - root - INFO -   - SSA 202412180: AAT
+2024-11-14 16:41:49,280 - root - INFO -   - SSA 202407487: AAT
+2024-11-14 16:41:49,280 - root - INFO -   - SSA 202407289: AAD
+2024-11-14 16:41:49,280 - root - INFO -   - SSA 202320659: AAD
+2024-11-14 16:41:49,280 - root - INFO -   - SSA 202320542: AAD
+2024-11-14 16:41:49,280 - root - INFO -   - SSA 202320540: AAD
+2024-11-14 16:41:49,281 - root - INFO -   - SSA 202320539: AAD
+2024-11-14 16:41:49,281 - root - INFO -   - SSA 202320538: AAD
+2024-11-14 16:41:49,281 - root - INFO -   - SSA 202320537: AAD
+2024-11-14 16:41:49,281 - root - INFO -   - SSA 202320535: AAD
+2024-11-14 16:41:49,281 - root - INFO -   - SSA 202320534: AAD
+2024-11-14 16:41:49,281 - root - INFO -   - SSA 202320531: AAD
+2024-11-14 16:41:49,281 - root - INFO -   - SSA 202320530: AAD
+2024-11-14 16:41:49,281 - root - INFO -   - SSA 202320528: AAD
+2024-11-14 16:41:49,282 - root - INFO -   - SSA 202320526: AAD
+2024-11-14 16:41:49,282 - root - INFO -   - SSA 202320524: AAD
+2024-11-14 16:41:49,282 - root - INFO -   - SSA 202320523: AAD
+2024-11-14 16:41:49,282 - root - INFO -   - SSA 202320521: AAD
+2024-11-14 16:41:49,282 - root - INFO -   - SSA 202320517: AAD
+2024-11-14 16:41:49,282 - root - INFO -   - SSA 202320516: AAD
+2024-11-14 16:41:49,282 - root - INFO -   - SSA 202320514: AAD
+2024-11-14 16:41:49,282 - root - INFO -   - SSA 202318314: AAD
+2024-11-14 16:41:49,283 - root - INFO -   - SSA 202317673: AAD
+2024-11-14 16:41:49,283 - root - INFO -   - SSA 202317672: AAD
+2024-11-14 16:41:49,283 - root - INFO -   - SSA 202317668: AAD
+2024-11-14 16:41:49,283 - root - INFO -   - SSA 202317666: AAD
+2024-11-14 16:41:49,284 - root - INFO -   - SSA 202317664: AAD
+2024-11-14 16:41:49,284 - root - INFO -   - SSA 202317660: AAD
+2024-11-14 16:41:49,284 - root - INFO -   - SSA 202317659: AAD
+2024-11-14 16:41:49,284 - root - INFO -   - SSA 202317650: AAD
+2024-11-14 16:41:49,285 - root - INFO -   - SSA 202317649: AAD
+2024-11-14 16:41:49,285 - root - INFO -   - SSA 202317648: AAD
+2024-11-14 16:41:49,285 - root - INFO -   - SSA 202317647: AAD
+2024-11-14 16:41:49,285 - root - INFO -   - SSA 202317646: AAD
+2024-11-14 16:41:49,286 - root - INFO -   - SSA 202317645: AAD
+2024-11-14 16:41:49,286 - root - INFO -   - SSA 202317644: AAD
+2024-11-14 16:41:49,286 - root - INFO -   - SSA 202317640: AAD
+2024-11-14 16:41:49,286 - root - INFO -   - SSA 202317638: AAD
+2024-11-14 16:41:49,286 - root - INFO -   - SSA 202317635: AAD
+2024-11-14 16:41:49,286 - root - INFO -   - SSA 202315965: AAT
+2024-11-14 16:41:49,286 - root - INFO -   - SSA 202314852: AAD
+2024-11-14 16:41:49,286 - root - INFO -   - SSA 202314218: AAT
+2024-11-14 16:41:49,287 - root - INFO -   - SSA 202314188: AAT
+2024-11-14 16:41:49,287 - root - INFO -   - SSA 202311500: AAT
+2024-11-14 16:41:49,287 - root - INFO -   - SSA 202311498: AAT
+2024-11-14 16:41:49,287 - root - INFO -   - SSA 202216567: AAT
+2024-11-14 16:41:49,287 - root - INFO -   - SSA 202209306: AAT
+2024-11-14 16:41:49,287 - root - INFO -   - SSA 202209304: AAT
+2024-11-14 16:41:49,287 - root - INFO -   - SSA 202209302: AAT
+2024-11-14 16:41:49,287 - root - INFO -   - SSA 202209300: AAT
+2024-11-14 16:41:49,288 - root - INFO -   - SSA 202208500: AAT
+2024-11-14 16:41:49,288 - root - INFO - 
+Responsável Programação: 'LOBO MARTINEZ JUAN ALBERTO'
+2024-11-14 16:41:49,288 - root - INFO - Total SSAs: 18
+2024-11-14 16:41:49,288 - root - INFO - Números das SSAs:
+2024-11-14 16:41:49,288 - root - INFO -   - SSA 202315984: AAD
+2024-11-14 16:41:49,288 - root - INFO -   - SSA 202309302: AAT
+2024-11-14 16:41:49,288 - root - INFO -   - SSA 202223791: AAT
+2024-11-14 16:41:49,289 - root - INFO -   - SSA 202315901: AAD
+2024-11-14 16:41:49,289 - root - INFO -   - SSA 202315520: AAD
+2024-11-14 16:41:49,289 - root - INFO -   - SSA 202310994: AIM
+2024-11-14 16:41:49,289 - root - INFO -   - SSA 202308982: AAT
+2024-11-14 16:41:49,289 - root - INFO -   - SSA 202307247: ADM
+2024-11-14 16:41:49,289 - root - INFO -   - SSA 202304925: ADM
+2024-11-14 16:41:49,290 - root - INFO -   - SSA 202225124: AAT
+2024-11-14 16:41:49,290 - root - INFO -   - SSA 202316930: AAD
+2024-11-14 16:41:49,290 - root - INFO -   - SSA 202316688: AIM
+2024-11-14 16:41:49,290 - root - INFO -   - SSA 202316054: AAD
+2024-11-14 16:41:49,290 - root - INFO -   - SSA 202316049: AAD
+2024-11-14 16:41:49,290 - root - INFO -   - SSA 202316041: AAD
+2024-11-14 16:41:49,290 - root - INFO -   - SSA 202316015: AAD
+2024-11-14 16:41:49,291 - root - INFO -   - SSA 202316013: AAD
+2024-11-14 16:41:49,291 - root - INFO -   - SSA 202316010: AAD
+2024-11-14 16:41:49,291 - root - INFO - 
+Responsável Programação: 'LUCAS COSTA CICARELLI'
+2024-11-14 16:41:49,291 - root - INFO - Total SSAs: 10
+2024-11-14 16:41:49,291 - root - INFO - Números das SSAs:
+2024-11-14 16:41:49,291 - root - INFO -   - SSA 202408000: ADM
+2024-11-14 16:41:49,291 - root - INFO -   - SSA 202307936: ADM
+2024-11-14 16:41:49,292 - root - INFO -   - SSA 202307932: ADM
+2024-11-14 16:41:49,292 - root - INFO -   - SSA 202307928: ADM
+2024-11-14 16:41:49,292 - root - INFO -   - SSA 202307925: ADM
+2024-11-14 16:41:49,292 - root - INFO -   - SSA 202307921: ADM
+2024-11-14 16:41:49,292 - root - INFO -   - SSA 202307918: ADM
+2024-11-14 16:41:49,292 - root - INFO -   - SSA 202320392: AAT
+2024-11-14 16:41:49,292 - root - INFO -   - SSA 202209298: AAT
+2024-11-14 16:41:49,292 - root - INFO -   - SSA 202209296: AAT
+2024-11-14 16:41:49,293 - root - INFO - 
+Responsável Programação: 'MARCOS ALOE YAMAMOTO'
+2024-11-14 16:41:49,293 - root - INFO - Total SSAs: 1
+2024-11-14 16:41:49,293 - root - INFO - Números das SSAs:
+2024-11-14 16:41:49,293 - root - INFO -   - SSA 202219292: ADM
+2024-11-14 16:41:49,293 - root - INFO - 
+Responsável Programação: 'MAURICIO MENON'
+2024-11-14 16:41:49,293 - root - INFO - Total SSAs: 27
+2024-11-14 16:41:49,293 - root - INFO - Números das SSAs:
+2024-11-14 16:41:49,294 - root - INFO -   - SSA 202410873: ADM
+2024-11-14 16:41:49,294 - root - INFO -   - SSA 202408589: AAD
+2024-11-14 16:41:49,294 - root - INFO -   - SSA 202404353: AAD
+2024-11-14 16:41:49,294 - root - INFO -   - SSA 202404349: AAD
+2024-11-14 16:41:49,294 - root - INFO -   - SSA 202403569: AAD
+2024-11-14 16:41:49,294 - root - INFO -   - SSA 202401930: ADM
+2024-11-14 16:41:49,294 - root - INFO -   - SSA 202303449: AAD
+2024-11-14 16:41:49,295 - root - INFO -   - SSA 202303082: AAD
+2024-11-14 16:41:49,295 - root - INFO -   - SSA 202300670: ADM
+2024-11-14 16:41:49,295 - root - INFO -   - SSA 202417275: AAD
+2024-11-14 16:41:49,295 - root - INFO -   - SSA 202414170: ADM
+2024-11-14 16:41:49,295 - root - INFO -   - SSA 202412309: AAD
+2024-11-14 16:41:49,295 - root - INFO -   - SSA 202412189: AAD
+2024-11-14 16:41:49,295 - root - INFO -   - SSA 202410056: ADM
+2024-11-14 16:41:49,296 - root - INFO -   - SSA 202410051: ADM
+2024-11-14 16:41:49,296 - root - INFO -   - SSA 202409449: ADM
+2024-11-14 16:41:49,296 - root - INFO -   - SSA 202408797: AAT
+2024-11-14 16:41:49,296 - root - INFO -   - SSA 202401838: AAT
+2024-11-14 16:41:49,296 - root - INFO -   - SSA 202312375: AAD
+2024-11-14 16:41:49,296 - root - INFO -   - SSA 202312371: AAT
+2024-11-14 16:41:49,296 - root - INFO -   - SSA 202308411: AAT
+2024-11-14 16:41:49,296 - root - INFO -   - SSA 202204716: AAD
+2024-11-14 16:41:49,297 - root - INFO -   - SSA 202418061: ADM
+2024-11-14 16:41:49,297 - root - INFO -   - SSA 202318166: ADM
+2024-11-14 16:41:49,297 - root - INFO -   - SSA 202316141: AAT
+2024-11-14 16:41:49,297 - root - INFO -   - SSA 202304641: AAT
+2024-11-14 16:41:49,297 - root - INFO -   - SSA 202304639: AAT
+2024-11-14 16:41:49,297 - root - INFO - 
+Responsável Programação: 'SILVA VARGAS FRANCISCO JAVIER'
+2024-11-14 16:41:49,297 - root - INFO - Total SSAs: 25
+2024-11-14 16:41:49,298 - root - INFO - Números das SSAs:
+2024-11-14 16:41:49,298 - root - INFO -   - SSA 202407782: SPG
+2024-11-14 16:41:49,298 - root - INFO -   - SSA 202405093: SPG
+2024-11-14 16:41:49,298 - root - INFO -   - SSA 202404581: SPG
+2024-11-14 16:41:49,298 - root - INFO -   - SSA 202317755: SPG
+2024-11-14 16:41:49,299 - root - INFO -   - SSA 202316469: AAT
+2024-11-14 16:41:49,299 - root - INFO -   - SSA 202304752: ADM
+2024-11-14 16:41:49,299 - root - INFO -   - SSA 202418047: SPG
+2024-11-14 16:41:49,299 - root - INFO -   - SSA 202418023: ADM
+2024-11-14 16:41:49,299 - root - INFO -   - SSA 202414182: AAD
+2024-11-14 16:41:49,300 - root - INFO -   - SSA 202413188: ADM
+2024-11-14 16:41:49,300 - root - INFO -   - SSA 202413077: SCD
+2024-11-14 16:41:49,300 - root - INFO -   - SSA 202412872: SPG
+2024-11-14 16:41:49,300 - root - INFO -   - SSA 202412811: SPG
+2024-11-14 16:41:49,300 - root - INFO -   - SSA 202412570: SPG
+2024-11-14 16:41:49,300 - root - INFO -   - SSA 202409608: SPG
+2024-11-14 16:41:49,301 - root - INFO -   - SSA 202408102: ADM
+2024-11-14 16:41:49,301 - root - INFO -   - SSA 202408089: AAT
+2024-11-14 16:41:49,301 - root - INFO -   - SSA 202406019: AAT
+2024-11-14 16:41:49,301 - root - INFO -   - SSA 202404436: SPG
+2024-11-14 16:41:49,301 - root - INFO -   - SSA 202310985: AIM
+2024-11-14 16:41:49,301 - root - INFO -   - SSA 202310952: AIM
+2024-11-14 16:41:49,302 - root - INFO -   - SSA 202310372: ADM
+2024-11-14 16:41:49,302 - root - INFO -   - SSA 202418019: AAT
+2024-11-14 16:41:49,302 - root - INFO -   - SSA 202416065: ADM
+2024-11-14 16:41:49,302 - root - INFO -   - SSA 202410326: AAT
+2024-11-14 16:41:49,303 - root - INFO - 
+Responsável Programação: 'VILLAR RIVAS ALBERTO'
+2024-11-14 16:41:49,303 - root - INFO - Total SSAs: 11
+2024-11-14 16:41:49,303 - root - INFO - Números das SSAs:
+2024-11-14 16:41:49,304 - root - INFO -   - SSA 202411981: ADM
+2024-11-14 16:41:49,304 - root - INFO -   - SSA 202410715: ADM
+2024-11-14 16:41:49,304 - root - INFO -   - SSA 202407349: ADM
+2024-11-14 16:41:49,305 - root - INFO -   - SSA 202402751: ADM
+2024-11-14 16:41:49,305 - root - INFO -   - SSA 202402415: AAT
+2024-11-14 16:41:49,305 - root - INFO -   - SSA 202402414: AAT
+2024-11-14 16:41:49,306 - root - INFO -   - SSA 202401484: ADM
+2024-11-14 16:41:49,306 - root - INFO -   - SSA 202401482: ADM
+2024-11-14 16:41:49,306 - root - INFO -   - SSA 202320822: AIM
+2024-11-14 16:41:49,306 - root - INFO -   - SSA 202318398: AAT
+2024-11-14 16:41:49,307 - root - INFO -   - SSA 202313969: AIM
+2024-11-14 16:41:49,307 - root - INFO - 
+=== Primeiro Objeto Convertido (Verificação) ===
+2024-11-14 16:41:49,307 - root - INFO - Número: 202415727
+2024-11-14 16:41:49,308 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-14 16:41:49,308 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-14 16:41:49,308 - root - INFO - Setor executor: IEE3
+2024-11-14 16:41:49,308 - root - INFO - Responsável execução: None
+2024-11-14 16:41:49,308 - root - INFO - Responsável programação: None
+2024-11-14 16:41:49,309 - root - INFO - === Estatísticas do Carregamento ===
+2024-11-14 16:41:49,310 - root - INFO - Total de registros: 189
+2024-11-14 16:41:49,310 - root - INFO - SSAs válidas: 189
+2024-11-14 16:41:49,310 - root - INFO - total_ssas: 189
+2024-11-14 16:41:49,310 - root - INFO - ssas_com_responsavel: 142
+2024-11-14 16:41:49,311 - root - INFO - ssas_sem_responsavel: 47
+2024-11-14 16:41:49,311 - root - INFO - setores_executores: 1
+2024-11-14 16:41:49,312 - root - WARNING - Problemas encontrados nos dados: 2 datas inválidas
+2024-11-14 16:41:49,355 - DashboardLogger - INFO - Iniciando servidor do dashboard
+2024-11-14 16:41:49,538 - DashboardLogger - INFO - Nova conexão de IP: 172.19.73.38
+2024-11-14 16:41:49,539 - DashboardLogger - INFO - Acesso à rota: /_reload-hash
+2024-11-14 16:41:49,595 - DashboardLogger - INFO - Acesso à rota: /_dash-dependencies
+2024-11-14 16:41:49,596 - DashboardLogger - INFO - Acesso à rota: /_dash-layout
+2024-11-14 16:41:49,858 - DashboardLogger - INFO - Acesso à rota: /_dash-update-component
+2024-11-14 16:41:56,532 - root - INFO - Arquivo mais recente encontrado: SSAs Pendentes Geral - 14-11-2024_0423PM.xlsx (14/11/2024 16:23)
+2024-11-14 16:41:56,534 - root - INFO - Iniciando carregamento do arquivo: C:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\downloads\SSAs Pendentes Geral - 14-11-2024_0423PM.xlsx
+2024-11-14 16:41:56,956 - root - INFO - Arquivo carregado. Total de linhas: 189
+2024-11-14 16:41:57,098 - root - INFO - === Diagnóstico de Datas ===
+2024-11-14 16:41:57,099 - root - INFO - Total de linhas: 189
+2024-11-14 16:41:57,099 - root - INFO - Problemas encontrados: 2
+2024-11-14 16:41:57,099 - root - INFO - 
+Linha 169:
+2024-11-14 16:41:57,100 - root - INFO -   Valor encontrado: nan
+2024-11-14 16:41:57,100 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-14 16:41:57,100 - root - INFO -   Dados da linha:
+2024-11-14 16:41:57,101 - root - INFO -     Número da SSA: 202418235
+2024-11-14 16:41:57,101 - root - INFO -     Situação: ASE
+2024-11-14 16:41:57,101 - root - INFO -     Derivada de: nan
+2024-11-14 16:41:57,102 - root - INFO -     Localização: G097D001
+2024-11-14 16:41:57,102 - root - INFO -     Descrição da Localização: UNIDADE DE AQUISICAO DE DADOS - DAUC C1
+2024-11-14 16:41:57,102 - root - INFO -     Equipamento: 0889.004-8
+2024-11-14 16:41:57,103 - root - INFO -     Semana de Cadastro: 202446
+2024-11-14 16:41:57,103 - root - INFO -     Emitida Em: nan
+2024-11-14 16:41:57,103 - root - INFO -     Descrição da SSA: Atualizar os desenhos 6609-DC-15230, Folha 322 e 6639-DF-A7791, Folha 27. Modificação necessária devido a execução da SSA 202401607.
+2024-11-14 16:41:57,104 - root - INFO -     Setor Emissor: MEL4
+2024-11-14 16:41:57,104 - root - INFO -     Setor Executor: IEE3
+2024-11-14 16:41:57,104 - root - INFO -     Solicitante: OTAVIO ALEXANDRE NICOLAU
+2024-11-14 16:41:57,105 - root - INFO -     Serviço de Origem: S1
+2024-11-14 16:41:57,105 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-14 16:41:57,105 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-14 16:41:57,106 - root - INFO -     Execução Simples: Não
+2024-11-14 16:41:57,106 - root - INFO -     Responsável na Programação: nan
+2024-11-14 16:41:57,106 - root - INFO -     Semana Programada: nan
+2024-11-14 16:41:57,106 - root - INFO -     Responsável na Execução: nan
+2024-11-14 16:41:57,107 - root - INFO -     Descrição Execução: nan
+2024-11-14 16:41:57,107 - root - INFO -     Sistema de Origem: nan
+2024-11-14 16:41:57,107 - root - INFO -     Anomalia: nan
+2024-11-14 16:41:57,107 - root - INFO - 
+Linha 170:
+2024-11-14 16:41:57,108 - root - INFO -   Valor encontrado: nan
+2024-11-14 16:41:57,108 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-14 16:41:57,109 - root - INFO -   Dados da linha:
+2024-11-14 16:41:57,109 - root - INFO -     Número da SSA: 202418234
+2024-11-14 16:41:57,109 - root - INFO -     Situação: ASE
+2024-11-14 16:41:57,109 - root - INFO -     Derivada de: nan
+2024-11-14 16:41:57,110 - root - INFO -     Localização: G097E001
+2024-11-14 16:41:57,110 - root - INFO -     Descrição da Localização: UNIDADE DE AQUISICAO DE DADOS - DAUC F1
+2024-11-14 16:41:57,110 - root - INFO -     Equipamento: 0889.006-4
+2024-11-14 16:41:57,110 - root - INFO -     Semana de Cadastro: 202446
+2024-11-14 16:41:57,111 - root - INFO -     Emitida Em: nan
+2024-11-14 16:41:57,111 - root - INFO -     Descrição da SSA: Atualizar os desenhos 6609-DC-A8360, Folha 330 e 6639-DF-A7802, Folha 19+. Modificação necessária devido a execução da SSA 202401605.
+2024-11-14 16:41:57,111 - root - INFO -     Setor Emissor: MEL4
+2024-11-14 16:41:57,111 - root - INFO -     Setor Executor: IEE3
+2024-11-14 16:41:57,112 - root - INFO -     Solicitante: OTAVIO ALEXANDRE NICOLAU
+2024-11-14 16:41:57,112 - root - INFO -     Serviço de Origem: S1
+2024-11-14 16:41:57,112 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-14 16:41:57,112 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-14 16:41:57,112 - root - INFO -     Execução Simples: Não
+2024-11-14 16:41:57,112 - root - INFO -     Responsável na Programação: nan
+2024-11-14 16:41:57,113 - root - INFO -     Semana Programada: nan
+2024-11-14 16:41:57,113 - root - INFO -     Responsável na Execução: nan
+2024-11-14 16:41:57,113 - root - INFO -     Descrição Execução: nan
+2024-11-14 16:41:57,113 - root - INFO -     Sistema de Origem: nan
+2024-11-14 16:41:57,113 - root - INFO -     Anomalia: nan
+2024-11-14 16:41:57,116 - root - ERROR - Encontradas 2 datas inválidas
+2024-11-14 16:41:57,116 - root - ERROR - Linha 169: Data inválida - verificar valor original
+2024-11-14 16:41:57,116 - root - ERROR - Linha 170: Data inválida - verificar valor original
+2024-11-14 16:41:57,155 - root - INFO - === Estatísticas de Conversão ===
+2024-11-14 16:41:57,155 - root - INFO - Total de registros convertidos: 189
+2024-11-14 16:41:57,156 - root - INFO - Responsáveis execução únicos: 9
+2024-11-14 16:41:57,156 - root - INFO - Responsáveis programação únicos: 9
+2024-11-14 16:41:57,156 - root - INFO - 
+=== Validação de Responsáveis Execução ===
+2024-11-14 16:41:57,157 - root - INFO - 
+Responsável Execução: 'ACOSTA FERNANDEZ RAMON ARIEL'
+2024-11-14 16:41:57,157 - root - INFO - Total SSAs: 4
+2024-11-14 16:41:57,157 - root - INFO - Números das SSAs:
+2024-11-14 16:41:57,157 - root - INFO -   - SSA 202414242: APV
+2024-11-14 16:41:57,157 - root - INFO -   - SSA 202311075: AAT
+2024-11-14 16:41:57,158 - root - INFO -   - SSA 202416825: AAD
+2024-11-14 16:41:57,158 - root - INFO -   - SSA 202208082: ADM
+2024-11-14 16:41:57,158 - root - INFO - 
+Responsável Execução: 'CARLOS RONEI ORTIZ'
+2024-11-14 16:41:57,158 - root - INFO - Total SSAs: 1
+2024-11-14 16:41:57,158 - root - INFO - Números das SSAs:
+2024-11-14 16:41:57,158 - root - INFO -   - SSA 202210834: ADM
+2024-11-14 16:41:57,159 - root - INFO - 
+Responsável Execução: 'CASTILLO CENTURION ELIAS FRANCISCO'
+2024-11-14 16:41:57,159 - root - INFO - Total SSAs: 54
+2024-11-14 16:41:57,159 - root - INFO - Números das SSAs:
+2024-11-14 16:41:57,159 - root - INFO -   - SSA 202403587: AAD
+2024-11-14 16:41:57,159 - root - INFO -   - SSA 202403586: AAD
+2024-11-14 16:41:57,159 - root - INFO -   - SSA 202315283: AAT
+2024-11-14 16:41:57,159 - root - INFO -   - SSA 202412180: AAT
+2024-11-14 16:41:57,159 - root - INFO -   - SSA 202407487: AAT
+2024-11-14 16:41:57,160 - root - INFO -   - SSA 202407289: AAD
+2024-11-14 16:41:57,160 - root - INFO -   - SSA 202320659: AAD
+2024-11-14 16:41:57,160 - root - INFO -   - SSA 202320542: AAD
+2024-11-14 16:41:57,160 - root - INFO -   - SSA 202320540: AAD
+2024-11-14 16:41:57,160 - root - INFO -   - SSA 202320539: AAD
+2024-11-14 16:41:57,160 - root - INFO -   - SSA 202320538: AAD
+2024-11-14 16:41:57,161 - root - INFO -   - SSA 202320537: AAD
+2024-11-14 16:41:57,161 - root - INFO -   - SSA 202320535: AAD
+2024-11-14 16:41:57,161 - root - INFO -   - SSA 202320534: AAD
+2024-11-14 16:41:57,161 - root - INFO -   - SSA 202320531: AAD
+2024-11-14 16:41:57,161 - root - INFO -   - SSA 202320530: AAD
+2024-11-14 16:41:57,162 - root - INFO -   - SSA 202320528: AAD
+2024-11-14 16:41:57,162 - root - INFO -   - SSA 202320526: AAD
+2024-11-14 16:41:57,162 - root - INFO -   - SSA 202320524: AAD
+2024-11-14 16:41:57,162 - root - INFO -   - SSA 202320523: AAD
+2024-11-14 16:41:57,162 - root - INFO -   - SSA 202320521: AAD
+2024-11-14 16:41:57,162 - root - INFO -   - SSA 202320517: AAD
+2024-11-14 16:41:57,162 - root - INFO -   - SSA 202320516: AAD
+2024-11-14 16:41:57,162 - root - INFO -   - SSA 202320514: AAD
+2024-11-14 16:41:57,163 - root - INFO -   - SSA 202318314: AAD
+2024-11-14 16:41:57,163 - root - INFO -   - SSA 202317673: AAD
+2024-11-14 16:41:57,163 - root - INFO -   - SSA 202317672: AAD
+2024-11-14 16:41:57,163 - root - INFO -   - SSA 202317668: AAD
+2024-11-14 16:41:57,164 - root - INFO -   - SSA 202317666: AAD
+2024-11-14 16:41:57,164 - root - INFO -   - SSA 202317664: AAD
+2024-11-14 16:41:57,164 - root - INFO -   - SSA 202317660: AAD
+2024-11-14 16:41:57,164 - root - INFO -   - SSA 202317659: AAD
+2024-11-14 16:41:57,165 - root - INFO -   - SSA 202317650: AAD
+2024-11-14 16:41:57,165 - root - INFO -   - SSA 202317649: AAD
+2024-11-14 16:41:57,165 - root - INFO -   - SSA 202317648: AAD
+2024-11-14 16:41:57,165 - root - INFO -   - SSA 202317647: AAD
+2024-11-14 16:41:57,166 - root - INFO -   - SSA 202317646: AAD
+2024-11-14 16:41:57,166 - root - INFO -   - SSA 202317645: AAD
+2024-11-14 16:41:57,166 - root - INFO -   - SSA 202317644: AAD
+2024-11-14 16:41:57,166 - root - INFO -   - SSA 202317640: AAD
+2024-11-14 16:41:57,166 - root - INFO -   - SSA 202317638: AAD
+2024-11-14 16:41:57,166 - root - INFO -   - SSA 202317635: AAD
+2024-11-14 16:41:57,166 - root - INFO -   - SSA 202315965: AAT
+2024-11-14 16:41:57,167 - root - INFO -   - SSA 202314852: AAD
+2024-11-14 16:41:57,167 - root - INFO -   - SSA 202314218: AAT
+2024-11-14 16:41:57,167 - root - INFO -   - SSA 202314188: AAT
+2024-11-14 16:41:57,167 - root - INFO -   - SSA 202311500: AAT
+2024-11-14 16:41:57,167 - root - INFO -   - SSA 202311498: AAT
+2024-11-14 16:41:57,167 - root - INFO -   - SSA 202216567: AAT
+2024-11-14 16:41:57,168 - root - INFO -   - SSA 202209306: AAT
+2024-11-14 16:41:57,168 - root - INFO -   - SSA 202209304: AAT
+2024-11-14 16:41:57,168 - root - INFO -   - SSA 202209302: AAT
+2024-11-14 16:41:57,168 - root - INFO -   - SSA 202209300: AAT
+2024-11-14 16:41:57,168 - root - INFO -   - SSA 202208500: AAT
+2024-11-14 16:41:57,168 - root - INFO - 
+Responsável Execução: 'LOBO MARTINEZ JUAN ALBERTO'
+2024-11-14 16:41:57,169 - root - INFO - Total SSAs: 15
+2024-11-14 16:41:57,169 - root - INFO - Números das SSAs:
+2024-11-14 16:41:57,169 - root - INFO -   - SSA 202315984: AAD
+2024-11-14 16:41:57,169 - root - INFO -   - SSA 202309302: AAT
+2024-11-14 16:41:57,169 - root - INFO -   - SSA 202223791: AAT
+2024-11-14 16:41:57,169 - root - INFO -   - SSA 202315520: AAD
+2024-11-14 16:41:57,169 - root - INFO -   - SSA 202312375: AAD
+2024-11-14 16:41:57,169 - root - INFO -   - SSA 202308982: AAT
+2024-11-14 16:41:57,170 - root - INFO -   - SSA 202305650: AAT
+2024-11-14 16:41:57,170 - root - INFO -   - SSA 202304925: ADM
+2024-11-14 16:41:57,170 - root - INFO -   - SSA 202225124: AAT
+2024-11-14 16:41:57,170 - root - INFO -   - SSA 202316054: AAD
+2024-11-14 16:41:57,170 - root - INFO -   - SSA 202316049: AAD
+2024-11-14 16:41:57,171 - root - INFO -   - SSA 202316041: AAD
+2024-11-14 16:41:57,171 - root - INFO -   - SSA 202316015: AAD
+2024-11-14 16:41:57,171 - root - INFO -   - SSA 202316013: AAD
+2024-11-14 16:41:57,171 - root - INFO -   - SSA 202316010: AAD
+2024-11-14 16:41:57,172 - root - INFO - 
+Responsável Execução: 'LUCAS COSTA CICARELLI'
+2024-11-14 16:41:57,172 - root - INFO - Total SSAs: 13
+2024-11-14 16:41:57,172 - root - INFO - Números das SSAs:
+2024-11-14 16:41:57,172 - root - INFO -   - SSA 202304752: ADM
+2024-11-14 16:41:57,172 - root - INFO -   - SSA 202408000: ADM
+2024-11-14 16:41:57,172 - root - INFO -   - SSA 202310372: ADM
+2024-11-14 16:41:57,172 - root - INFO -   - SSA 202307936: ADM
+2024-11-14 16:41:57,172 - root - INFO -   - SSA 202307932: ADM
+2024-11-14 16:41:57,173 - root - INFO -   - SSA 202307928: ADM
+2024-11-14 16:41:57,173 - root - INFO -   - SSA 202307925: ADM
+2024-11-14 16:41:57,173 - root - INFO -   - SSA 202307921: ADM
+2024-11-14 16:41:57,173 - root - INFO -   - SSA 202307918: ADM
+2024-11-14 16:41:57,173 - root - INFO -   - SSA 202320392: AAT
+2024-11-14 16:41:57,173 - root - INFO -   - SSA 202209853: ADM
+2024-11-14 16:41:57,173 - root - INFO -   - SSA 202209298: AAT
+2024-11-14 16:41:57,173 - root - INFO -   - SSA 202209296: AAT
+2024-11-14 16:41:57,174 - root - INFO - 
+Responsável Execução: 'MARCOS ALOE YAMAMOTO'
+2024-11-14 16:41:57,174 - root - INFO - Total SSAs: 1
+2024-11-14 16:41:57,174 - root - INFO - Números das SSAs:
+2024-11-14 16:41:57,174 - root - INFO -   - SSA 202219292: ADM
+2024-11-14 16:41:57,174 - root - INFO - 
+Responsável Execução: 'MAURICIO MENON'
+2024-11-14 16:41:57,174 - root - INFO - Total SSAs: 29
+2024-11-14 16:41:57,174 - root - INFO - Números das SSAs:
+2024-11-14 16:41:57,174 - root - INFO -   - SSA 202410873: ADM
+2024-11-14 16:41:57,175 - root - INFO -   - SSA 202408589: AAD
+2024-11-14 16:41:57,175 - root - INFO -   - SSA 202404353: AAD
+2024-11-14 16:41:57,175 - root - INFO -   - SSA 202404349: AAD
+2024-11-14 16:41:57,175 - root - INFO -   - SSA 202403569: AAD
+2024-11-14 16:41:57,175 - root - INFO -   - SSA 202401930: ADM
+2024-11-14 16:41:57,176 - root - INFO -   - SSA 202303449: AAD
+2024-11-14 16:41:57,176 - root - INFO -   - SSA 202303082: AAD
+2024-11-14 16:41:57,176 - root - INFO -   - SSA 202300670: ADM
+2024-11-14 16:41:57,177 - root - INFO -   - SSA 202417275: AAD
+2024-11-14 16:41:57,177 - root - INFO -   - SSA 202414170: ADM
+2024-11-14 16:41:57,177 - root - INFO -   - SSA 202412309: AAD
+2024-11-14 16:41:57,177 - root - INFO -   - SSA 202412189: AAD
+2024-11-14 16:41:57,177 - root - INFO -   - SSA 202410056: ADM
+2024-11-14 16:41:57,178 - root - INFO -   - SSA 202410051: ADM
+2024-11-14 16:41:57,178 - root - INFO -   - SSA 202409449: ADM
+2024-11-14 16:41:57,178 - root - INFO -   - SSA 202408797: AAT
+2024-11-14 16:41:57,178 - root - INFO -   - SSA 202401838: AAT
+2024-11-14 16:41:57,178 - root - INFO -   - SSA 202315901: AAD
+2024-11-14 16:41:57,178 - root - INFO -   - SSA 202312371: AAT
+2024-11-14 16:41:57,179 - root - INFO -   - SSA 202308411: AAT
+2024-11-14 16:41:57,179 - root - INFO -   - SSA 202307247: ADM
+2024-11-14 16:41:57,179 - root - INFO -   - SSA 202204716: AAD
+2024-11-14 16:41:57,179 - root - INFO -   - SSA 202418061: ADM
+2024-11-14 16:41:57,179 - root - INFO -   - SSA 202318166: ADM
+2024-11-14 16:41:57,179 - root - INFO -   - SSA 202316930: AAD
+2024-11-14 16:41:57,180 - root - INFO -   - SSA 202316141: AAT
+2024-11-14 16:41:57,180 - root - INFO -   - SSA 202304641: AAT
+2024-11-14 16:41:57,180 - root - INFO -   - SSA 202304639: AAT
+2024-11-14 16:41:57,180 - root - INFO - 
+Responsável Execução: 'SILVA VARGAS FRANCISCO JAVIER'
+2024-11-14 16:41:57,180 - root - INFO - Total SSAs: 10
+2024-11-14 16:41:57,180 - root - INFO - Números das SSAs:
+2024-11-14 16:41:57,181 - root - INFO -   - SSA 202316469: AAT
+2024-11-14 16:41:57,181 - root - INFO -   - SSA 202418023: ADM
+2024-11-14 16:41:57,181 - root - INFO -   - SSA 202414182: AAD
+2024-11-14 16:41:57,181 - root - INFO -   - SSA 202413188: ADM
+2024-11-14 16:41:57,181 - root - INFO -   - SSA 202408102: ADM
+2024-11-14 16:41:57,181 - root - INFO -   - SSA 202408089: AAT
+2024-11-14 16:41:57,182 - root - INFO -   - SSA 202406019: AAT
+2024-11-14 16:41:57,182 - root - INFO -   - SSA 202418019: AAT
+2024-11-14 16:41:57,182 - root - INFO -   - SSA 202416065: ADM
+2024-11-14 16:41:57,182 - root - INFO -   - SSA 202410326: AAT
+2024-11-14 16:41:57,182 - root - INFO - 
+Responsável Execução: 'VILLAR RIVAS ALBERTO'
+2024-11-14 16:41:57,182 - root - INFO - Total SSAs: 15
+2024-11-14 16:41:57,182 - root - INFO - Números das SSAs:
+2024-11-14 16:41:57,183 - root - INFO -   - SSA 202411981: ADM
+2024-11-14 16:41:57,183 - root - INFO -   - SSA 202410715: ADM
+2024-11-14 16:41:57,183 - root - INFO -   - SSA 202407349: ADM
+2024-11-14 16:41:57,183 - root - INFO -   - SSA 202402751: ADM
+2024-11-14 16:41:57,183 - root - INFO -   - SSA 202402415: AAT
+2024-11-14 16:41:57,183 - root - INFO -   - SSA 202402414: AAT
+2024-11-14 16:41:57,183 - root - INFO -   - SSA 202401484: ADM
+2024-11-14 16:41:57,183 - root - INFO -   - SSA 202401482: ADM
+2024-11-14 16:41:57,183 - root - INFO -   - SSA 202320822: AIM
+2024-11-14 16:41:57,184 - root - INFO -   - SSA 202318398: AAT
+2024-11-14 16:41:57,184 - root - INFO -   - SSA 202313969: AIM
+2024-11-14 16:41:57,184 - root - INFO -   - SSA 202310994: AIM
+2024-11-14 16:41:57,184 - root - INFO -   - SSA 202310985: AIM
+2024-11-14 16:41:57,184 - root - INFO -   - SSA 202310952: AIM
+2024-11-14 16:41:57,184 - root - INFO -   - SSA 202316688: AIM
+2024-11-14 16:41:57,184 - root - INFO - 
+=== Validação de Responsáveis Programação ===
+2024-11-14 16:41:57,185 - root - INFO - 
+Responsável Programação: 'ACOSTA FERNANDEZ RAMON ARIEL'
+2024-11-14 16:41:57,185 - root - INFO - Total SSAs: 5
+2024-11-14 16:41:57,185 - root - INFO - Números das SSAs:
+2024-11-14 16:41:57,185 - root - INFO -   - SSA 202414242: APV
+2024-11-14 16:41:57,185 - root - INFO -   - SSA 202311075: AAT
+2024-11-14 16:41:57,186 - root - INFO -   - SSA 202416825: AAD
+2024-11-14 16:41:57,186 - root - INFO -   - SSA 202416554: SPG
+2024-11-14 16:41:57,186 - root - INFO -   - SSA 202208082: ADM
+2024-11-14 16:41:57,186 - root - INFO - 
+Responsável Programação: 'CARLOS RONEI ORTIZ'
+2024-11-14 16:41:57,186 - root - INFO - Total SSAs: 3
+2024-11-14 16:41:57,186 - root - INFO - Números das SSAs:
+2024-11-14 16:41:57,186 - root - INFO -   - SSA 202305650: AAT
+2024-11-14 16:41:57,186 - root - INFO -   - SSA 202210834: ADM
+2024-11-14 16:41:57,187 - root - INFO -   - SSA 202209853: ADM
+2024-11-14 16:41:57,187 - root - INFO - 
+Responsável Programação: 'CASTILLO CENTURION ELIAS FRANCISCO'
+2024-11-14 16:41:57,187 - root - INFO - Total SSAs: 54
+2024-11-14 16:41:57,187 - root - INFO - Números das SSAs:
+2024-11-14 16:41:57,187 - root - INFO -   - SSA 202403587: AAD
+2024-11-14 16:41:57,187 - root - INFO -   - SSA 202403586: AAD
+2024-11-14 16:41:57,187 - root - INFO -   - SSA 202315283: AAT
+2024-11-14 16:41:57,187 - root - INFO -   - SSA 202412180: AAT
+2024-11-14 16:41:57,188 - root - INFO -   - SSA 202407487: AAT
+2024-11-14 16:41:57,188 - root - INFO -   - SSA 202407289: AAD
+2024-11-14 16:41:57,188 - root - INFO -   - SSA 202320659: AAD
+2024-11-14 16:41:57,188 - root - INFO -   - SSA 202320542: AAD
+2024-11-14 16:41:57,188 - root - INFO -   - SSA 202320540: AAD
+2024-11-14 16:41:57,188 - root - INFO -   - SSA 202320539: AAD
+2024-11-14 16:41:57,188 - root - INFO -   - SSA 202320538: AAD
+2024-11-14 16:41:57,188 - root - INFO -   - SSA 202320537: AAD
+2024-11-14 16:41:57,188 - root - INFO -   - SSA 202320535: AAD
+2024-11-14 16:41:57,189 - root - INFO -   - SSA 202320534: AAD
+2024-11-14 16:41:57,189 - root - INFO -   - SSA 202320531: AAD
+2024-11-14 16:41:57,189 - root - INFO -   - SSA 202320530: AAD
+2024-11-14 16:41:57,189 - root - INFO -   - SSA 202320528: AAD
+2024-11-14 16:41:57,189 - root - INFO -   - SSA 202320526: AAD
+2024-11-14 16:41:57,189 - root - INFO -   - SSA 202320524: AAD
+2024-11-14 16:41:57,189 - root - INFO -   - SSA 202320523: AAD
+2024-11-14 16:41:57,189 - root - INFO -   - SSA 202320521: AAD
+2024-11-14 16:41:57,189 - root - INFO -   - SSA 202320517: AAD
+2024-11-14 16:41:57,190 - root - INFO -   - SSA 202320516: AAD
+2024-11-14 16:41:57,190 - root - INFO -   - SSA 202320514: AAD
+2024-11-14 16:41:57,190 - root - INFO -   - SSA 202318314: AAD
+2024-11-14 16:41:57,190 - root - INFO -   - SSA 202317673: AAD
+2024-11-14 16:41:57,190 - root - INFO -   - SSA 202317672: AAD
+2024-11-14 16:41:57,190 - root - INFO -   - SSA 202317668: AAD
+2024-11-14 16:41:57,191 - root - INFO -   - SSA 202317666: AAD
+2024-11-14 16:41:57,191 - root - INFO -   - SSA 202317664: AAD
+2024-11-14 16:41:57,191 - root - INFO -   - SSA 202317660: AAD
+2024-11-14 16:41:57,191 - root - INFO -   - SSA 202317659: AAD
+2024-11-14 16:41:57,191 - root - INFO -   - SSA 202317650: AAD
+2024-11-14 16:41:57,191 - root - INFO -   - SSA 202317649: AAD
+2024-11-14 16:41:57,191 - root - INFO -   - SSA 202317648: AAD
+2024-11-14 16:41:57,192 - root - INFO -   - SSA 202317647: AAD
+2024-11-14 16:41:57,192 - root - INFO -   - SSA 202317646: AAD
+2024-11-14 16:41:57,192 - root - INFO -   - SSA 202317645: AAD
+2024-11-14 16:41:57,192 - root - INFO -   - SSA 202317644: AAD
+2024-11-14 16:41:57,192 - root - INFO -   - SSA 202317640: AAD
+2024-11-14 16:41:57,192 - root - INFO -   - SSA 202317638: AAD
+2024-11-14 16:41:57,192 - root - INFO -   - SSA 202317635: AAD
+2024-11-14 16:41:57,192 - root - INFO -   - SSA 202315965: AAT
+2024-11-14 16:41:57,192 - root - INFO -   - SSA 202314852: AAD
+2024-11-14 16:41:57,193 - root - INFO -   - SSA 202314218: AAT
+2024-11-14 16:41:57,193 - root - INFO -   - SSA 202314188: AAT
+2024-11-14 16:41:57,193 - root - INFO -   - SSA 202311500: AAT
+2024-11-14 16:41:57,193 - root - INFO -   - SSA 202311498: AAT
+2024-11-14 16:41:57,193 - root - INFO -   - SSA 202216567: AAT
+2024-11-14 16:41:57,193 - root - INFO -   - SSA 202209306: AAT
+2024-11-14 16:41:57,193 - root - INFO -   - SSA 202209304: AAT
+2024-11-14 16:41:57,193 - root - INFO -   - SSA 202209302: AAT
+2024-11-14 16:41:57,193 - root - INFO -   - SSA 202209300: AAT
+2024-11-14 16:41:57,194 - root - INFO -   - SSA 202208500: AAT
+2024-11-14 16:41:57,194 - root - INFO - 
+Responsável Programação: 'LOBO MARTINEZ JUAN ALBERTO'
+2024-11-14 16:41:57,194 - root - INFO - Total SSAs: 18
+2024-11-14 16:41:57,194 - root - INFO - Números das SSAs:
+2024-11-14 16:41:57,194 - root - INFO -   - SSA 202315984: AAD
+2024-11-14 16:41:57,194 - root - INFO -   - SSA 202309302: AAT
+2024-11-14 16:41:57,194 - root - INFO -   - SSA 202223791: AAT
+2024-11-14 16:41:57,194 - root - INFO -   - SSA 202315901: AAD
+2024-11-14 16:41:57,195 - root - INFO -   - SSA 202315520: AAD
+2024-11-14 16:41:57,195 - root - INFO -   - SSA 202310994: AIM
+2024-11-14 16:41:57,195 - root - INFO -   - SSA 202308982: AAT
+2024-11-14 16:41:57,195 - root - INFO -   - SSA 202307247: ADM
+2024-11-14 16:41:57,195 - root - INFO -   - SSA 202304925: ADM
+2024-11-14 16:41:57,196 - root - INFO -   - SSA 202225124: AAT
+2024-11-14 16:41:57,196 - root - INFO -   - SSA 202316930: AAD
+2024-11-14 16:41:57,196 - root - INFO -   - SSA 202316688: AIM
+2024-11-14 16:41:57,196 - root - INFO -   - SSA 202316054: AAD
+2024-11-14 16:41:57,196 - root - INFO -   - SSA 202316049: AAD
+2024-11-14 16:41:57,196 - root - INFO -   - SSA 202316041: AAD
+2024-11-14 16:41:57,197 - root - INFO -   - SSA 202316015: AAD
+2024-11-14 16:41:57,197 - root - INFO -   - SSA 202316013: AAD
+2024-11-14 16:41:57,197 - root - INFO -   - SSA 202316010: AAD
+2024-11-14 16:41:57,197 - root - INFO - 
+Responsável Programação: 'LUCAS COSTA CICARELLI'
+2024-11-14 16:41:57,197 - root - INFO - Total SSAs: 10
+2024-11-14 16:41:57,197 - root - INFO - Números das SSAs:
+2024-11-14 16:41:57,197 - root - INFO -   - SSA 202408000: ADM
+2024-11-14 16:41:57,197 - root - INFO -   - SSA 202307936: ADM
+2024-11-14 16:41:57,198 - root - INFO -   - SSA 202307932: ADM
+2024-11-14 16:41:57,198 - root - INFO -   - SSA 202307928: ADM
+2024-11-14 16:41:57,198 - root - INFO -   - SSA 202307925: ADM
+2024-11-14 16:41:57,198 - root - INFO -   - SSA 202307921: ADM
+2024-11-14 16:41:57,198 - root - INFO -   - SSA 202307918: ADM
+2024-11-14 16:41:57,198 - root - INFO -   - SSA 202320392: AAT
+2024-11-14 16:41:57,198 - root - INFO -   - SSA 202209298: AAT
+2024-11-14 16:41:57,198 - root - INFO -   - SSA 202209296: AAT
+2024-11-14 16:41:57,198 - root - INFO - 
+Responsável Programação: 'MARCOS ALOE YAMAMOTO'
+2024-11-14 16:41:57,199 - root - INFO - Total SSAs: 1
+2024-11-14 16:41:57,199 - root - INFO - Números das SSAs:
+2024-11-14 16:41:57,199 - root - INFO -   - SSA 202219292: ADM
+2024-11-14 16:41:57,199 - root - INFO - 
+Responsável Programação: 'MAURICIO MENON'
+2024-11-14 16:41:57,199 - root - INFO - Total SSAs: 27
+2024-11-14 16:41:57,199 - root - INFO - Números das SSAs:
+2024-11-14 16:41:57,199 - root - INFO -   - SSA 202410873: ADM
+2024-11-14 16:41:57,199 - root - INFO -   - SSA 202408589: AAD
+2024-11-14 16:41:57,200 - root - INFO -   - SSA 202404353: AAD
+2024-11-14 16:41:57,200 - root - INFO -   - SSA 202404349: AAD
+2024-11-14 16:41:57,200 - root - INFO -   - SSA 202403569: AAD
+2024-11-14 16:41:57,200 - root - INFO -   - SSA 202401930: ADM
+2024-11-14 16:41:57,200 - root - INFO -   - SSA 202303449: AAD
+2024-11-14 16:41:57,200 - root - INFO -   - SSA 202303082: AAD
+2024-11-14 16:41:57,201 - root - INFO -   - SSA 202300670: ADM
+2024-11-14 16:41:57,201 - root - INFO -   - SSA 202417275: AAD
+2024-11-14 16:41:57,201 - root - INFO -   - SSA 202414170: ADM
+2024-11-14 16:41:57,201 - root - INFO -   - SSA 202412309: AAD
+2024-11-14 16:41:57,201 - root - INFO -   - SSA 202412189: AAD
+2024-11-14 16:41:57,201 - root - INFO -   - SSA 202410056: ADM
+2024-11-14 16:41:57,202 - root - INFO -   - SSA 202410051: ADM
+2024-11-14 16:41:57,202 - root - INFO -   - SSA 202409449: ADM
+2024-11-14 16:41:57,202 - root - INFO -   - SSA 202408797: AAT
+2024-11-14 16:41:57,202 - root - INFO -   - SSA 202401838: AAT
+2024-11-14 16:41:57,202 - root - INFO -   - SSA 202312375: AAD
+2024-11-14 16:41:57,202 - root - INFO -   - SSA 202312371: AAT
+2024-11-14 16:41:57,202 - root - INFO -   - SSA 202308411: AAT
+2024-11-14 16:41:57,202 - root - INFO -   - SSA 202204716: AAD
+2024-11-14 16:41:57,202 - root - INFO -   - SSA 202418061: ADM
+2024-11-14 16:41:57,203 - root - INFO -   - SSA 202318166: ADM
+2024-11-14 16:41:57,203 - root - INFO -   - SSA 202316141: AAT
+2024-11-14 16:41:57,203 - root - INFO -   - SSA 202304641: AAT
+2024-11-14 16:41:57,203 - root - INFO -   - SSA 202304639: AAT
+2024-11-14 16:41:57,203 - root - INFO - 
+Responsável Programação: 'SILVA VARGAS FRANCISCO JAVIER'
+2024-11-14 16:41:57,203 - root - INFO - Total SSAs: 25
+2024-11-14 16:41:57,203 - root - INFO - Números das SSAs:
+2024-11-14 16:41:57,203 - root - INFO -   - SSA 202407782: SPG
+2024-11-14 16:41:57,204 - root - INFO -   - SSA 202405093: SPG
+2024-11-14 16:41:57,204 - root - INFO -   - SSA 202404581: SPG
+2024-11-14 16:41:57,204 - root - INFO -   - SSA 202317755: SPG
+2024-11-14 16:41:57,204 - root - INFO -   - SSA 202316469: AAT
+2024-11-14 16:41:57,204 - root - INFO -   - SSA 202304752: ADM
+2024-11-14 16:41:57,204 - root - INFO -   - SSA 202418047: SPG
+2024-11-14 16:41:57,204 - root - INFO -   - SSA 202418023: ADM
+2024-11-14 16:41:57,204 - root - INFO -   - SSA 202414182: AAD
+2024-11-14 16:41:57,204 - root - INFO -   - SSA 202413188: ADM
+2024-11-14 16:41:57,205 - root - INFO -   - SSA 202413077: SCD
+2024-11-14 16:41:57,205 - root - INFO -   - SSA 202412872: SPG
+2024-11-14 16:41:57,205 - root - INFO -   - SSA 202412811: SPG
+2024-11-14 16:41:57,205 - root - INFO -   - SSA 202412570: SPG
+2024-11-14 16:41:57,205 - root - INFO -   - SSA 202409608: SPG
+2024-11-14 16:41:57,205 - root - INFO -   - SSA 202408102: ADM
+2024-11-14 16:41:57,205 - root - INFO -   - SSA 202408089: AAT
+2024-11-14 16:41:57,206 - root - INFO -   - SSA 202406019: AAT
+2024-11-14 16:41:57,206 - root - INFO -   - SSA 202404436: SPG
+2024-11-14 16:41:57,206 - root - INFO -   - SSA 202310985: AIM
+2024-11-14 16:41:57,206 - root - INFO -   - SSA 202310952: AIM
+2024-11-14 16:41:57,206 - root - INFO -   - SSA 202310372: ADM
+2024-11-14 16:41:57,207 - root - INFO -   - SSA 202418019: AAT
+2024-11-14 16:41:57,207 - root - INFO -   - SSA 202416065: ADM
+2024-11-14 16:41:57,207 - root - INFO -   - SSA 202410326: AAT
+2024-11-14 16:41:57,207 - root - INFO - 
+Responsável Programação: 'VILLAR RIVAS ALBERTO'
+2024-11-14 16:41:57,208 - root - INFO - Total SSAs: 11
+2024-11-14 16:41:57,208 - root - INFO - Números das SSAs:
+2024-11-14 16:41:57,208 - root - INFO -   - SSA 202411981: ADM
+2024-11-14 16:41:57,208 - root - INFO -   - SSA 202410715: ADM
+2024-11-14 16:41:57,208 - root - INFO -   - SSA 202407349: ADM
+2024-11-14 16:41:57,208 - root - INFO -   - SSA 202402751: ADM
+2024-11-14 16:41:57,209 - root - INFO -   - SSA 202402415: AAT
+2024-11-14 16:41:57,209 - root - INFO -   - SSA 202402414: AAT
+2024-11-14 16:41:57,209 - root - INFO -   - SSA 202401484: ADM
+2024-11-14 16:41:57,209 - root - INFO -   - SSA 202401482: ADM
+2024-11-14 16:41:57,209 - root - INFO -   - SSA 202320822: AIM
+2024-11-14 16:41:57,209 - root - INFO -   - SSA 202318398: AAT
+2024-11-14 16:41:57,209 - root - INFO -   - SSA 202313969: AIM
+2024-11-14 16:41:57,210 - root - INFO - 
+=== Primeiro Objeto Convertido (Verificação) ===
+2024-11-14 16:41:57,210 - root - INFO - Número: 202415727
+2024-11-14 16:41:57,210 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-14 16:41:57,210 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-14 16:41:57,211 - root - INFO - Setor executor: IEE3
+2024-11-14 16:41:57,211 - root - INFO - Responsável execução: None
+2024-11-14 16:41:57,211 - root - INFO - Responsável programação: None
+2024-11-14 16:41:57,212 - root - INFO - === Estatísticas do Carregamento ===
+2024-11-14 16:41:57,212 - root - INFO - Total de registros: 189
+2024-11-14 16:41:57,212 - root - INFO - SSAs válidas: 189
+2024-11-14 16:41:57,213 - root - INFO - total_ssas: 189
+2024-11-14 16:41:57,213 - root - INFO - ssas_com_responsavel: 142
+2024-11-14 16:41:57,213 - root - INFO - ssas_sem_responsavel: 47
+2024-11-14 16:41:57,213 - root - INFO - setores_executores: 1
+2024-11-14 16:41:57,214 - root - WARNING - Problemas encontrados nos dados: 2 datas inválidas
+2024-11-14 16:41:57,236 - DashboardLogger - INFO - Iniciando servidor do dashboard
+2024-11-14 16:42:31,689 - root - INFO - Arquivo mais recente encontrado: SSAs Pendentes Geral - 14-11-2024_0423PM.xlsx (14/11/2024 16:23)
+2024-11-14 16:42:31,692 - root - INFO - Iniciando carregamento do arquivo: C:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\downloads\SSAs Pendentes Geral - 14-11-2024_0423PM.xlsx
+2024-11-14 16:42:32,066 - root - INFO - Arquivo carregado. Total de linhas: 189
+2024-11-14 16:42:32,207 - root - INFO - === Diagnóstico de Datas ===
+2024-11-14 16:42:32,207 - root - INFO - Total de linhas: 189
+2024-11-14 16:42:32,208 - root - INFO - Problemas encontrados: 2
+2024-11-14 16:42:32,208 - root - INFO - 
+Linha 169:
+2024-11-14 16:42:32,209 - root - INFO -   Valor encontrado: nan
+2024-11-14 16:42:32,209 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-14 16:42:32,209 - root - INFO -   Dados da linha:
+2024-11-14 16:42:32,210 - root - INFO -     Número da SSA: 202418235
+2024-11-14 16:42:32,210 - root - INFO -     Situação: ASE
+2024-11-14 16:42:32,210 - root - INFO -     Derivada de: nan
+2024-11-14 16:42:32,210 - root - INFO -     Localização: G097D001
+2024-11-14 16:42:32,211 - root - INFO -     Descrição da Localização: UNIDADE DE AQUISICAO DE DADOS - DAUC C1
+2024-11-14 16:42:32,211 - root - INFO -     Equipamento: 0889.004-8
+2024-11-14 16:42:32,211 - root - INFO -     Semana de Cadastro: 202446
+2024-11-14 16:42:32,211 - root - INFO -     Emitida Em: nan
+2024-11-14 16:42:32,211 - root - INFO -     Descrição da SSA: Atualizar os desenhos 6609-DC-15230, Folha 322 e 6639-DF-A7791, Folha 27. Modificação necessária devido a execução da SSA 202401607.
+2024-11-14 16:42:32,212 - root - INFO -     Setor Emissor: MEL4
+2024-11-14 16:42:32,212 - root - INFO -     Setor Executor: IEE3
+2024-11-14 16:42:32,212 - root - INFO -     Solicitante: OTAVIO ALEXANDRE NICOLAU
+2024-11-14 16:42:32,212 - root - INFO -     Serviço de Origem: S1
+2024-11-14 16:42:32,212 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-14 16:42:32,213 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-14 16:42:32,213 - root - INFO -     Execução Simples: Não
+2024-11-14 16:42:32,214 - root - INFO -     Responsável na Programação: nan
+2024-11-14 16:42:32,214 - root - INFO -     Semana Programada: nan
+2024-11-14 16:42:32,214 - root - INFO -     Responsável na Execução: nan
+2024-11-14 16:42:32,214 - root - INFO -     Descrição Execução: nan
+2024-11-14 16:42:32,214 - root - INFO -     Sistema de Origem: nan
+2024-11-14 16:42:32,214 - root - INFO -     Anomalia: nan
+2024-11-14 16:42:32,215 - root - INFO - 
+Linha 170:
+2024-11-14 16:42:32,215 - root - INFO -   Valor encontrado: nan
+2024-11-14 16:42:32,215 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-14 16:42:32,215 - root - INFO -   Dados da linha:
+2024-11-14 16:42:32,215 - root - INFO -     Número da SSA: 202418234
+2024-11-14 16:42:32,215 - root - INFO -     Situação: ASE
+2024-11-14 16:42:32,216 - root - INFO -     Derivada de: nan
+2024-11-14 16:42:32,216 - root - INFO -     Localização: G097E001
+2024-11-14 16:42:32,216 - root - INFO -     Descrição da Localização: UNIDADE DE AQUISICAO DE DADOS - DAUC F1
+2024-11-14 16:42:32,216 - root - INFO -     Equipamento: 0889.006-4
+2024-11-14 16:42:32,216 - root - INFO -     Semana de Cadastro: 202446
+2024-11-14 16:42:32,216 - root - INFO -     Emitida Em: nan
+2024-11-14 16:42:32,216 - root - INFO -     Descrição da SSA: Atualizar os desenhos 6609-DC-A8360, Folha 330 e 6639-DF-A7802, Folha 19+. Modificação necessária devido a execução da SSA 202401605.
+2024-11-14 16:42:32,217 - root - INFO -     Setor Emissor: MEL4
+2024-11-14 16:42:32,217 - root - INFO -     Setor Executor: IEE3
+2024-11-14 16:42:32,217 - root - INFO -     Solicitante: OTAVIO ALEXANDRE NICOLAU
+2024-11-14 16:42:32,217 - root - INFO -     Serviço de Origem: S1
+2024-11-14 16:42:32,217 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-14 16:42:32,217 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-14 16:42:32,217 - root - INFO -     Execução Simples: Não
+2024-11-14 16:42:32,218 - root - INFO -     Responsável na Programação: nan
+2024-11-14 16:42:32,218 - root - INFO -     Semana Programada: nan
+2024-11-14 16:42:32,218 - root - INFO -     Responsável na Execução: nan
+2024-11-14 16:42:32,218 - root - INFO -     Descrição Execução: nan
+2024-11-14 16:42:32,218 - root - INFO -     Sistema de Origem: nan
+2024-11-14 16:42:32,218 - root - INFO -     Anomalia: nan
+2024-11-14 16:42:32,221 - root - ERROR - Encontradas 2 datas inválidas
+2024-11-14 16:42:32,221 - root - ERROR - Linha 169: Data inválida - verificar valor original
+2024-11-14 16:42:32,221 - root - ERROR - Linha 170: Data inválida - verificar valor original
+2024-11-14 16:42:32,257 - root - INFO - === Estatísticas de Conversão ===
+2024-11-14 16:42:32,257 - root - INFO - Total de registros convertidos: 189
+2024-11-14 16:42:32,257 - root - INFO - Responsáveis execução únicos: 9
+2024-11-14 16:42:32,258 - root - INFO - Responsáveis programação únicos: 9
+2024-11-14 16:42:32,258 - root - INFO - 
+=== Validação de Responsáveis Execução ===
+2024-11-14 16:42:32,258 - root - INFO - 
+Responsável Execução: 'ACOSTA FERNANDEZ RAMON ARIEL'
+2024-11-14 16:42:32,259 - root - INFO - Total SSAs: 4
+2024-11-14 16:42:32,259 - root - INFO - Números das SSAs:
+2024-11-14 16:42:32,259 - root - INFO -   - SSA 202414242: APV
+2024-11-14 16:42:32,260 - root - INFO -   - SSA 202311075: AAT
+2024-11-14 16:42:32,260 - root - INFO -   - SSA 202416825: AAD
+2024-11-14 16:42:32,260 - root - INFO -   - SSA 202208082: ADM
+2024-11-14 16:42:32,260 - root - INFO - 
+Responsável Execução: 'CARLOS RONEI ORTIZ'
+2024-11-14 16:42:32,261 - root - INFO - Total SSAs: 1
+2024-11-14 16:42:32,261 - root - INFO - Números das SSAs:
+2024-11-14 16:42:32,261 - root - INFO -   - SSA 202210834: ADM
+2024-11-14 16:42:32,261 - root - INFO - 
+Responsável Execução: 'CASTILLO CENTURION ELIAS FRANCISCO'
+2024-11-14 16:42:32,262 - root - INFO - Total SSAs: 54
+2024-11-14 16:42:32,262 - root - INFO - Números das SSAs:
+2024-11-14 16:42:32,262 - root - INFO -   - SSA 202403587: AAD
+2024-11-14 16:42:32,262 - root - INFO -   - SSA 202403586: AAD
+2024-11-14 16:42:32,262 - root - INFO -   - SSA 202315283: AAT
+2024-11-14 16:42:32,262 - root - INFO -   - SSA 202412180: AAT
+2024-11-14 16:42:32,263 - root - INFO -   - SSA 202407487: AAT
+2024-11-14 16:42:32,263 - root - INFO -   - SSA 202407289: AAD
+2024-11-14 16:42:32,263 - root - INFO -   - SSA 202320659: AAD
+2024-11-14 16:42:32,263 - root - INFO -   - SSA 202320542: AAD
+2024-11-14 16:42:32,263 - root - INFO -   - SSA 202320540: AAD
+2024-11-14 16:42:32,263 - root - INFO -   - SSA 202320539: AAD
+2024-11-14 16:42:32,264 - root - INFO -   - SSA 202320538: AAD
+2024-11-14 16:42:32,264 - root - INFO -   - SSA 202320537: AAD
+2024-11-14 16:42:32,264 - root - INFO -   - SSA 202320535: AAD
+2024-11-14 16:42:32,264 - root - INFO -   - SSA 202320534: AAD
+2024-11-14 16:42:32,264 - root - INFO -   - SSA 202320531: AAD
+2024-11-14 16:42:32,264 - root - INFO -   - SSA 202320530: AAD
+2024-11-14 16:42:32,265 - root - INFO -   - SSA 202320528: AAD
+2024-11-14 16:42:32,265 - root - INFO -   - SSA 202320526: AAD
+2024-11-14 16:42:32,265 - root - INFO -   - SSA 202320524: AAD
+2024-11-14 16:42:32,265 - root - INFO -   - SSA 202320523: AAD
+2024-11-14 16:42:32,265 - root - INFO -   - SSA 202320521: AAD
+2024-11-14 16:42:32,265 - root - INFO -   - SSA 202320517: AAD
+2024-11-14 16:42:32,265 - root - INFO -   - SSA 202320516: AAD
+2024-11-14 16:42:32,266 - root - INFO -   - SSA 202320514: AAD
+2024-11-14 16:42:32,266 - root - INFO -   - SSA 202318314: AAD
+2024-11-14 16:42:32,266 - root - INFO -   - SSA 202317673: AAD
+2024-11-14 16:42:32,266 - root - INFO -   - SSA 202317672: AAD
+2024-11-14 16:42:32,266 - root - INFO -   - SSA 202317668: AAD
+2024-11-14 16:42:32,266 - root - INFO -   - SSA 202317666: AAD
+2024-11-14 16:42:32,267 - root - INFO -   - SSA 202317664: AAD
+2024-11-14 16:42:32,267 - root - INFO -   - SSA 202317660: AAD
+2024-11-14 16:42:32,267 - root - INFO -   - SSA 202317659: AAD
+2024-11-14 16:42:32,267 - root - INFO -   - SSA 202317650: AAD
+2024-11-14 16:42:32,267 - root - INFO -   - SSA 202317649: AAD
+2024-11-14 16:42:32,268 - root - INFO -   - SSA 202317648: AAD
+2024-11-14 16:42:32,268 - root - INFO -   - SSA 202317647: AAD
+2024-11-14 16:42:32,268 - root - INFO -   - SSA 202317646: AAD
+2024-11-14 16:42:32,268 - root - INFO -   - SSA 202317645: AAD
+2024-11-14 16:42:32,268 - root - INFO -   - SSA 202317644: AAD
+2024-11-14 16:42:32,268 - root - INFO -   - SSA 202317640: AAD
+2024-11-14 16:42:32,268 - root - INFO -   - SSA 202317638: AAD
+2024-11-14 16:42:32,269 - root - INFO -   - SSA 202317635: AAD
+2024-11-14 16:42:32,269 - root - INFO -   - SSA 202315965: AAT
+2024-11-14 16:42:32,269 - root - INFO -   - SSA 202314852: AAD
+2024-11-14 16:42:32,269 - root - INFO -   - SSA 202314218: AAT
+2024-11-14 16:42:32,269 - root - INFO -   - SSA 202314188: AAT
+2024-11-14 16:42:32,269 - root - INFO -   - SSA 202311500: AAT
+2024-11-14 16:42:32,269 - root - INFO -   - SSA 202311498: AAT
+2024-11-14 16:42:32,270 - root - INFO -   - SSA 202216567: AAT
+2024-11-14 16:42:32,270 - root - INFO -   - SSA 202209306: AAT
+2024-11-14 16:42:32,270 - root - INFO -   - SSA 202209304: AAT
+2024-11-14 16:42:32,270 - root - INFO -   - SSA 202209302: AAT
+2024-11-14 16:42:32,270 - root - INFO -   - SSA 202209300: AAT
+2024-11-14 16:42:32,271 - root - INFO -   - SSA 202208500: AAT
+2024-11-14 16:42:32,271 - root - INFO - 
+Responsável Execução: 'LOBO MARTINEZ JUAN ALBERTO'
+2024-11-14 16:42:32,271 - root - INFO - Total SSAs: 15
+2024-11-14 16:42:32,272 - root - INFO - Números das SSAs:
+2024-11-14 16:42:32,272 - root - INFO -   - SSA 202315984: AAD
+2024-11-14 16:42:32,272 - root - INFO -   - SSA 202309302: AAT
+2024-11-14 16:42:32,272 - root - INFO -   - SSA 202223791: AAT
+2024-11-14 16:42:32,272 - root - INFO -   - SSA 202315520: AAD
+2024-11-14 16:42:32,273 - root - INFO -   - SSA 202312375: AAD
+2024-11-14 16:42:32,273 - root - INFO -   - SSA 202308982: AAT
+2024-11-14 16:42:32,273 - root - INFO -   - SSA 202305650: AAT
+2024-11-14 16:42:32,273 - root - INFO -   - SSA 202304925: ADM
+2024-11-14 16:42:32,273 - root - INFO -   - SSA 202225124: AAT
+2024-11-14 16:42:32,273 - root - INFO -   - SSA 202316054: AAD
+2024-11-14 16:42:32,274 - root - INFO -   - SSA 202316049: AAD
+2024-11-14 16:42:32,274 - root - INFO -   - SSA 202316041: AAD
+2024-11-14 16:42:32,274 - root - INFO -   - SSA 202316015: AAD
+2024-11-14 16:42:32,274 - root - INFO -   - SSA 202316013: AAD
+2024-11-14 16:42:32,274 - root - INFO -   - SSA 202316010: AAD
+2024-11-14 16:42:32,275 - root - INFO - 
+Responsável Execução: 'LUCAS COSTA CICARELLI'
+2024-11-14 16:42:32,275 - root - INFO - Total SSAs: 13
+2024-11-14 16:42:32,275 - root - INFO - Números das SSAs:
+2024-11-14 16:42:32,275 - root - INFO -   - SSA 202304752: ADM
+2024-11-14 16:42:32,275 - root - INFO -   - SSA 202408000: ADM
+2024-11-14 16:42:32,276 - root - INFO -   - SSA 202310372: ADM
+2024-11-14 16:42:32,276 - root - INFO -   - SSA 202307936: ADM
+2024-11-14 16:42:32,276 - root - INFO -   - SSA 202307932: ADM
+2024-11-14 16:42:32,276 - root - INFO -   - SSA 202307928: ADM
+2024-11-14 16:42:32,276 - root - INFO -   - SSA 202307925: ADM
+2024-11-14 16:42:32,276 - root - INFO -   - SSA 202307921: ADM
+2024-11-14 16:42:32,277 - root - INFO -   - SSA 202307918: ADM
+2024-11-14 16:42:32,277 - root - INFO -   - SSA 202320392: AAT
+2024-11-14 16:42:32,277 - root - INFO -   - SSA 202209853: ADM
+2024-11-14 16:42:32,277 - root - INFO -   - SSA 202209298: AAT
+2024-11-14 16:42:32,277 - root - INFO -   - SSA 202209296: AAT
+2024-11-14 16:42:32,278 - root - INFO - 
+Responsável Execução: 'MARCOS ALOE YAMAMOTO'
+2024-11-14 16:42:32,278 - root - INFO - Total SSAs: 1
+2024-11-14 16:42:32,278 - root - INFO - Números das SSAs:
+2024-11-14 16:42:32,278 - root - INFO -   - SSA 202219292: ADM
+2024-11-14 16:42:32,278 - root - INFO - 
+Responsável Execução: 'MAURICIO MENON'
+2024-11-14 16:42:32,278 - root - INFO - Total SSAs: 29
+2024-11-14 16:42:32,279 - root - INFO - Números das SSAs:
+2024-11-14 16:42:32,279 - root - INFO -   - SSA 202410873: ADM
+2024-11-14 16:42:32,279 - root - INFO -   - SSA 202408589: AAD
+2024-11-14 16:42:32,279 - root - INFO -   - SSA 202404353: AAD
+2024-11-14 16:42:32,279 - root - INFO -   - SSA 202404349: AAD
+2024-11-14 16:42:32,279 - root - INFO -   - SSA 202403569: AAD
+2024-11-14 16:42:32,279 - root - INFO -   - SSA 202401930: ADM
+2024-11-14 16:42:32,279 - root - INFO -   - SSA 202303449: AAD
+2024-11-14 16:42:32,279 - root - INFO -   - SSA 202303082: AAD
+2024-11-14 16:42:32,280 - root - INFO -   - SSA 202300670: ADM
+2024-11-14 16:42:32,280 - root - INFO -   - SSA 202417275: AAD
+2024-11-14 16:42:32,280 - root - INFO -   - SSA 202414170: ADM
+2024-11-14 16:42:32,280 - root - INFO -   - SSA 202412309: AAD
+2024-11-14 16:42:32,280 - root - INFO -   - SSA 202412189: AAD
+2024-11-14 16:42:32,280 - root - INFO -   - SSA 202410056: ADM
+2024-11-14 16:42:32,280 - root - INFO -   - SSA 202410051: ADM
+2024-11-14 16:42:32,280 - root - INFO -   - SSA 202409449: ADM
+2024-11-14 16:42:32,281 - root - INFO -   - SSA 202408797: AAT
+2024-11-14 16:42:32,281 - root - INFO -   - SSA 202401838: AAT
+2024-11-14 16:42:32,281 - root - INFO -   - SSA 202315901: AAD
+2024-11-14 16:42:32,281 - root - INFO -   - SSA 202312371: AAT
+2024-11-14 16:42:32,281 - root - INFO -   - SSA 202308411: AAT
+2024-11-14 16:42:32,281 - root - INFO -   - SSA 202307247: ADM
+2024-11-14 16:42:32,282 - root - INFO -   - SSA 202204716: AAD
+2024-11-14 16:42:32,282 - root - INFO -   - SSA 202418061: ADM
+2024-11-14 16:42:32,282 - root - INFO -   - SSA 202318166: ADM
+2024-11-14 16:42:32,282 - root - INFO -   - SSA 202316930: AAD
+2024-11-14 16:42:32,282 - root - INFO -   - SSA 202316141: AAT
+2024-11-14 16:42:32,282 - root - INFO -   - SSA 202304641: AAT
+2024-11-14 16:42:32,282 - root - INFO -   - SSA 202304639: AAT
+2024-11-14 16:42:32,283 - root - INFO - 
+Responsável Execução: 'SILVA VARGAS FRANCISCO JAVIER'
+2024-11-14 16:42:32,283 - root - INFO - Total SSAs: 10
+2024-11-14 16:42:32,283 - root - INFO - Números das SSAs:
+2024-11-14 16:42:32,283 - root - INFO -   - SSA 202316469: AAT
+2024-11-14 16:42:32,283 - root - INFO -   - SSA 202418023: ADM
+2024-11-14 16:42:32,283 - root - INFO -   - SSA 202414182: AAD
+2024-11-14 16:42:32,283 - root - INFO -   - SSA 202413188: ADM
+2024-11-14 16:42:32,283 - root - INFO -   - SSA 202408102: ADM
+2024-11-14 16:42:32,284 - root - INFO -   - SSA 202408089: AAT
+2024-11-14 16:42:32,284 - root - INFO -   - SSA 202406019: AAT
+2024-11-14 16:42:32,284 - root - INFO -   - SSA 202418019: AAT
+2024-11-14 16:42:32,284 - root - INFO -   - SSA 202416065: ADM
+2024-11-14 16:42:32,284 - root - INFO -   - SSA 202410326: AAT
+2024-11-14 16:42:32,284 - root - INFO - 
+Responsável Execução: 'VILLAR RIVAS ALBERTO'
+2024-11-14 16:42:32,284 - root - INFO - Total SSAs: 15
+2024-11-14 16:42:32,285 - root - INFO - Números das SSAs:
+2024-11-14 16:42:32,285 - root - INFO -   - SSA 202411981: ADM
+2024-11-14 16:42:32,285 - root - INFO -   - SSA 202410715: ADM
+2024-11-14 16:42:32,285 - root - INFO -   - SSA 202407349: ADM
+2024-11-14 16:42:32,285 - root - INFO -   - SSA 202402751: ADM
+2024-11-14 16:42:32,285 - root - INFO -   - SSA 202402415: AAT
+2024-11-14 16:42:32,286 - root - INFO -   - SSA 202402414: AAT
+2024-11-14 16:42:32,286 - root - INFO -   - SSA 202401484: ADM
+2024-11-14 16:42:32,286 - root - INFO -   - SSA 202401482: ADM
+2024-11-14 16:42:32,286 - root - INFO -   - SSA 202320822: AIM
+2024-11-14 16:42:32,286 - root - INFO -   - SSA 202318398: AAT
+2024-11-14 16:42:32,286 - root - INFO -   - SSA 202313969: AIM
+2024-11-14 16:42:32,286 - root - INFO -   - SSA 202310994: AIM
+2024-11-14 16:42:32,287 - root - INFO -   - SSA 202310985: AIM
+2024-11-14 16:42:32,287 - root - INFO -   - SSA 202310952: AIM
+2024-11-14 16:42:32,287 - root - INFO -   - SSA 202316688: AIM
+2024-11-14 16:42:32,287 - root - INFO - 
+=== Validação de Responsáveis Programação ===
+2024-11-14 16:42:32,287 - root - INFO - 
+Responsável Programação: 'ACOSTA FERNANDEZ RAMON ARIEL'
+2024-11-14 16:42:32,287 - root - INFO - Total SSAs: 5
+2024-11-14 16:42:32,287 - root - INFO - Números das SSAs:
+2024-11-14 16:42:32,288 - root - INFO -   - SSA 202414242: APV
+2024-11-14 16:42:32,288 - root - INFO -   - SSA 202311075: AAT
+2024-11-14 16:42:32,288 - root - INFO -   - SSA 202416825: AAD
+2024-11-14 16:42:32,288 - root - INFO -   - SSA 202416554: SPG
+2024-11-14 16:42:32,288 - root - INFO -   - SSA 202208082: ADM
+2024-11-14 16:42:32,289 - root - INFO - 
+Responsável Programação: 'CARLOS RONEI ORTIZ'
+2024-11-14 16:42:32,289 - root - INFO - Total SSAs: 3
+2024-11-14 16:42:32,289 - root - INFO - Números das SSAs:
+2024-11-14 16:42:32,289 - root - INFO -   - SSA 202305650: AAT
+2024-11-14 16:42:32,289 - root - INFO -   - SSA 202210834: ADM
+2024-11-14 16:42:32,290 - root - INFO -   - SSA 202209853: ADM
+2024-11-14 16:42:32,290 - root - INFO - 
+Responsável Programação: 'CASTILLO CENTURION ELIAS FRANCISCO'
+2024-11-14 16:42:32,290 - root - INFO - Total SSAs: 54
+2024-11-14 16:42:32,290 - root - INFO - Números das SSAs:
+2024-11-14 16:42:32,290 - root - INFO -   - SSA 202403587: AAD
+2024-11-14 16:42:32,290 - root - INFO -   - SSA 202403586: AAD
+2024-11-14 16:42:32,291 - root - INFO -   - SSA 202315283: AAT
+2024-11-14 16:42:32,291 - root - INFO -   - SSA 202412180: AAT
+2024-11-14 16:42:32,291 - root - INFO -   - SSA 202407487: AAT
+2024-11-14 16:42:32,291 - root - INFO -   - SSA 202407289: AAD
+2024-11-14 16:42:32,291 - root - INFO -   - SSA 202320659: AAD
+2024-11-14 16:42:32,291 - root - INFO -   - SSA 202320542: AAD
+2024-11-14 16:42:32,291 - root - INFO -   - SSA 202320540: AAD
+2024-11-14 16:42:32,292 - root - INFO -   - SSA 202320539: AAD
+2024-11-14 16:42:32,292 - root - INFO -   - SSA 202320538: AAD
+2024-11-14 16:42:32,292 - root - INFO -   - SSA 202320537: AAD
+2024-11-14 16:42:32,292 - root - INFO -   - SSA 202320535: AAD
+2024-11-14 16:42:32,292 - root - INFO -   - SSA 202320534: AAD
+2024-11-14 16:42:32,292 - root - INFO -   - SSA 202320531: AAD
+2024-11-14 16:42:32,293 - root - INFO -   - SSA 202320530: AAD
+2024-11-14 16:42:32,293 - root - INFO -   - SSA 202320528: AAD
+2024-11-14 16:42:32,293 - root - INFO -   - SSA 202320526: AAD
+2024-11-14 16:42:32,293 - root - INFO -   - SSA 202320524: AAD
+2024-11-14 16:42:32,293 - root - INFO -   - SSA 202320523: AAD
+2024-11-14 16:42:32,293 - root - INFO -   - SSA 202320521: AAD
+2024-11-14 16:42:32,293 - root - INFO -   - SSA 202320517: AAD
+2024-11-14 16:42:32,293 - root - INFO -   - SSA 202320516: AAD
+2024-11-14 16:42:32,294 - root - INFO -   - SSA 202320514: AAD
+2024-11-14 16:42:32,294 - root - INFO -   - SSA 202318314: AAD
+2024-11-14 16:42:32,294 - root - INFO -   - SSA 202317673: AAD
+2024-11-14 16:42:32,294 - root - INFO -   - SSA 202317672: AAD
+2024-11-14 16:42:32,294 - root - INFO -   - SSA 202317668: AAD
+2024-11-14 16:42:32,294 - root - INFO -   - SSA 202317666: AAD
+2024-11-14 16:42:32,294 - root - INFO -   - SSA 202317664: AAD
+2024-11-14 16:42:32,294 - root - INFO -   - SSA 202317660: AAD
+2024-11-14 16:42:32,294 - root - INFO -   - SSA 202317659: AAD
+2024-11-14 16:42:32,295 - root - INFO -   - SSA 202317650: AAD
+2024-11-14 16:42:32,295 - root - INFO -   - SSA 202317649: AAD
+2024-11-14 16:42:32,295 - root - INFO -   - SSA 202317648: AAD
+2024-11-14 16:42:32,295 - root - INFO -   - SSA 202317647: AAD
+2024-11-14 16:42:32,295 - root - INFO -   - SSA 202317646: AAD
+2024-11-14 16:42:32,295 - root - INFO -   - SSA 202317645: AAD
+2024-11-14 16:42:32,295 - root - INFO -   - SSA 202317644: AAD
+2024-11-14 16:42:32,296 - root - INFO -   - SSA 202317640: AAD
+2024-11-14 16:42:32,296 - root - INFO -   - SSA 202317638: AAD
+2024-11-14 16:42:32,296 - root - INFO -   - SSA 202317635: AAD
+2024-11-14 16:42:32,296 - root - INFO -   - SSA 202315965: AAT
+2024-11-14 16:42:32,296 - root - INFO -   - SSA 202314852: AAD
+2024-11-14 16:42:32,296 - root - INFO -   - SSA 202314218: AAT
+2024-11-14 16:42:32,296 - root - INFO -   - SSA 202314188: AAT
+2024-11-14 16:42:32,297 - root - INFO -   - SSA 202311500: AAT
+2024-11-14 16:42:32,297 - root - INFO -   - SSA 202311498: AAT
+2024-11-14 16:42:32,297 - root - INFO -   - SSA 202216567: AAT
+2024-11-14 16:42:32,297 - root - INFO -   - SSA 202209306: AAT
+2024-11-14 16:42:32,297 - root - INFO -   - SSA 202209304: AAT
+2024-11-14 16:42:32,297 - root - INFO -   - SSA 202209302: AAT
+2024-11-14 16:42:32,298 - root - INFO -   - SSA 202209300: AAT
+2024-11-14 16:42:32,298 - root - INFO -   - SSA 202208500: AAT
+2024-11-14 16:42:32,298 - root - INFO - 
+Responsável Programação: 'LOBO MARTINEZ JUAN ALBERTO'
+2024-11-14 16:42:32,298 - root - INFO - Total SSAs: 18
+2024-11-14 16:42:32,299 - root - INFO - Números das SSAs:
+2024-11-14 16:42:32,299 - root - INFO -   - SSA 202315984: AAD
+2024-11-14 16:42:32,299 - root - INFO -   - SSA 202309302: AAT
+2024-11-14 16:42:32,299 - root - INFO -   - SSA 202223791: AAT
+2024-11-14 16:42:32,299 - root - INFO -   - SSA 202315901: AAD
+2024-11-14 16:42:32,299 - root - INFO -   - SSA 202315520: AAD
+2024-11-14 16:42:32,299 - root - INFO -   - SSA 202310994: AIM
+2024-11-14 16:42:32,300 - root - INFO -   - SSA 202308982: AAT
+2024-11-14 16:42:32,300 - root - INFO -   - SSA 202307247: ADM
+2024-11-14 16:42:32,300 - root - INFO -   - SSA 202304925: ADM
+2024-11-14 16:42:32,300 - root - INFO -   - SSA 202225124: AAT
+2024-11-14 16:42:32,300 - root - INFO -   - SSA 202316930: AAD
+2024-11-14 16:42:32,300 - root - INFO -   - SSA 202316688: AIM
+2024-11-14 16:42:32,301 - root - INFO -   - SSA 202316054: AAD
+2024-11-14 16:42:32,301 - root - INFO -   - SSA 202316049: AAD
+2024-11-14 16:42:32,301 - root - INFO -   - SSA 202316041: AAD
+2024-11-14 16:42:32,301 - root - INFO -   - SSA 202316015: AAD
+2024-11-14 16:42:32,301 - root - INFO -   - SSA 202316013: AAD
+2024-11-14 16:42:32,302 - root - INFO -   - SSA 202316010: AAD
+2024-11-14 16:42:32,302 - root - INFO - 
+Responsável Programação: 'LUCAS COSTA CICARELLI'
+2024-11-14 16:42:32,303 - root - INFO - Total SSAs: 10
+2024-11-14 16:42:32,303 - root - INFO - Números das SSAs:
+2024-11-14 16:42:32,303 - root - INFO -   - SSA 202408000: ADM
+2024-11-14 16:42:32,303 - root - INFO -   - SSA 202307936: ADM
+2024-11-14 16:42:32,303 - root - INFO -   - SSA 202307932: ADM
+2024-11-14 16:42:32,304 - root - INFO -   - SSA 202307928: ADM
+2024-11-14 16:42:32,304 - root - INFO -   - SSA 202307925: ADM
+2024-11-14 16:42:32,304 - root - INFO -   - SSA 202307921: ADM
+2024-11-14 16:42:32,304 - root - INFO -   - SSA 202307918: ADM
+2024-11-14 16:42:32,304 - root - INFO -   - SSA 202320392: AAT
+2024-11-14 16:42:32,304 - root - INFO -   - SSA 202209298: AAT
+2024-11-14 16:42:32,304 - root - INFO -   - SSA 202209296: AAT
+2024-11-14 16:42:32,305 - root - INFO - 
+Responsável Programação: 'MARCOS ALOE YAMAMOTO'
+2024-11-14 16:42:32,305 - root - INFO - Total SSAs: 1
+2024-11-14 16:42:32,305 - root - INFO - Números das SSAs:
+2024-11-14 16:42:32,305 - root - INFO -   - SSA 202219292: ADM
+2024-11-14 16:42:32,305 - root - INFO - 
+Responsável Programação: 'MAURICIO MENON'
+2024-11-14 16:42:32,305 - root - INFO - Total SSAs: 27
+2024-11-14 16:42:32,305 - root - INFO - Números das SSAs:
+2024-11-14 16:42:32,306 - root - INFO -   - SSA 202410873: ADM
+2024-11-14 16:42:32,306 - root - INFO -   - SSA 202408589: AAD
+2024-11-14 16:42:32,306 - root - INFO -   - SSA 202404353: AAD
+2024-11-14 16:42:32,306 - root - INFO -   - SSA 202404349: AAD
+2024-11-14 16:42:32,306 - root - INFO -   - SSA 202403569: AAD
+2024-11-14 16:42:32,306 - root - INFO -   - SSA 202401930: ADM
+2024-11-14 16:42:32,306 - root - INFO -   - SSA 202303449: AAD
+2024-11-14 16:42:32,307 - root - INFO -   - SSA 202303082: AAD
+2024-11-14 16:42:32,307 - root - INFO -   - SSA 202300670: ADM
+2024-11-14 16:42:32,307 - root - INFO -   - SSA 202417275: AAD
+2024-11-14 16:42:32,307 - root - INFO -   - SSA 202414170: ADM
+2024-11-14 16:42:32,307 - root - INFO -   - SSA 202412309: AAD
+2024-11-14 16:42:32,307 - root - INFO -   - SSA 202412189: AAD
+2024-11-14 16:42:32,307 - root - INFO -   - SSA 202410056: ADM
+2024-11-14 16:42:32,308 - root - INFO -   - SSA 202410051: ADM
+2024-11-14 16:42:32,308 - root - INFO -   - SSA 202409449: ADM
+2024-11-14 16:42:32,308 - root - INFO -   - SSA 202408797: AAT
+2024-11-14 16:42:32,308 - root - INFO -   - SSA 202401838: AAT
+2024-11-14 16:42:32,308 - root - INFO -   - SSA 202312375: AAD
+2024-11-14 16:42:32,308 - root - INFO -   - SSA 202312371: AAT
+2024-11-14 16:42:32,308 - root - INFO -   - SSA 202308411: AAT
+2024-11-14 16:42:32,309 - root - INFO -   - SSA 202204716: AAD
+2024-11-14 16:42:32,309 - root - INFO -   - SSA 202418061: ADM
+2024-11-14 16:42:32,309 - root - INFO -   - SSA 202318166: ADM
+2024-11-14 16:42:32,309 - root - INFO -   - SSA 202316141: AAT
+2024-11-14 16:42:32,309 - root - INFO -   - SSA 202304641: AAT
+2024-11-14 16:42:32,309 - root - INFO -   - SSA 202304639: AAT
+2024-11-14 16:42:32,309 - root - INFO - 
+Responsável Programação: 'SILVA VARGAS FRANCISCO JAVIER'
+2024-11-14 16:42:32,310 - root - INFO - Total SSAs: 25
+2024-11-14 16:42:32,310 - root - INFO - Números das SSAs:
+2024-11-14 16:42:32,310 - root - INFO -   - SSA 202407782: SPG
+2024-11-14 16:42:32,310 - root - INFO -   - SSA 202405093: SPG
+2024-11-14 16:42:32,310 - root - INFO -   - SSA 202404581: SPG
+2024-11-14 16:42:32,310 - root - INFO -   - SSA 202317755: SPG
+2024-11-14 16:42:32,310 - root - INFO -   - SSA 202316469: AAT
+2024-11-14 16:42:32,310 - root - INFO -   - SSA 202304752: ADM
+2024-11-14 16:42:32,311 - root - INFO -   - SSA 202418047: SPG
+2024-11-14 16:42:32,311 - root - INFO -   - SSA 202418023: ADM
+2024-11-14 16:42:32,311 - root - INFO -   - SSA 202414182: AAD
+2024-11-14 16:42:32,311 - root - INFO -   - SSA 202413188: ADM
+2024-11-14 16:42:32,311 - root - INFO -   - SSA 202413077: SCD
+2024-11-14 16:42:32,311 - root - INFO -   - SSA 202412872: SPG
+2024-11-14 16:42:32,311 - root - INFO -   - SSA 202412811: SPG
+2024-11-14 16:42:32,311 - root - INFO -   - SSA 202412570: SPG
+2024-11-14 16:42:32,312 - root - INFO -   - SSA 202409608: SPG
+2024-11-14 16:42:32,312 - root - INFO -   - SSA 202408102: ADM
+2024-11-14 16:42:32,312 - root - INFO -   - SSA 202408089: AAT
+2024-11-14 16:42:32,312 - root - INFO -   - SSA 202406019: AAT
+2024-11-14 16:42:32,312 - root - INFO -   - SSA 202404436: SPG
+2024-11-14 16:42:32,312 - root - INFO -   - SSA 202310985: AIM
+2024-11-14 16:42:32,312 - root - INFO -   - SSA 202310952: AIM
+2024-11-14 16:42:32,313 - root - INFO -   - SSA 202310372: ADM
+2024-11-14 16:42:32,313 - root - INFO -   - SSA 202418019: AAT
+2024-11-14 16:42:32,313 - root - INFO -   - SSA 202416065: ADM
+2024-11-14 16:42:32,313 - root - INFO -   - SSA 202410326: AAT
+2024-11-14 16:42:32,313 - root - INFO - 
+Responsável Programação: 'VILLAR RIVAS ALBERTO'
+2024-11-14 16:42:32,313 - root - INFO - Total SSAs: 11
+2024-11-14 16:42:32,314 - root - INFO - Números das SSAs:
+2024-11-14 16:42:32,314 - root - INFO -   - SSA 202411981: ADM
+2024-11-14 16:42:32,314 - root - INFO -   - SSA 202410715: ADM
+2024-11-14 16:42:32,314 - root - INFO -   - SSA 202407349: ADM
+2024-11-14 16:42:32,314 - root - INFO -   - SSA 202402751: ADM
+2024-11-14 16:42:32,314 - root - INFO -   - SSA 202402415: AAT
+2024-11-14 16:42:32,315 - root - INFO -   - SSA 202402414: AAT
+2024-11-14 16:42:32,315 - root - INFO -   - SSA 202401484: ADM
+2024-11-14 16:42:32,315 - root - INFO -   - SSA 202401482: ADM
+2024-11-14 16:42:32,315 - root - INFO -   - SSA 202320822: AIM
+2024-11-14 16:42:32,315 - root - INFO -   - SSA 202318398: AAT
+2024-11-14 16:42:32,315 - root - INFO -   - SSA 202313969: AIM
+2024-11-14 16:42:32,315 - root - INFO - 
+=== Primeiro Objeto Convertido (Verificação) ===
+2024-11-14 16:42:32,316 - root - INFO - Número: 202415727
+2024-11-14 16:42:32,316 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-14 16:42:32,316 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-14 16:42:32,316 - root - INFO - Setor executor: IEE3
+2024-11-14 16:42:32,316 - root - INFO - Responsável execução: None
+2024-11-14 16:42:32,317 - root - INFO - Responsável programação: None
+2024-11-14 16:42:32,318 - root - INFO - === Estatísticas do Carregamento ===
+2024-11-14 16:42:32,318 - root - INFO - Total de registros: 189
+2024-11-14 16:42:32,318 - root - INFO - SSAs válidas: 189
+2024-11-14 16:42:32,318 - root - INFO - total_ssas: 189
+2024-11-14 16:42:32,318 - root - INFO - ssas_com_responsavel: 142
+2024-11-14 16:42:32,319 - root - INFO - ssas_sem_responsavel: 47
+2024-11-14 16:42:32,319 - root - INFO - setores_executores: 1
+2024-11-14 16:42:32,319 - root - WARNING - Problemas encontrados nos dados: 2 datas inválidas
+2024-11-14 16:42:32,343 - DashboardLogger - INFO - Iniciando servidor do dashboard
+2024-11-14 16:42:43,280 - DashboardLogger - INFO - Nova conexão de IP: 172.19.73.38
+2024-11-14 16:42:43,281 - DashboardLogger - INFO - Acesso à rota: /_reload-hash
+2024-11-14 16:42:43,339 - DashboardLogger - INFO - Acesso à rota: /_dash-layout
+2024-11-14 16:42:43,344 - DashboardLogger - INFO - Acesso à rota: /_dash-dependencies
+2024-11-14 16:42:43,606 - DashboardLogger - INFO - Acesso à rota: /_dash-update-component
+2024-11-14 16:42:49,391 - DashboardLogger - INFO - Visualização de SSAs: SSAs do executor CASTILLO CENTURION ELIAS FRANCISCO
+2024-11-14 16:43:08,230 - DashboardLogger - INFO - Visualização de SSAs: SSAs do executor MAURICIO MENON
+2024-11-14 16:43:25,189 - DashboardLogger - INFO - Visualização de SSAs: SSAs no intervalo 27 semanas
+2024-11-14 16:45:42,967 - root - INFO - Arquivo mais recente encontrado: SSAs Pendentes Geral - 14-11-2024_0423PM.xlsx (14/11/2024 16:23)
+2024-11-14 16:45:42,969 - root - INFO - Iniciando carregamento do arquivo: C:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\downloads\SSAs Pendentes Geral - 14-11-2024_0423PM.xlsx
+2024-11-14 16:45:43,516 - root - INFO - Arquivo carregado. Total de linhas: 189
+2024-11-14 16:45:43,666 - root - INFO - === Diagnóstico de Datas ===
+2024-11-14 16:45:43,666 - root - INFO - Total de linhas: 189
+2024-11-14 16:45:43,667 - root - INFO - Problemas encontrados: 2
+2024-11-14 16:45:43,667 - root - INFO - 
+Linha 169:
+2024-11-14 16:45:43,667 - root - INFO -   Valor encontrado: nan
+2024-11-14 16:45:43,667 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-14 16:45:43,668 - root - INFO -   Dados da linha:
+2024-11-14 16:45:43,668 - root - INFO -     Número da SSA: 202418235
+2024-11-14 16:45:43,668 - root - INFO -     Situação: ASE
+2024-11-14 16:45:43,668 - root - INFO -     Derivada de: nan
+2024-11-14 16:45:43,669 - root - INFO -     Localização: G097D001
+2024-11-14 16:45:43,669 - root - INFO -     Descrição da Localização: UNIDADE DE AQUISICAO DE DADOS - DAUC C1
+2024-11-14 16:45:43,669 - root - INFO -     Equipamento: 0889.004-8
+2024-11-14 16:45:43,669 - root - INFO -     Semana de Cadastro: 202446
+2024-11-14 16:45:43,669 - root - INFO -     Emitida Em: nan
+2024-11-14 16:45:43,670 - root - INFO -     Descrição da SSA: Atualizar os desenhos 6609-DC-15230, Folha 322 e 6639-DF-A7791, Folha 27. Modificação necessária devido a execução da SSA 202401607.
+2024-11-14 16:45:43,670 - root - INFO -     Setor Emissor: MEL4
+2024-11-14 16:45:43,670 - root - INFO -     Setor Executor: IEE3
+2024-11-14 16:45:43,670 - root - INFO -     Solicitante: OTAVIO ALEXANDRE NICOLAU
+2024-11-14 16:45:43,670 - root - INFO -     Serviço de Origem: S1
+2024-11-14 16:45:43,671 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-14 16:45:43,671 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-14 16:45:43,671 - root - INFO -     Execução Simples: Não
+2024-11-14 16:45:43,671 - root - INFO -     Responsável na Programação: nan
+2024-11-14 16:45:43,671 - root - INFO -     Semana Programada: nan
+2024-11-14 16:45:43,671 - root - INFO -     Responsável na Execução: nan
+2024-11-14 16:45:43,672 - root - INFO -     Descrição Execução: nan
+2024-11-14 16:45:43,672 - root - INFO -     Sistema de Origem: nan
+2024-11-14 16:45:43,672 - root - INFO -     Anomalia: nan
+2024-11-14 16:45:43,672 - root - INFO - 
+Linha 170:
+2024-11-14 16:45:43,672 - root - INFO -   Valor encontrado: nan
+2024-11-14 16:45:43,673 - root - INFO -   Motivo: Valor nulo ou NaN
+2024-11-14 16:45:43,673 - root - INFO -   Dados da linha:
+2024-11-14 16:45:43,673 - root - INFO -     Número da SSA: 202418234
+2024-11-14 16:45:43,673 - root - INFO -     Situação: ASE
+2024-11-14 16:45:43,673 - root - INFO -     Derivada de: nan
+2024-11-14 16:45:43,673 - root - INFO -     Localização: G097E001
+2024-11-14 16:45:43,673 - root - INFO -     Descrição da Localização: UNIDADE DE AQUISICAO DE DADOS - DAUC F1
+2024-11-14 16:45:43,674 - root - INFO -     Equipamento: 0889.006-4
+2024-11-14 16:45:43,674 - root - INFO -     Semana de Cadastro: 202446
+2024-11-14 16:45:43,674 - root - INFO -     Emitida Em: nan
+2024-11-14 16:45:43,674 - root - INFO -     Descrição da SSA: Atualizar os desenhos 6609-DC-A8360, Folha 330 e 6639-DF-A7802, Folha 19+. Modificação necessária devido a execução da SSA 202401605.
+2024-11-14 16:45:43,674 - root - INFO -     Setor Emissor: MEL4
+2024-11-14 16:45:43,674 - root - INFO -     Setor Executor: IEE3
+2024-11-14 16:45:43,675 - root - INFO -     Solicitante: OTAVIO ALEXANDRE NICOLAU
+2024-11-14 16:45:43,675 - root - INFO -     Serviço de Origem: S1
+2024-11-14 16:45:43,675 - root - INFO -     Grau de Prioridade Emissão: Programável
+2024-11-14 16:45:43,675 - root - INFO -     Grau de Prioridade Planejamento: nan
+2024-11-14 16:45:43,675 - root - INFO -     Execução Simples: Não
+2024-11-14 16:45:43,675 - root - INFO -     Responsável na Programação: nan
+2024-11-14 16:45:43,675 - root - INFO -     Semana Programada: nan
+2024-11-14 16:45:43,676 - root - INFO -     Responsável na Execução: nan
+2024-11-14 16:45:43,676 - root - INFO -     Descrição Execução: nan
+2024-11-14 16:45:43,676 - root - INFO -     Sistema de Origem: nan
+2024-11-14 16:45:43,676 - root - INFO -     Anomalia: nan
+2024-11-14 16:45:43,678 - root - ERROR - Encontradas 2 datas inválidas
+2024-11-14 16:45:43,678 - root - ERROR - Linha 169: Data inválida - verificar valor original
+2024-11-14 16:45:43,679 - root - ERROR - Linha 170: Data inválida - verificar valor original
+2024-11-14 16:45:43,717 - root - INFO - === Estatísticas de Conversão ===
+2024-11-14 16:45:43,717 - root - INFO - Total de registros convertidos: 189
+2024-11-14 16:45:43,718 - root - INFO - Responsáveis execução únicos: 9
+2024-11-14 16:45:43,718 - root - INFO - Responsáveis programação únicos: 9
+2024-11-14 16:45:43,718 - root - INFO - 
+=== Validação de Responsáveis Execução ===
+2024-11-14 16:45:43,718 - root - INFO - 
+Responsável Execução: 'ACOSTA FERNANDEZ RAMON ARIEL'
+2024-11-14 16:45:43,719 - root - INFO - Total SSAs: 4
+2024-11-14 16:45:43,719 - root - INFO - Números das SSAs:
+2024-11-14 16:45:43,719 - root - INFO -   - SSA 202414242: APV
+2024-11-14 16:45:43,719 - root - INFO -   - SSA 202311075: AAT
+2024-11-14 16:45:43,720 - root - INFO -   - SSA 202416825: AAD
+2024-11-14 16:45:43,720 - root - INFO -   - SSA 202208082: ADM
+2024-11-14 16:45:43,720 - root - INFO - 
+Responsável Execução: 'CARLOS RONEI ORTIZ'
+2024-11-14 16:45:43,720 - root - INFO - Total SSAs: 1
+2024-11-14 16:45:43,721 - root - INFO - Números das SSAs:
+2024-11-14 16:45:43,721 - root - INFO -   - SSA 202210834: ADM
+2024-11-14 16:45:43,721 - root - INFO - 
+Responsável Execução: 'CASTILLO CENTURION ELIAS FRANCISCO'
+2024-11-14 16:45:43,721 - root - INFO - Total SSAs: 54
+2024-11-14 16:45:43,722 - root - INFO - Números das SSAs:
+2024-11-14 16:45:43,722 - root - INFO -   - SSA 202403587: AAD
+2024-11-14 16:45:43,722 - root - INFO -   - SSA 202403586: AAD
+2024-11-14 16:45:43,722 - root - INFO -   - SSA 202315283: AAT
+2024-11-14 16:45:43,722 - root - INFO -   - SSA 202412180: AAT
+2024-11-14 16:45:43,723 - root - INFO -   - SSA 202407487: AAT
+2024-11-14 16:45:43,723 - root - INFO -   - SSA 202407289: AAD
+2024-11-14 16:45:43,723 - root - INFO -   - SSA 202320659: AAD
+2024-11-14 16:45:43,723 - root - INFO -   - SSA 202320542: AAD
+2024-11-14 16:45:43,723 - root - INFO -   - SSA 202320540: AAD
+2024-11-14 16:45:43,723 - root - INFO -   - SSA 202320539: AAD
+2024-11-14 16:45:43,724 - root - INFO -   - SSA 202320538: AAD
+2024-11-14 16:45:43,724 - root - INFO -   - SSA 202320537: AAD
+2024-11-14 16:45:43,724 - root - INFO -   - SSA 202320535: AAD
+2024-11-14 16:45:43,724 - root - INFO -   - SSA 202320534: AAD
+2024-11-14 16:45:43,724 - root - INFO -   - SSA 202320531: AAD
+2024-11-14 16:45:43,724 - root - INFO -   - SSA 202320530: AAD
+2024-11-14 16:45:43,724 - root - INFO -   - SSA 202320528: AAD
+2024-11-14 16:45:43,725 - root - INFO -   - SSA 202320526: AAD
+2024-11-14 16:45:43,725 - root - INFO -   - SSA 202320524: AAD
+2024-11-14 16:45:43,725 - root - INFO -   - SSA 202320523: AAD
+2024-11-14 16:45:43,725 - root - INFO -   - SSA 202320521: AAD
+2024-11-14 16:45:43,725 - root - INFO -   - SSA 202320517: AAD
+2024-11-14 16:45:43,726 - root - INFO -   - SSA 202320516: AAD
+2024-11-14 16:45:43,726 - root - INFO -   - SSA 202320514: AAD
+2024-11-14 16:45:43,726 - root - INFO -   - SSA 202318314: AAD
+2024-11-14 16:45:43,726 - root - INFO -   - SSA 202317673: AAD
+2024-11-14 16:45:43,726 - root - INFO -   - SSA 202317672: AAD
+2024-11-14 16:45:43,726 - root - INFO -   - SSA 202317668: AAD
+2024-11-14 16:45:43,727 - root - INFO -   - SSA 202317666: AAD
+2024-11-14 16:45:43,727 - root - INFO -   - SSA 202317664: AAD
+2024-11-14 16:45:43,727 - root - INFO -   - SSA 202317660: AAD
+2024-11-14 16:45:43,727 - root - INFO -   - SSA 202317659: AAD
+2024-11-14 16:45:43,727 - root - INFO -   - SSA 202317650: AAD
+2024-11-14 16:45:43,727 - root - INFO -   - SSA 202317649: AAD
+2024-11-14 16:45:43,728 - root - INFO -   - SSA 202317648: AAD
+2024-11-14 16:45:43,728 - root - INFO -   - SSA 202317647: AAD
+2024-11-14 16:45:43,728 - root - INFO -   - SSA 202317646: AAD
+2024-11-14 16:45:43,728 - root - INFO -   - SSA 202317645: AAD
+2024-11-14 16:45:43,728 - root - INFO -   - SSA 202317644: AAD
+2024-11-14 16:45:43,728 - root - INFO -   - SSA 202317640: AAD
+2024-11-14 16:45:43,729 - root - INFO -   - SSA 202317638: AAD
+2024-11-14 16:45:43,729 - root - INFO -   - SSA 202317635: AAD
+2024-11-14 16:45:43,729 - root - INFO -   - SSA 202315965: AAT
+2024-11-14 16:45:43,729 - root - INFO -   - SSA 202314852: AAD
+2024-11-14 16:45:43,729 - root - INFO -   - SSA 202314218: AAT
+2024-11-14 16:45:43,729 - root - INFO -   - SSA 202314188: AAT
+2024-11-14 16:45:43,729 - root - INFO -   - SSA 202311500: AAT
+2024-11-14 16:45:43,729 - root - INFO -   - SSA 202311498: AAT
+2024-11-14 16:45:43,730 - root - INFO -   - SSA 202216567: AAT
+2024-11-14 16:45:43,730 - root - INFO -   - SSA 202209306: AAT
+2024-11-14 16:45:43,730 - root - INFO -   - SSA 202209304: AAT
+2024-11-14 16:45:43,730 - root - INFO -   - SSA 202209302: AAT
+2024-11-14 16:45:43,730 - root - INFO -   - SSA 202209300: AAT
+2024-11-14 16:45:43,730 - root - INFO -   - SSA 202208500: AAT
+2024-11-14 16:45:43,730 - root - INFO - 
+Responsável Execução: 'LOBO MARTINEZ JUAN ALBERTO'
+2024-11-14 16:45:43,731 - root - INFO - Total SSAs: 15
+2024-11-14 16:45:43,731 - root - INFO - Números das SSAs:
+2024-11-14 16:45:43,731 - root - INFO -   - SSA 202315984: AAD
+2024-11-14 16:45:43,731 - root - INFO -   - SSA 202309302: AAT
+2024-11-14 16:45:43,731 - root - INFO -   - SSA 202223791: AAT
+2024-11-14 16:45:43,731 - root - INFO -   - SSA 202315520: AAD
+2024-11-14 16:45:43,731 - root - INFO -   - SSA 202312375: AAD
+2024-11-14 16:45:43,731 - root - INFO -   - SSA 202308982: AAT
+2024-11-14 16:45:43,732 - root - INFO -   - SSA 202305650: AAT
+2024-11-14 16:45:43,732 - root - INFO -   - SSA 202304925: ADM
+2024-11-14 16:45:43,732 - root - INFO -   - SSA 202225124: AAT
+2024-11-14 16:45:43,732 - root - INFO -   - SSA 202316054: AAD
+2024-11-14 16:45:43,732 - root - INFO -   - SSA 202316049: AAD
+2024-11-14 16:45:43,732 - root - INFO -   - SSA 202316041: AAD
+2024-11-14 16:45:43,732 - root - INFO -   - SSA 202316015: AAD
+2024-11-14 16:45:43,733 - root - INFO -   - SSA 202316013: AAD
+2024-11-14 16:45:43,733 - root - INFO -   - SSA 202316010: AAD
+2024-11-14 16:45:43,733 - root - INFO - 
+Responsável Execução: 'LUCAS COSTA CICARELLI'
+2024-11-14 16:45:43,733 - root - INFO - Total SSAs: 13
+2024-11-14 16:45:43,733 - root - INFO - Números das SSAs:
+2024-11-14 16:45:43,733 - root - INFO -   - SSA 202304752: ADM
+2024-11-14 16:45:43,733 - root - INFO -   - SSA 202408000: ADM
+2024-11-14 16:45:43,733 - root - INFO -   - SSA 202310372: ADM
+2024-11-14 16:45:43,734 - root - INFO -   - SSA 202307936: ADM
+2024-11-14 16:45:43,734 - root - INFO -   - SSA 202307932: ADM
+2024-11-14 16:45:43,734 - root - INFO -   - SSA 202307928: ADM
+2024-11-14 16:45:43,734 - root - INFO -   - SSA 202307925: ADM
+2024-11-14 16:45:43,734 - root - INFO -   - SSA 202307921: ADM
+2024-11-14 16:45:43,734 - root - INFO -   - SSA 202307918: ADM
+2024-11-14 16:45:43,734 - root - INFO -   - SSA 202320392: AAT
+2024-11-14 16:45:43,734 - root - INFO -   - SSA 202209853: ADM
+2024-11-14 16:45:43,735 - root - INFO -   - SSA 202209298: AAT
+2024-11-14 16:45:43,735 - root - INFO -   - SSA 202209296: AAT
+2024-11-14 16:45:43,735 - root - INFO - 
+Responsável Execução: 'MARCOS ALOE YAMAMOTO'
+2024-11-14 16:45:43,735 - root - INFO - Total SSAs: 1
+2024-11-14 16:45:43,735 - root - INFO - Números das SSAs:
+2024-11-14 16:45:43,735 - root - INFO -   - SSA 202219292: ADM
+2024-11-14 16:45:43,735 - root - INFO - 
+Responsável Execução: 'MAURICIO MENON'
+2024-11-14 16:45:43,736 - root - INFO - Total SSAs: 29
+2024-11-14 16:45:43,736 - root - INFO - Números das SSAs:
+2024-11-14 16:45:43,736 - root - INFO -   - SSA 202410873: ADM
+2024-11-14 16:45:43,736 - root - INFO -   - SSA 202408589: AAD
+2024-11-14 16:45:43,736 - root - INFO -   - SSA 202404353: AAD
+2024-11-14 16:45:43,736 - root - INFO -   - SSA 202404349: AAD
+2024-11-14 16:45:43,736 - root - INFO -   - SSA 202403569: AAD
+2024-11-14 16:45:43,736 - root - INFO -   - SSA 202401930: ADM
+2024-11-14 16:45:43,737 - root - INFO -   - SSA 202303449: AAD
+2024-11-14 16:45:43,737 - root - INFO -   - SSA 202303082: AAD
+2024-11-14 16:45:43,737 - root - INFO -   - SSA 202300670: ADM
+2024-11-14 16:45:43,737 - root - INFO -   - SSA 202417275: AAD
+2024-11-14 16:45:43,737 - root - INFO -   - SSA 202414170: ADM
+2024-11-14 16:45:43,737 - root - INFO -   - SSA 202412309: AAD
+2024-11-14 16:45:43,737 - root - INFO -   - SSA 202412189: AAD
+2024-11-14 16:45:43,738 - root - INFO -   - SSA 202410056: ADM
+2024-11-14 16:45:43,738 - root - INFO -   - SSA 202410051: ADM
+2024-11-14 16:45:43,738 - root - INFO -   - SSA 202409449: ADM
+2024-11-14 16:45:43,738 - root - INFO -   - SSA 202408797: AAT
+2024-11-14 16:45:43,738 - root - INFO -   - SSA 202401838: AAT
+2024-11-14 16:45:43,738 - root - INFO -   - SSA 202315901: AAD
+2024-11-14 16:45:43,738 - root - INFO -   - SSA 202312371: AAT
+2024-11-14 16:45:43,738 - root - INFO -   - SSA 202308411: AAT
+2024-11-14 16:45:43,739 - root - INFO -   - SSA 202307247: ADM
+2024-11-14 16:45:43,739 - root - INFO -   - SSA 202204716: AAD
+2024-11-14 16:45:43,739 - root - INFO -   - SSA 202418061: ADM
+2024-11-14 16:45:43,739 - root - INFO -   - SSA 202318166: ADM
+2024-11-14 16:45:43,739 - root - INFO -   - SSA 202316930: AAD
+2024-11-14 16:45:43,739 - root - INFO -   - SSA 202316141: AAT
+2024-11-14 16:45:43,740 - root - INFO -   - SSA 202304641: AAT
+2024-11-14 16:45:43,740 - root - INFO -   - SSA 202304639: AAT
+2024-11-14 16:45:43,740 - root - INFO - 
+Responsável Execução: 'SILVA VARGAS FRANCISCO JAVIER'
+2024-11-14 16:45:43,740 - root - INFO - Total SSAs: 10
+2024-11-14 16:45:43,741 - root - INFO - Números das SSAs:
+2024-11-14 16:45:43,741 - root - INFO -   - SSA 202316469: AAT
+2024-11-14 16:45:43,741 - root - INFO -   - SSA 202418023: ADM
+2024-11-14 16:45:43,741 - root - INFO -   - SSA 202414182: AAD
+2024-11-14 16:45:43,742 - root - INFO -   - SSA 202413188: ADM
+2024-11-14 16:45:43,742 - root - INFO -   - SSA 202408102: ADM
+2024-11-14 16:45:43,742 - root - INFO -   - SSA 202408089: AAT
+2024-11-14 16:45:43,742 - root - INFO -   - SSA 202406019: AAT
+2024-11-14 16:45:43,742 - root - INFO -   - SSA 202418019: AAT
+2024-11-14 16:45:43,743 - root - INFO -   - SSA 202416065: ADM
+2024-11-14 16:45:43,743 - root - INFO -   - SSA 202410326: AAT
+2024-11-14 16:45:43,743 - root - INFO - 
+Responsável Execução: 'VILLAR RIVAS ALBERTO'
+2024-11-14 16:45:43,743 - root - INFO - Total SSAs: 15
+2024-11-14 16:45:43,744 - root - INFO - Números das SSAs:
+2024-11-14 16:45:43,744 - root - INFO -   - SSA 202411981: ADM
+2024-11-14 16:45:43,744 - root - INFO -   - SSA 202410715: ADM
+2024-11-14 16:45:43,744 - root - INFO -   - SSA 202407349: ADM
+2024-11-14 16:45:43,744 - root - INFO -   - SSA 202402751: ADM
+2024-11-14 16:45:43,744 - root - INFO -   - SSA 202402415: AAT
+2024-11-14 16:45:43,744 - root - INFO -   - SSA 202402414: AAT
+2024-11-14 16:45:43,745 - root - INFO -   - SSA 202401484: ADM
+2024-11-14 16:45:43,745 - root - INFO -   - SSA 202401482: ADM
+2024-11-14 16:45:43,745 - root - INFO -   - SSA 202320822: AIM
+2024-11-14 16:45:43,745 - root - INFO -   - SSA 202318398: AAT
+2024-11-14 16:45:43,745 - root - INFO -   - SSA 202313969: AIM
+2024-11-14 16:45:43,745 - root - INFO -   - SSA 202310994: AIM
+2024-11-14 16:45:43,745 - root - INFO -   - SSA 202310985: AIM
+2024-11-14 16:45:43,745 - root - INFO -   - SSA 202310952: AIM
+2024-11-14 16:45:43,746 - root - INFO -   - SSA 202316688: AIM
+2024-11-14 16:45:43,746 - root - INFO - 
+=== Validação de Responsáveis Programação ===
+2024-11-14 16:45:43,746 - root - INFO - 
+Responsável Programação: 'ACOSTA FERNANDEZ RAMON ARIEL'
+2024-11-14 16:45:43,746 - root - INFO - Total SSAs: 5
+2024-11-14 16:45:43,746 - root - INFO - Números das SSAs:
+2024-11-14 16:45:43,746 - root - INFO -   - SSA 202414242: APV
+2024-11-14 16:45:43,746 - root - INFO -   - SSA 202311075: AAT
+2024-11-14 16:45:43,747 - root - INFO -   - SSA 202416825: AAD
+2024-11-14 16:45:43,747 - root - INFO -   - SSA 202416554: SPG
+2024-11-14 16:45:43,747 - root - INFO -   - SSA 202208082: ADM
+2024-11-14 16:45:43,747 - root - INFO - 
+Responsável Programação: 'CARLOS RONEI ORTIZ'
+2024-11-14 16:45:43,747 - root - INFO - Total SSAs: 3
+2024-11-14 16:45:43,747 - root - INFO - Números das SSAs:
+2024-11-14 16:45:43,747 - root - INFO -   - SSA 202305650: AAT
+2024-11-14 16:45:43,748 - root - INFO -   - SSA 202210834: ADM
+2024-11-14 16:45:43,748 - root - INFO -   - SSA 202209853: ADM
+2024-11-14 16:45:43,748 - root - INFO - 
+Responsável Programação: 'CASTILLO CENTURION ELIAS FRANCISCO'
+2024-11-14 16:45:43,748 - root - INFO - Total SSAs: 54
+2024-11-14 16:45:43,748 - root - INFO - Números das SSAs:
+2024-11-14 16:45:43,748 - root - INFO -   - SSA 202403587: AAD
+2024-11-14 16:45:43,749 - root - INFO -   - SSA 202403586: AAD
+2024-11-14 16:45:43,749 - root - INFO -   - SSA 202315283: AAT
+2024-11-14 16:45:43,749 - root - INFO -   - SSA 202412180: AAT
+2024-11-14 16:45:43,749 - root - INFO -   - SSA 202407487: AAT
+2024-11-14 16:45:43,749 - root - INFO -   - SSA 202407289: AAD
+2024-11-14 16:45:43,749 - root - INFO -   - SSA 202320659: AAD
+2024-11-14 16:45:43,749 - root - INFO -   - SSA 202320542: AAD
+2024-11-14 16:45:43,749 - root - INFO -   - SSA 202320540: AAD
+2024-11-14 16:45:43,750 - root - INFO -   - SSA 202320539: AAD
+2024-11-14 16:45:43,750 - root - INFO -   - SSA 202320538: AAD
+2024-11-14 16:45:43,750 - root - INFO -   - SSA 202320537: AAD
+2024-11-14 16:45:43,750 - root - INFO -   - SSA 202320535: AAD
+2024-11-14 16:45:43,750 - root - INFO -   - SSA 202320534: AAD
+2024-11-14 16:45:43,750 - root - INFO -   - SSA 202320531: AAD
+2024-11-14 16:45:43,750 - root - INFO -   - SSA 202320530: AAD
+2024-11-14 16:45:43,750 - root - INFO -   - SSA 202320528: AAD
+2024-11-14 16:45:43,750 - root - INFO -   - SSA 202320526: AAD
+2024-11-14 16:45:43,751 - root - INFO -   - SSA 202320524: AAD
+2024-11-14 16:45:43,751 - root - INFO -   - SSA 202320523: AAD
+2024-11-14 16:45:43,751 - root - INFO -   - SSA 202320521: AAD
+2024-11-14 16:45:43,751 - root - INFO -   - SSA 202320517: AAD
+2024-11-14 16:45:43,751 - root - INFO -   - SSA 202320516: AAD
+2024-11-14 16:45:43,751 - root - INFO -   - SSA 202320514: AAD
+2024-11-14 16:45:43,751 - root - INFO -   - SSA 202318314: AAD
+2024-11-14 16:45:43,751 - root - INFO -   - SSA 202317673: AAD
+2024-11-14 16:45:43,752 - root - INFO -   - SSA 202317672: AAD
+2024-11-14 16:45:43,752 - root - INFO -   - SSA 202317668: AAD
+2024-11-14 16:45:43,752 - root - INFO -   - SSA 202317666: AAD
+2024-11-14 16:45:43,752 - root - INFO -   - SSA 202317664: AAD
+2024-11-14 16:45:43,752 - root - INFO -   - SSA 202317660: AAD
+2024-11-14 16:45:43,752 - root - INFO -   - SSA 202317659: AAD
+2024-11-14 16:45:43,752 - root - INFO -   - SSA 202317650: AAD
+2024-11-14 16:45:43,753 - root - INFO -   - SSA 202317649: AAD
+2024-11-14 16:45:43,753 - root - INFO -   - SSA 202317648: AAD
+2024-11-14 16:45:43,753 - root - INFO -   - SSA 202317647: AAD
+2024-11-14 16:45:43,753 - root - INFO -   - SSA 202317646: AAD
+2024-11-14 16:45:43,753 - root - INFO -   - SSA 202317645: AAD
+2024-11-14 16:45:43,753 - root - INFO -   - SSA 202317644: AAD
+2024-11-14 16:45:43,753 - root - INFO -   - SSA 202317640: AAD
+2024-11-14 16:45:43,754 - root - INFO -   - SSA 202317638: AAD
+2024-11-14 16:45:43,754 - root - INFO -   - SSA 202317635: AAD
+2024-11-14 16:45:43,754 - root - INFO -   - SSA 202315965: AAT
+2024-11-14 16:45:43,754 - root - INFO -   - SSA 202314852: AAD
+2024-11-14 16:45:43,754 - root - INFO -   - SSA 202314218: AAT
+2024-11-14 16:45:43,754 - root - INFO -   - SSA 202314188: AAT
+2024-11-14 16:45:43,754 - root - INFO -   - SSA 202311500: AAT
+2024-11-14 16:45:43,754 - root - INFO -   - SSA 202311498: AAT
+2024-11-14 16:45:43,755 - root - INFO -   - SSA 202216567: AAT
+2024-11-14 16:45:43,755 - root - INFO -   - SSA 202209306: AAT
+2024-11-14 16:45:43,755 - root - INFO -   - SSA 202209304: AAT
+2024-11-14 16:45:43,755 - root - INFO -   - SSA 202209302: AAT
+2024-11-14 16:45:43,756 - root - INFO -   - SSA 202209300: AAT
+2024-11-14 16:45:43,756 - root - INFO -   - SSA 202208500: AAT
+2024-11-14 16:45:43,756 - root - INFO - 
+Responsável Programação: 'LOBO MARTINEZ JUAN ALBERTO'
+2024-11-14 16:45:43,756 - root - INFO - Total SSAs: 18
+2024-11-14 16:45:43,756 - root - INFO - Números das SSAs:
+2024-11-14 16:45:43,757 - root - INFO -   - SSA 202315984: AAD
+2024-11-14 16:45:43,757 - root - INFO -   - SSA 202309302: AAT
+2024-11-14 16:45:43,757 - root - INFO -   - SSA 202223791: AAT
+2024-11-14 16:45:43,757 - root - INFO -   - SSA 202315901: AAD
+2024-11-14 16:45:43,757 - root - INFO -   - SSA 202315520: AAD
+2024-11-14 16:45:43,757 - root - INFO -   - SSA 202310994: AIM
+2024-11-14 16:45:43,758 - root - INFO -   - SSA 202308982: AAT
+2024-11-14 16:45:43,758 - root - INFO -   - SSA 202307247: ADM
+2024-11-14 16:45:43,758 - root - INFO -   - SSA 202304925: ADM
+2024-11-14 16:45:43,758 - root - INFO -   - SSA 202225124: AAT
+2024-11-14 16:45:43,758 - root - INFO -   - SSA 202316930: AAD
+2024-11-14 16:45:43,758 - root - INFO -   - SSA 202316688: AIM
+2024-11-14 16:45:43,758 - root - INFO -   - SSA 202316054: AAD
+2024-11-14 16:45:43,758 - root - INFO -   - SSA 202316049: AAD
+2024-11-14 16:45:43,759 - root - INFO -   - SSA 202316041: AAD
+2024-11-14 16:45:43,759 - root - INFO -   - SSA 202316015: AAD
+2024-11-14 16:45:43,759 - root - INFO -   - SSA 202316013: AAD
+2024-11-14 16:45:43,759 - root - INFO -   - SSA 202316010: AAD
+2024-11-14 16:45:43,759 - root - INFO - 
+Responsável Programação: 'LUCAS COSTA CICARELLI'
+2024-11-14 16:45:43,759 - root - INFO - Total SSAs: 10
+2024-11-14 16:45:43,759 - root - INFO - Números das SSAs:
+2024-11-14 16:45:43,760 - root - INFO -   - SSA 202408000: ADM
+2024-11-14 16:45:43,760 - root - INFO -   - SSA 202307936: ADM
+2024-11-14 16:45:43,760 - root - INFO -   - SSA 202307932: ADM
+2024-11-14 16:45:43,760 - root - INFO -   - SSA 202307928: ADM
+2024-11-14 16:45:43,760 - root - INFO -   - SSA 202307925: ADM
+2024-11-14 16:45:43,760 - root - INFO -   - SSA 202307921: ADM
+2024-11-14 16:45:43,760 - root - INFO -   - SSA 202307918: ADM
+2024-11-14 16:45:43,760 - root - INFO -   - SSA 202320392: AAT
+2024-11-14 16:45:43,760 - root - INFO -   - SSA 202209298: AAT
+2024-11-14 16:45:43,761 - root - INFO -   - SSA 202209296: AAT
+2024-11-14 16:45:43,761 - root - INFO - 
+Responsável Programação: 'MARCOS ALOE YAMAMOTO'
+2024-11-14 16:45:43,761 - root - INFO - Total SSAs: 1
+2024-11-14 16:45:43,761 - root - INFO - Números das SSAs:
+2024-11-14 16:45:43,761 - root - INFO -   - SSA 202219292: ADM
+2024-11-14 16:45:43,761 - root - INFO - 
+Responsável Programação: 'MAURICIO MENON'
+2024-11-14 16:45:43,761 - root - INFO - Total SSAs: 27
+2024-11-14 16:45:43,762 - root - INFO - Números das SSAs:
+2024-11-14 16:45:43,762 - root - INFO -   - SSA 202410873: ADM
+2024-11-14 16:45:43,762 - root - INFO -   - SSA 202408589: AAD
+2024-11-14 16:45:43,762 - root - INFO -   - SSA 202404353: AAD
+2024-11-14 16:45:43,762 - root - INFO -   - SSA 202404349: AAD
+2024-11-14 16:45:43,762 - root - INFO -   - SSA 202403569: AAD
+2024-11-14 16:45:43,762 - root - INFO -   - SSA 202401930: ADM
+2024-11-14 16:45:43,763 - root - INFO -   - SSA 202303449: AAD
+2024-11-14 16:45:43,763 - root - INFO -   - SSA 202303082: AAD
+2024-11-14 16:45:43,763 - root - INFO -   - SSA 202300670: ADM
+2024-11-14 16:45:43,763 - root - INFO -   - SSA 202417275: AAD
+2024-11-14 16:45:43,763 - root - INFO -   - SSA 202414170: ADM
+2024-11-14 16:45:43,763 - root - INFO -   - SSA 202412309: AAD
+2024-11-14 16:45:43,763 - root - INFO -   - SSA 202412189: AAD
+2024-11-14 16:45:43,763 - root - INFO -   - SSA 202410056: ADM
+2024-11-14 16:45:43,763 - root - INFO -   - SSA 202410051: ADM
+2024-11-14 16:45:43,764 - root - INFO -   - SSA 202409449: ADM
+2024-11-14 16:45:43,764 - root - INFO -   - SSA 202408797: AAT
+2024-11-14 16:45:43,764 - root - INFO -   - SSA 202401838: AAT
+2024-11-14 16:45:43,764 - root - INFO -   - SSA 202312375: AAD
+2024-11-14 16:45:43,764 - root - INFO -   - SSA 202312371: AAT
+2024-11-14 16:45:43,764 - root - INFO -   - SSA 202308411: AAT
+2024-11-14 16:45:43,764 - root - INFO -   - SSA 202204716: AAD
+2024-11-14 16:45:43,764 - root - INFO -   - SSA 202418061: ADM
+2024-11-14 16:45:43,765 - root - INFO -   - SSA 202318166: ADM
+2024-11-14 16:45:43,765 - root - INFO -   - SSA 202316141: AAT
+2024-11-14 16:45:43,765 - root - INFO -   - SSA 202304641: AAT
+2024-11-14 16:45:43,765 - root - INFO -   - SSA 202304639: AAT
+2024-11-14 16:45:43,765 - root - INFO - 
+Responsável Programação: 'SILVA VARGAS FRANCISCO JAVIER'
+2024-11-14 16:45:43,765 - root - INFO - Total SSAs: 25
+2024-11-14 16:45:43,765 - root - INFO - Números das SSAs:
+2024-11-14 16:45:43,765 - root - INFO -   - SSA 202407782: SPG
+2024-11-14 16:45:43,766 - root - INFO -   - SSA 202405093: SPG
+2024-11-14 16:45:43,766 - root - INFO -   - SSA 202404581: SPG
+2024-11-14 16:45:43,766 - root - INFO -   - SSA 202317755: SPG
+2024-11-14 16:45:43,766 - root - INFO -   - SSA 202316469: AAT
+2024-11-14 16:45:43,766 - root - INFO -   - SSA 202304752: ADM
+2024-11-14 16:45:43,766 - root - INFO -   - SSA 202418047: SPG
+2024-11-14 16:45:43,766 - root - INFO -   - SSA 202418023: ADM
+2024-11-14 16:45:43,766 - root - INFO -   - SSA 202414182: AAD
+2024-11-14 16:45:43,766 - root - INFO -   - SSA 202413188: ADM
+2024-11-14 16:45:43,767 - root - INFO -   - SSA 202413077: SCD
+2024-11-14 16:45:43,767 - root - INFO -   - SSA 202412872: SPG
+2024-11-14 16:45:43,767 - root - INFO -   - SSA 202412811: SPG
+2024-11-14 16:45:43,767 - root - INFO -   - SSA 202412570: SPG
+2024-11-14 16:45:43,767 - root - INFO -   - SSA 202409608: SPG
+2024-11-14 16:45:43,768 - root - INFO -   - SSA 202408102: ADM
+2024-11-14 16:45:43,768 - root - INFO -   - SSA 202408089: AAT
+2024-11-14 16:45:43,768 - root - INFO -   - SSA 202406019: AAT
+2024-11-14 16:45:43,768 - root - INFO -   - SSA 202404436: SPG
+2024-11-14 16:45:43,769 - root - INFO -   - SSA 202310985: AIM
+2024-11-14 16:45:43,769 - root - INFO -   - SSA 202310952: AIM
+2024-11-14 16:45:43,769 - root - INFO -   - SSA 202310372: ADM
+2024-11-14 16:45:43,769 - root - INFO -   - SSA 202418019: AAT
+2024-11-14 16:45:43,769 - root - INFO -   - SSA 202416065: ADM
+2024-11-14 16:45:43,769 - root - INFO -   - SSA 202410326: AAT
+2024-11-14 16:45:43,769 - root - INFO - 
+Responsável Programação: 'VILLAR RIVAS ALBERTO'
+2024-11-14 16:45:43,770 - root - INFO - Total SSAs: 11
+2024-11-14 16:45:43,770 - root - INFO - Números das SSAs:
+2024-11-14 16:45:43,770 - root - INFO -   - SSA 202411981: ADM
+2024-11-14 16:45:43,770 - root - INFO -   - SSA 202410715: ADM
+2024-11-14 16:45:43,771 - root - INFO -   - SSA 202407349: ADM
+2024-11-14 16:45:43,771 - root - INFO -   - SSA 202402751: ADM
+2024-11-14 16:45:43,771 - root - INFO -   - SSA 202402415: AAT
+2024-11-14 16:45:43,771 - root - INFO -   - SSA 202402414: AAT
+2024-11-14 16:45:43,772 - root - INFO -   - SSA 202401484: ADM
+2024-11-14 16:45:43,772 - root - INFO -   - SSA 202401482: ADM
+2024-11-14 16:45:43,772 - root - INFO -   - SSA 202320822: AIM
+2024-11-14 16:45:43,773 - root - INFO -   - SSA 202318398: AAT
+2024-11-14 16:45:43,773 - root - INFO -   - SSA 202313969: AIM
+2024-11-14 16:45:43,773 - root - INFO - 
+=== Primeiro Objeto Convertido (Verificação) ===
+2024-11-14 16:45:43,774 - root - INFO - Número: 202415727
+2024-11-14 16:45:43,774 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-14 16:45:43,774 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-14 16:45:43,774 - root - INFO - Setor executor: IEE3
+2024-11-14 16:45:43,775 - root - INFO - Responsável execução: None
+2024-11-14 16:45:43,775 - root - INFO - Responsável programação: None
+2024-11-14 16:45:43,776 - root - INFO - === Estatísticas do Carregamento ===
+2024-11-14 16:45:43,776 - root - INFO - Total de registros: 189
+2024-11-14 16:45:43,776 - root - INFO - SSAs válidas: 189
+2024-11-14 16:45:43,777 - root - INFO - total_ssas: 189
+2024-11-14 16:45:43,777 - root - INFO - ssas_com_responsavel: 142
+2024-11-14 16:45:43,778 - root - INFO - ssas_sem_responsavel: 47
+2024-11-14 16:45:43,778 - root - INFO - setores_executores: 1
+2024-11-14 16:45:43,779 - root - WARNING - Problemas encontrados nos dados: 2 datas inválidas
+2024-11-14 16:45:43,795 - root - ERROR - Erro ao iniciar aplicação: 'SSADashboard' object has no attribute 'setup_layout'
+2024-11-14 16:45:43,799 - root - ERROR - Traceback (most recent call last):
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Class\run.py", line 88, in main
+    app = SSADashboard(df)
+  File "c:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Class\src\dashboard\ssa_dashboard.py", line 37, in __init__
+    self.setup_layout()
+    ^^^^^^^^^^^^^^^^^
+AttributeError: 'SSADashboard' object has no attribute 'setup_layout'
+

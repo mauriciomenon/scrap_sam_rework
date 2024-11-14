@@ -189,8 +189,8 @@ class SSADashboard:
         return html.Div(
             [
                 html.Button(
-                    f"Copiar todas as SSAs ({len(ssas)})",
-                    id="copy-all-button",
+                    f"Copiar todas ({len(ssas)})",
+                    id="copy-all-ssas",
                     n_clicks=0,
                     style={
                         "marginBottom": "10px",
@@ -203,7 +203,7 @@ class SSADashboard:
                 ),
                 html.Div(
                     ",".join(str(ssa) for ssa in ssas),
-                    id="all-ssas-text",
+                    id="all-ssas-data",
                     style={"display": "none"},
                 ),
                 html.Div(
@@ -214,54 +214,51 @@ class SSADashboard:
                                     str(ssa),
                                     href=f"https://osprd.itaipu/SAM_SMA/SSAPublicView.aspx?SerialNumber={ssa}&language=pt",
                                     target="_blank",
+                                    id=f"ssa-link-{ssa}",
                                     style={
                                         "textDecoration": "none",
                                         "color": "inherit",
-                                        "display": "inline-block",
-                                        "width": "100%",
-                                        "height": "100%",
+                                        "flex": "1",
                                     },
                                 ),
                                 html.Button(
                                     "📋",
+                                    id={"type": "copy-button", "index": i},
+                                    **{"data-clipboard": str(ssa)},
                                     style={
-                                        "marginLeft": "5px",
                                         "cursor": "pointer",
                                         "border": "none",
                                         "background": "none",
                                         "padding": "0 5px",
                                     },
-                                    **{
-                                        "data-clipboard": str(ssa)
-                                    },  # For copy functionality
                                 ),
                             ],
                             style={
-                                "padding": "5px",
-                                "margin": "2px",
+                                "padding": "3px 8px",
+                                "margin": "1px 0",
                                 "background": "#f8f9fa",
                                 "borderRadius": "3px",
                                 "display": "flex",
                                 "alignItems": "center",
-                                "justifyContent": "space-between",
+                                "width": "200px",
                                 "transition": "background-color 0.2s",
                             },
                         )
-                        for ssa in ssas
+                        for i, ssa in enumerate(ssas)
                         if ssa
                     ],
                     style={
                         "maxHeight": "500px",
                         "overflowY": "auto",
-                        "padding": "10px",
+                        "padding": "5px",
                         "display": "flex",
                         "flexDirection": "column",
-                        "gap": "5px",
+                        "gap": "2px",
                     },
                 ),
             ]
         )
-
+    
     def _enhance_bar_chart(self, fig, chart_type, title, df_filtered=None):
         """Enhances bar chart with hover info and clickable data."""
         df_to_use = df_filtered if df_filtered is not None else self.df
@@ -662,31 +659,50 @@ class SSADashboard:
         # Callback para copiar SSAs
         self.app.clientside_callback(
             """
-            function(n_clicks, value) {
+            function(n_clicks) {
                 if (!n_clicks) return null;
                 
-                const textToCopy = value;
-                if (!textToCopy) return null;
+                const allSSAs = document.getElementById('all-ssas-data').textContent;
+                navigator.clipboard.writeText(allSSAs).then(function() {
+                    const btn = document.getElementById('copy-all-ssas');
+                    btn.textContent = "Copiado!";
+                    btn.style.backgroundColor = '#d4edda';
+                    setTimeout(() => {
+                        btn.textContent = `Copiar todas (${allSSAs.split(',').length})`;
+                        btn.style.backgroundColor = '#f8f9fa';
+                    }, 1500);
+                });
+                return true;
+            }
+            """,
+            Output("copy-all-ssas", "data-copied"),
+            Input("copy-all-ssas", "n_clicks")
+        )
+
+        self.app.clientside_callback(
+            """
+            function(n_clicks, id) {
+                if (!n_clicks) return null;
                 
-                navigator.clipboard.writeText(textToCopy).then(function() {
-                    // Visual feedback
-                    const el = document.querySelector(`[data-value="${textToCopy}"]`);
-                    if (el) {
-                        el.style.backgroundColor = '#d4edda';
-                        setTimeout(() => {
-                            el.style.backgroundColor = '#f8f9fa';
-                        }, 500);
-                    }
-                }).catch(function(err) {
-                    console.error('Erro ao copiar:', err);
+                const button = document.getElementById(id);
+                const ssa = button.getAttribute('data-clipboard');
+                
+                navigator.clipboard.writeText(ssa).then(function() {
+                    const originalText = button.textContent;
+                    button.textContent = "✓";
+                    button.style.backgroundColor = '#d4edda';
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.style.backgroundColor = 'transparent';
+                    }, 1500);
                 });
                 
                 return true;
             }
             """,
-            Output({"type": "ssa-number", "index": MATCH}, "data-copied"),
-            Input({"type": "ssa-number", "index": MATCH}, "n_clicks"),
-            State({"type": "ssa-number", "index": MATCH, "value": ALL}, "value"),
+            Output({"type": "copy-button", "index": MATCH}, "data-copied"),
+            Input({"type": "copy-button", "index": MATCH}, "n_clicks"),
+            State({"type": "copy-button", "index": MATCH}, "id")
         )
 
         # Callback para atualização automática
