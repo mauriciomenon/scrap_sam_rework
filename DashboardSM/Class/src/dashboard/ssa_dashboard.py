@@ -452,19 +452,25 @@ class SSADashboard:
 
     def _prepare_table_data(self, df):
         """Prepara dados para a tabela com informações adicionais."""
-        return [{
-            "numero": row.iloc[SSAColumns.NUMERO_SSA],
-            "estado": row.iloc[SSAColumns.SITUACAO],
-            "setor_emissor": row.iloc[SSAColumns.SETOR_EMISSOR],
-            "setor_executor": row.iloc[SSAColumns.SETOR_EXECUTOR],
-            "resp_prog": row.iloc[SSAColumns.RESPONSAVEL_PROGRAMACAO],
-            "resp_exec": row.iloc[SSAColumns.RESPONSAVEL_EXECUCAO],
-            "semana_prog": row.iloc[SSAColumns.SEMANA_PROGRAMADA],
-            "prioridade": row.iloc[SSAColumns.GRAU_PRIORIDADE_EMISSAO],
-            "data_emissao": row.iloc[SSAColumns.EMITIDA_EM].strftime("%d/%m/%Y %H:%M") 
-                if pd.notnull(row.iloc[SSAColumns.EMITIDA_EM]) else "",
-            "descricao": row.iloc[SSAColumns.DESC_SSA],
-        } for idx, row in df.iterrows()]
+        return [
+            {
+                "numero": f"[{row.iloc[SSAColumns.NUMERO_SSA]}](https://osprd.itaipu/SAM_SMA/SSAPublicView.aspx?SerialNumber={row.iloc[SSAColumns.NUMERO_SSA]}&language=pt)",
+                "estado": row.iloc[SSAColumns.SITUACAO],
+                "setor_emissor": row.iloc[SSAColumns.SETOR_EMISSOR],
+                "setor_executor": row.iloc[SSAColumns.SETOR_EXECUTOR],
+                "resp_prog": row.iloc[SSAColumns.RESPONSAVEL_PROGRAMACAO],
+                "resp_exec": row.iloc[SSAColumns.RESPONSAVEL_EXECUCAO],
+                "semana_prog": row.iloc[SSAColumns.SEMANA_PROGRAMADA],
+                "prioridade": row.iloc[SSAColumns.GRAU_PRIORIDADE_EMISSAO],
+                "data_emissao": (
+                    row.iloc[SSAColumns.EMITIDA_EM].strftime("%d/%m/%Y %H:%M")
+                    if pd.notnull(row.iloc[SSAColumns.EMITIDA_EM])
+                    else ""
+                ),
+                "descricao": row.iloc[SSAColumns.DESC_SSA],
+            }
+            for idx, row in df.iterrows()
+        ]
 
     def setup_callbacks(self):
         """Configure all dashboard callbacks with enhanced features."""
@@ -1342,7 +1348,11 @@ class SSADashboard:
                                                 dash_table.DataTable(
                                                     id="ssa-table",
                                                     columns=[
-                                                        {"name": "SSA", "id": "numero"},
+                                                        {
+                                                            "name": "SSA",
+                                                            "id": "numero",
+                                                            "presentation": "markdown",
+                                                        },
                                                         {
                                                             "name": "Estado",
                                                             "id": "estado",
@@ -1397,15 +1407,16 @@ class SSADashboard:
                                                         "maxWidth": "500px",  # Limite máximo geral
                                                     },
                                                     style_cell_conditional=[
-                                                        {  # Colunas pequenas
+                                                        {
                                                             "if": {
                                                                 "column_id": "numero"
                                                             },
                                                             "width": "70px",
+                                                            "verticalAlign": "middle",
                                                             "maxWidth": "70px",
                                                             "minWidth": "70px",
                                                         },
-                                                        {  
+                                                        {
                                                             "if": {
                                                                 "column_id": "estado"
                                                             },
@@ -1413,7 +1424,7 @@ class SSADashboard:
                                                             "maxWidth": "50px",
                                                             "minWidth": "50px",
                                                         },
-                                                        { 
+                                                        {
                                                             "if": {
                                                                 "column_id": "setor_emissor"
                                                             },
@@ -1421,7 +1432,7 @@ class SSADashboard:
                                                             "maxWidth": "50px",
                                                             "minWidth": "50px",
                                                         },
-                                                        {  # 
+                                                        {  #
                                                             "if": {
                                                                 "column_id": "setor_executor"
                                                             },
