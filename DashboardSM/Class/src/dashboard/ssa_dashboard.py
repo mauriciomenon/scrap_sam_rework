@@ -19,6 +19,7 @@ class SSADashboard:
     def __init__(self, df: pd.DataFrame):
         self.df = df
         self.app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+        suppress_callback_exceptions=True  # Evita erros de callback
 
         # Configurar logger
         self.logger = LogManager()
@@ -180,7 +181,6 @@ class SSADashboard:
             f"<b>Primeiras SSAs:</b><br>{ssa_preview}"
         )
 
-
     def _create_ssa_list(self, ssas):
         """Creates clickable SSA list with copy and link functionality."""
         if not ssas or len(ssas) == 0:
@@ -258,7 +258,7 @@ class SSADashboard:
                 ),
             ]
         )
-    
+
     def _enhance_bar_chart(self, fig, chart_type, title, df_filtered=None):
         """Enhances bar chart with hover info and clickable data."""
         df_to_use = df_filtered if df_filtered is not None else self.df
@@ -1080,7 +1080,7 @@ class SSADashboard:
                     className="mb-3",
                     style={
                         "position": "relative",
-                        "zIndex": "1001",  # Maior que o zIndex dos cards para ficar por cima!
+                        "zIndex": "1001",
                         "backgroundColor": "white",
                         "padding": "10px 0",
                     },
@@ -1313,7 +1313,7 @@ class SSADashboard:
                     id="detail-section",
                     style={"display": "none"},
                 ),
-                # Tabela de SSAs
+                # Tabela de SSAs com larguras ajustadas
                 dbc.Row(
                     [
                         dbc.Col(
@@ -1342,20 +1342,17 @@ class SSADashboard:
                                                 dash_table.DataTable(
                                                     id="ssa-table",
                                                     columns=[
-                                                        {
-                                                            "name": "Número",
-                                                            "id": "numero",
-                                                        },
+                                                        {"name": "SSA", "id": "numero"},
                                                         {
                                                             "name": "Estado",
                                                             "id": "estado",
                                                         },
                                                         {
-                                                            "name": "Setor Emissor",
+                                                            "name": "Emissor",
                                                             "id": "setor_emissor",
                                                         },
                                                         {
-                                                            "name": "Setor Executor",
+                                                            "name": "Executor",
                                                             "id": "setor_executor",
                                                         },
                                                         {
@@ -1384,38 +1381,161 @@ class SSADashboard:
                                                         },
                                                     ],
                                                     style_table={
-                                                        "overflowX": "auto",
-                                                        "minWidth": "100%",
+                                                        "overflowX": "auto",  # Scroll horizontal
+                                                        "minWidth": "100%",  # Largura mínima
+                                                        "marginBottom": "20px",  # Margem inferior
                                                     },
                                                     style_cell={
                                                         "textAlign": "left",
-                                                        "padding": "10px",
+                                                        "padding": "5px",
                                                         "whiteSpace": "normal",
-                                                        "height": "auto",
-                                                        "minWidth": "100px",
-                                                        "maxWidth": "200px",
+                                                        "height": "auto",  # Altura automática
+                                                        "fontSize": "11px",  # Tamanho geral da fonte para células
+                                                        "fontFamily": "Arial",  # Tipo da fonte
+                                                        "lineHeight": "12px",  # Espaçamento entre linhas
+                                                        "minWidth": "0px",  # Importante para permitir compressão, Largura mínima
+                                                        "maxWidth": "500px",  # Limite máximo geral
                                                     },
                                                     style_cell_conditional=[
+                                                        {  # Colunas pequenas
+                                                            "if": {
+                                                                "column_id": "numero"
+                                                            },
+                                                            "width": "70px",
+                                                            "maxWidth": "70px",
+                                                            "minWidth": "70px",
+                                                        },
+                                                        {  
+                                                            "if": {
+                                                                "column_id": "estado"
+                                                            },
+                                                            "width": "50px",
+                                                            "maxWidth": "50px",
+                                                            "minWidth": "50px",
+                                                        },
+                                                        { 
+                                                            "if": {
+                                                                "column_id": "setor_emissor"
+                                                            },
+                                                            "width": "50px",
+                                                            "maxWidth": "50px",
+                                                            "minWidth": "50px",
+                                                        },
+                                                        {  # 
+                                                            "if": {
+                                                                "column_id": "setor_executor"
+                                                            },
+                                                            "width": "70px",
+                                                            "maxWidth": "70px",
+                                                            "minWidth": "70px",
+                                                        },
+                                                        {
+                                                            "if": {
+                                                                "column_id": "resp_prog"
+                                                            },
+                                                            "width": "140px",
+                                                            "maxWidth": "140px",
+                                                            "minWidth": "140px",
+                                                        },
+                                                        {
+                                                            "if": {
+                                                                "column_id": "resp_exec"
+                                                            },
+                                                            "width": "140px",
+                                                            "maxWidth": "140px",
+                                                            "minWidth": "140px",
+                                                        },
+                                                        {
+                                                            "if": {
+                                                                "column_id": "semana_prog"
+                                                            },
+                                                            "width": "60px",
+                                                            "maxWidth": "60px",
+                                                            "minWidth": "60px",
+                                                        },
+                                                        {
+                                                            "if": {
+                                                                "column_id": "prioridade"
+                                                            },
+                                                            "width": "100px",
+                                                            "maxWidth": "100px",
+                                                            "minWidth": "100px",
+                                                        },
+                                                        {
+                                                            "if": {
+                                                                "column_id": "data_emissao"
+                                                            },
+                                                            "width": "120px",
+                                                            "maxWidth": "120px",
+                                                            "minWidth": "120px",
+                                                        },
                                                         {
                                                             "if": {
                                                                 "column_id": "descricao"
                                                             },
-                                                            "maxWidth": "300px",
-                                                            "textOverflow": "ellipsis",
-                                                        }
+                                                            "minWidth": "300px",
+                                                            "width": "auto",
+                                                            "flex": "1",
+                                                        },
                                                     ],
-                                                    style_header={
+                                                    style_header={  # cabecalho da tabela
                                                         "backgroundColor": "rgb(230, 230, 230)",
                                                         "fontWeight": "bold",
-                                                        "textAlign": "center",
-                                                        "padding": "10px",
+                                                        "textAlign": "left",
+                                                        "padding": "2px",
+                                                        "whiteSpace": "normal",  # Permite quebra de linha no cabeçalho
+                                                        "height": "auto",  # Altura automática para cabeçalhos
+                                                        "fontSize": "11px",  # Tamanho da fonte para cabeçalhos
+                                                        "fontFamily": "Arial",
                                                     },
+                                                    style_data={
+                                                        "whiteSpace": "normal",  # Permite quebra de linha
+                                                        "height": "auto",  # Altura automática
+                                                        "lineHeight": "12px",  # Espaçamento entre linhas
+                                                        "padding": "5px",  # Espaçamento interno
+                                                    },
+                                                    style_header_conditional=[  # Aplica os mesmos tamanhos aos cabeçalhos
+                                                        {
+                                                            "if": {
+                                                                "column_id": col["id"]
+                                                            },
+                                                            "width": width["width"],
+                                                        }
+                                                        for col, width in zip(
+                                                            [
+                                                                {"id": "numero"},
+                                                                {"id": "estado"},
+                                                                {"id": "setor_emissor"},
+                                                                {
+                                                                    "id": "setor_executor"
+                                                                },
+                                                                {"id": "resp_prog"},
+                                                                {"id": "resp_exec"},
+                                                                {"id": "semana_prog"},
+                                                                {"id": "prioridade"},
+                                                                {"id": "data_emissao"},
+                                                                {"id": "descricao"},
+                                                            ],
+                                                            [
+                                                                {"width": "80px"},
+                                                                {"width": "90px"},
+                                                                {"width": "120px"},
+                                                                {"width": "120px"},
+                                                                {"width": "120px"},
+                                                                {"width": "120px"},
+                                                                {"width": "110px"},
+                                                                {"width": "100px"},
+                                                                {"width": "120px"},
+                                                                {"width": "auto"},
+                                                            ],
+                                                        )
+                                                    ],
                                                     style_data_conditional=[
                                                         {
                                                             "if": {"row_index": "odd"},
                                                             "backgroundColor": "rgb(248, 248, 248)",
                                                         },
-                                                        {
+                                                        {  # Prioridades
                                                             "if": {
                                                                 "filter_query": "{prioridade} eq 'S3.7'"
                                                             },
@@ -1423,7 +1543,7 @@ class SSADashboard:
                                                             "color": "#856404",
                                                         },
                                                     ],
-                                                    page_size=10,
+                                                    page_size=30,  # default 10
                                                     page_current=0,
                                                     sort_action="native",
                                                     sort_mode="multi",
@@ -1439,9 +1559,19 @@ class SSADashboard:
                                 )
                             ],
                             width=12,
-                        ),
+                        )
                     ]
                 ),
+                # Resumo de estilos da tabela:
+                # Para reduzir altura: diminua lineHeight e padding
+                # Para fontes menores: reduza fontSize
+                # Para colunas mais estreitas: diminua width, maxWidth e minWidth
+                # Para mais espaço: aumente padding
+                # Para cabeçalhos menores: reduza padding no style_header
+                # Para uma tabela mais compacta:
+                # style_cell={"fontSize": "10px", "padding": "4px", "lineHeight": "12px"}
+                # Ou para uma mais espaçada:
+                # style_cell={"fontSize": "13px", "padding": "10px", "lineHeight": "18px"}
                 # Modal para exibição das SSAs
                 dbc.Modal(
                     [

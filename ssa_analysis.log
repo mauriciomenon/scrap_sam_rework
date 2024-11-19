@@ -10684,3 +10684,39 @@ FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\menon\\git\\
 2024-11-11 11:13:06,312 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash_table/async-highlight.js
 2024-11-11 11:13:06,313 - DashboardLogger - INFO - Acesso à rota: /_dash-component-suites/dash/dash_table/async-table.js
 2024-11-11 11:13:06,704 - root - INFO - Week calculation stats: 179/179 valid calculations
+2024-11-18 14:48:46,768 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-18 14:48:47,492 - root - INFO - Convertidos 179 registros para SSAData
+2024-11-18 14:48:47,493 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-18 14:48:47,493 - root - INFO - Número: 202415727
+2024-11-18 14:48:47,493 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-18 14:48:47,494 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-18 14:48:47,494 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 179
+2024-11-18 14:48:47,495 - __main__ - INFO - Convertidos 179 registros para objetos SSAData
+2024-11-18 14:48:47,495 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-18 14:48:47,495 - __main__ - INFO - Gerando relatório inicial...
+2024-11-18 14:48:47,497 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-18 14:48:47,829 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-18 14:48:47,829 - __main__ - INFO - Iniciando dashboard...
+2024-11-18 14:48:47,863 - DashboardLogger - INFO - Iniciando servidor do dashboard
+2024-11-18 14:48:47,864 - dash.dash - INFO - Dash is running on http://0.0.0.0:8080/
+
+2024-11-18 14:48:50,689 - __main__ - INFO - Iniciando carregamento dos dados...
+2024-11-18 14:48:51,141 - root - INFO - Convertidos 179 registros para SSAData
+2024-11-18 14:48:51,141 - root - INFO - Exemplo de primeiro objeto convertido:
+2024-11-18 14:48:51,141 - root - INFO - Número: 202415727
+2024-11-18 14:48:51,142 - root - INFO - Data de emissão: 2024-09-30 15:43:36
+2024-11-18 14:48:51,142 - root - INFO - Prioridade: PROGRAMÁVEL
+2024-11-18 14:48:51,143 - __main__ - INFO - Dados carregados com sucesso. Total de SSAs: 179
+2024-11-18 14:48:51,143 - __main__ - INFO - Convertidos 179 registros para objetos SSAData
+2024-11-18 14:48:51,143 - __main__ - INFO - Total de SSAs com alta prioridade: 0
+2024-11-18 14:48:51,144 - __main__ - INFO - Gerando relatório inicial...
+2024-11-18 14:48:51,146 - root - INFO - Tempo médio de emissão não calculado - Algumas datas inválidas
+2024-11-18 14:48:51,434 - __main__ - INFO - Relatório Excel gerado com sucesso.
+2024-11-18 14:48:51,434 - __main__ - INFO - Iniciando dashboard...
+2024-11-18 14:48:51,453 - DashboardLogger - INFO - Iniciando servidor do dashboard
+2024-11-18 14:48:51,528 - DashboardLogger - INFO - Nova conexão de IP: 172.19.73.38
+2024-11-18 14:48:51,528 - DashboardLogger - INFO - Acesso à rota: /_reload-hash
+2024-11-18 14:48:51,623 - DashboardLogger - INFO - Acesso à rota: /_dash-layout
+2024-11-18 14:48:51,624 - DashboardLogger - INFO - Acesso à rota: /_dash-dependencies
+2024-11-18 14:48:51,829 - DashboardLogger - INFO - Acesso à rota: /_dash-update-component
+2024-11-18 14:48:53,327 - root - INFO - Week calculation stats: 179/179 valid calculations

@@ -3232,3 +3232,30 @@
 2024-11-14 16:49:02,796 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
 2024-11-14 16:49:05,421 - DashboardLogger - INFO - IP: 172.19.73.38 - Visualização de SSAs: SSAs cadastradas na semana 202352
 2024-11-14 16:49:17,418 - DashboardLogger - INFO - IP: 172.19.73.38 - Visualização de SSAs: SSAs cadastradas na semana 202327
+2024-11-14 16:54:00,280 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 16:54:00,281 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 16:54:03,269 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 16:59:03,281 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 17:04:00,287 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 17:04:00,288 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 17:04:43,276 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 17:09:01,282 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 17:09:01,283 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 17:09:43,286 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 17:14:43,290 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 17:14:44,271 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 17:14:44,272 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 17:19:43,300 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 17:19:44,291 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 17:19:44,292 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 17:24:43,315 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 17:29:44,292 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 17:29:44,293 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 17:29:45,286 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 17:34:45,297 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 17:39:44,286 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 17:39:44,287 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 17:40:43,305 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
+2024-11-14 17:44:44,295 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_dash-update-component
+2024-11-14 17:44:44,296 - DashboardLogger - INFO - IP: 172.19.73.38 - Atualização automática dos dados
+2024-11-14 17:46:43,292 - DashboardLogger - INFO - IP: 172.19.73.38 - Acesso à rota: /_reload-hash
