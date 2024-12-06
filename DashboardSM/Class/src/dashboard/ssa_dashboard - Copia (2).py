@@ -13,14 +13,13 @@ from .kpi_calculator import KPICalculator
 from ..data.ssa_columns import SSAColumns
 from ..utils.log_manager import LogManager
 
-
 class SSADashboard:
     """Dashboard interativo para análise de SSAs."""
 
     def __init__(self, df: pd.DataFrame):
         self.df = df
         self.app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-        suppress_callback_exceptions = True  # Evita erros de callback
+        suppress_callback_exceptions=True  # Evita erros de callback
 
         # Configurar logger
         self.logger = LogManager()
@@ -46,18 +45,14 @@ class SSADashboard:
             total_ssas = len(self.df)
 
             # Estatísticas de prioridade
-            prioridades = self.df.iloc[
-                :, SSAColumns.GRAU_PRIORIDADE_EMISSAO
-            ].value_counts()
+            prioridades = self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].value_counts()
             ssas_criticas = len(
                 self.df[
                     self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].str.upper()
                     == "S3.7"
                 ]
             )
-            taxa_criticidade = (
-                (ssas_criticas / total_ssas * 100) if total_ssas > 0 else 0
-            )
+            taxa_criticidade = (ssas_criticas / total_ssas * 100) if total_ssas > 0 else 0
 
             # Estatísticas de setor e estado
             setores = self.df.iloc[:, SSAColumns.SETOR_EXECUTOR].value_counts()
@@ -148,12 +143,7 @@ class SSADashboard:
         }
 
     def _get_chart_config(self):
-        """
-        Returns updated chart configuration with royal blue theme.
-
-        Returns:
-            dict: Chart configuration settings
-        """
+        """Retorna configuração padrão para todos os gráficos."""
         return {
             "displayModeBar": True,
             "scrollZoom": False,
@@ -166,23 +156,6 @@ class SSADashboard:
             ],
             "displaylogo": False,
             "responsive": True,
-            "toImageButtonOptions": {
-                "format": "png",
-                "filename": "chart",
-                "height": 500,
-                "width": 700,
-                "scale": 2,
-            },
-            "plotlyServerURL": "",
-            "theme": {
-                "colors": [
-                    "#1e3799",  # Primary
-                    "#4a69bd",  # Secondary
-                    "#6a89cc",  # Info
-                    "#78e08f",  # Success
-                    "#e55039",  # Danger
-                ]
-            },
         }
 
     def run_server(self, debug=True, port=8080):
@@ -300,47 +273,35 @@ class SSADashboard:
                         mask = None
                         if chart_type == "resp_prog":
                             mask = (
-                                df_to_use.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO]
-                                == cat
+                                df_to_use.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO] == cat
                             )
                         elif chart_type == "resp_exec":
-                            mask = (
-                                df_to_use.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO]
-                                == cat
-                            )
+                            mask = df_to_use.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == cat
                         elif chart_type == "state":
                             mask = df_to_use.iloc[:, SSAColumns.SITUACAO] == cat
                         elif chart_type == "week_programmed":
-                            mask = df_to_use.iloc[
-                                :, SSAColumns.SEMANA_PROGRAMADA
-                            ] == str(cat)
+                            mask = df_to_use.iloc[:, SSAColumns.SEMANA_PROGRAMADA] == str(
+                                cat
+                            )
                             if (
                                 trace.name
                             ):  # Se tem nome, é um gráfico empilhado por prioridade
                                 mask = mask & (
-                                    df_to_use.iloc[
-                                        :, SSAColumns.GRAU_PRIORIDADE_EMISSAO
-                                    ]
+                                    df_to_use.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
                                     == trace.name
                                 )
                         elif chart_type == "week_registration":
-                            mask = df_to_use.iloc[:, SSAColumns.SEMANA_CADASTRO] == str(
-                                cat
-                            )
+                            mask = df_to_use.iloc[:, SSAColumns.SEMANA_CADASTRO] == str(cat)
                             if trace.name:
                                 mask = mask & (
-                                    df_to_use.iloc[
-                                        :, SSAColumns.GRAU_PRIORIDADE_EMISSAO
-                                    ]
+                                    df_to_use.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
                                     == trace.name
                                 )
                         else:
                             continue
 
                         if mask is not None:
-                            ssas = (
-                                df_to_use[mask].iloc[:, SSAColumns.NUMERO_SSA].tolist()
-                            )
+                            ssas = df_to_use[mask].iloc[:, SSAColumns.NUMERO_SSA].tolist()
                         else:
                             ssas = []
 
@@ -370,9 +331,7 @@ class SSADashboard:
                         hoverinfo="text",
                         customdata=customdata,
                         textposition="auto",
-                        hoverlabel=dict(
-                            bgcolor="white", font_size=12, font_family="Arial"
-                        ),
+                        hoverlabel=dict(bgcolor="white", font_size=12, font_family="Arial"),
                     )
 
             fig.update_layout(
@@ -392,73 +351,45 @@ class SSADashboard:
 
         return fig
 
-    def _create_resp_prog_chart(self, df_filtered):
-        """
-        Creates the bar chart for programming responsibles.
+    def _create_resp_prog_chart(self, df):
+        """Cria o gráfico de responsáveis na programação."""
+        resp_prog_counts = df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO].value_counts()
 
-        Args:
-            df_filtered (pd.DataFrame): Filtered dataframe containing SSA data
+        fig = go.Figure(
+            data=[
+                go.Bar(
+                    x=resp_prog_counts.index,
+                    y=resp_prog_counts.values,
+                    text=resp_prog_counts.values,
+                    textposition="auto",
+                )
+            ]
+        )
 
-        Returns:
-            go.Figure: Plotly figure object with the bar chart
-        """
-        try:
-            # Get counts for each responsible
-            resp_prog_counts = df_filtered.iloc[
-                :, SSAColumns.RESPONSAVEL_PROGRAMACAO
-            ].value_counts()
+        fig.update_layout(
+            title="SSAs por Responsável na Programação",
+            xaxis_title="Responsável",
+            yaxis_title="Quantidade",
+            template="plotly_white",
+            showlegend=False,
+            xaxis={"tickangle": -45},
+            margin={"l": 50, "r": 20, "t": 50, "b": 100},
+        )
 
-            if resp_prog_counts.empty:
-                return self._create_empty_chart("SSAs por Responsável na Programação")
-
-            fig = go.Figure(
-                data=[
-                    go.Bar(
-                        x=resp_prog_counts.index,
-                        y=resp_prog_counts.values,
-                        text=resp_prog_counts.values,
-                        textposition="auto",
-                        marker_color="#4a69bd",  # Consistent with theme
-                        hovertemplate="<b>%{x}</b><br>"
-                        + "SSAs: %{y}<br>"
-                        + "<extra></extra>",
-                    )
-                ]
-            )
-
-            fig.update_layout(
-                title="SSAs por Responsável na Programação",
-                xaxis_title="Responsável",
-                yaxis_title="Quantidade",
-                template="plotly_white",
-                showlegend=False,
-                xaxis={"tickangle": -45},
-                margin={"l": 50, "r": 20, "t": 50, "b": 100},
-                hoverlabel={"bgcolor": "white"},
-                yaxis={"gridcolor": "#eee"},
-            )
-
-            return fig
-        except Exception as e:
-            logging.error(
-                f"Erro ao criar gráfico de responsáveis na programação: {str(e)}"
-            )
-            return self._create_empty_chart("SSAs por Responsável na Programação")
+        return fig
 
     def _create_resp_exec_chart(self, df):
         """Cria o gráfico de responsáveis na execução."""
         resp_exec_counts = df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO].value_counts()
 
-        fig = go.Figure(
-            data=[
-                go.Bar(
-                    x=resp_exec_counts.index,
-                    y=resp_exec_counts.values,
-                    text=resp_exec_counts.values,
-                    textposition="auto",
-                )
-            ]
-        )
+        fig = go.Figure(data=[
+            go.Bar(
+                x=resp_exec_counts.index,
+                y=resp_exec_counts.values,
+                text=resp_exec_counts.values,
+                textposition="auto",
+            )
+        ])
 
         fig.update_layout(
             title="SSAs por Responsável na Execução",
@@ -577,21 +508,13 @@ class SSADashboard:
 
             # Aplicar filtros
             if resp_prog:
-                df_filtered = df_filtered[
-                    df_filtered.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO] == resp_prog
-                ]
+                df_filtered = df_filtered[df_filtered.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO] == resp_prog]
             if resp_exec:
-                df_filtered = df_filtered[
-                    df_filtered.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == resp_exec
-                ]
+                df_filtered = df_filtered[df_filtered.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == resp_exec]
             if setor_emissor:
-                df_filtered = df_filtered[
-                    df_filtered.iloc[:, SSAColumns.SETOR_EMISSOR] == setor_emissor
-                ]
+                df_filtered = df_filtered[df_filtered.iloc[:, SSAColumns.SETOR_EMISSOR] == setor_emissor]
             if setor_executor:
-                df_filtered = df_filtered[
-                    df_filtered.iloc[:, SSAColumns.SETOR_EXECUTOR] == setor_executor
-                ]
+                df_filtered = df_filtered[df_filtered.iloc[:, SSAColumns.SETOR_EXECUTOR] == setor_executor]
 
             # Criar visualizador filtrado
             filtered_visualizer = SSAVisualizer(df_filtered)
@@ -604,14 +527,14 @@ class SSADashboard:
                 self._create_resp_prog_chart(df_filtered),
                 "resp_prog",
                 "SSAs por Programador",
-                df_filtered,
+                df_filtered
             )
 
             fig_exec = self._enhance_bar_chart(
                 self._create_resp_exec_chart(df_filtered),
-                "resp_exec",
+                "resp_exec", 
                 "SSAs por Executor",
-                df_filtered,
+                df_filtered
             )
 
             # Gráficos de semana com hover e click
@@ -619,34 +542,30 @@ class SSADashboard:
                 filtered_visualizer.create_week_chart(use_programmed=True),
                 "week_programmed",
                 "SSAs Programadas",
-                df_filtered,
+                df_filtered
             )
 
             fig_registration_week = self._enhance_bar_chart(
                 filtered_visualizer.create_week_chart(use_programmed=False),
                 "week_registration",
                 "SSAs Cadastradas",
-                df_filtered,
+                df_filtered
             )
 
-            detail_style = (
-                {"display": "block"}
-                if any([resp_prog, resp_exec, setor_emissor, setor_executor])
-                else {"display": "none"}
-            )
+            detail_style = {"display": "block"} if any([resp_prog, resp_exec, setor_emissor, setor_executor]) else {"display": "none"}
 
             fig_detail_state = self._enhance_bar_chart(
                 self._create_detail_state_chart(df_filtered),
                 "state",
                 "SSAs por Estado",
-                df_filtered,
+                df_filtered
             )
 
             fig_detail_week = self._enhance_bar_chart(
                 filtered_visualizer.create_week_chart(),
                 "week_detail",
                 "SSAs por Semana",
-                df_filtered,
+                df_filtered
             )
 
             table_data = self._prepare_table_data(df_filtered)
@@ -709,28 +628,15 @@ class SSADashboard:
                     "weeks-in-state-chart": (weeks_click, "SSAs no intervalo"),
                     "resp-prog-chart": (prog_click, "SSAs do programador"),
                     "resp-exec-chart": (exec_click, "SSAs do executor"),
-                    "programmed-week-chart": (
-                        prog_week_click,
-                        "SSAs programadas na semana",
-                    ),
-                    "registration-week-chart": (
-                        reg_week_click,
-                        "SSAs cadastradas na semana",
-                    ),
+                    "programmed-week-chart": (prog_week_click, "SSAs programadas na semana"),
+                    "registration-week-chart": (reg_week_click, "SSAs cadastradas na semana"),
                     "detail-state-chart": (detail_state_click, "SSAs no estado"),
-                    "detail-week-chart": (
-                        detail_week_click,
-                        "SSAs na semana (detalhe)",
-                    ),
+                    "detail-week-chart": (detail_week_click, "SSAs na semana (detalhe)")
                 }
 
                 if trigger_id in click_mapping:
                     click_data, title_prefix = click_mapping[trigger_id]
-                    if (
-                        not click_data
-                        or "points" not in click_data
-                        or not click_data["points"]
-                    ):
+                    if not click_data or "points" not in click_data or not click_data["points"]:
                         return False, "", ""
 
                     point_data = click_data["points"][0]
@@ -743,9 +649,7 @@ class SSADashboard:
                         ssas = []
 
                     if ssas:
-                        self.logger.log_with_ip(
-                            "INFO", f"Visualização de SSAs: {title_prefix} {label}"
-                        )
+                        self.logger.log_with_ip("INFO", f"Visualização de SSAs: {title_prefix} {label}")
 
                     ssa_list = self._create_ssa_list(ssas)
                     title = f"{title_prefix} {label} ({len(ssas)} SSAs)"
@@ -778,7 +682,7 @@ class SSADashboard:
             }
             """,
             Output("copy-all-ssas", "data-copied"),
-            Input("copy-all-ssas", "n_clicks"),
+            Input("copy-all-ssas", "n_clicks")
         )
 
         self.app.clientside_callback(
@@ -804,12 +708,13 @@ class SSADashboard:
             """,
             Output({"type": "copy-button", "index": MATCH}, "data-copied"),
             Input({"type": "copy-button", "index": MATCH}, "n_clicks"),
-            State({"type": "copy-button", "index": MATCH}, "id"),
+            State({"type": "copy-button", "index": MATCH}, "id")
         )
 
         # Callback para atualização automática
         @self.app.callback(
-            Output("state-data", "data"), Input("interval-component", "n_intervals")
+            Output("state-data", "data"),
+            Input("interval-component", "n_intervals")
         )
         def update_data(n):
             """Update data periodically."""
@@ -818,208 +723,166 @@ class SSADashboard:
             return {}
 
     def _create_resp_summary_cards(self, df_filtered):
-        """
-        Creates summary cards for filtered dashboard data showing state distribution.
-
-        Args:
-            df_filtered (pd.DataFrame): Filtered DataFrame containing SSA data
-
-        Returns:
-            dbc.Row: Bootstrap row containing state summary cards
-        """
-        # Get state counts from filtered DataFrame
+        """Cria cards de resumo para o usuário filtrado."""
+        # Obtém estatísticas do DataFrame filtrado
         state_counts = df_filtered.iloc[:, SSAColumns.SITUACAO].value_counts()
         total_count = len(df_filtered)
 
-        # Calculate percentages
-        def get_percentage(value):
-            return (value / total_count * 100) if total_count > 0 else 0
+        # Obtém prioridades do DataFrame filtrado
+        priority_counts = df_filtered.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].value_counts()
 
-        # Define royal blue color palette
-        colors = {
-            "primary": "#1e3799",  # Deep Royal Blue
-            "secondary": "#4a69bd",  # Medium Royal Blue
-            "info": "#6a89cc",  # Light Royal Blue
-            "warning": "#4a69bd",  # Medium Royal Blue (for consistency)
-            "danger": "#e55039",  # Soft Red for contrast
-            "success": "#78e08f",  # Soft Green for contrast
-        }
-
-        # Define state cards with updated styling and order
-        state_info = [
-            ("TOTAL", total_count, "primary", "TOTAL DE SSAs"),
-            ("APL", state_counts.get("APL", 0), "secondary", "AGUARDANDO PLANEJAMENTO"),
-            ("APG", state_counts.get("APG", 0), "info", "AGUARDANDO PROGRAMAÇÃO"),
-            (
-                "AAD",
-                state_counts.get("AAD", 0),
-                "secondary",
-                "AGUARDANDO ATUALIZAÇÃO DESENHOS",
+        # Cabeçalho fixo mostrando "Todos"
+        cards = [
+            dbc.Col(
+                html.Div([
+                    html.H6("Estado:", className="me-2 mb-0"),
+                    html.H5(
+                        "Todos",
+                        className="text-primary mb-0",
+                        style={"fontWeight": "bold"},
+                    ),
+                ], className="d-flex align-items-center"),
+                width="auto",
             ),
-            ("ADM", state_counts.get("ADM", 0), "info", "AGUARDANDO DEPTO. MANUTENÇÃO"),
-            (
-                "AAT",
-                state_counts.get("AAT", 0),
-                "secondary",
-                "AGUARDANDO ATEND. TERCEIROS",
+            # Card de Total
+            dbc.Col(
+                dbc.Card([
+                    dbc.CardBody([
+                        html.Div([
+                            html.Div(
+                                "TOTAL",
+                                className="text-muted mb-1",
+                                style={"fontSize": "0.8rem", "fontWeight": "bold"},
+                            ),
+                            html.H3(
+                                str(total_count),
+                                className="text-danger mb-0",
+                                style={"fontWeight": "bold"},
+                            ),
+                        ], className="text-center")
+                    ], className="p-2")
+                ], className="mb-0 border-danger",
+                style={"width": "120px", "height": "65px", "borderLeft": "4px solid"}),
+                width="auto",
             ),
-            ("APV", state_counts.get("APV", 0), "info", "AGUARDANDO PROVISIONAMENTO"),
-            (
-                "AIM",
-                state_counts.get("AIM", 0),
-                "secondary",
-                "AGUARDANDO ENG. MANUTENÇÃO",
-            ),
-            (
-                "SCD",
-                state_counts.get("SCD", 0),
-                "info",
-                "SSA CANCELADA AG. APROV. DIV.",
-            ),
-            ("SEE", state_counts.get("SEE", 0), "success", "SERVIÇO EM EXECUÇÃO"),
-            ("SAD", state_counts.get("SAD", 0), "success", "SERVIÇO A DISPOSIÇÃO"),
-            ("ADI", state_counts.get("ADI", 0), "danger", "AGUARDANDO APROV. DIVISÃO"),
         ]
 
-        # Create the state cards ribbon
-        state_cards = dbc.Row(
-            [
+        state_info = [
+            ("APL", "#fd7e14", "APL - AGUARDANDO PLANEJAMENTO"),
+            ("APG", "#fd7e14", "APG - AGUARDANDO PROGRAMAÇÃO"),
+            ("AAD", "#007bff", "AAD - AGUARDANDO ATUALIZAÇÃO DE DESENHOS"),
+            ("ADM", "#007bff", "ADM - AGUARDANDO DEPARTAMENTO DE MANUTENÇÃO"),
+            ("AAT", "#007bff", "AAT - AGAURDANDO ATENDIMENTO DE TERCEIROS"),
+            ("APV", "#007bff", "APV - AGUARDANDO PROVISIONAMENTO"),
+            ("AIM", "#007bff", "AIM - AGUARDANDO ENGENHARIA DE MANUTENÇÃO"),
+            ("SCD", "#6c757d", "SCD - SSA CANCELADA AGUARDANDO APROV. DIVISÃO"),
+            ("ADI", "#dc3545", "ADI - AGUARDANDO APROVAÇÃO DA DIVISÃO NA EMISSÃO"),
+            
+        ]
+
+        # Cola de cores: "#007bff", "#28a745", "#dc3545", "#ffc107", "#17a2b8", "#6610f2", "#fd7e14", "#20c997", "#e83e8c", "#6c757d",
+
+        # Cards para cada estado
+        for state, color, description in state_info:
+            count = state_counts.get(state, 0)
+            percentage = (count / total_count * 100) if total_count > 0 else 0
+
+            cards.append(
                 dbc.Col(
-                    [
-                        html.Div(
-                            [
-                                html.H6(
-                                    "Estado:",
-                                    className="me-2 mb-0",
-                                    style={"color": colors["primary"]},
-                                ),
-                                html.H5(
-                                    "Todos",
-                                    className="mb-0",
-                                    style={
-                                        "fontWeight": "bold",
-                                        "color": colors["primary"],
-                                    },
-                                ),
-                            ],
-                            className="d-flex align-items-center",
-                        )
-                    ],
+                    dbc.Card([
+                        dbc.CardBody([
+                            html.Div([
+                                html.Div([
+                                    html.Span(
+                                        state,
+                                        className="fw-bold",
+                                        style={"fontSize": "0.9rem"},
+                                    ),
+                                    dbc.Tooltip(
+                                        description,
+                                        target=f"state-{state}",
+                                        placement="top",
+                                    ),
+                                ], id=f"state-{state}"),
+                                html.Div([
+                                    html.H4(
+                                        str(count),
+                                        className="mb-0 fw-bold",
+                                        style={"color": color},
+                                    ),
+                                    html.Small(
+                                        f"({percentage:.1f}%)",
+                                        className="text-muted",
+                                    ),
+                                ])
+                            ], className="text-center")
+                        ], className="p-2")
+                    ], className="mb-0",
+                    style={
+                        "width": "120px",
+                        "height": "65px",
+                        "borderLeft": f"4px solid {color}",
+                    }),
                     width="auto",
-                ),
-            ]
-            + [
-                dbc.Col(
-                    [
-                        dbc.Card(
-                            [
-                                dbc.CardBody(
-                                    [
-                                        html.Div(
-                                            [
-                                                html.Div(
-                                                    state,
-                                                    className="mb-1",
-                                                    style={
-                                                        "fontSize": "0.8rem",
-                                                        "fontWeight": "bold",
-                                                        "color": colors[color],
-                                                        "lineHeight": "1.2",
-                                                    },
-                                                ),
-                                                html.H3(
-                                                    str(value),
-                                                    className="mb-0",
-                                                    style={
-                                                        "fontWeight": "bold",
-                                                        "color": colors[color],
-                                                    },
-                                                ),
-                                                html.Small(
-                                                    f"({get_percentage(value):.1f}%)",
-                                                    style={"color": "#6c757d"},
-                                                ),
-                                            ],
-                                            className="text-center",
-                                        )
-                                    ],
-                                    className="p-2",
-                                )
-                            ],
-                            className="mb-0",
-                            style={
-                                "width": "110px",
-                                "height": "85px",
-                                "borderLeft": f"4px solid {colors[color]}",
-                                "backgroundColor": "#ffffff",
-                                "boxShadow": "0 2px 4px rgba(30, 55, 153, 0.1)",
-                                "borderRadius": "4px",
-                            },
-                        ),
-                        dbc.Tooltip(
-                            tooltip,
-                            target=f"state-{state}",
-                            placement="top",
-                        ),
-                    ],
-                    width="auto",
-                    id=f"state-{state}",
                 )
-                for state, value, color, tooltip in state_info
-            ],
+            )
+
+        # Adiciona card de prioridades críticas se houver
+        if "S3.7" in priority_counts:
+            critical_count = priority_counts["S3.7"]
+            critical_percentage = (critical_count / total_count * 100) if total_count > 0 else 0
+
+            cards.append(
+                dbc.Col(
+                    dbc.Card([
+                        dbc.CardBody([
+                            html.Div([
+                                html.Div(
+                                    "CRÍTICAS",
+                                    className="text-muted mb-1",
+                                    style={"fontSize": "0.8rem", "fontWeight": "bold"},
+                                ),
+                                html.H4(
+                                    str(critical_count),
+                                    className="mb-0 fw-bold text-warning",
+                                ),
+                                html.Small(
+                                    f"({critical_percentage:.1f}%)",
+                                    className="text-muted",
+                                ),
+                            ], className="text-center")
+                        ], className="p-2")
+                    ], className="mb-0",
+                    style={
+                        "width": "120px",
+                        "height": "65px",
+                        "borderLeft": "4px solid #ffc107",
+                    }),
+                    width="auto",
+                )
+            )
+
+        # Retorna row com todos os cards em um container com scroll horizontal
+        return dbc.Row(
+            cards,
             className="mb-3 g-2 flex-nowrap align-items-center",
             style={
                 "overflowX": "auto",
                 "overflowY": "hidden",
-                "paddingBottom": "18px",
-                "marginBottom": "30px",
+                "paddingBottom": "18px",  # aumenta o espaço abaixo dos cards
+                "marginBottom": "30px",  # adiciona margem após a seção dos cards
                 "position": "sticky",
                 "top": "0",
                 "backgroundColor": "white",
                 "zIndex": "1000",
-                "boxShadow": "0 2px 4px rgba(30, 55, 153, 0.1)",
-                "minHeight": "90px",
-                "paddingTop": "10px",
-                "borderRadius": "4px",
+                "boxShadow": "0 2px 4px rgba(0,0,0,0.1)",
+                "minHeight": "90px",  # Adicionado altura mínima
+                "paddingTop": "10px",  # Adicionado padding top
             },
         )
 
-        return state_cards
-
-    def _get_chart_config(self):
-        """
-        Returns chart configuration settings.
-
-        Returns:
-            dict: Configuration settings for Plotly charts
-        """
-        return {
-            "displayModeBar": True,
-            "scrollZoom": False,
-            "modeBarButtonsToRemove": [
-                "pan2d",
-                "select2d",
-                "lasso2d",
-                "autoScale2d",
-                "zoom2d",
-            ],
-            "displaylogo": False,
-            "responsive": True,
-            "toImageButtonOptions": {
-                "format": "png",
-                "filename": "chart",
-                "height": 500,
-                "width": 700,
-                "scale": 2,
-            },
-        }
-
     def setup_layout(self):
-        """
-        Define o layout completo do dashboard.
-        Remove o ribbon de estatísticas inicial e mantém apenas o ribbon de estados.
-        Inclui todos os gráficos, tabelas e funcionalidades adicionais.
-        """
+        """Define o layout completo do dashboard."""
         stats = self._get_initial_stats()
         state_counts = self._get_state_counts()
 
@@ -1047,6 +910,96 @@ class SSADashboard:
                         ),
                     ],
                     className="mb-4 pt-3",
+                ),
+                # Linha com estatísticas gerais
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                dbc.Card(
+                                    [
+                                        dbc.CardBody(
+                                            [
+                                                html.H5(
+                                                    "Total de SSAs",
+                                                    className="text-muted mb-2",
+                                                ),
+                                                html.H3(
+                                                    f"{stats['total']:,}",
+                                                    className="text-primary mb-0",
+                                                ),
+                                            ]
+                                        )
+                                    ]
+                                )
+                            ],
+                            width=3,
+                        ),
+                        dbc.Col(
+                            [
+                                dbc.Card(
+                                    [
+                                        dbc.CardBody(
+                                            [
+                                                html.H5(
+                                                    "SSAs Críticas (S3.7)",
+                                                    className="text-muted mb-2",
+                                                ),
+                                                html.H3(
+                                                    f"{stats['criticas']:,}",
+                                                    className="text-warning mb-0",
+                                                ),
+                                            ]
+                                        )
+                                    ]
+                                )
+                            ],
+                            width=3,
+                        ),
+                        dbc.Col(
+                            [
+                                dbc.Card(
+                                    [
+                                        dbc.CardBody(
+                                            [
+                                                html.H5(
+                                                    "Setores Envolvidos",
+                                                    className="text-muted mb-2",
+                                                ),
+                                                html.H3(
+                                                    f"{len(stats['por_setor']):,}",
+                                                    className="text-success mb-0",
+                                                ),
+                                            ]
+                                        )
+                                    ]
+                                )
+                            ],
+                            width=3,
+                        ),
+                        dbc.Col(
+                            [
+                                dbc.Card(
+                                    [
+                                        dbc.CardBody(
+                                            [
+                                                html.H5(
+                                                    "Estados Ativos",
+                                                    className="text-muted mb-2",
+                                                ),
+                                                html.H3(
+                                                    f"{len(stats['por_estado']):,}",
+                                                    className="text-info mb-0",
+                                                ),
+                                            ]
+                                        )
+                                    ]
+                                )
+                            ],
+                            width=3,
+                        ),
+                    ],
+                    className="mb-4",
                 ),
                 # Filtros expandidos
                 dbc.Row(
@@ -1138,7 +1091,7 @@ class SSADashboard:
                         "padding": "10px 0",
                     },
                 ),
-                # Cards de resumo do usuário (apenas ribbon de estados)
+                # Cards de resumo do usuário
                 dbc.Row(
                     [dbc.Col([html.Div(id="resp-summary-cards")], width=12)],
                     className="mb-4",
@@ -1438,20 +1391,20 @@ class SSADashboard:
                                                         },
                                                     ],
                                                     style_table={
-                                                        "overflowX": "auto",
-                                                        "minWidth": "100%",
-                                                        "marginBottom": "20px",
+                                                        "overflowX": "auto",  # Scroll horizontal
+                                                        "minWidth": "100%",  # Largura mínima
+                                                        "marginBottom": "20px",  # Margem inferior
                                                     },
                                                     style_cell={
                                                         "textAlign": "left",
                                                         "padding": "5px",
                                                         "whiteSpace": "normal",
-                                                        "height": "auto",
-                                                        "fontSize": "11px",
-                                                        "fontFamily": "Arial",
-                                                        "lineHeight": "12px",
-                                                        "minWidth": "0px",
-                                                        "maxWidth": "500px",
+                                                        "height": "auto",  # Altura automática
+                                                        "fontSize": "11px",  # Tamanho geral da fonte para células
+                                                        "fontFamily": "Arial",  # Tipo da fonte
+                                                        "lineHeight": "12px",  # Espaçamento entre linhas
+                                                        "minWidth": "0px",  # Importante para permitir compressão, Largura mínima
+                                                        "maxWidth": "500px",  # Limite máximo geral
                                                     },
                                                     style_cell_conditional=[
                                                         {
@@ -1459,28 +1412,149 @@ class SSADashboard:
                                                                 "column_id": "numero"
                                                             },
                                                             "width": "70px",
+                                                            "verticalAlign": "middle",
                                                             "maxWidth": "70px",
                                                             "minWidth": "70px",
                                                         },
-                                                        # ... (rest of style_cell_conditional remains the same)
+                                                        {
+                                                            "if": {
+                                                                "column_id": "estado"
+                                                            },
+                                                            "width": "50px",
+                                                            "maxWidth": "50px",
+                                                            "minWidth": "50px",
+                                                        },
+                                                        {
+                                                            "if": {
+                                                                "column_id": "setor_emissor"
+                                                            },
+                                                            "width": "50px",
+                                                            "maxWidth": "50px",
+                                                            "minWidth": "50px",
+                                                        },
+                                                        {  #
+                                                            "if": {
+                                                                "column_id": "setor_executor"
+                                                            },
+                                                            "width": "70px",
+                                                            "maxWidth": "70px",
+                                                            "minWidth": "70px",
+                                                        },
+                                                        {
+                                                            "if": {
+                                                                "column_id": "resp_prog"
+                                                            },
+                                                            "width": "140px",
+                                                            "maxWidth": "140px",
+                                                            "minWidth": "140px",
+                                                        },
+                                                        {
+                                                            "if": {
+                                                                "column_id": "resp_exec"
+                                                            },
+                                                            "width": "140px",
+                                                            "maxWidth": "140px",
+                                                            "minWidth": "140px",
+                                                        },
+                                                        {
+                                                            "if": {
+                                                                "column_id": "semana_prog"
+                                                            },
+                                                            "width": "60px",
+                                                            "maxWidth": "60px",
+                                                            "minWidth": "60px",
+                                                        },
+                                                        {
+                                                            "if": {
+                                                                "column_id": "prioridade"
+                                                            },
+                                                            "width": "100px",
+                                                            "maxWidth": "100px",
+                                                            "minWidth": "100px",
+                                                        },
+                                                        {
+                                                            "if": {
+                                                                "column_id": "data_emissao"
+                                                            },
+                                                            "width": "120px",
+                                                            "maxWidth": "120px",
+                                                            "minWidth": "120px",
+                                                        },
+                                                        {
+                                                            "if": {
+                                                                "column_id": "descricao"
+                                                            },
+                                                            "minWidth": "300px",
+                                                            "width": "auto",
+                                                            "flex": "1",
+                                                        },
                                                     ],
-                                                    style_header={
+                                                    style_header={  # cabecalho da tabela
                                                         "backgroundColor": "rgb(230, 230, 230)",
                                                         "fontWeight": "bold",
                                                         "textAlign": "left",
                                                         "padding": "2px",
-                                                        "whiteSpace": "normal",
-                                                        "height": "auto",
-                                                        "fontSize": "11px",
+                                                        "whiteSpace": "normal",  # Permite quebra de linha no cabeçalho
+                                                        "height": "auto",  # Altura automática para cabeçalhos
+                                                        "fontSize": "11px",  # Tamanho da fonte para cabeçalhos
                                                         "fontFamily": "Arial",
                                                     },
                                                     style_data={
-                                                        "whiteSpace": "normal",
-                                                        "height": "auto",
-                                                        "lineHeight": "12px",
-                                                        "padding": "5px",
+                                                        "whiteSpace": "normal",  # Permite quebra de linha
+                                                        "height": "auto",  # Altura automática
+                                                        "lineHeight": "12px",  # Espaçamento entre linhas
+                                                        "padding": "5px",  # Espaçamento interno
                                                     },
-                                                    page_size=30,
+                                                    style_header_conditional=[  # Aplica os mesmos tamanhos aos cabeçalhos
+                                                        {
+                                                            "if": {
+                                                                "column_id": col["id"]
+                                                            },
+                                                            "width": width["width"],
+                                                        }
+                                                        for col, width in zip(
+                                                            [
+                                                                {"id": "numero"},
+                                                                {"id": "estado"},
+                                                                {"id": "setor_emissor"},
+                                                                {
+                                                                    "id": "setor_executor"
+                                                                },
+                                                                {"id": "resp_prog"},
+                                                                {"id": "resp_exec"},
+                                                                {"id": "semana_prog"},
+                                                                {"id": "prioridade"},
+                                                                {"id": "data_emissao"},
+                                                                {"id": "descricao"},
+                                                            ],
+                                                            [
+                                                                {"width": "80px"},
+                                                                {"width": "90px"},
+                                                                {"width": "120px"},
+                                                                {"width": "120px"},
+                                                                {"width": "120px"},
+                                                                {"width": "120px"},
+                                                                {"width": "110px"},
+                                                                {"width": "100px"},
+                                                                {"width": "120px"},
+                                                                {"width": "auto"},
+                                                            ],
+                                                        )
+                                                    ],
+                                                    style_data_conditional=[
+                                                        {
+                                                            "if": {"row_index": "odd"},
+                                                            "backgroundColor": "rgb(248, 248, 248)",
+                                                        },
+                                                        {  # Prioridades
+                                                            "if": {
+                                                                "filter_query": "{prioridade} eq 'S3.7'"
+                                                            },
+                                                            "backgroundColor": "#fff3cd",
+                                                            "color": "#856404",
+                                                        },
+                                                    ],
+                                                    page_size=30,  # default 10
                                                     page_current=0,
                                                     sort_action="native",
                                                     sort_mode="multi",
@@ -1499,12 +1573,21 @@ class SSADashboard:
                         )
                     ]
                 ),
-                # Modal para exibição
+                # Resumo de estilos da tabela:
+                # Para reduzir altura: diminua lineHeight e padding
+                # Para fontes menores: reduza fontSize
+                # Para colunas mais estreitas: diminua width, maxWidth e minWidth
+                # Para mais espaço: aumente padding
+                # Para cabeçalhos menores: reduza padding no style_header
+                # Para uma tabela mais compacta:
+                # style_cell={"fontSize": "10px", "padding": "4px", "lineHeight": "12px"}
+                # Ou para uma mais espaçada:
+                # style_cell={"fontSize": "13px", "padding": "10px", "lineHeight": "18px"}
+                # Modal para exibição das SSAs
                 dbc.Modal(
                     [
                         dbc.ModalHeader(
-                            [dbc.ModalTitle(id="ssa-modal-title")],
-                            close_button=True,
+                            [dbc.ModalTitle(id="ssa-modal-title")], close_button=True
                         ),
                         dbc.ModalBody([html.Div(id="ssa-modal-body")]),
                         dbc.ModalFooter(
@@ -1555,12 +1638,8 @@ class SSADashboard:
             className="p-4",
         )
 
-
     def setup_callbacks(self):
-        """
-        Configure todos os callbacks do dashboard com recursos aprimorados.
-        Gerencia atualizações de gráficos, interações modais e atualização de dados.
-        """
+        """Configure all dashboard callbacks with enhanced features."""
 
         @self.app.callback(
             [
@@ -1583,157 +1662,91 @@ class SSADashboard:
             ],
         )
         def update_all_charts(resp_prog, resp_exec, setor_emissor, setor_executor):
-            """
-            Updates all dashboard components based on filter selections.
-            
-            Args:
-                resp_prog (str): Selected programming responsible
-                resp_exec (str): Selected execution responsible
-                setor_emissor (str): Selected issuing sector
-                setor_executor (str): Selected executing sector
-            
-            Returns:
-                tuple: Updated values for all dashboard components
-            """
-            try:
-                # Log filter applications
-                if any([resp_prog, resp_exec, setor_emissor, setor_executor]):
-                    self.logger.log_with_ip(
-                        "INFO",
-                        f"Filters applied - Prog: {resp_prog}, Exec: {resp_exec}, "
-                        f"Issuer: {setor_emissor}, Executor: {setor_executor}",
-                    )
-
-                # Create filtered DataFrame
-                df_filtered = self.df.copy()
-
-                # Apply filters safely with proper error handling
-                if resp_prog:
-                    df_filtered = df_filtered[
-                        df_filtered.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO] == resp_prog
-                    ]
-                if resp_exec:
-                    df_filtered = df_filtered[
-                        df_filtered.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == resp_exec
-                    ]
-                if setor_emissor:
-                    df_filtered = df_filtered[
-                        df_filtered.iloc[:, SSAColumns.SETOR_EMISSOR] == setor_emissor
-                    ]
-                if setor_executor:
-                    df_filtered = df_filtered[
-                        df_filtered.iloc[:, SSAColumns.SETOR_EXECUTOR] == setor_executor
-                    ]
-
-                # Create filtered visualizer
-                filtered_visualizer = SSAVisualizer(df_filtered)
-
-                # Generate summary cards with filtered data
-                resp_cards = self._create_resp_summary_cards(df_filtered)
-
-                # Create main charts with hover and click info
-                fig_prog = self._create_resp_prog_chart(df_filtered)
-                fig_exec = self._create_resp_exec_chart(df_filtered)
-
-                # Ensure charts are properly enhanced with interactive features
-                fig_prog = self._enhance_bar_chart(
-                    fig_prog, "resp_prog", "SSAs por Programador", df_filtered
-                )
-                fig_exec = self._enhance_bar_chart(
-                    fig_exec, "resp_exec", "SSAs por Executor", df_filtered
+            """Update all charts with filter data."""
+            if any([resp_prog, resp_exec, setor_emissor, setor_executor]):
+                self.logger.log_with_ip(
+                    "INFO",
+                    f"Filtros aplicados - Prog: {resp_prog}, Exec: {resp_exec}, "
+                    f"Emissor: {setor_emissor}, Executor: {setor_executor}",
                 )
 
-                # Create week charts with proper data handling
-                fig_programmed_week = filtered_visualizer.create_week_chart(use_programmed=True)
-                fig_registration_week = filtered_visualizer.create_week_chart(use_programmed=False)
+            df_filtered = self.df.copy()
 
-                # Enhance week charts with interactive features
-                fig_programmed_week = self._enhance_bar_chart(
-                    fig_programmed_week,
-                    "week_programmed",
-                    "SSAs Programadas",
-                    df_filtered,
-                )
-                fig_registration_week = self._enhance_bar_chart(
-                    fig_registration_week,
-                    "week_registration",
-                    "SSAs Cadastradas",
-                    df_filtered,
-                )
-
-                # Update detail section visibility
-                detail_style = {"display": "block"}  # Always show details after filter application
-
-                # Create and enhance detail charts
-                fig_detail_state = self._enhance_bar_chart(
-                    self._create_detail_state_chart(df_filtered),
-                    "state",
-                    "SSAs por Estado",
-                    df_filtered,
-                )
-                fig_detail_week = self._enhance_bar_chart(
-                    filtered_visualizer.create_week_chart(),
-                    "week_detail",
-                    "SSAs por Semana",
-                    df_filtered,
-                )
-
-                # Prepare table data
-                table_data = self._prepare_table_data(df_filtered)
-
-                # Create weeks in state chart
-                weeks_fig = filtered_visualizer.add_weeks_in_state_chart()
-
-                # Update all chart layouts to ensure visibility
-                charts = [
-                    fig_prog,
-                    fig_exec,
-                    fig_programmed_week,
-                    fig_registration_week,
-                    fig_detail_state,
-                    fig_detail_week,
-                    weeks_fig,
+            # Aplicar filtros
+            if resp_prog:
+                df_filtered = df_filtered[
+                    df_filtered.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO] == resp_prog
+                ]
+            if resp_exec:
+                df_filtered = df_filtered[
+                    df_filtered.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == resp_exec
+                ]
+            if setor_emissor:
+                df_filtered = df_filtered[
+                    df_filtered.iloc[:, SSAColumns.SETOR_EMISSOR] == setor_emissor
+                ]
+            if setor_executor:
+                df_filtered = df_filtered[
+                    df_filtered.iloc[:, SSAColumns.SETOR_EXECUTOR] == setor_executor
                 ]
 
-                for fig in charts:
-                    if fig:
-                        fig.update_layout(
-                            showlegend=True,
-                            height=400,  # Ensure minimum height
-                            margin=dict(l=50, r=20, t=50, b=100),
-                            xaxis_visible=True,
-                            yaxis_visible=True,
-                        )
+            # Criar visualizador filtrado
+            filtered_visualizer = SSAVisualizer(df_filtered)
 
-                return (
-                    resp_cards,
-                    fig_prog,
-                    fig_exec,
-                    fig_programmed_week,
-                    fig_registration_week,
-                    detail_style,
-                    fig_detail_state,
-                    fig_detail_week,
-                    table_data,
-                    weeks_fig,
-                )
+            # Criar os cards de resumo
+            resp_cards = self._create_resp_summary_cards(df_filtered)
 
-            except Exception as e:
-                # Log error and return empty charts
-                self.logger.log_with_ip("ERROR", f"Error updating charts: {str(e)}")
-                empty_fig = self._create_empty_chart("Error loading data")
-                return (
-                    self._create_resp_summary_cards(self.df),
-                    empty_fig,
-                    empty_fig,
-                    empty_fig,
-                    empty_fig,
-                    {"display": "none"},
-                    empty_fig,
-                    empty_fig,
-                    [],
-                    empty_fig,
-                )
+            # Gerar gráficos com informações de hover e click
+            fig_prog = self._enhance_bar_chart(
+                self._create_resp_prog_chart(df_filtered),
+                "resp_prog",
+                "SSAs por Programador",
+            )
+            fig_exec = self._enhance_bar_chart(
+                self._create_resp_exec_chart(df_filtered), "resp_exec", "SSAs por Executor"
+            )
+
+            # Gráficos de semana com hover e click
+            fig_programmed_week = self._enhance_bar_chart(
+                filtered_visualizer.create_week_chart(use_programmed=True),
+                "week_programmed",
+                "SSAs Programadas",
+            )
+            fig_registration_week = self._enhance_bar_chart(
+                filtered_visualizer.create_week_chart(use_programmed=False),
+                "week_registration",
+                "SSAs Cadastradas",
+            )
+
+            detail_style = (
+                {"display": "block"}
+                if any([resp_prog, resp_exec, setor_emissor, setor_executor])
+                else {"display": "none"}
+            )
+
+            fig_detail_state = self._enhance_bar_chart(
+                self._create_detail_state_chart(df_filtered), "state", "SSAs por Estado"
+            )
+            fig_detail_week = self._enhance_bar_chart(
+                filtered_visualizer.create_week_chart(), "week_detail", "SSAs por Semana"
+            )
+
+            table_data = self._prepare_table_data(df_filtered)
+            weeks_fig = filtered_visualizer.add_weeks_in_state_chart()
+
+            return (
+                resp_cards,
+                fig_prog,
+                fig_exec,
+                fig_programmed_week,
+                fig_registration_week,
+                detail_style,
+                fig_detail_state,
+                fig_detail_week,
+                table_data,
+                weeks_fig,
+            )
+
         @self.app.callback(
             [
                 Output("ssa-modal", "is_open"),
@@ -1777,14 +1790,8 @@ class SSADashboard:
                 "weeks-in-state-chart": (weeks_click, "SSAs no intervalo"),
                 "resp-prog-chart": (prog_click, "SSAs do programador"),
                 "resp-exec-chart": (exec_click, "SSAs do executor"),
-                "programmed-week-chart": (
-                    prog_week_click,
-                    "SSAs programadas na semana",
-                ),
-                "registration-week-chart": (
-                    reg_week_click,
-                    "SSAs cadastradas na semana",
-                ),
+                "programmed-week-chart": (prog_week_click, "SSAs programadas na semana"),
+                "registration-week-chart": (reg_week_click, "SSAs cadastradas na semana"),
                 "detail-state-chart": (detail_state_click, "SSAs no estado"),
                 "detail-week-chart": (detail_week_click, "SSAs na semana (detalhe)"),
             }
@@ -1851,20 +1858,11 @@ class SSADashboard:
             return {}
 
     def _create_empty_chart(self, title: str) -> go.Figure:
-        """
-        Creates an empty chart with an error message.
-
-        Args:
-            title (str): Chart title
-
-        Returns:
-            go.Figure: Empty Plotly figure with error message
-        """
+        """Creates an empty chart with a title when no data is available."""
         return go.Figure().update_layout(
             title=title,
             xaxis_title="",
             yaxis_title="",
-            template="plotly_white",
             annotations=[
                 {
                     "text": "Nenhum dado disponível para os filtros selecionados",
