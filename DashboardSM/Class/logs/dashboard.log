@@ -1053,3 +1053,7 @@ Responsável Programação: 'VILLAR RIVAS ALBERTO'
 2024-12-09 00:05:07,387 - DashboardLogger - INFO - Acesso à rota: /_reload-hash
 2024-12-09 00:05:07,388 - DashboardLogger - INFO - Acesso à rota: /_dash-update-component
 2024-12-09 00:05:07,391 - DashboardLogger - INFO - Atualização automática dos dados
+2024-12-09 00:47:12,856 - DashboardLogger - INFO - Acesso à rota: /_reload-hash
+2024-12-09 00:47:12,858 - DashboardLogger - INFO - Acesso à rota: /_dash-update-component
+2024-12-09 00:47:12,869 - DashboardLogger - INFO - Atualização automática dos dados
+2024-12-09 00:47:17,212 - DashboardLogger - INFO - Filters applied - Prog: CARLOS RONEI ORTIZ, Exec: CARLOS RONEI ORTIZ, Issuer: None, Executor: None
