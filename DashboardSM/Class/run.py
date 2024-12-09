@@ -3,12 +3,30 @@ import sys
 import logging
 import warnings
 import traceback
+import socket
+import platform
 from pathlib import Path
 from datetime import datetime
 
-# Adiciona o diretório atual ao PYTHONPATH
-current_dir = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(current_dir)
+def get_python_command():
+    """Determina o comando Python com base no sistema operacional."""
+    system = platform.system().lower()
+    
+    if system == 'darwin':  # macOS
+        return 'python3'
+    elif system == 'linux':
+        return 'python3'
+    elif system == 'windows':
+        return 'python'
+    else:
+        return 'python'  # fallback padrão
+
+# Configura o comando Python correto para o sistema
+PYTHON_CMD = get_python_command()
+
+# Adiciona o diretório atual ao PYTHONPATH usando Path
+current_dir = Path(__file__).resolve().parent
+sys.path.append(str(current_dir))
 
 # Imports dos módulos locais
 from src.dashboard.ssa_dashboard import SSADashboard
@@ -19,91 +37,85 @@ from src.utils.log_manager import LogManager
 # Configurações globais
 warnings.filterwarnings("ignore")
 
-
 def setup_logging():
     """Configura o sistema de logging."""
-    # Cria diretório de logs se não existir
-    log_dir = "logs"
-    os.makedirs(log_dir, exist_ok=True)
-
-    # Configura o formato do log
+    log_dir = Path("logs")
+    log_dir.mkdir(exist_ok=True)
+    
     log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     logging.basicConfig(
         level=logging.INFO,
         format=log_format,
         handlers=[
-            logging.FileHandler(
-                os.path.join(log_dir, "dashboard.log"), encoding="utf-8"
-            ),
+            logging.FileHandler(log_dir / "dashboard.log", encoding="utf-8"),
             logging.StreamHandler(),
         ],
     )
 
+def get_available_port(starting_port=8080):
+    """Tenta encontrar uma porta disponível a partir da porta inicial."""
+    port = starting_port
+    while True:
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+                if sock.connect_ex(('localhost', port)) != 0:
+                    return port
+        except:
+            pass
+        port += 1
 
 def main():
     try:
-        # Configura logging
         setup_logging()
-
-        # Configura diretórios e file manager
-        base_dir = Path(os.getcwd())
+        
+        base_dir = Path.cwd()
         downloads_dir = base_dir / "downloads"
         downloads_dir.mkdir(exist_ok=True)
-
-        file_manager = FileManager(str(downloads_dir))
-
+        
+        file_manager = FileManager(downloads_dir)
+        
         try:
-            # Tenta obter o arquivo mais recente
             latest_file = file_manager.get_latest_file("ssa_pendentes")
             file_info = file_manager.get_file_info(latest_file)
-            DATA_FILE_PATH = latest_file  # Usando o caminho completo retornado
+            DATA_FILE_PATH = latest_file
             print(f"\nUsando arquivo: {file_info['name']}")
-            print(
-                f"Última modificação: {file_info['modified'].strftime('%d/%m/%Y %H:%M:%S')}"
-            )
+            print(f"Última modificação: {file_info['modified'].strftime('%d/%m/%Y %H:%M:%S')}")
         except FileNotFoundError:
-            # Fallback para o caminho padrão se não encontrar arquivo
-            DATA_FILE_PATH = os.path.join(
-                str(downloads_dir), "SSAs Pendentes Geral - 05-11-2024_0753AM.xlsx"
-            )
-            print(f"\nUsando arquivo padrão: {os.path.basename(DATA_FILE_PATH)}")
+            DATA_FILE_PATH = downloads_dir / "SSAs Pendentes Geral - 05-11-2024_0753AM.xlsx"
+            print(f"\nUsando arquivo padrão: {DATA_FILE_PATH.name}")
 
-        print(
-            """
+        print("""
 ██████╗  █████╗ ███████╗██╗  ██╗    ███████╗███████╗ █████╗ 
 ██╔══██╗██╔══██╗██╔════╝██║  ██║    ██╔════╝██╔════╝██╔══██╗
 ██║  ██║███████║███████╗███████║    ███████╗███████╗███████║
 ██║  ██║██╔══██║╚════██║██╔══██║    ╚════██║╚════██║██╔══██║
 ██████╔╝██║  ██║███████║██║  ██║    ███████║███████║██║  ██║
 ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝    ╚══════╝╚══════╝╚═╝  ╚═╝
-        """
-        )
+        """)
 
         print("\nIniciando carregamento dos dados...")
         loader = DataLoader(DATA_FILE_PATH)
         df = loader.load_data()
         print(f"Dados carregados com sucesso. Total de SSAs: {len(df)}")
-
+        
         print("\nIniciando dashboard...")
         app = SSADashboard(df)
-
-        print(
-            f"""
+        
+        port = get_available_port(8080)
+        
+        print(f"""
 Dashboard iniciado com sucesso!
-URL: http://localhost:8080
+URL: http://localhost:{port}
 Data: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}
-
 Pressione CTRL+C para encerrar.
-        """
-        )
-
-        app.run_server(debug=True, port=8080)
-
+        """)
+        
+        app.run_server(debug=True, port=port)
+        
     except Exception as e:
         logging.error(f"Erro ao iniciar aplicação: {str(e)}")
         logging.error(traceback.format_exc())
         sys.exit(1)
-
 
 if __name__ == "__main__":
     main()
