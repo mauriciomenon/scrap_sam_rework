@@ -1,0 +1,69 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Logs
+*.log
+logs/
+execution_log_*.log
+dashboard_activity.log
+dashboard.log
+ssa_analysis.log
+git_lfs_cleanup_report.md
+
+# Temporary files
+tempCodeRunnerFile.python
+*.tmp
+*.temp
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ei.cfg
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Environment
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Drivers and executables
+drivers/
+*.exe
+*.zip
+
+# Excel files
+*.xlsx
+relatorio_ssas.xlsx
+
+# Backups (keep in git history but not working directory)
+backups/
+
+# Snapshots
+.snapshots/

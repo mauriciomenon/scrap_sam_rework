@@ -1,0 +1,21 @@
+{
+    "debug": true,
+    "host": "localhost",
+    "port": 8000,
+    "log_level": "INFO",
+    "backup": {
+        "enabled": true,
+        "interval": 24,
+        "retention": 30
+    },
+    "security": {
+        "enabled": true,
+        "session_timeout": 30,
+        "max_attempts": 3
+    },
+    "maintenance": {
+        "enabled": true,
+        "log_retention": 90,
+        "archive_after": 365
+    }
+}
