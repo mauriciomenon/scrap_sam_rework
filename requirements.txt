@@ -1,39 +1,51 @@
-# SCRAP_SAM - Dependências Python
-# Atualizado em: 2025-09-01
-# Versões testadas e compatíveis
+# SCRAP_SAM - Dependências Python Atualizadas (2025)
+# Versões compatíveis e atualizadas para melhor performance e segurança
 
-# Core Scraping
-playwright==1.45.0
-selenium==4.21.0
-requests==2.32.3
-beautifulsoup4==4.12.3
-lxml==5.2.2
+# Web Scraping - Versões mais recentes
+playwright>=1.45.0
+selenium>=4.20.0
+requests>=2.32.0
+beautifulsoup4>=4.12.0
+lxml>=5.2.0
 
-# Data Processing & Analysis
-pandas==2.2.2
-numpy==1.26.4
-openpyxl==3.1.5
-xlsxwriter==3.2.0
-python-dateutil==2.9.0
+# Data Processing - Versões atualizadas
+pandas>=2.2.0
+numpy>=1.26.0
+openpyxl>=3.1.0
+xlsxwriter>=3.2.0
 
-# Dashboard & Visualization
-dash==2.17.1
-dash-bootstrap-components==1.6.0
-plotly==5.22.0
-flask==3.0.3
+# Dashboard e Visualização - Versões compatíveis
+dash>=2.17.0
+dash-bootstrap-components>=1.6.0
+plotly>=5.20.0
+flask>=3.0.0
 
-# Development & Testing
-pytest==8.2.2
-pytest-playwright==0.5.1
-black==24.4.2
-flake8==7.1.0
-mypy==1.10.0
-pre-commit==3.7.1
+# Desenvolvimento e Testes
+pytest>=8.0.0
+pytest-playwright>=0.5.0
+pytest-asyncio>=0.23.0
+black>=24.0.0
+flake8>=7.0.0
+mypy>=1.8.0
 
-# Logging & Utilities
-colorama==0.4.6
-tqdm==4.66.4
+# Utilitários
+python-dateutil>=2.9.0
+pytz>=2024.0
 
-# Optional (para funcionalidades específicas)
-webdriver-manager==4.0.1
-schedule==1.2.2
+# Dependências específicas do Playwright
+greenlet>=3.0.0
+
+# Opcional - para desenvolvimento avançado
+jupyter>=1.0.0
+ipykernel>=6.0.0
+notebook>=7.0.0
+python-dateutil>=2.9.0
+pytz>=2024.0
+
+# Dependências específicas do Playwright
+greenlet>=3.0.0
+
+# Opcional - para desenvolvimento avançado
+jupyter>=1.0.0
+ipykernel>=6.0.0
+notebook>=7.0.0
