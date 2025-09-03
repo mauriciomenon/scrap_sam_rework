@@ -67,3 +67,31 @@ backups/
 
 # Snapshots
 .snapshots/
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.coverage
+.coverage*
+coverage.xml
+htmlcov/
+# Virtual envs
+# OS
+Thumbs.db
+# pip caches (se existirem locais no repo)
+.pip/
+**/.pip/
+pip-wheel-metadata/
+# Node (opcional)
+node_modules/
+.pnpm-store/
+# Direnv cache
+.direnv/
+# Mantidos no repo (não ignore):
+!/.python-version
+!/.envrc
