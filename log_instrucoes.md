@@ -82,3 +82,10 @@ Próximas ações:
   - Criado mypy.ini no rework com no_implicit_optional=False, exclusão de bkp e ignore_missing_imports por módulo para libs de terceiros. Relatório: reports/rework_write_mypy_ini.txt.
   - Rodado sanity novamente. Resultado: black OK; pytest OK (7 tests). flake8 agora ignora E402/E501/E722, restando alertas F8xx/W293/E226 e afins. mypy continua com ~209 erros focados em tipos do projeto; o mypy do rework não aceita --show-config e aparenta manter comportamento padrão para Optional; mypy.ini foi adicionado para compatibilidade.
 
+Atualizações (2025-09-02 – README e .gitignore no rework):
+- Gerado README.md no rework com:
+  - Guia de setup por OS (Windows/macOS/Debian), Playwright, e orientação de Node opcional.
+  - Seção de diferenças: arquivos, versões de tooling e escopo (somente configs/limpeza segura; sem mudar comportamento).
+- .gitignore endurecido para Python/venv/cache e Node (`node_modules/`), mantendo versionados `.python-version` e `.envrc` (não ignorar).
+- Commit/push aplicados no rework (ver reports/rework_commit_push.txt). Nenhuma alteração de runtime.
+
