@@ -1,6 +1,9 @@
+
 # scrap_sam_rework
 
 Fork de modernização do SCRAP_SAM com foco em configuração e tooling atualizados (flake8/black/mypy/pytest) sem mudanças de comportamento em tempo de execução.
+
+Atualizado: 2025-09-02 22:45
 
 ## Visão geral
 
@@ -46,23 +49,158 @@ Notas:
 
 ## Como rodar
 
-- Ative o venv e execute seus scripts usuais (ex.: `python -m src.scrapers.scrap_sam_main`).
+- Dashboard_SM: `python backups/Dashboard_SM.py`
+- Report_from_excel: `python backups/Report_from_excel.py`
+- src.dashboard.Dashboard_SM: `python -m src.dashboard.Dashboard_SM`
+- src.dashboard.Report_from_excel: `python -m src.dashboard.Report_from_excel`
+- src.scrapers.scrap_sam_main: `python -m src.scrapers.scrap_sam_main`
+
 - Teste rápido: `pytest -q`.
 - Lints: `flake8` e `black --check .`; tipos: `mypy`.
 
 ## Diferenças em relação ao SCRAP_SAM (original)
 
-Arquivos e estrutura:
-- Adicionados: `.flake8`, `pyproject.toml` (black+mypy), `mypy.ini`, `tests/test_sanity_imports.py`, `log_instrucoes.md`.
-- Mantidos: módulos de runtime e scripts originais, sem alteração de comportamento.
+Arquivos (rework vs original): adicionados=2109, removidos=117, modificados=8, comuns=61
 
-Versões e tooling:
-- Python alvo: 3.13.
-- Ferramentas: black 25.x, flake8 7.x, mypy 1.17.x, pytest 8.x (conforme ambiente).
-- Stubs opcionais sugeridos: `pandas-stubs`, `types-requests`, `types-PyYAML`, `types-psutil`.
+Prévia (50 itens máx por seção). Listas completas: `reports/diff_files.txt`.
 
-Implementações:
-- Ajustes apenas em configuração e limpeza segura (espaços/`unused imports` pontuais). Nenhuma alteração de lógica de execução.
+### Adicionados (rework):
+- .env.example
+- .envrc
+- .flake8
+- .mypy_cache/.gitignore
+- .mypy_cache/3.13/@plugins_snapshot.json
+- .mypy_cache/3.13/__future__.data.json
+- .mypy_cache/3.13/__future__.meta.json
+- .mypy_cache/3.13/__main__.data.json
+- .mypy_cache/3.13/__main__.meta.json
+- .mypy_cache/3.13/_ast.data.json
+- .mypy_cache/3.13/_ast.meta.json
+- .mypy_cache/3.13/_asyncio.data.json
+- .mypy_cache/3.13/_asyncio.meta.json
+- .mypy_cache/3.13/_bisect.data.json
+- .mypy_cache/3.13/_bisect.meta.json
+- .mypy_cache/3.13/_blake2.data.json
+- .mypy_cache/3.13/_blake2.meta.json
+- .mypy_cache/3.13/_bz2.data.json
+- .mypy_cache/3.13/_bz2.meta.json
+- .mypy_cache/3.13/_codecs.data.json
+- .mypy_cache/3.13/_codecs.meta.json
+- .mypy_cache/3.13/_collections_abc.data.json
+- .mypy_cache/3.13/_collections_abc.meta.json
+- .mypy_cache/3.13/_compression.data.json
+- .mypy_cache/3.13/_compression.meta.json
+- .mypy_cache/3.13/_contextvars.data.json
+- .mypy_cache/3.13/_contextvars.meta.json
+- .mypy_cache/3.13/_csv.data.json
+- .mypy_cache/3.13/_csv.meta.json
+- .mypy_cache/3.13/_ctypes.data.json
+- .mypy_cache/3.13/_ctypes.meta.json
+- .mypy_cache/3.13/_decimal.data.json
+- .mypy_cache/3.13/_decimal.meta.json
+- .mypy_cache/3.13/_frozen_importlib.data.json
+- .mypy_cache/3.13/_frozen_importlib.meta.json
+- .mypy_cache/3.13/_frozen_importlib_external.data.json
+- .mypy_cache/3.13/_frozen_importlib_external.meta.json
+- .mypy_cache/3.13/_hashlib.data.json
+- .mypy_cache/3.13/_hashlib.meta.json
+- .mypy_cache/3.13/_imp.data.json
+- .mypy_cache/3.13/_imp.meta.json
+- .mypy_cache/3.13/_io.data.json
+- .mypy_cache/3.13/_io.meta.json
+- .mypy_cache/3.13/_locale.data.json
+- .mypy_cache/3.13/_locale.meta.json
+- .mypy_cache/3.13/_markupbase.data.json
+- .mypy_cache/3.13/_markupbase.meta.json
+- .mypy_cache/3.13/_multibytecodec.data.json
+- .mypy_cache/3.13/_multibytecodec.meta.json
+- .mypy_cache/3.13/_operator.data.json
+
+### Removidos (presentes no original, ausentes no rework):
+- Acha_botao.py
+- DashboardSM/Class/dashboard_activity.log
+- DashboardSM/Class/main.py
+- DashboardSM/Class/requirements.txt
+- DashboardSM/Class/run.py
+- DashboardSM/Class/src/__init__.py
+- DashboardSM/Class/src/dashboard/__init__.py
+- DashboardSM/Class/src/dashboard/kpi_calculator.py
+- DashboardSM/Class/src/dashboard/ssa_dashboard - Copia (2).py
+- DashboardSM/Class/src/dashboard/ssa_dashboard - Copia (3).py
+- DashboardSM/Class/src/dashboard/ssa_dashboard - Copia.py
+- DashboardSM/Class/src/dashboard/ssa_dashboard.py
+- DashboardSM/Class/src/dashboard/ssa_visualizer - Copia.py
+- DashboardSM/Class/src/dashboard/ssa_visualizer.py
+- DashboardSM/Class/src/dashboard/tempCodeRunnerFile.py
+- DashboardSM/Class/src/data/__init__.py
+- DashboardSM/Class/src/data/data_loader.py
+- DashboardSM/Class/src/data/ssa_columns.py
+- DashboardSM/Class/src/data/ssa_data.py
+- DashboardSM/Class/src/utils/__init__.py
+- DashboardSM/Class/src/utils/data_validator.py
+- DashboardSM/Class/src/utils/date_utils.py
+- DashboardSM/Class/src/utils/file_manager.py
+- DashboardSM/Class/src/utils/log_manager.py
+- DashboardSM/Dashboard.zip
+- DashboardSM/Dashboard_SM.py
+- DashboardSM/Downloads/SSAs Pendentes Geral - 02-12-2024_1114AM.xlsx
+- DashboardSM/Report_from_excel.py
+- DashboardSM/Scrap-Playwright_otimizado_tratamento_de_erro_rede.py
+- DashboardSM/dashboard_activity.log
+- DashboardSM/error_report.json
+- DashboardSM/execution_log_20241105_075106.log
+- DashboardSM/execution_log_20241105_153649.log
+- DashboardSM/execution_log_20241114_162115.log
+- DashboardSM/relatorio_ssas.xlsx
+- DashboardSM/ssa_analysis.log
+- DashboardSM/tempCodeRunnerFile.py
+- config/config.yaml
+- config/settings.py
+- dashboard.log
+- dashboard_activity.log
+- docs/BEST_PRACTICES.md
+- docs/CODE_SANITY.md
+- docs/CONFIGURACAO.md
+- docs/DESENVOLVIMENTO.md
+- docs/LOG_INSTRUCOES_REWORK.md
+- docs/REWORK_TODO.md
+- execution_log_20241111_090145.log
+- execution_log_20241118_144913.log
+- execution_log_20241119_162707.log
+
+### Modificados (presentes em ambos, conteúdo diferente):
+- .gitignore
+- .pytest_cache/v/cache/nodeids
+- README.md
+- requirements.txt
+- src/dashboard/Dashboard_SM.py
+- src/scrapers/Scrap-Playwright_otimizado_tratamento_de_erro_rede.py
+- src/scrapers/__init__.py
+- src/utils/scrap_installer.py
+
+## Maturidade e qualidade
+
+- Maturidade: arquivos .py=42, testes=1, LOC~32476, funs=1015, anotadas~1015 (~100%).
+- Sanity recente (black/flake8/mypy/pytest):
+[OK] black --version ->
+python -m black, 25.1.0 (compiled: yes)
+[OK] flake8 --version ->
+[OK] mypy --version ->
+mypy 1.17.1 (compiled: yes)
+[OK] pytest --version ->
+pytest 8.4.1
+black --check:
+flake8:
+mypy --show-config:
+usage: mypy [-h] [-v] [-V] [more options; see below]
+mypy: error: unrecognized arguments: --show-config
+mypy:
+src/dashboard/Report_from_excel.py:20: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+pytest -q:
+
+Presença de tooling/config:
+- `.flake8`, `pyproject.toml` (black+mypy), `mypy.ini`, `tests/test_sanity_imports.py`, `log_instrucoes.md` adicionados no rework.
+- `.python-version` e `.envrc` versionados para ambiente consistente.
 
 ## Node (opcional)
 
@@ -73,5 +211,5 @@ Se você utilizar ferramentas Node neste repo:
 ## Convenções
 
 - Ambientes: mantenha apenas UM venv em `.venv/` na raiz. Não duplique ambientes.
-- Configs: `.python-version` e `.envrc` são a base; ajustes específicos de SO podem ser documentados no `log_instrucoes.md`.
-- Formatação: `black` (linhas 88). Lints: `flake8` com ignorados E203,W503,E402,E501,E722. Tipos: `mypy` com overrides por terceiro.
+-- Configs: `.python-version` e `.envrc` são a base; ajustes específicos de SO podem ser documentados no `log_instrucoes.md`.
+
