@@ -1,0 +1,44 @@
+[tool.black]
+line-length = 88
+target-version = ["py313"]
+include = '\.pyi?$'
+exclude = '(/\.venv|/build|/dist|/\.git|/bkp)'
+
+[tool.mypy]
+
+
+exclude = [
+    "src/dashboard/bkp/",
+]
+
+
+
+
+
+
+
+# COPILOT: mypy overrides begin
+[[tool.mypy.overrides]]
+module = [
+    "pandas",
+    "pandas.*",
+  "plotly",
+  "plotly.*",
+  "dash",
+  "dash.*",
+  "dash_bootstrap_components",
+  "xlsxwriter",
+  "pdfkit",
+  "timedelta",
+    "requests",
+    "yaml",
+    "bs4",
+    "numpy",
+    "psutil",
+    "schedule",
+    "thread",
+    "sklearn",
+]
+ignore_missing_imports = true
+# COPILOT: mypy overrides end
+no_implicit_optional = false
