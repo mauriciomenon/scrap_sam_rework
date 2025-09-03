@@ -3,7 +3,7 @@
 
 Fork de modernização do SCRAP_SAM com foco em configuração e tooling atualizados (flake8/black/mypy/pytest) sem mudanças de comportamento em tempo de execução.
 
-Atualizado: 2025-09-02 22:45
+Atualizado: 2025-09-02 22:48
 
 ## Visão geral
 
@@ -60,7 +60,7 @@ Notas:
 
 ## Diferenças em relação ao SCRAP_SAM (original)
 
-Arquivos (rework vs original): adicionados=2109, removidos=117, modificados=8, comuns=61
+Arquivos (rework vs original): adicionados=2110, removidos=117, modificados=8, comuns=61
 
 Prévia (50 itens máx por seção). Listas completas: `reports/diff_files.txt`.
 
@@ -201,6 +201,31 @@ pytest -q:
 Presença de tooling/config:
 - `.flake8`, `pyproject.toml` (black+mypy), `mypy.ini`, `tests/test_sanity_imports.py`, `log_instrucoes.md` adicionados no rework.
 - `.python-version` e `.envrc` versionados para ambiente consistente.
+
+## Troubleshooting
+
+- Playwright no Debian/Ubuntu: use `python -m playwright install --with-deps` para instalar navegadores e dependências do sistema.
+- Certificados/SSL no macOS: se `pip` falhar, rode `Install Certificates.command` (vem com o Python.org) ou atualize o Keychain.
+- Erro de display no Linux: use `xvfb-run -s "-screen 0 1280x720x24" python -m ...` se não houver display.
+- Navegadores headless: confira que o binário foi instalado (`~/.cache/ms-playwright/`). Apague a pasta de cache se corrompida e reinstale.
+- Permissões de arquivos: evite clonar dentro de pastas sincronizadas com permissão restrita (ex.: alguns diretórios corporativos) para não afetar playwright/chromium.
+- Windows PowerShell: ative o venv com `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` se houver bloqueio de scripts.
+
+## Matriz de versões (recomendadas)
+
+- Python: 3.13.7 (recomendado); 3.11+ provável compatível.
+- black: 25.x
+- flake8: 7.x
+- mypy: 1.17.x
+- pytest: 8.x
+- pandas: 2.3.x
+- selenium: 4.3x.x (no rework: 4.35.0 observado)
+- dash: 3.x (no rework)
+- plotly: 6.x (no rework)
+
+Notas:
+- As versões acima refletem o alvo do rework e o que já foi observado no ambiente. Ajuste conforme o lock/constraints da sua equipe.
+- Para tipagem, considere `pandas-stubs`, `types-requests`, `types-PyYAML`, `types-psutil`.
 
 ## Node (opcional)
 
