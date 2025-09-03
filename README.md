@@ -40,7 +40,9 @@ Fork de modernização do SCRAP_SAM com foco em configuração e tooling atualiz
 - Playwright: `python -m playwright install`
 
 Notas:
-- Este repo mantém `.python-version` (pyenv) e `.envrc` (direnv) versionados para padronizar o ambiente. A pasta do venv (`.venv/`) não é versionada.
+- Ambiente único e compartilhado no repositório: use SEMPRE o venv na raiz em `.venv/` (não crie `env/` ou `venv/` paralelos).
+- Reaproveite os arquivos já existentes no repo: `.python-version` (pyenv) e `.envrc` (direnv) estão versionados e devem ser mantidos como fonte de verdade.
+- A pasta do venv (`.venv/`) não é versionada; apenas os arquivos de configuração ficam no Git.
 
 ## Como rodar
 
@@ -70,5 +72,6 @@ Se você utilizar ferramentas Node neste repo:
 
 ## Convenções
 
-- Ambientes: `.python-version` e `.envrc` são versionados para manter paridade entre Windows/macOS/Debian. Ajustes específicos de SO podem ser documentados no `log_instrucoes.md`.
+- Ambientes: mantenha apenas UM venv em `.venv/` na raiz. Não duplique ambientes.
+- Configs: `.python-version` e `.envrc` são a base; ajustes específicos de SO podem ser documentados no `log_instrucoes.md`.
 - Formatação: `black` (linhas 88). Lints: `flake8` com ignorados E203,W503,E402,E501,E722. Tipos: `mypy` com overrides por terceiro.
