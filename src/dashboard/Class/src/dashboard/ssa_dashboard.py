@@ -790,38 +790,39 @@ class SSADashboard:
                 if (!n_clicks) return null;
 
                 function copy(text) {
-                    if (navigator.clipboard && window.isSecureContext) {
-                        return navigator.clipboard.writeText(text);
-                    } else {
-                        const ta = document.createElement('textarea');
-                        ta.value = text;
-                        ta.setAttribute('readonly', '');
-                        ta.style.position = 'fixed';
-                        ta.style.left = '-9999px';
-                        document.body.appendChild(ta);
-                        ta.focus();
-                        ta.select();
-                        try { document.execCommand('copy'); } catch (e) {}
-                        document.body.removeChild(ta);
-                        return Promise.resolve();
-                    }
+                    try {
+                        if (navigator.clipboard && window.isSecureContext) {
+                            return navigator.clipboard.writeText(text);
+                        }
+                    } catch (e) { /* ignore */ }
+                    const ta = document.createElement('textarea');
+                    ta.value = text || '';
+                    ta.setAttribute('readonly', '');
+                    ta.style.position = 'fixed';
+                    ta.style.left = '-9999px';
+                    document.body.appendChild(ta);
+                    ta.focus();
+                    ta.select();
+                    try { document.execCommand('copy'); } catch (e) {}
+                    document.body.removeChild(ta);
+                    return Promise.resolve();
                 }
 
                 const el = document.getElementById('all-ssas-data');
                 if (!el) return null;
                 const allSSAs = (el.textContent || '').trim();
-                copy(allSSAs).then(function() {
+                return copy(allSSAs).then(function() {
                     const btn = document.getElementById('copy-all-ssas');
-                    if (!btn) return;
+                    if (!btn) return true;
                     btn.textContent = 'Copiado!';
                     btn.style.backgroundColor = '#d4edda';
                     setTimeout(() => {
-                        const count = allSSAs ? allSSAs.split(',').length : 0;
+                        const count = allSSAs ? allSSAs.split(',').filter(Boolean).length : 0;
                         btn.textContent = `Copiar todas (${count})`;
                         btn.style.backgroundColor = '#f8f9fa';
                     }, 1500);
+                    return true;
                 });
-                return true;
             }
             """,
             Output("copy-all-ssas", "data-copied"),
@@ -834,29 +835,36 @@ class SSADashboard:
                 if (!n_clicks) return null;
 
                 function copy(text) {
-                    if (navigator.clipboard && window.isSecureContext) {
-                        return navigator.clipboard.writeText(text);
-                    } else {
-                        const ta = document.createElement('textarea');
-                        ta.value = text;
-                        ta.setAttribute('readonly', '');
-                        ta.style.position = 'fixed';
-                        ta.style.left = '-9999px';
-                        document.body.appendChild(ta);
-                        ta.focus();
-                        ta.select();
-                        try { document.execCommand('copy'); } catch (e) {}
-                        document.body.removeChild(ta);
-                        return Promise.resolve();
-                    }
+                    try {
+                        if (navigator.clipboard && window.isSecureContext) {
+                            return navigator.clipboard.writeText(text);
+                        }
+                    } catch (e) { /* ignore */ }
+                    const ta = document.createElement('textarea');
+                    ta.value = text || '';
+                    ta.setAttribute('readonly', '');
+                    ta.style.position = 'fixed';
+                    ta.style.left = '-9999px';
+                    document.body.appendChild(ta);
+                    ta.focus();
+                    ta.select();
+                    try { document.execCommand('copy'); } catch (e) {}
+                    document.body.removeChild(ta);
+                    return Promise.resolve();
                 }
 
-                const domId = (typeof id === 'string') ? id : JSON.stringify(id);
-                const button = document.getElementById(domId);
+                const domId = (typeof id === 'string') ? id : (id && id.type ? JSON.stringify(id) : null);
+                if (!domId) return null;
+                let button = document.getElementById(domId);
+                if (!button && typeof id === 'object') {
+                    // Fallback: try to find by data-dash-id when Dash rewrites IDs
+                    const all = document.querySelectorAll('[data-dash-is-loading]');
+                    for (let el of all) { if (el.id === domId) { button = el; break; } }
+                }
                 if (!button) return null;
 
                 const ssa = button.title || button.getAttribute('title') || '';
-                copy(ssa).then(function() {
+                return copy(ssa).then(function() {
                     const originalText = button.textContent;
                     button.textContent = '✓';
                     button.style.backgroundColor = '#d4edda';
@@ -864,9 +872,8 @@ class SSADashboard:
                         button.textContent = originalText;
                         button.style.backgroundColor = 'transparent';
                     }, 1500);
+                    return true;
                 });
-
-                return true;
             }
             """,
             Output({"type": "copy-button", "index": MATCH}, "data-copied"),
