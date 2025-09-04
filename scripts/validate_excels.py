@@ -9,17 +9,20 @@ import sys
 import glob
 import traceback
 from datetime import datetime
+import argparse
 from pathlib import Path
 
 # Allow running from repo root
 REPO_ROOT = Path(__file__).resolve().parents[1]
-# Prefer adding the top-level 'src' so absolute imports work for Pylance and runtime
-sys.path.insert(0, str(REPO_ROOT / "src"))
+CLASS_DIR = REPO_ROOT / "src" / "dashboard" / "Class"
+# Ensure the 'Class' package root is on sys.path so 'src.*' inside it resolves
+if str(CLASS_DIR) not in sys.path:
+    sys.path.insert(0, str(CLASS_DIR))
 
 import pandas as pd  # noqa: E402
 
-from dashboard.Class.src.data.data_loader import DataLoader  # noqa: E402
-from dashboard.Class.src.data.ssa_columns import SSAColumns  # noqa: E402
+from src.data.data_loader import DataLoader  # type: ignore  # noqa: E402
+from src.data.ssa_columns import SSAColumns  # type: ignore  # noqa: E402
 
 
 def validate_file(path: Path) -> dict:
@@ -76,13 +79,34 @@ def validate_file(path: Path) -> dict:
     return res
 
 
-def main():
-    downloads = REPO_ROOT / "downloads"
-    report_path = REPO_ROOT / "docs" / "VALIDATION_REPORT.md"
-    files = sorted(glob.glob(str(downloads / "*.xlsx")))
+def main(argv: list[str] | None = None):
+    parser = argparse.ArgumentParser(description="Batch-validate SSA Excel files.")
+    parser.add_argument(
+        "path",
+        nargs="?",
+        default=str(REPO_ROOT / "downloads"),
+        help="File, folder, or glob pattern (default: downloads/)",
+    )
+    parser.add_argument(
+        "--out",
+        default=str(REPO_ROOT / "docs" / "VALIDATION_REPORT.md"),
+        help="Output report path (markdown)",
+    )
+    args = parser.parse_args(argv)
+
+    base = Path(args.path)
+    if base.is_dir():
+        files = sorted(glob.glob(str(base / "*.xlsx")))
+    elif base.is_file():
+        files = [str(base)]
+    else:
+        # treat as glob
+        files = sorted(glob.glob(args.path))
+
+    report_path = Path(args.out)
 
     if not files:
-        print("No Excel files found under downloads/", file=sys.stderr)
+        print("No Excel files found for given path.", file=sys.stderr)
         return 2
 
     results = [validate_file(Path(p)) for p in files]

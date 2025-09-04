@@ -7,6 +7,7 @@ import socket
 import platform
 from pathlib import Path
 from datetime import datetime
+import argparse
 
 
 def get_python_command():
@@ -26,15 +27,15 @@ def get_python_command():
 # Configura o comando Python correto para o sistema
 PYTHON_CMD = get_python_command()
 
-# Adiciona o diretório atual ao PYTHONPATH usando Path
+# Garanta que os diretórios 'Class' e 'Class/src' estejam no PYTHONPATH
 current_dir = Path(__file__).resolve().parent
-sys.path.append(str(current_dir))
+class_src = current_dir / "src"
+for p in (str(class_src), str(current_dir)):
+    if p not in sys.path:
+        sys.path.insert(0, p)
 
-# Imports dos módulos locais
-from src.dashboard.ssa_dashboard import SSADashboard
-from src.data.data_loader import DataLoader
-from src.utils.file_manager import FileManager
-from src.utils.log_manager import LogManager
+# Imports de módulos do projeto serão feitos dentro de main(),
+# após ajustar sys.path para evitar conflitos com o 'src' da raiz.
 
 # Configurações globais
 warnings.filterwarnings("ignore")
@@ -69,28 +70,68 @@ def get_available_port(starting_port=8080):
         port += 1
 
 
-def main():
+def main(argv: list[str] | None = None):
     try:
         setup_logging()
+
+        parser = argparse.ArgumentParser(description="Run SSA Dashboard")
+        parser.add_argument("--file", dest="data_file", help="Path to an Excel file to load", default=None)
+        parser.add_argument("--port", dest="port", help="Port to run the server", type=int, default=None)
+        args = parser.parse_args(argv)
 
         base_dir = Path.cwd()
         downloads_dir = base_dir / "downloads"
         downloads_dir.mkdir(exist_ok=True)
 
-        file_manager = FileManager(downloads_dir)
+        # Preparar ambiente de import: garantir que o pacote 'src' correto (o desta pasta Class)
+        # seja utilizado, mesmo que um 'src' da raiz já tenha sido importado.
+        # 1) Limpa módulos 'src' previamente importados para evitar cache incorreto
+        for key in [k for k in list(sys.modules) if k == "src" or k.startswith("src.")]:
+            sys.modules.pop(key, None)
+        # 2) Garante prioridade nos caminhos
+        current_dir = Path(__file__).resolve().parent
+        class_src = current_dir / "src"
+        for p in (str(current_dir), str(class_src)):
+            if p not in sys.path:
+                sys.path.insert(0, p)
+
+        # Importes tardios agora que o ambiente está preparado
+        from src.utils.file_manager import FileManager  # type: ignore
+        from src.data.data_loader import DataLoader  # type: ignore
+        from src.dashboard.ssa_dashboard import SSADashboard  # type: ignore
+
+        file_manager = FileManager(str(downloads_dir))
 
         try:
-            latest_file = file_manager.get_latest_file("ssa_pendentes")
-            file_info = file_manager.get_file_info(latest_file)
-            DATA_FILE_PATH = latest_file
+            selected_path: Path
+            if args.data_file:
+                selected_path = Path(args.data_file)
+                if not selected_path.exists():
+                    raise FileNotFoundError(f"Arquivo não encontrado: {selected_path}")
+            else:
+                # Prioriza arquivos de 'SSAs Pendentes Geral - ...'
+                try:
+                    latest_path = Path(file_manager.get_latest_file("ssa_pendentes"))
+                    selected_path = latest_path
+                except Exception:
+                    # fallback: qualquer .xlsx no diretório downloads, excluindo agregados como relatorio_ssas.xlsx
+                    candidates = sorted(
+                        [p for p in downloads_dir.glob("*.xlsx") if "relatorio_ssas" not in p.name.lower()],
+                        key=lambda p: p.stat().st_mtime,
+                        reverse=True,
+                    )
+                    if not candidates:
+                        raise FileNotFoundError("Nenhum arquivo .xlsx encontrado em downloads/")
+                    selected_path = candidates[0]
+
+            DATA_FILE_PATH = selected_path
+            file_info = file_manager.get_file_info(str(DATA_FILE_PATH))
             print(f"\nUsando arquivo: {file_info['name']}")
             print(
                 f"Última modificação: {file_info['modified'].strftime('%d/%m/%Y %H:%M:%S')}"
             )
         except FileNotFoundError:
-            DATA_FILE_PATH = (
-                downloads_dir / "SSAs Pendentes Geral - 05-11-2024_0753AM.xlsx"
-            )
+            DATA_FILE_PATH = downloads_dir / "SSAs Pendentes Geral - 05-11-2024_0753AM.xlsx"
             print(f"\nUsando arquivo padrão: {DATA_FILE_PATH.name}")
 
         print(
@@ -105,14 +146,16 @@ def main():
         )
 
         print("\nIniciando carregamento dos dados...")
-        loader = DataLoader(DATA_FILE_PATH)
+        loader = DataLoader(str(DATA_FILE_PATH))
         df = loader.load_data()
         print(f"Dados carregados com sucesso. Total de SSAs: {len(df)}")
 
         print("\nIniciando dashboard...")
         app = SSADashboard(df)
 
-        port = get_available_port(8080)
+        # Se porta informada estiver em uso, escolhe automaticamente outra livre
+        desired = args.port if args.port else 8080
+        port = get_available_port(desired)
 
         print(
             f"""
@@ -120,7 +163,7 @@ Dashboard iniciado com sucesso!
 URL: http://localhost:{port}
 Data: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}
 Pressione CTRL+C para encerrar.
-        """
+            """
         )
 
         app.run_server(debug=True, port=port)
