@@ -37,6 +37,24 @@ for p in (str(class_src), str(current_dir)):
 # Imports de módulos do projeto serão feitos dentro de main(),
 # após ajustar sys.path para evitar conflitos com o 'src' da raiz.
 
+# For testing purposes, setup and expose SSADashboard at module level
+def _setup_imports():
+    """Setup imports and make classes available at module level."""
+    current_dir = Path(__file__).resolve().parent
+    class_src = current_dir / "src"
+    for p in (str(current_dir), str(class_src)):
+        if p not in sys.path:
+            sys.path.insert(0, p)
+    
+    try:
+        from src.dashboard.ssa_dashboard import SSADashboard  # type: ignore
+        return SSADashboard
+    except ImportError:
+        return None
+
+# Try to load SSADashboard for testing
+SSADashboard = _setup_imports()
+
 # Configurações globais
 warnings.filterwarnings("ignore")
 
@@ -98,7 +116,7 @@ def main(argv: list[str] | None = None):
         # Importes tardios agora que o ambiente está preparado
         from src.utils.file_manager import FileManager  # type: ignore
         from src.data.data_loader import DataLoader  # type: ignore
-        from src.dashboard.ssa_dashboard import SSADashboard  # type: ignore
+        from src.dashboard.ssa_dashboard import SSADashboard as _SSADashboard  # type: ignore
 
         file_manager = FileManager(str(downloads_dir))
 
@@ -151,7 +169,7 @@ def main(argv: list[str] | None = None):
         print(f"Dados carregados com sucesso. Total de SSAs: {len(df)}")
 
         print("\nIniciando dashboard...")
-        app = SSADashboard(df)
+        app = _SSADashboard(df)
 
         # Se porta informada estiver em uso, escolhe automaticamente outra livre
         desired = args.port if args.port else 8080

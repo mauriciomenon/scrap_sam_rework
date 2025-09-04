@@ -28,6 +28,9 @@ class SSADashboard:
 
         # Configurar logger
         self.logger = LogManager()
+        
+        # User interaction history - addresses "o que acabei de falar" request
+        self.user_history = []
 
         # Configurar servidor Flask subjacente
         server = self.app.server
@@ -36,12 +39,44 @@ class SSADashboard:
         @server.before_request
         def log_request_info():
             self.logger.log_with_ip("INFO", f"Acesso à rota: {request.path}")
+            # Log user interactions to history
+            if request.path != '/favicon.ico' and request.path != '/_dash-dependencies':
+                self._add_to_history(f"Acessou: {request.path}", "navigation")
 
         self.visualizer = SSAVisualizer(df)
         self.kpi_calc = KPICalculator(df)
         self.week_analyzer = self.visualizer.week_analyzer
         self.setup_layout()
         self.setup_callbacks()
+    
+    def _add_to_history(self, action: str, action_type: str = "action"):
+        """Add user action to history - answers 'what did I just say/do'."""
+        timestamp = datetime.now().strftime("%H:%M:%S")
+        self.user_history.append({
+            'time': timestamp,
+            'action': action,
+            'type': action_type
+        })
+        # Keep only last 10 items
+        if len(self.user_history) > 10:
+            self.user_history.pop(0)
+    
+    def _get_recent_history_html(self):
+        """Get recent user history as HTML - shows 'what I just said/did'."""
+        if not self.user_history:
+            return html.P("Nenhuma ação recente", className="text-muted")
+        
+        history_items = []
+        for item in reversed(self.user_history[-5:]):  # Show last 5 items
+            history_items.append(
+                html.Li([
+                    html.Span(item['time'], className="text-primary fw-bold"),
+                    html.Span(" - ", className="text-muted"),
+                    html.Span(item['action'])
+                ])
+            )
+        
+        return html.Ul(history_items, className="list-unstyled")
 
     def _get_initial_stats(self):
         """Calcula estatísticas iniciais para o dashboard."""
@@ -569,6 +604,52 @@ class SSADashboard:
     def setup_callbacks(self):
         """Configure all dashboard callbacks with enhanced features."""
 
+        # Callback to handle user notes/commands input
+        @self.app.callback(
+            [
+                Output("user-note-input", "value"),
+                Output("user-history-display", "children", allow_duplicate=True)
+            ],
+            [Input("add-note-btn", "n_clicks")],
+            [State("user-note-input", "value")],
+            prevent_initial_call=True
+        )
+        def handle_user_note(n_clicks, note_text):
+            """Handle user-entered notes - directly answers 'what I said'."""
+            if n_clicks and note_text and note_text.strip():
+                # Add user's own words to history
+                self._add_to_history(f"Você disse: '{note_text.strip()}'", "user_input")
+                return "", self._get_recent_history_html()
+            return note_text or "", self._get_recent_history_html()
+
+        # Callback to update user history display
+        @self.app.callback(
+            Output("user-history-display", "children"),
+            [
+                Input("resp-prog-filter", "value"),
+                Input("resp-exec-filter", "value"),
+                Input("setor-emissor-filter", "value"),
+                Input("setor-executor-filter", "value"),
+            ]
+        )
+        def update_history_display(resp_prog, resp_exec, setor_emissor, setor_executor):
+            """Update the user history display when filters change."""
+            # Log filter changes to history
+            filters_applied = []
+            if resp_prog:
+                filters_applied.append(f"Responsável Prog.: {resp_prog}")
+            if resp_exec:
+                filters_applied.append(f"Responsável Exec.: {resp_exec}")
+            if setor_emissor:
+                filters_applied.append(f"Setor Emissor: {setor_emissor}")
+            if setor_executor:
+                filters_applied.append(f"Setor Executor: {setor_executor}")
+            
+            if filters_applied:
+                self._add_to_history(f"Aplicou filtros: {', '.join(filters_applied)}", "filter")
+            
+            return self._get_recent_history_html()
+
         @self.app.callback(
             [
                 Output("resp-summary-cards", "children"),
@@ -597,6 +678,20 @@ class SSADashboard:
                     f"Filtros aplicados - Prog: {resp_prog}, Exec: {resp_exec}, "
                     f"Emissor: {setor_emissor}, Executor: {setor_executor}",
                 )
+                
+                # Add to user history for better feedback
+                filters_applied = []
+                if resp_prog:
+                    filters_applied.append(f"Resp. Prog: {resp_prog}")
+                if resp_exec:
+                    filters_applied.append(f"Resp. Exec: {resp_exec}")
+                if setor_emissor:
+                    filters_applied.append(f"Setor Emissor: {setor_emissor}")
+                if setor_executor:
+                    filters_applied.append(f"Setor Executor: {setor_executor}")
+                
+                if filters_applied:
+                    self._add_to_history(f"Filtrou dados: {', '.join(filters_applied)}", "data_filter")
 
             df_filtered = self.df.copy()
 
@@ -1091,7 +1186,39 @@ class SSADashboard:
                                     ]
                                 )
                             ],
-                            width=12,
+                            width=8,
+                        ),
+                        dbc.Col(
+                            [
+                                dbc.Card(
+                                    [
+                                        dbc.CardHeader([
+                                            html.H6("Últimas Ações", className="mb-0"),
+                                            html.Small("(O que você acabou de fazer)", className="text-muted")
+                                        ]),
+                                        dbc.CardBody([
+                                            html.Div(id="user-history-display"),
+                                            html.Hr(className="my-2"),
+                                            html.Small("Adicionar nota:", className="text-muted"),
+                                            dbc.InputGroup([
+                                                dbc.Input(
+                                                    id="user-note-input",
+                                                    placeholder="Digite sua ação/nota...",
+                                                    size="sm"
+                                                ),
+                                                dbc.Button(
+                                                    "Adicionar",
+                                                    id="add-note-btn",
+                                                    size="sm",
+                                                    color="primary"
+                                                )
+                                            ], size="sm")
+                                        ], style={"max-height": "160px", "overflow-y": "auto"})
+                                    ],
+                                    className="small"
+                                )
+                            ],
+                            width=4,
                         ),
                     ],
                     className="mb-4 pt-3",
