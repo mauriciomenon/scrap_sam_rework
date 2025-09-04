@@ -13,13 +13,13 @@ from pathlib import Path
 
 # Allow running from repo root
 REPO_ROOT = Path(__file__).resolve().parents[1]
-# Put the parent that contains the inner package named 'src' on sys.path
-sys.path.insert(0, str(REPO_ROOT / "src" / "dashboard" / "Class"))
+# Prefer adding the top-level 'src' so absolute imports work for Pylance and runtime
+sys.path.insert(0, str(REPO_ROOT / "src"))
 
 import pandas as pd  # noqa: E402
 
-from src.data.data_loader import DataLoader  # noqa: E402
-from src.data.ssa_columns import SSAColumns  # noqa: E402
+from dashboard.Class.src.data.data_loader import DataLoader  # noqa: E402
+from dashboard.Class.src.data.ssa_columns import SSAColumns  # noqa: E402
 
 
 def validate_file(path: Path) -> dict:

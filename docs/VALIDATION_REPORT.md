@@ -1,5 +1,5 @@
 # Validation Report
-Generated: 2025-09-03T23:58:45
+Generated: 2025-09-04T00:17:09
 Files scanned: 22 | OK: 22 | FAIL: 0
 
 ---
@@ -20,11 +20,11 @@ Files scanned: 22 | OK: 22 | FAIL: 0
 
 ---
 ## SSAs Pendentes Geral - 05-11-2024_0753AM.xlsx
-- Rows: 8
-- Valid dates: 0 (0.0%)
+- Rows: 10
+- Valid dates: 10 (100.0%)
 - Empty SSA numbers: 0
-- Top setores (10): {}
-- Priorities: {}
+- Top setores (10): {'SX': 10}
+- Priorities: {'S3.7': 5, 'S3.6': 5}
 
 ---
 ## SSAs Pendentes Geral - 11-11-2024_0904AM.xlsx
@@ -172,7 +172,7 @@ Files scanned: 22 | OK: 22 | FAIL: 0
 
 ---
 ## relatorio_ssas.xlsx
-- Rows: 0
+- Rows: 2
 - Valid dates: 0 (0.0%)
 - Empty SSA numbers: 0
 - Top setores (10): {}

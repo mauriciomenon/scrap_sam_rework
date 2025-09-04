@@ -4,6 +4,7 @@ import logging
 import traceback
 from typing import List, Optional, Dict, Tuple
 from datetime import datetime
+import unicodedata
 from ..utils.date_utils import diagnose_dates
 from .ssa_data import SSAData
 from .ssa_columns import SSAColumns
@@ -20,6 +21,186 @@ class DataLoader:
         self.validator = SSADataValidator()
         self._col_labels = {}  # Mapeia índice SSAColumns -> rótulo real no DF
         # self.file_manager = FileManager(os.path.dirname(excel_path)) # Evitar ref circular
+
+    # -----------------------
+    # Helpers de normalização
+    # -----------------------
+    def _normalize_label(self, s: str) -> str:
+        s = str(s or "").strip().lower()
+        s = unicodedata.normalize("NFKD", s)
+        s = "".join(ch for ch in s if not unicodedata.combining(ch))
+        return "".join(ch for ch in s if ch.isalnum())
+
+    def _synonyms(self) -> Dict[int, List[str]]:
+        return {
+            SSAColumns.NUMERO_SSA: [
+                "numero",
+                "numerodassa",
+                "nssa",
+                "nossa",
+                "nºssa",
+                "ssa",
+                "numeroordem",
+            ],
+            SSAColumns.EMITIDA_EM: [
+                "emitidaem",
+                "dataemissao",
+                "dataemissao",
+                "data",
+                "dtemissao",
+                "dtem",
+                "emissao",
+            ],
+            SSAColumns.GRAU_PRIORIDADE_EMISSAO: [
+                "graudeprioridade",
+                "prioridade",
+                "prioridadeemissao",
+            ],
+            SSAColumns.SETOR_EXECUTOR: [
+                "setorexecutor",
+                "setorexec",
+                "executora",
+                "areaexecutora",
+                "executor",
+            ],
+            SSAColumns.SEMANA_CADASTRO: [
+                "semanacadastro",
+                "semana",
+                "semanadecadastro",
+            ],
+            SSAColumns.SEMANA_PROGRAMADA: [
+                "semanaprogramada",
+                "semanaprog",
+                "programada",
+            ],
+        }
+
+    def _detect_header_row(self, max_rows: int = 25) -> int:
+        """Detecta automaticamente a linha de cabeçalho no Excel.
+
+        Estratégia: lê as primeiras linhas sem cabeçalho e escolhe a linha
+        com maior cobertura de nomes esperados/sinônimos.
+        """
+        try:
+            tmp = pd.read_excel(self.excel_path, header=None, nrows=max_rows)
+        except Exception:
+            # fallback seguro
+            return 1
+
+        # prepara conjunto de chaves esperadas normalizadas
+        expected = {self._normalize_label(n) for n in SSAColumns.COLUMN_NAMES.values()}
+        for idx, alts in self._synonyms().items():
+            expected.update({self._normalize_label(a) for a in alts})
+
+        best_row = 1
+        best_score = -1
+        for i in range(min(len(tmp), max_rows)):
+            row_vals = [self._normalize_label(v) for v in list(tmp.iloc[i].values)]
+            if not any(row_vals):
+                continue
+            score = sum(1 for v in row_vals if v in expected)
+            if score > best_score:
+                best_score = score
+                best_row = i
+
+        # Se cobertura muito baixa, mantém padrão 1 (linha 1 = segunda linha zero-based)
+        return int(best_row)
+
+    def _infer_columns_from_data(self, sample_rows: int = 200) -> None:
+        """Para planilhas sem cabeçalho, infere colunas-chave por padrão de dados.
+
+        Atualiza self._col_labels para índices ainda não resolvidos:
+        - Número SSA: valores tipo 'SSA-1234'
+        - Prioridade Emissão: valores tipo 'S3.7', 'S3', 'S4.0'
+        - Emitida Em: valores parseáveis como datetime
+        - Semana Cadastro: valores 6 dígitos (ex: 202534)
+        - Situação: códigos 3 letras conhecidos (APL, APG, AAD, ...)
+        """
+        if self.df is None:
+            return
+        df = self.df.head(sample_rows)
+        cols = list(df.columns)
+
+        def frac(series, cond):
+            s = series.astype(str)
+            total = max(len(s), 1)
+            return (cond(s)).sum() / total
+
+        # Helper condicoes
+        import re
+        state_keys = set(SSAColumns.STATE_DESCRIPTIONS.keys())
+
+        def is_numero(s: pd.Series):
+            return s.str.match(r"^ssa-?\d+\b", case=False, na=False)
+
+        def is_prioridade(s: pd.Series):
+            return s.str.match(r"^s\d(\.\d)?$", case=False, na=False)
+
+        def is_semana(s: pd.Series):
+            return s.str.match(r"^[12]\d{5}$", na=False)
+
+        def is_situacao(s: pd.Series):
+            return s.str.upper().isin(state_keys)
+
+        def is_datetime_like(series: pd.Series):
+            try:
+                parsed = pd.to_datetime(series, errors="coerce", dayfirst=True)
+                return parsed.notna()
+            except Exception:
+                return pd.Series([False] * len(series))
+
+        # Avoid duplicate assignment
+        assigned = set()
+        current = dict(self._col_labels)
+
+        # Compute scores for each column
+        scores = {}
+        for c in cols:
+            s = df[c]
+            scores[c] = {
+                "numero": frac(s, is_numero),
+                "prioridade": frac(s, is_prioridade),
+                "semana": frac(s, is_semana),
+                "situacao": frac(s, is_situacao),
+                "datetime": is_datetime_like(s).mean(),
+            }
+
+        # Select best candidates above thresholds
+        def best_col(key, threshold):
+            cand = [
+                (c, sc[key]) for c, sc in scores.items() if sc[key] >= threshold and c not in assigned
+            ]
+            if not cand:
+                return None
+            cand.sort(key=lambda x: x[1], reverse=True)
+            assigned.add(cand[0][0])
+            return cand[0][0]
+
+        # Only fill if not already mapped
+        if self._get_label(SSAColumns.NUMERO_SSA) is None:
+            col = best_col("numero", 0.3)
+            if col is not None:
+                self._col_labels[SSAColumns.NUMERO_SSA] = col
+
+        if self._get_label(SSAColumns.GRAU_PRIORIDADE_EMISSAO) is None:
+            col = best_col("prioridade", 0.3)
+            if col is not None:
+                self._col_labels[SSAColumns.GRAU_PRIORIDADE_EMISSAO] = col
+
+        if self._get_label(SSAColumns.EMITIDA_EM) is None:
+            col = best_col("datetime", 0.3)
+            if col is not None:
+                self._col_labels[SSAColumns.EMITIDA_EM] = col
+
+        if self._get_label(SSAColumns.SEMANA_CADASTRO) is None:
+            col = best_col("semana", 0.4)
+            if col is not None:
+                self._col_labels[SSAColumns.SEMANA_CADASTRO] = col
+
+        if self._get_label(SSAColumns.SITUACAO) is None:
+            col = best_col("situacao", 0.3)
+            if col is not None:
+                self._col_labels[SSAColumns.SITUACAO] = col
 
     def validate_and_fix_date(self, date_str, row_num, logger=None):
         """
@@ -63,7 +244,7 @@ class DataLoader:
             if self.df is None:
                 raise ValueError("DataFrame não carregado antes da conversão de datas")
             col_label = self._get_label(SSAColumns.EMITIDA_EM)
-            if not col_label or col_label not in self.df.columns:
+            if (col_label is None) or (col_label not in self.df.columns):
                 logging.warning("Coluna 'Emitida Em' ausente; pulando conversão de datas")
                 return
             # Converte diretamente para datetime usando o formato correto; always enforce dtype
@@ -100,10 +281,11 @@ class DataLoader:
 
             logging.info(f"Iniciando carregamento do arquivo: {self.excel_path}")
 
-            # Carrega o Excel pulando a primeira linha (cabeçalho na segunda linha)
+            # Detecta automaticamente a linha de cabeçalho
+            header_row = self._detect_header_row()
             self.df = pd.read_excel(
                 self.excel_path,
-                header=1,  # Cabeçalho na segunda linha
+                header=header_row,
             )
 
             logging.info(f"Arquivo carregado. Total de linhas: {len(self.df)}")
@@ -111,15 +293,55 @@ class DataLoader:
             # Constrói mapeamento de colunas esperadas -> rótulos reais
             self._build_column_mapping()
 
+            # Verifica cobertura de colunas essenciais; se muito baixa, tenta modo posicional (planilha sem cabeçalho)
+            required = [
+                SSAColumns.NUMERO_SSA,
+                SSAColumns.SITUACAO,
+                SSAColumns.GRAU_PRIORIDADE_EMISSAO,
+                SSAColumns.EMITIDA_EM,
+                SSAColumns.SETOR_EXECUTOR,
+            ]
+            coverage = sum(1 for r in required if self._get_label(r) in getattr(self.df, 'columns', []))
+            if coverage <= 2:
+                logging.warning("Cobertura baixa de colunas esperadas; assumindo planilha sem cabeçalho e usando mapeamento posicional")
+                # Recarrega sem cabeçalho para não perder a primeira linha de dados
+                self.df = pd.read_excel(self.excel_path, header=None)
+                # Mapeia índices esperados para posições
+                self._col_labels = {}
+                for idx in SSAColumns.COLUMN_NAMES.keys():
+                    if idx < self.df.shape[1]:
+                        self._col_labels[idx] = self.df.columns[idx]
+                logging.info(f"Mapeamento posicional aplicado para {len(self._col_labels)} colunas")
+                # Tenta inferir rótulos-chave baseado nos dados
+                self._infer_columns_from_data()
+                # Normalizações mínimas para colunas-chave
+                for key_idx in [
+                    SSAColumns.NUMERO_SSA,
+                    SSAColumns.SITUACAO,
+                    SSAColumns.GRAU_PRIORIDADE_EMISSAO,
+                    SSAColumns.SETOR_EXECUTOR,
+                ]:
+                    lbl = self._get_label(key_idx)
+                    if lbl in self.df.columns:
+                        self.df[lbl] = self.df[lbl].astype(str).str.strip()
+
             # Diagnóstico inicial de datas (se a coluna existir)
             em_label = self._get_label(SSAColumns.EMITIDA_EM)
-            if em_label and em_label in self.df.columns:
+            if (em_label is not None) and (em_label in self.df.columns):
                 # Resolve integer index robustly even if duplicate columns exist
-                idx_arr = self.df.columns.get_indexer_for([em_label])
-                if len(idx_arr) == 1 and idx_arr[0] != -1:
-                    date_col_index = int(idx_arr[0])
+                try:
+                    idx_arr = self.df.columns.get_indexer_for([em_label])
+                    if len(idx_arr) == 1 and idx_arr[0] != -1:
+                        date_col_index = int(idx_arr[0])
+                    else:
+                        # Se colunas são inteiras, o próprio label pode ser o índice
+                        date_col_index = int(em_label) if isinstance(em_label, int) else None
+                except Exception:
+                    date_col_index = int(em_label) if isinstance(em_label, int) else None
+                date_diagnosis = None
+                if date_col_index is not None:
                     date_diagnosis = diagnose_dates(self.df, date_col_index)
-                if date_diagnosis["error_count"] > 0:
+                if date_diagnosis and date_diagnosis["error_count"] > 0:
                     logging.info("=== Diagnóstico de Datas ===")
                     logging.info(f"Total de linhas: {date_diagnosis['total_rows']}")
                     logging.info(f"Problemas encontrados: {date_diagnosis['error_count']}")
@@ -157,7 +379,7 @@ class DataLoader:
             for col in string_columns:
                 try:
                     label = self._get_label(col)
-                    if label and label in self.df.columns:
+                    if (label is not None) and (label in self.df.columns):
                         self.df[label] = (
                             self.df[label].astype(str).str.strip().replace("nan", "")
                         )
@@ -166,7 +388,7 @@ class DataLoader:
 
             # Padroniza prioridades para maiúsculas
             pri_label = self._get_label(SSAColumns.GRAU_PRIORIDADE_EMISSAO)
-            if pri_label and pri_label in self.df.columns:
+            if (pri_label is not None) and (pri_label in self.df.columns):
                 self.df[pri_label] = self.df[pri_label].str.upper().str.strip()
 
             # Converte colunas opcionais
@@ -181,7 +403,7 @@ class DataLoader:
             for col in optional_string_columns:
                 try:
                     label = self._get_label(col)
-                    if label and label in self.df.columns:
+                    if (label is not None) and (label in self.df.columns):
                         self.df[label] = (
                             self.df[label].astype(str).replace("nan", None).replace("", None)
                         )
@@ -190,7 +412,7 @@ class DataLoader:
 
             # Remove linhas com número da SSA vazio
             num_label = self._get_label(SSAColumns.NUMERO_SSA)
-            if num_label and num_label in self.df.columns:
+            if (num_label is not None) and (num_label in self.df.columns):
                 empty_ssa_count = (self.df[num_label].astype(str).str.strip() == "").sum()
                 if empty_ssa_count > 0:
                     logging.warning(
@@ -202,7 +424,7 @@ class DataLoader:
             try:
                 # Trata semana cadastro
                 cad_label = self._get_label(SSAColumns.SEMANA_CADASTRO)
-                if cad_label and cad_label in self.df.columns:
+                if (cad_label is not None) and (cad_label in self.df.columns):
                     self.df[cad_label] = (
                         pd.to_numeric(self.df[cad_label], errors="coerce")
                         .fillna(0)
@@ -213,7 +435,7 @@ class DataLoader:
 
                 # Trata semana programada
                 prog_label = self._get_label(SSAColumns.SEMANA_PROGRAMADA)
-                if prog_label and prog_label in self.df.columns:
+                if (prog_label is not None) and (prog_label in self.df.columns):
                     self.df[prog_label] = (
                         pd.to_numeric(self.df[prog_label], errors="coerce")
                         .fillna(0)
@@ -322,7 +544,10 @@ class DataLoader:
                     # Helpers para recuperar valores por rótulo
                     def gv(i):
                         lbl = self._get_label(i)
-                        return row[lbl] if (lbl and lbl in row) else None
+                        if lbl is None:
+                            return None
+                        # row is a Series: membership checks column label presence
+                        return row[lbl] if (lbl in row.index or lbl in row) else None
 
                     # Processamento do responsável execução
                     raw_resp = gv(SSAColumns.RESPONSAVEL_EXECUCAO)
@@ -465,19 +690,31 @@ class DataLoader:
         if self.df is None:
             return
         existing = list(self.df.columns)
-        # Normaliza para comparação simples
-        norm_existing = {str(c).strip(): c for c in existing}
+        # Tabela de normalizacao -> rótulo original
+        norm_existing = {self._normalize_label(c): c for c in existing}
+        synonyms = self._synonyms()
+
         for idx, expected in SSAColumns.COLUMN_NAMES.items():
             label = None
-            # Match exato
-            if expected in norm_existing:
-                label = norm_existing[expected]
+            expected_key = self._normalize_label(expected)
+
+            # 1) Match exato normalizado
+            if expected_key in norm_existing:
+                label = norm_existing[expected_key]
             else:
-                # Tentativa: case-insensitive e strip
-                for c in existing:
-                    if str(c).strip().lower() == str(expected).strip().lower():
-                        label = c
+                # 2) Tenta sinônimos
+                for alt in synonyms.get(idx, []):
+                    key = self._normalize_label(alt)
+                    if key in norm_existing:
+                        label = norm_existing[key]
                         break
+                # 3) Fallback: varredura case-insensitive simples (para compatibilidade antiga)
+                if not label:
+                    for c in existing:
+                        if str(c).strip().lower() == str(expected).strip().lower():
+                            label = c
+                            break
+
             self._col_labels[idx] = label
 
     def _get_label(self, idx: int) -> Optional[str]:
