@@ -26,7 +26,26 @@ def test_user_history_feature_exists():
     assert "user-history-display" in content, "History display component not found"
     assert "user-note-input" in content, "User note input component not found"
     
+    # Verify enhanced features added in continuation
+    assert "_clear_history" in content, "Clear history method not found"
+    assert "_export_history" in content, "Export history method not found"
+    assert "clear-history-btn" in content, "Clear history button not found"
+    assert "export-history-btn" in content, "Export history button not found"
+    assert "history-export-modal" in content, "Export modal not found"
+    
+    # Verify enhanced visual features
+    assert "action_icons" in content, "Action icons not found"
+    assert "action_colors" in content, "Action colors not found"
+    assert "💬" in content, "User input icon not found"
+    assert "🔍" in content, "Filter icon not found"
+    assert "🔗" in content, "Navigation icon not found"
+    assert "📊" in content, "Data filter icon not found"
+    
     print("✓ User history feature successfully implemented!")
     print("✓ Addresses 'o que acabei de falar' (what I just said) requirement")
     print("✓ Includes UI for tracking and displaying user actions")
     print("✓ Allows users to add their own notes/commands")
+    print("✓ Enhanced with visual icons and color coding")
+    print("✓ Includes export and clear functionality")
+    print("✓ Professional modal interface for history export")
+    print("✓ Comprehensive chart interaction tracking")

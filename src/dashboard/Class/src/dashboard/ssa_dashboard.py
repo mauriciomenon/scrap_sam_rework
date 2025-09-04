@@ -55,28 +55,102 @@ class SSADashboard:
         self.user_history.append({
             'time': timestamp,
             'action': action,
-            'type': action_type
+            'type': action_type,
+            'full_timestamp': datetime.now()  # For potential future use
         })
         # Keep only last 10 items
         if len(self.user_history) > 10:
             self.user_history.pop(0)
     
+    def _clear_history(self):
+        """Clear user history."""
+        self.user_history.clear()
+        self._add_to_history("Histórico limpo pelo usuário", "action")
+    
+    def _export_history(self):
+        """Export user history as text for copying."""
+        if not self.user_history:
+            return "Nenhuma ação registrada no histórico."
+        
+        export_lines = []
+        export_lines.append("=== HISTÓRICO DE AÇÕES DO USUÁRIO ===")
+        export_lines.append(f"Exportado em: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+        export_lines.append("")
+        
+        for item in self.user_history:
+            icon_map = {
+                'user_input': '💬',
+                'filter': '🔍', 
+                'navigation': '🔗',
+                'data_filter': '📊',
+                'action': '⚡'
+            }
+            icon = icon_map.get(item['type'], '📝')
+            export_lines.append(f"{icon} {item['time']} - {item['action']}")
+        
+        export_lines.append("")
+        export_lines.append(f"Total de ações: {len(self.user_history)}")
+        
+        return "\n".join(export_lines)
+    
     def _get_recent_history_html(self):
         """Get recent user history as HTML - shows 'what I just said/did'."""
         if not self.user_history:
-            return html.P("Nenhuma ação recente", className="text-muted")
-        
-        history_items = []
-        for item in reversed(self.user_history[-5:]):  # Show last 5 items
-            history_items.append(
-                html.Li([
-                    html.Span(item['time'], className="text-primary fw-bold"),
-                    html.Span(" - ", className="text-muted"),
-                    html.Span(item['action'])
-                ])
+            return html.P(
+                "Nenhuma ação recente", 
+                className="text-muted text-center py-2"
             )
         
-        return html.Ul(history_items, className="list-unstyled")
+        history_items = []
+        # Icon mapping for different action types
+        action_icons = {
+            'user_input': '💬',
+            'filter': '🔍', 
+            'navigation': '🔗',
+            'data_filter': '📊',
+            'action': '⚡',
+            'test': '🧪'
+        }
+        
+        # Color mapping for different action types
+        action_colors = {
+            'user_input': 'text-success',
+            'filter': 'text-primary',
+            'navigation': 'text-info',
+            'data_filter': 'text-warning',
+            'action': 'text-secondary',
+            'test': 'text-muted'
+        }
+        
+        for item in reversed(self.user_history[-5:]):  # Show last 5 items
+            icon = action_icons.get(item['type'], '📝')
+            color = action_colors.get(item['type'], 'text-dark')
+            
+            history_items.append(
+                html.Li([
+                    html.Span(
+                        f"{icon} ", 
+                        className="me-1"
+                    ),
+                    html.Span(
+                        item['time'], 
+                        className="text-primary fw-bold me-2"
+                    ),
+                    html.Span(
+                        item['action'], 
+                        className=f"{color}"
+                    )
+                ], className="mb-1 p-1 border-bottom border-light")
+            )
+        
+        return html.Div([
+            html.Ul(history_items, className="list-unstyled mb-0"),
+            html.Hr(className="my-2"),
+            html.Small(
+                f"Total de ações hoje: {len(self.user_history)}", 
+                className="text-muted"
+            )
+        ])
 
     def _get_initial_stats(self):
         """Calcula estatísticas iniciais para o dashboard."""
@@ -622,6 +696,56 @@ class SSADashboard:
                 return "", self._get_recent_history_html()
             return note_text or "", self._get_recent_history_html()
 
+        # Callback to handle clear history button
+        @self.app.callback(
+            Output("user-history-display", "children", allow_duplicate=True),
+            [Input("clear-history-btn", "n_clicks")],
+            prevent_initial_call=True
+        )
+        def handle_clear_history(n_clicks):
+            """Clear user history when button is clicked."""
+            if n_clicks:
+                self._clear_history()
+                return self._get_recent_history_html()
+            return self._get_recent_history_html()
+
+        # Add modal for history export
+        if not any(component.id == "history-export-modal" for component in self.app.layout.children if hasattr(component, 'id')):
+            pass  # Modal will be added to layout later
+
+        # Callback to handle export history button  
+        @self.app.callback(
+            [
+                Output("history-export-modal", "is_open"),
+                Output("history-export-content", "children")
+            ],
+            [Input("export-history-btn", "n_clicks")],
+            prevent_initial_call=True
+        )
+        def handle_export_history(n_clicks):
+            """Export user history when button is clicked."""
+            if n_clicks:
+                export_text = self._export_history()
+                self._add_to_history("📄 Exportou histórico de ações", "action")
+                return True, dcc.Textarea(
+                    value=export_text,
+                    style={"width": "100%", "height": "300px", "fontFamily": "monospace"},
+                    readOnly=True
+                )
+            return False, ""
+
+        # Callback to close export modal
+        @self.app.callback(
+            Output("history-export-modal", "is_open", allow_duplicate=True),
+            [Input("close-history-export-modal", "n_clicks")],
+            prevent_initial_call=True
+        )
+        def close_export_modal(n_clicks):
+            """Close the export history modal."""
+            if n_clicks:
+                return False
+            return False
+
         # Callback to update user history display
         @self.app.callback(
             Output("user-history-display", "children"),
@@ -691,7 +815,11 @@ class SSADashboard:
                     filters_applied.append(f"Setor Executor: {setor_executor}")
                 
                 if filters_applied:
-                    self._add_to_history(f"Filtrou dados: {', '.join(filters_applied)}", "data_filter")
+                    self._add_to_history(f"📊 Filtrou dados: {', '.join(filters_applied)}", "data_filter")
+            else:
+                # Track when user clears filters
+                if dash.callback_context.triggered:
+                    self._add_to_history("🔄 Visualizou todos os dados (sem filtros)", "data_filter")
 
             df_filtered = self.df.copy()
 
@@ -866,6 +994,8 @@ class SSADashboard:
                         self.logger.log_with_ip(
                             "INFO", f"Visualização de SSAs: {title_prefix} {label}"
                         )
+                        # Add to user history when user views SSA details
+                        self._add_to_history(f"🔍 Visualizou detalhes: {title_prefix} {label} ({len(ssas)} SSAs)", "action")
 
                     ssa_list = self._create_ssa_list(ssas)
                     title = f"{title_prefix} {label} ({len(ssas)} SSAs)"
@@ -1212,8 +1342,26 @@ class SSADashboard:
                                                     size="sm",
                                                     color="primary"
                                                 )
-                                            ], size="sm")
-                                        ], style={"max-height": "160px", "overflow-y": "auto"})
+                                            ], size="sm"),
+                                            html.Div([
+                                                dbc.ButtonGroup([
+                                                    dbc.Button(
+                                                        "📄 Exportar",
+                                                        id="export-history-btn",
+                                                        size="sm",
+                                                        color="outline-info",
+                                                        className="flex-fill"
+                                                    ),
+                                                    dbc.Button(
+                                                        "🗑️ Limpar",
+                                                        id="clear-history-btn",
+                                                        size="sm",
+                                                        color="outline-secondary",
+                                                        className="flex-fill"
+                                                    )
+                                                ], className="w-100 mt-2")
+                                            ])
+                                        ], style={"max-height": "200px", "overflow-y": "auto"})
                                     ],
                                     className="small"
                                 )
@@ -1698,6 +1846,29 @@ class SSADashboard:
                         ),
                     ],
                     id="ssa-modal",
+                    size="lg",
+                    is_open=False,
+                ),
+                # Modal para exportar histórico
+                dbc.Modal(
+                    [
+                        dbc.ModalHeader(
+                            [dbc.ModalTitle("📄 Histórico de Ações")],
+                            close_button=True,
+                        ),
+                        dbc.ModalBody([
+                            html.P("Selecione todo o texto abaixo e copie (Ctrl+A, Ctrl+C):"),
+                            html.Div(id="history-export-content")
+                        ]),
+                        dbc.ModalFooter([
+                            dbc.Button(
+                                "Fechar",
+                                id="close-history-export-modal",
+                                color="secondary",
+                            ),
+                        ]),
+                    ],
+                    id="history-export-modal",
                     size="lg",
                     is_open=False,
                 ),
