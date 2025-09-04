@@ -38,8 +38,8 @@ def diagnose_dates(df: pd.DataFrame, date_column_index: int) -> Dict:
             # Verifica strings que deveriam ser datas
             elif isinstance(date_value, str):
                 try:
+                    # Use explicit dayfirst parsing and avoid duplicate parsing that triggers warnings
                     pd.to_datetime(date_value, dayfirst=True)
-                    pd.to_datetime(date_value)
                 except Exception as e:
                     problematic_rows.append(
                         {

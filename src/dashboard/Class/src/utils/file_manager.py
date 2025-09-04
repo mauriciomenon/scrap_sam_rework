@@ -6,22 +6,23 @@ from datetime import datetime
 from typing import Optional, Dict
 from pathlib import Path
 
+
 class FileManager:
     """Gerencia o carregamento e identificação de arquivos de SSA."""
 
     def __init__(self, base_directory: str):
         """
         Inicializa o gerenciador de arquivos.
-        
+
         Args:
             base_directory (str): Diretório base onde procurar os arquivos
         """
         self.base_directory = Path(base_directory)
         self.file_patterns: Dict[str, re.Pattern] = {
-            'ssa_pendentes': re.compile(
+            "ssa_pendentes": re.compile(
                 r"SSAs Pendentes Geral - (\d{2})-(\d{2})-(\d{4})_(\d{4})(AM|PM)\.xlsx"
             ),
-            'ssa_programadas': re.compile(
+            "ssa_programadas": re.compile(
                 r"SSAs Programadas - (\d{2})-(\d{2})-(\d{4})_(\d{4})(AM|PM)\.xlsx"
             ),
             # Adicione outros padrões conforme necessário
@@ -30,10 +31,10 @@ class FileManager:
     def _convert_to_datetime(self, match: re.Match) -> datetime:
         """
         Converte os grupos do match em objeto datetime.
-        
+
         Args:
             match: Match object do regex com grupos de data/hora
-            
+
         Returns:
             datetime: Data e hora extraídas do nome do arquivo
         """
@@ -41,30 +42,31 @@ class FileManager:
             day, month, year, time, period = match.groups()
             hour = int(time[:2])
             minute = int(time[2:])
-            
+
             # Converte para formato 24 horas
             if period == "PM" and hour != 12:
                 hour += 12
             elif period == "AM" and hour == 12:
                 hour = 0
-                
+
             return datetime(int(year), int(month), int(day), hour, minute)
         except Exception as e:
             logging.error(f"Erro ao converter data/hora do arquivo: {str(e)}")
             raise
 
-    def get_latest_file(self, pattern_key: str, 
-                       subdirectory: Optional[str] = None) -> str:
+    def get_latest_file(
+        self, pattern_key: str, subdirectory: Optional[str] = None
+    ) -> str:
         """
         Encontra o arquivo mais recente que corresponde ao padrão especificado.
-        
+
         Args:
             pattern_key (str): Chave do padrão de arquivo ('ssa_pendentes', etc)
             subdirectory (str, optional): Subdiretório opcional para buscar
-            
+
         Returns:
             str: Caminho completo do arquivo mais recente
-            
+
         Raises:
             FileNotFoundError: Se nenhum arquivo correspondente for encontrado
             KeyError: Se o pattern_key não existir
@@ -79,9 +81,7 @@ class FileManager:
                 search_dir = search_dir / subdirectory
 
             if not search_dir.exists():
-                raise FileNotFoundError(
-                    f"Diretório '{search_dir}' não encontrado"
-                )
+                raise FileNotFoundError(f"Diretório '{search_dir}' não encontrado")
 
             latest_file = None
             latest_time = None
@@ -91,7 +91,7 @@ class FileManager:
                 match = pattern.match(file_path.name)
                 if match:
                     file_datetime = self._convert_to_datetime(match)
-                    
+
                     if latest_time is None or file_datetime > latest_time:
                         latest_time = file_datetime
                         latest_file = file_path
@@ -115,7 +115,7 @@ class FileManager:
     def register_pattern(self, key: str, pattern: str):
         """
         Registra um novo padrão de arquivo.
-        
+
         Args:
             key (str): Chave para identificar o padrão
             pattern (str): Padrão regex para o nome do arquivo
@@ -130,10 +130,10 @@ class FileManager:
     def validate_file(self, file_path: str) -> bool:
         """
         Valida se um arquivo existe e pode ser lido.
-        
+
         Args:
             file_path (str): Caminho do arquivo
-            
+
         Returns:
             bool: True se o arquivo é válido
         """
@@ -156,10 +156,10 @@ class FileManager:
     def get_file_info(self, file_path: str) -> Dict:
         """
         Retorna informações sobre um arquivo.
-        
+
         Args:
             file_path (str): Caminho do arquivo
-            
+
         Returns:
             Dict com informações do arquivo
         """
@@ -170,11 +170,11 @@ class FileManager:
 
             stats = path.stat()
             return {
-                'name': path.name,
-                'size': stats.st_size,
-                'created': datetime.fromtimestamp(stats.st_ctime),
-                'modified': datetime.fromtimestamp(stats.st_mtime),
-                'is_valid': self.validate_file(file_path)
+                "name": path.name,
+                "size": stats.st_size,
+                "created": datetime.fromtimestamp(stats.st_ctime),
+                "modified": datetime.fromtimestamp(stats.st_mtime),
+                "is_valid": self.validate_file(file_path),
             }
         except Exception as e:
             logging.error(f"Erro ao obter informações do arquivo: {str(e)}")

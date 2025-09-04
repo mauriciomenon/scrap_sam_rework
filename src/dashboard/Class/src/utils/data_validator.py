@@ -5,13 +5,16 @@ from datetime import datetime
 from dataclasses import dataclass
 from ..data.ssa_data import SSAData
 
+
 @dataclass
 class ValidationResult:
     """Resultado da validação de dados."""
+
     is_valid: bool
     issues: List[str]
     statistics: Dict
     timestamp: datetime
+
 
 class SSADataValidator:
     """Classe para validação de dados das SSAs."""
@@ -29,30 +32,44 @@ class SSADataValidator:
             resp_counts = {}
             for ssa in ssa_objects:
                 if ssa.responsavel_execucao:
-                    resp_counts[ssa.responsavel_execucao] = resp_counts.get(ssa.responsavel_execucao, 0) + 1
+                    resp_counts[ssa.responsavel_execucao] = (
+                        resp_counts.get(ssa.responsavel_execucao, 0) + 1
+                    )
 
-            stats['resp_counts'] = resp_counts
+            stats["resp_counts"] = resp_counts
 
             # 2. Verificação de inconsistências
             for resp, count in resp_counts.items():
                 ssas_list = [s for s in ssa_objects if s.responsavel_execucao == resp]
                 if len(ssas_list) != count:
-                    issues.append(f"Inconsistência na contagem para {resp}: contagem={count}, real={len(ssas_list)}")
+                    issues.append(
+                        f"Inconsistência na contagem para {resp}: contagem={count}, real={len(ssas_list)}"
+                    )
 
             # 3. Verificação de estados
             for ssa in ssa_objects:
                 # Verifica combinações inválidas de estados
                 if ssa.responsavel_execucao and not ssa.setor_executor:
-                    issues.append(f"SSA {ssa.numero} tem responsável mas não tem setor executor")
+                    issues.append(
+                        f"SSA {ssa.numero} tem responsável mas não tem setor executor"
+                    )
 
             # 4. Estatísticas gerais
-            stats.update({
-                'total_ssas': len(ssa_objects),
-                'ssas_com_responsavel': len([s for s in ssa_objects if s.responsavel_execucao]),
-                'ssas_sem_responsavel': len([s for s in ssa_objects if not s.responsavel_execucao]),
-                'setores_executores': len(set(s.setor_executor for s in ssa_objects if s.setor_executor)),
-                'timestamp': datetime.now(),
-            })
+            stats.update(
+                {
+                    "total_ssas": len(ssa_objects),
+                    "ssas_com_responsavel": len(
+                        [s for s in ssa_objects if s.responsavel_execucao]
+                    ),
+                    "ssas_sem_responsavel": len(
+                        [s for s in ssa_objects if not s.responsavel_execucao]
+                    ),
+                    "setores_executores": len(
+                        set(s.setor_executor for s in ssa_objects if s.setor_executor)
+                    ),
+                    "timestamp": datetime.now(),
+                }
+            )
 
         except Exception as e:
             self.logger.error(f"Erro na validação: {str(e)}")
@@ -62,36 +79,38 @@ class SSADataValidator:
             is_valid=len(issues) == 0,
             issues=issues,
             statistics=stats,
-            timestamp=datetime.now()
+            timestamp=datetime.now(),
         )
 
     def verify_data_integrity(self, ssa_objects: List[SSAData]) -> Dict:
         """Verifica integridade periódica dos dados."""
         integrity_report = {
-            'timestamp': datetime.now(),
-            'total_records': len(ssa_objects),
-            'checks': [],
-            'warnings': []
+            "timestamp": datetime.now(),
+            "total_records": len(ssa_objects),
+            "checks": [],
+            "warnings": [],
         }
 
         try:
             # 1. Verificação de dados obrigatórios
             missing_required = [
-                ssa.numero for ssa in ssa_objects 
+                ssa.numero
+                for ssa in ssa_objects
                 if not all([ssa.numero, ssa.situacao, ssa.prioridade_emissao])
             ]
             if missing_required:
-                integrity_report['warnings'].append(
+                integrity_report["warnings"].append(
                     f"SSAs com dados obrigatórios faltando: {', '.join(missing_required)}"
                 )
 
             # 2. Verificação de datas
             future_dates = [
-                ssa.numero for ssa in ssa_objects 
+                ssa.numero
+                for ssa in ssa_objects
                 if ssa.emitida_em and ssa.emitida_em > datetime.now()
             ]
             if future_dates:
-                integrity_report['warnings'].append(
+                integrity_report["warnings"].append(
                     f"SSAs com datas futuras: {', '.join(future_dates)}"
                 )
 
@@ -99,26 +118,27 @@ class SSADataValidator:
             numeros_ssa = [ssa.numero for ssa in ssa_objects]
             duplicates = set([num for num in numeros_ssa if numeros_ssa.count(num) > 1])
             if duplicates:
-                integrity_report['warnings'].append(
+                integrity_report["warnings"].append(
                     f"SSAs duplicadas encontradas: {', '.join(duplicates)}"
                 )
 
             # 4. Estatísticas
-            integrity_report['checks'] = {
-                'duplicates_found': len(duplicates),
-                'future_dates_found': len(future_dates),
-                'missing_required_found': len(missing_required),
-                'total_warnings': len(integrity_report['warnings'])
+            integrity_report["checks"] = {
+                "duplicates_found": len(duplicates),
+                "future_dates_found": len(future_dates),
+                "missing_required_found": len(missing_required),
+                "total_warnings": len(integrity_report["warnings"]),
             }
 
         except Exception as e:
             self.logger.error(f"Erro na verificação de integridade: {str(e)}")
-            integrity_report['warnings'].append(f"Erro na verificação: {str(e)}")
+            integrity_report["warnings"].append(f"Erro na verificação: {str(e)}")
 
         return integrity_report
 
-    def check_graph_data_consistency(self, ssa_objects: List[SSAData], 
-                                   graph_data: Dict) -> List[str]:
+    def check_graph_data_consistency(
+        self, ssa_objects: List[SSAData], graph_data: Dict
+    ) -> List[str]:
         """Verifica consistência entre dados do gráfico e objetos SSA."""
         inconsistencies = []
 
@@ -127,9 +147,9 @@ class SSADataValidator:
             real_counts = {}
             for ssa in ssa_objects:
                 if ssa.responsavel_execucao:
-                    real_counts[ssa.responsavel_execucao] = real_counts.get(
-                        ssa.responsavel_execucao, 0
-                    ) + 1
+                    real_counts[ssa.responsavel_execucao] = (
+                        real_counts.get(ssa.responsavel_execucao, 0) + 1
+                    )
 
             # Compara com dados do gráfico
             for resp, count in graph_data.items():
@@ -145,12 +165,12 @@ class SSADataValidator:
                     )
 
         except Exception as e:
-            self.logger.error(f"Erro na verificação de consistência do gráfico: {str(e)}")
+            self.logger.error(
+                f"Erro na verificação de consistência do gráfico: {str(e)}"
+            )
             inconsistencies.append(f"Erro na verificação: {str(e)}")
 
         return inconsistencies
-
-
 
     def diagnose_responsavel_data(
         self, ssa_objects: List[SSAData], area_emissora: str = None
@@ -207,7 +227,6 @@ class SSADataValidator:
             logging.error(f"Erro no diagnóstico: {str(e)}")
             return None
 
-
     # Atualize a classe SSADataValidator para incluir verificações específicas:
     def validate_responsavel_consistency(
         self, ssa_objects: List[SSAData], area_emissora: str = None
@@ -224,7 +243,9 @@ class SSADataValidator:
                         f"Inconsistência na contagem de SSAs para responsável execução {resp}: "
                         f"contagem={dados['total']}, real={len(dados['ssas'])}"
                     )
-                    issues.append(f"SSAs do responsável {resp}: {', '.join(dados['ssas'])}")
+                    issues.append(
+                        f"SSAs do responsável {resp}: {', '.join(dados['ssas'])}"
+                    )
 
             for resp, dados in diagnostico["por_responsavel_prog"].items():
                 if dados["total"] != len(dados["ssas"]):
@@ -232,7 +253,9 @@ class SSADataValidator:
                         f"Inconsistência na contagem de SSAs para responsável programação {resp}: "
                         f"contagem={dados['total']}, real={len(dados['ssas'])}"
                     )
-                    issues.append(f"SSAs do responsável {resp}: {', '.join(dados['ssas'])}")
+                    issues.append(
+                        f"SSAs do responsável {resp}: {', '.join(dados['ssas'])}"
+                    )
 
             # Verifica dados nulos ou malformados
             for ssa in ssa_objects:

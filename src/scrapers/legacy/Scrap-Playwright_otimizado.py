@@ -152,14 +152,17 @@ class SAMNavigator:
             )
 
             if not self.wait_for_loading_complete(timeout=90000):
-                raise Exception("Timeout aguardando carregamento após selecionar relatório detalhado")
+                raise Exception(
+                    "Timeout aguardando carregamento após selecionar relatório detalhado"
+                )
 
             # Mantido o JavaScript original dos checkboxes (sem alteração)
-            success = self.page.evaluate("""() => {
+            success = self.page.evaluate(
+                """() => {
                 try {
                     const checkboxesToCheck = ['ctl00', 'ctl04', 'ctl08', 'ctl02', 'ctl06', 'ctl10'];
                     const checkboxesToUncheck = ['ctl12'];
-                    
+
                     const triggerEvents = (element) => {
                         const events = ['change', 'click', 'input'];
                         events.forEach(eventType => {
@@ -167,14 +170,14 @@ class SAMNavigator:
                             element.dispatchEvent(event);
                         });
                     };
-                    
+
                     const handleCheckboxes = (idList, checked) => {
                         idList.forEach(id => {
                             const checkbox = document.querySelector(`input[id*='${id}'][id*='wtContent']`);
                             if (checkbox) {
                                 checkbox.checked = false;
                                 triggerEvents(checkbox);
-                                
+
                                 if (checked) {
                                     setTimeout(() => {
                                         checkbox.checked = true;
@@ -184,19 +187,20 @@ class SAMNavigator:
                             }
                         });
                     };
-                    
+
                     handleCheckboxes([...checkboxesToCheck, ...checkboxesToUncheck], false);
-                    
+
                     setTimeout(() => {
                         handleCheckboxes(checkboxesToCheck, true);
                     }, 200);
-                    
+
                     return true;
                 } catch (error) {
                     console.error('Erro ao selecionar checkboxes:', error);
                     return false;
                 }
-            }""")
+            }"""
+            )
 
             if not success:
                 raise Exception("Falha ao selecionar opções via JavaScript")
@@ -208,9 +212,13 @@ class SAMNavigator:
             max_attempts = 5
             for attempt in range(max_attempts):
                 if self.wait_for_loading_complete(timeout=90000):
-                    print("Carregamento completo confirmado, prosseguindo com exportação...")
+                    print(
+                        "Carregamento completo confirmado, prosseguindo com exportação..."
+                    )
                     break
-                print(f"Tentativa {attempt + 1}/{max_attempts} de verificar carregamento...")
+                print(
+                    f"Tentativa {attempt + 1}/{max_attempts} de verificar carregamento..."
+                )
                 self.page.wait_for_timeout(5000)
             else:
                 raise Exception(
@@ -249,7 +257,9 @@ class SAMNavigator:
                     print(f"Erro ao verificar seleção de '{name}': {e}")
                     raise
 
-    def wait_for_loading_complete(self, timeout: int = 60000, after_checkboxes: bool = False):
+    def wait_for_loading_complete(
+        self, timeout: int = 60000, after_checkboxes: bool = False
+    ):
         """Aguarda carregamento da página com verificação adaptativa."""
         try:
             print("Verificando estado da página...")
@@ -259,7 +269,8 @@ class SAMNavigator:
             while (time.time() - start_time) < (timeout / 1000):
                 # Verificação específica pós-checkboxes
                 if after_checkboxes:
-                    loading_complete = self.page.evaluate("""
+                    loading_complete = self.page.evaluate(
+                        """
                             () => {
                                 // Para checkboxes, focamos apenas na barra principal
                                 const loadingBar = document.querySelector('[id*="wtdivWait"]');
@@ -268,16 +279,18 @@ class SAMNavigator:
                                 }
                                 return true;
                             }
-                        """)
+                        """
+                    )
                 else:
                     # Verificação completa normal
-                    loading_complete = self.page.evaluate("""
+                    loading_complete = self.page.evaluate(
+                        """
                             () => {
                                 const loadingBar = document.querySelector('[id*="wtdivWait"]');
                                 if (loadingBar && window.getComputedStyle(loadingBar).display !== 'none') {
                                     return false;
                                 }
-                                
+
                                 const loadingIndicators = document.querySelectorAll(
                                     '.loading-indicator, .loading, [class*="loading"], .progress, .spinner'
                                 );
@@ -286,17 +299,18 @@ class SAMNavigator:
                                         return false;
                                     }
                                 }
-                                
+
                                 const osAjaxElements = document.querySelectorAll('[id*="AjaxWait"]');
                                 for (const element of osAjaxElements) {
                                     if (window.getComputedStyle(element).display !== 'none') {
                                         return false;
                                     }
                                 }
-                                
+
                                 return true;
                             }
-                        """)
+                        """
+                    )
 
                 if loading_complete:
                     consecutive_success += 1
@@ -308,11 +322,15 @@ class SAMNavigator:
                     if consecutive_success >= required_success:
                         self.page.wait_for_load_state("networkidle", timeout=5000)
                         self.page.wait_for_timeout(2000)
-                        print("Carregamento completo confirmado após verificações consecutivas")
+                        print(
+                            "Carregamento completo confirmado após verificações consecutivas"
+                        )
                         return True
                 else:
                     if consecutive_success > 0:
-                        print("Resetando contador de verificações - loading detectado novamente")
+                        print(
+                            "Resetando contador de verificações - loading detectado novamente"
+                        )
                     consecutive_success = 0
 
                 self.page.wait_for_timeout(2000)
@@ -342,7 +360,8 @@ class SAMNavigator:
                 print("Tentando exportação via clique direto...")
                 with self.page.expect_download(timeout=90000) as download_promise:
                     # Verifica e clica no menu com retry
-                    success = self.page.evaluate("""
+                    success = self.page.evaluate(
+                        """
                         () => {
                             return new Promise((resolve) => {
                                 // Função para encontrar e clicar no botão do menu
@@ -375,11 +394,12 @@ class SAMNavigator:
                                         setTimeout(tryClick, 1000);
                                     }
                                 };
-                                
+
                                 tryClick();
                             });
                         }
-                    """)
+                    """
+                    )
 
                     if not success:
                         raise Exception("Não foi possível clicar no menu")
@@ -389,22 +409,23 @@ class SAMNavigator:
                     self.page.wait_for_timeout(2000)
 
                     # Verifica se o botão de exportar está visível e clicável
-                    button_ready = self.page.evaluate("""
+                    button_ready = self.page.evaluate(
+                        """
                         () => {
                             const exportLinks = Array.from(document.querySelectorAll('a'))
                                 .filter(a => a.textContent.includes('Exportar para Excel'));
-                            
+
                             const isVisible = (element) => {
                                 if (!element) return false;
                                 const rect = element.getBoundingClientRect();
                                 const style = window.getComputedStyle(element);
-                                return rect.width > 0 && 
-                                       rect.height > 0 && 
-                                       style.display !== 'none' && 
+                                return rect.width > 0 &&
+                                       rect.height > 0 &&
+                                       style.display !== 'none' &&
                                        style.visibility !== 'hidden' &&
                                        element.offsetParent !== null;
                             };
-                            
+
                             const visibleButton = exportLinks.find(isVisible);
                             if (visibleButton) {
                                 // Força o botão a ficar visível e clicável
@@ -416,7 +437,8 @@ class SAMNavigator:
                             }
                             return false;
                         }
-                    """)
+                    """
+                    )
 
                     if not button_ready:
                         raise Exception("Botão de exportação não está pronto")
@@ -427,7 +449,8 @@ class SAMNavigator:
 
                     # Clique via JavaScript para garantir
                     print("Clicando no botão de exportação...")
-                    success = self.page.evaluate("""
+                    success = self.page.evaluate(
+                        """
                         () => {
                             const exportButton = Array.from(document.querySelectorAll('a'))
                                 .find(a => a.textContent.includes('Exportar para Excel'));
@@ -437,7 +460,8 @@ class SAMNavigator:
                             }
                             return false;
                         }
-                    """)
+                    """
+                    )
 
                     if not success:
                         raise Exception("Falha ao clicar no botão de exportação")
@@ -471,7 +495,8 @@ class SAMNavigator:
         """Método JavaScript de fallback para exportação."""
         try:
             with self.page.expect_download(timeout=90000) as download_promise:
-                success = self.page.evaluate("""
+                success = self.page.evaluate(
+                    """
                     () => {
                         return new Promise((resolve) => {
                             const attemptExport = (attempt = 0) => {
@@ -479,18 +504,18 @@ class SAMNavigator:
                                     resolve(false);
                                     return;
                                 }
-                                
+
                                 const menu = document.querySelector('[id*="wtMenuDropdown"]');
                                 if (menu) {
                                     menu.style.display = 'block';
                                     menu.style.visibility = 'visible';
                                 }
-                                
+
                                 const links = Array.from(document.querySelectorAll('a'));
-                                const exportButton = links.find(link => 
+                                const exportButton = links.find(link =>
                                     link.textContent.includes('Exportar para Excel')
                                 );
-                                
+
                                 if (exportButton) {
                                     exportButton.click();
                                     resolve(true);
@@ -498,11 +523,12 @@ class SAMNavigator:
                                     setTimeout(() => attemptExport(attempt + 1), 1000);
                                 }
                             };
-                            
+
                             attemptExport();
                         });
                     }
-                """)
+                """
+                )
 
                 if success:
                     download = download_promise.value

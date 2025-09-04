@@ -11,6 +11,7 @@ from .ssa_data import SSAData
 from .ssa_columns import SSAColumns
 from ..utils.data_validator import SSADataValidator
 
+
 class DataLoader:
     """Carrega e prepara os dados das SSAs."""
 
@@ -59,19 +60,20 @@ class DataLoader:
             return None
 
     def _convert_dates(self):
-        """Converte e valida datas mantendo o tipo apropriado."""
+        """Converte e valida datas mantendo o tipo apropriado e dtype consistente."""
         try:
-            # Se a coluna já for datetime, não precisa converter
-            if pd.api.types.is_datetime64_any_dtype(self.df.iloc[:, SSAColumns.EMITIDA_EM]):
-                logging.info("Coluna já está em formato datetime")
-                return
-
-            # Converte diretamente para datetime usando o formato correto
-            self.df.iloc[:, SSAColumns.EMITIDA_EM] = pd.to_datetime(
-                self.df.iloc[:, SSAColumns.EMITIDA_EM],
+            if self.df is None:
+                raise ValueError("DataFrame não carregado antes da conversão de datas")
+            col_label = self.df.columns[SSAColumns.EMITIDA_EM]
+            # Converte diretamente para datetime usando o formato correto; always enforce dtype
+            converted = pd.to_datetime(
+                self.df[col_label],
                 format="%d/%m/%Y %H:%M:%S",
                 errors="coerce",
+                dayfirst=True,
             )
+            # Ensure dtype is datetime64[ns]
+            self.df[col_label] = converted.astype("datetime64[ns]")
 
             # Verifica se houve problemas
             invalid_mask = self.df.iloc[:, SSAColumns.EMITIDA_EM].isna()
@@ -144,16 +146,16 @@ class DataLoader:
 
             for col in string_columns:
                 try:
-                    self.df.iloc[:, col] = (
-                        self.df.iloc[:, col].astype(str).str.strip().replace("nan", "")
+                    label = self.df.columns[col]
+                    self.df[label] = (
+                        self.df[label].astype(str).str.strip().replace("nan", "")
                     )
                 except Exception as e:
                     logging.error(f"Erro ao converter coluna {col}: {str(e)}")
 
             # Padroniza prioridades para maiúsculas
-            self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] = (
-                self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].str.upper().str.strip()
-            )
+            pri_label = self.df.columns[SSAColumns.GRAU_PRIORIDADE_EMISSAO]
+            self.df[pri_label] = self.df[pri_label].str.upper().str.strip()
 
             # Converte colunas opcionais
             optional_string_columns = [
@@ -166,33 +168,29 @@ class DataLoader:
 
             for col in optional_string_columns:
                 try:
-                    self.df.iloc[:, col] = (
-                        self.df.iloc[:, col]
-                        .astype(str)
-                        .replace("nan", None)
-                        .replace("", None)
+                    label = self.df.columns[col]
+                    self.df[label] = (
+                        self.df[label].astype(str).replace("nan", None).replace("", None)
                     )
                 except Exception as e:
                     logging.error(f"Erro ao converter coluna opcional {col}: {str(e)}")
 
             # Remove linhas com número da SSA vazio
-            empty_ssa_count = (
-                self.df.iloc[:, SSAColumns.NUMERO_SSA].str.strip() == ""
-            ).sum()
+            num_label = self.df.columns[SSAColumns.NUMERO_SSA]
+            empty_ssa_count = (self.df[num_label].str.strip() == "").sum()
             if empty_ssa_count > 0:
                 logging.warning(
                     f"Removendo {empty_ssa_count} linhas com número de SSA vazio"
                 )
 
-            self.df = self.df[self.df.iloc[:, SSAColumns.NUMERO_SSA].str.strip() != ""]
+            self.df = self.df[self.df[num_label].str.strip() != ""]
 
             # Trata semana cadastro e programada
             try:
                 # Trata semana cadastro
-                self.df.iloc[:, SSAColumns.SEMANA_CADASTRO] = (
-                    pd.to_numeric(
-                        self.df.iloc[:, SSAColumns.SEMANA_CADASTRO], errors="coerce"
-                    )
+                cad_label = self.df.columns[SSAColumns.SEMANA_CADASTRO]
+                self.df[cad_label] = (
+                    pd.to_numeric(self.df[cad_label], errors="coerce")
                     .fillna(0)
                     .astype(int)
                     .astype(str)
@@ -200,18 +198,15 @@ class DataLoader:
                 )
 
                 # Trata semana programada
-                self.df.iloc[:, SSAColumns.SEMANA_PROGRAMADA] = (
-                    pd.to_numeric(
-                        self.df.iloc[:, SSAColumns.SEMANA_PROGRAMADA], errors="coerce"
-                    )
+                prog_label = self.df.columns[SSAColumns.SEMANA_PROGRAMADA]
+                self.df[prog_label] = (
+                    pd.to_numeric(self.df[prog_label], errors="coerce")
                     .fillna(0)
                     .astype(int)
                     .astype(str)
                     .str.zfill(6)
                 )
-                self.df.iloc[:, SSAColumns.SEMANA_PROGRAMADA] = self.df.iloc[
-                    :, SSAColumns.SEMANA_PROGRAMADA
-                ].replace("000000", None)
+                self.df[prog_label] = self.df[prog_label].replace("000000", None)
 
             except Exception as e:
                 logging.error(f"Erro ao formatar semanas: {str(e)}")
@@ -220,7 +215,9 @@ class DataLoader:
             self._convert_to_objects()
 
             # NOVO: Validação com o SSADataValidator
-            validation_result = self.validator.validate_data_consistency(self.ssa_objects)
+            validation_result = self.validator.validate_data_consistency(
+                self.ssa_objects
+            )
             if not validation_result.is_valid:
                 logging.warning("=== Problemas de Consistência Encontrados ===")
                 for issue in validation_result.issues:
@@ -259,6 +256,9 @@ class DataLoader:
         issues = []
 
         # Verifica datas válidas
+        if self.df is None:
+            logging.warning("DataFrame ainda não carregado para validação de qualidade.")
+            return
         valid_dates = self.df.iloc[:, SSAColumns.EMITIDA_EM].notna().sum()
         total_rows = len(self.df)
         if valid_dates < total_rows:
@@ -283,7 +283,6 @@ class DataLoader:
         if issues:
             logging.warning("Problemas encontrados nos dados: " + "; ".join(issues))
 
-
     def _convert_to_objects(self) -> int:
         """
         Converte as linhas do DataFrame em objetos SSAData.
@@ -303,6 +302,7 @@ class DataLoader:
                 "prog": {"total": 0, "errors": 0},
             }
 
+            assert self.df is not None
             for idx, row in self.df.iterrows():
                 try:
                     # Processamento do responsável execução
@@ -315,7 +315,9 @@ class DataLoader:
                         conversions["exec"]["total"] += 1
 
                     # Processamento do responsável programação
-                    resp_prog = str(row.iloc[SSAColumns.RESPONSAVEL_PROGRAMACAO]).strip()
+                    resp_prog = str(
+                        row.iloc[SSAColumns.RESPONSAVEL_PROGRAMACAO]
+                    ).strip()
                     if resp_prog.lower() in ["nan", "none", ""]:
                         resp_prog = None
                     elif resp_prog:
@@ -329,9 +331,13 @@ class DataLoader:
                         situacao=str(row.iloc[SSAColumns.SITUACAO]).strip(),
                         derivada=str(row.iloc[SSAColumns.DERIVADA]).strip() or None,
                         localizacao=str(row.iloc[SSAColumns.LOCALIZACAO]).strip(),
-                        desc_localizacao=str(row.iloc[SSAColumns.DESC_LOCALIZACAO]).strip(),
+                        desc_localizacao=str(
+                            row.iloc[SSAColumns.DESC_LOCALIZACAO]
+                        ).strip(),
                         equipamento=str(row.iloc[SSAColumns.EQUIPAMENTO]).strip(),
-                        semana_cadastro=str(row.iloc[SSAColumns.SEMANA_CADASTRO]).strip(),
+                        semana_cadastro=str(
+                            row.iloc[SSAColumns.SEMANA_CADASTRO]
+                        ).strip(),
                         emitida_em=(
                             row.iloc[SSAColumns.EMITIDA_EM]
                             if pd.notna(row.iloc[SSAColumns.EMITIDA_EM])
@@ -342,14 +348,18 @@ class DataLoader:
                         setor_executor=str(row.iloc[SSAColumns.SETOR_EXECUTOR]).strip(),
                         solicitante=str(row.iloc[SSAColumns.SOLICITANTE]).strip(),
                         servico_origem=str(row.iloc[SSAColumns.SERVICO_ORIGEM]).strip(),
-                        prioridade_emissao=str(row.iloc[SSAColumns.GRAU_PRIORIDADE_EMISSAO])
+                        prioridade_emissao=str(
+                            row.iloc[SSAColumns.GRAU_PRIORIDADE_EMISSAO]
+                        )
                         .strip()
                         .upper(),
                         prioridade_planejamento=str(
                             row.iloc[SSAColumns.GRAU_PRIORIDADE_PLANEJAMENTO]
                         ).strip()
                         or None,
-                        execucao_simples=str(row.iloc[SSAColumns.EXECUCAO_SIMPLES]).strip(),
+                        execucao_simples=str(
+                            row.iloc[SSAColumns.EXECUCAO_SIMPLES]
+                        ).strip(),
                         responsavel_programacao=resp_prog,  # Já processado acima
                         semana_programada=str(
                             row.iloc[SSAColumns.SEMANA_PROGRAMADA]
@@ -436,7 +446,6 @@ class DataLoader:
             for ssa in ssas_resp:
                 logging.info(f"  - SSA {ssa.numero}: {ssa.situacao}")
 
-
     def _log_primeiro_objeto(self):
         """Log do primeiro objeto para verificação."""
         first_ssa = self.ssa_objects[0]
@@ -484,13 +493,17 @@ class DataLoader:
             if setor is not None and not isinstance(setor, str):
                 raise ValueError(f"Setor deve ser string, recebido {type(setor)}")
             if prioridade is not None and not isinstance(prioridade, str):
-                raise ValueError(f"Prioridade deve ser string, recebido {type(prioridade)}")
+                raise ValueError(
+                    f"Prioridade deve ser string, recebido {type(prioridade)}"
+                )
             if data_inicio is not None and not isinstance(data_inicio, datetime):
                 raise ValueError(
                     f"Data início deve ser datetime, recebido {type(data_inicio)}"
                 )
             if data_fim is not None and not isinstance(data_fim, datetime):
-                raise ValueError(f"Data fim deve ser datetime, recebido {type(data_fim)}")
+                raise ValueError(
+                    f"Data fim deve ser datetime, recebido {type(data_fim)}"
+                )
 
             # Filtro por setor com validação melhorada
             if setor:
@@ -498,7 +511,8 @@ class DataLoader:
                 filtered_ssas = [
                     ssa
                     for ssa in filtered_ssas
-                    if ssa.setor_executor and ssa.setor_executor.strip().upper() == setor
+                    if ssa.setor_executor
+                    and ssa.setor_executor.strip().upper() == setor
                 ]
                 logging.info(f"Filtro por setor '{setor}': {len(filtered_ssas)} SSAs")
 
@@ -533,11 +547,15 @@ class DataLoader:
                     for ssa in filtered_ssas
                     if ssa.emitida_em and ssa.emitida_em <= data_fim
                 ]
-                logging.info(f"Filtro por data fim {data_fim}: {len(filtered_ssas)} SSAs")
+                logging.info(
+                    f"Filtro por data fim {data_fim}: {len(filtered_ssas)} SSAs"
+                )
 
             # Diagnóstico após todos os filtros
             if filtered_ssas:
-                diagnostico = self.validator.diagnose_responsavel_data(filtered_ssas, setor)
+                diagnostico = self.validator.diagnose_responsavel_data(
+                    filtered_ssas, setor or ""
+                )
                 logging.info("=== Diagnóstico após Filtros ===")
                 logging.info(f"Total de SSAs filtradas: {len(filtered_ssas)}")
                 logging.info("Responsáveis na Execução:")

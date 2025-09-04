@@ -27,6 +27,7 @@ class NetworkError:
     details: str
     severity: ErrorSeverity
 
+
 @dataclass
 class ConsoleError:
     timestamp: str
@@ -321,6 +322,7 @@ class SAMLocators:
         "apr": "input[id*='ctl12'][id*='wtContent']",
     }
 
+
 class SAMNavigator:
     def __init__(self, page: Page):
         self.page = page
@@ -330,8 +332,11 @@ class SAMNavigator:
         self.error_tracker = ErrorTracker(page)
 
     def _safe_action(
-        self, action_fn, error_msg: str, screenshot_name: Optional[str] = None,
-        retry_count: int = 3
+        self,
+        action_fn,
+        error_msg: str,
+        screenshot_name: Optional[str] = None,
+        retry_count: int = 3,
     ):
         """Wrapper para executar ações com tratamento de erro padronizado."""
         for attempt in range(retry_count):
@@ -348,7 +353,7 @@ class SAMNavigator:
                     raise
 
                 # Espera exponencial entre tentativas
-                wait_time = (2 ** attempt) * 1000
+                wait_time = (2**attempt) * 1000
                 self.page.wait_for_timeout(wait_time)
 
     def login(self, username: str, password: str):
@@ -372,6 +377,7 @@ class SAMNavigator:
 
     def wait_for_filter_field(self):
         """Aguarda o campo 'Setor Executor' com retry."""
+
         def _wait_for_field():
             self.page.wait_for_selector(
                 self.locators.FILTER["setor_executor"],
@@ -384,7 +390,7 @@ class SAMNavigator:
         return self._safe_action(
             _wait_for_field,
             "Erro ao localizar campo 'Setor Executor'",
-            "filter_field_error"
+            "filter_field_error",
         )
 
     def fill_filter(self, executor_setor_value: str):
@@ -442,7 +448,7 @@ class SAMNavigator:
                                 if (loadingBar && window.getComputedStyle(loadingBar).display !== 'none') {
                                     return false;
                                 }
-                                
+
                                 const loadingIndicators = document.querySelectorAll(
                                     '.loading-indicator, .loading, [class*="loading"], .progress, .spinner'
                                 );
@@ -451,14 +457,14 @@ class SAMNavigator:
                                         return false;
                                     }
                                 }
-                                
+
                                 const osAjaxElements = document.querySelectorAll('[id*="AjaxWait"]');
                                 for (const element of osAjaxElements) {
                                     if (window.getComputedStyle(element).display !== 'none') {
                                         return false;
                                     }
                                 }
-                                
+
                                 return true;
                             }
                         """
@@ -531,7 +537,7 @@ class SAMNavigator:
                     try {
                         const checkboxesToCheck = ['ctl00', 'ctl04', 'ctl08', 'ctl02', 'ctl06', 'ctl10'];
                         const checkboxesToUncheck = ['ctl12'];
-                        
+
                         const triggerEvents = (element) => {
                             const events = ['change', 'click', 'input'];
                             events.forEach(eventType => {
@@ -539,14 +545,14 @@ class SAMNavigator:
                                 element.dispatchEvent(event);
                             });
                         };
-                        
+
                         const handleCheckboxes = (idList, checked) => {
                             idList.forEach(id => {
                                 const checkbox = document.querySelector(`input[id*='${id}'][id*='wtContent']`);
                                 if (checkbox) {
                                     checkbox.checked = false;
                                     triggerEvents(checkbox);
-                                    
+
                                     if (checked) {
                                         setTimeout(() => {
                                             checkbox.checked = true;
@@ -556,13 +562,13 @@ class SAMNavigator:
                                 }
                             });
                         };
-                        
+
                         handleCheckboxes([...checkboxesToCheck, ...checkboxesToUncheck], false);
-                        
+
                         setTimeout(() => {
                             handleCheckboxes(checkboxesToCheck, true);
                         }, 200);
-                        
+
                         return true;
                     } catch (error) {
                         console.error('Erro ao selecionar checkboxes:', error);
@@ -677,7 +683,7 @@ class SAMNavigator:
                                         setTimeout(tryClick, 1000);
                                     }
                                 };
-                                
+
                                 tryClick();
                             });
                         }
@@ -697,18 +703,18 @@ class SAMNavigator:
                         () => {
                             const exportLinks = Array.from(document.querySelectorAll('a'))
                                 .filter(a => a.textContent.includes('Exportar para Excel'));
-                            
+
                             const isVisible = (element) => {
                                 if (!element) return false;
                                 const rect = element.getBoundingClientRect();
                                 const style = window.getComputedStyle(element);
-                                return rect.width > 0 && 
-                                    rect.height > 0 && 
-                                    style.display !== 'none' && 
+                                return rect.width > 0 &&
+                                    rect.height > 0 &&
+                                    style.display !== 'none' &&
                                     style.visibility !== 'hidden' &&
                                     element.offsetParent !== null;
                             };
-                            
+
                             const visibleButton = exportLinks.find(isVisible);
                             if (visibleButton) {
                                 // Força o botão a ficar visível e clicável
@@ -755,8 +761,8 @@ class SAMNavigator:
                         self.download_path, download.suggested_filename
                     )
                     download.save_as(download_file_path)
-                    self.error_tracker.download_end_time = datetime.now()  
-                    self.error_tracker.last_download_path = download_file_path  
+                    self.error_tracker.download_end_time = datetime.now()
+                    self.error_tracker.last_download_path = download_file_path
 
                     print(f"Download concluído: {download_file_path}")
                     return True
@@ -790,18 +796,18 @@ class SAMNavigator:
                                     resolve(false);
                                     return;
                                 }
-                                
+
                                 const menu = document.querySelector('[id*="wtMenuDropdown"]');
                                 if (menu) {
                                     menu.style.display = 'block';
                                     menu.style.visibility = 'visible';
                                 }
-                                
+
                                 const links = Array.from(document.querySelectorAll('a'));
-                                const exportButton = links.find(link => 
+                                const exportButton = links.find(link =>
                                     link.textContent.includes('Exportar para Excel')
                                 );
-                                
+
                                 if (exportButton) {
                                     exportButton.click();
                                     resolve(true);
@@ -809,7 +815,7 @@ class SAMNavigator:
                                     setTimeout(() => attemptExport(attempt + 1), 1000);
                                 }
                             };
-                            
+
                             attemptExport();
                         });
                     }

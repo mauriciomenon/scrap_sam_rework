@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from typing import Dict
 from flask import request
 
+
 class LogManager:
     """Gerencia o logging com rastreamento de IP e ações dos usuários."""
 
@@ -40,6 +41,7 @@ class LogManager:
         try:
             # Tenta obter o IP do request do Flask
             from flask import request
+
             try:
                 ip = request.remote_addr
             except RuntimeError:
@@ -50,12 +52,12 @@ class LogManager:
         # Controle de frequência de logs
         current_time = datetime.now()
         log_key = f"{ip}_{message}"
-        
+
         if log_key in self._last_log:
             # Só loga novamente após 5 minutos para a mesma mensagem do mesmo IP
             if (current_time - self._last_log[log_key]).total_seconds() < 300:
                 return
-            
+
         self._last_log[log_key] = current_time
 
         try:
@@ -111,33 +113,33 @@ class LogManager:
             log_file = "dashboard_activity.log"
             if not os.path.exists(log_file):
                 return
-            
+
             # Lê todas as linhas do arquivo
-            with open(log_file, 'r', encoding='utf-8') as f:
+            with open(log_file, "r", encoding="utf-8") as f:
                 lines = f.readlines()
-            
+
             # Filtra apenas logs recentes
             cutoff_date = datetime.now() - timedelta(days=days)
             recent_logs = []
-            
+
             for line in lines:
                 try:
                     # Extrai a data do log (assume formato padrão no início da linha)
-                    log_date_str = line.split('-')[0].strip()
+                    log_date_str = line.split("-")[0].strip()
                     log_date = datetime.strptime(log_date_str, "%Y-%m-%d %H:%M:%S,%f")
-                    
+
                     if log_date >= cutoff_date:
                         recent_logs.append(line)
                 except (ValueError, IndexError):
                     # Se não conseguir extrair a data, mantém o log
                     recent_logs.append(line)
-            
+
             # Reescreve o arquivo apenas com logs recentes
-            with open(log_file, 'w', encoding='utf-8') as f:
+            with open(log_file, "w", encoding="utf-8") as f:
                 f.writelines(recent_logs)
-                
+
             self.logger.info(f"Logs mais antigos que {days} dias foram removidos")
-            
+
         except Exception as e:
             self.logger.error(f"Erro ao limpar logs antigos: {str(e)}")
 
@@ -146,25 +148,29 @@ class LogManager:
         try:
             if not os.path.exists(backup_dir):
                 os.makedirs(backup_dir)
-            
+
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            backup_file = os.path.join(backup_dir, f"dashboard_activity_{timestamp}.log")
-            
+            backup_file = os.path.join(
+                backup_dir, f"dashboard_activity_{timestamp}.log"
+            )
+
             # Copia o arquivo de log atual
             if os.path.exists("dashboard_activity.log"):
                 shutil.copy2("dashboard_activity.log", backup_file)
-                
+
                 # Compacta o backup
-                with zipfile.ZipFile(f"{backup_file}.zip", 'w', zipfile.ZIP_DEFLATED) as zipf:
+                with zipfile.ZipFile(
+                    f"{backup_file}.zip", "w", zipfile.ZIP_DEFLATED
+                ) as zipf:
                     zipf.write(backup_file, os.path.basename(backup_file))
-                
+
                 # Remove o arquivo não compactado
                 os.remove(backup_file)
-                
+
                 self.logger.info(f"Backup dos logs criado: {backup_file}.zip")
             else:
                 self.logger.warning("Arquivo de log não encontrado para backup")
-            
+
         except Exception as e:
             self.logger.error(f"Erro ao criar backup dos logs: {str(e)}")
 
@@ -173,38 +179,48 @@ class LogManager:
         stats = {
             "total_users": len(self.active_users),
             "total_connections": len(self.connected_ips),
-            "active_users": len([u for u, info in self.active_users.items() 
-                               if (datetime.now() - info["last_activity"]).seconds < 3600]),
-            "total_actions": sum(info["action_count"] for info in self.active_users.values()),
+            "active_users": len(
+                [
+                    u
+                    for u, info in self.active_users.items()
+                    if (datetime.now() - info["last_activity"]).seconds < 3600
+                ]
+            ),
+            "total_actions": sum(
+                info["action_count"] for info in self.active_users.values()
+            ),
             "last_connection": None,
             "most_active_ip": None,
-            "most_actions": 0
+            "most_actions": 0,
         }
-        
+
         if self.active_users:
             # Encontra o usuário mais recente
-            latest_user = max(self.active_users.items(), 
-                            key=lambda x: x[1]["last_activity"])
+            latest_user = max(
+                self.active_users.items(), key=lambda x: x[1]["last_activity"]
+            )
             stats["last_connection"] = latest_user[1]["last_activity"]
-            
+
             # Encontra o usuário mais ativo
-            most_active = max(self.active_users.items(), 
-                            key=lambda x: x[1]["action_count"])
+            most_active = max(
+                self.active_users.items(), key=lambda x: x[1]["action_count"]
+            )
             stats["most_active_ip"] = most_active[0]
             stats["most_actions"] = most_active[1]["action_count"]
-        
+
         return stats
 
     def cleanup_inactive_users(self, timeout_minutes: int = 30):
         """Remove usuários inativos."""
         now = datetime.now()
         timeout = timedelta(minutes=timeout_minutes)
-        
+
         inactive_users = [
-            ip for ip, info in self.active_users.items()
+            ip
+            for ip, info in self.active_users.items()
             if now - info["last_activity"] > timeout
         ]
-        
+
         for ip in inactive_users:
             self.log_with_ip("INFO", f"Removendo usuário inativo: {ip}")
             del self.active_users[ip]

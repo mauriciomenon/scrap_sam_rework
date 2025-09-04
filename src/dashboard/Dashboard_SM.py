@@ -15,6 +15,7 @@ from Report_from_excel import (
     SSAReporter,
 )
 
+
 class SSADashboard:
     """Dashboard interativo para análise de SSAs."""
 
@@ -508,6 +509,7 @@ class KPICalculator:
             metrics["taxa_programacao"] * 0.5 + metrics["taxa_execucao_simples"] * 0.5
         )
         return round(score * 100, 2)
+
 
 if __name__ == "__main__":
     try:

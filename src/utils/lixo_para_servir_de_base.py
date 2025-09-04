@@ -14,7 +14,7 @@ import os
 import json
 import psutil
 import schedule
-import yaml  
+import yaml
 
 # Imports de análise de dados
 import pandas as pd
@@ -86,13 +86,14 @@ class SSAData:
         sistema_origem (str): Sistema onde a SSA foi gerada
         anomalia (Optional[str]): Código da anomalia relacionada
     """
-    self.numero = str(data.get('NUMERO', ''))
-    self.emissao = self._parse_date(data.get('EMITIDA_EM', ''))
-    self.prioridade = str(data.get('PRIORIDADE', ''))
-    self.status = str(data.get('STATUS', ''))
-    self.descricao = str(data.get('DESCRICAO', ''))
-    self.origem = str(data.get('ORIGEM', ''))
-    self.responsavel = str(data.get('RESPONSAVEL', ''))
+
+    self.numero = str(data.get("NUMERO", ""))
+    self.emissao = self._parse_date(data.get("EMITIDA_EM", ""))
+    self.prioridade = str(data.get("PRIORIDADE", ""))
+    self.status = str(data.get("STATUS", ""))
+    self.descricao = str(data.get("DESCRICAO", ""))
+    self.origem = str(data.get("ORIGEM", ""))
+    self.responsavel = str(data.get("RESPONSAVEL", ""))
     numero: str
     situacao: str
     derivada: Optional[str]
@@ -622,7 +623,7 @@ class SSAReporter:
                     body {{ font-family: Arial, sans-serif; margin: 20px; }}
                     .header {{ background-color: #f8f9fa; padding: 20px; }}
                     .summary {{ display: flex; flex-wrap: wrap; gap: 20px; }}
-                    .metric {{ 
+                    .metric {{
                         background-color: white;
                         padding: 15px;
                         border-radius: 8px;
@@ -643,7 +644,7 @@ class SSAReporter:
                     <h1>Relatório de Análise de SSAs</h1>
                     <p>Gerado em: {datetime.now().strftime('%d/%m/%Y %H:%M')}</p>
                 </div>
-                
+
                 <div class="summary">
                     <div class="metric">
                         <h3>Total de SSAs</h3>
@@ -654,7 +655,7 @@ class SSAReporter:
                         <p>{stats['tempo_medio_emissao']:.2f}</p>
                     </div>
                 </div>
-                
+
                 <div class="priority-stats">
                     <h3>Distribuição por Prioridade</h3>
                     <table>
@@ -665,19 +666,19 @@ class SSAReporter:
                         {self._generate_priority_table_rows(stats['por_prioridade'])}
                     </table>
                 </div>
-                
+
                 <div class="chart-container">
                     {self.visualizer.create_priority_chart().to_html()}
                 </div>
-                
+
                 <div class="chart-container">
                     {self.visualizer.create_sector_heatmap().to_html()}
                 </div>
-                
+
                 <div class="chart-container">
                     {self.visualizer.create_equipment_chart().to_html()}
                 </div>
-                
+
                 <div class="chart-container">
                     {self.visualizer.create_priority_timeline().to_html()}
                 </div>
@@ -1257,7 +1258,7 @@ class DataLoader:
     def _validate_dates(self) -> bool:
         """Valida formato das datas"""
         try:
-            self._df['EMITIDA_EM'] = pd.to_datetime(self._df['EMITIDA_EM'])
+            self._df["EMITIDA_EM"] = pd.to_datetime(self._df["EMITIDA_EM"])
             return True
         except Exception as e:
             self.logger.warning(f"Erro na validação de datas: {str(e)}")
@@ -1265,29 +1266,33 @@ class DataLoader:
 
     def _validate_priorities(self) -> bool:
         """Valida prioridades"""
-        valid_priorities = {'ALTA', 'MEDIA', 'BAIXA', 'PROGRAMÁVEL'}
-        current_priorities = set(self._df['PRIORIDADE'].unique())
+        valid_priorities = {"ALTA", "MEDIA", "BAIXA", "PROGRAMÁVEL"}
+        current_priorities = set(self._df["PRIORIDADE"].unique())
         invalid_priorities = current_priorities - valid_priorities
-        
+
         if invalid_priorities:
-            self.logger.warning(f"Prioridades inválidas encontradas: {list(invalid_priorities)}")
+            self.logger.warning(
+                f"Prioridades inválidas encontradas: {list(invalid_priorities)}"
+            )
             return False
         return True
 
     def _validate_relationships(self) -> bool:
         """Valida relacionamentos entre SSAs"""
-        if 'ORIGEM' not in self._df.columns:
+        if "ORIGEM" not in self._df.columns:
             return True
 
-        origins = set(self._df['ORIGEM'].dropna())
-        numbers = set(self._df['NUMERO'].astype(str))
+        origins = set(self._df["ORIGEM"].dropna())
+        numbers = set(self._df["NUMERO"].astype(str))
         invalid_origins = origins - numbers
 
         if invalid_origins:
-            self.logger.warning(f"SSAs derivadas com origem inexistente: {list(invalid_origins)}")
+            self.logger.warning(
+                f"SSAs derivadas com origem inexistente: {list(invalid_origins)}"
+            )
             return False
         return True
-    
+
     def validate_data(self) -> Dict[str, bool]:
         """Valida os dados carregados"""
         if self._df is None:
@@ -1310,9 +1315,13 @@ class DataLoader:
                 ssa = SSAData(row.to_dict())
                 self._ssa_objects.append(ssa)
             except Exception as e:
-                self.logger.warning(f"Erro ao converter registro: {row['NUMERO']}. Erro: {str(e)}")
+                self.logger.warning(
+                    f"Erro ao converter registro: {row['NUMERO']}. Erro: {str(e)}"
+                )
 
-        self.logger.info(f"Convertidos {len(self._ssa_objects)} registros para objetos SSAData")
+        self.logger.info(
+            f"Convertidos {len(self._ssa_objects)} registros para objetos SSAData"
+        )
 
     def get_ssa_objects(self) -> List[SSAData]:
         """
@@ -1343,7 +1352,7 @@ class DataLoader:
                 "dates": self._validate_dates(),
                 "priorities": self._validate_priorities(),
                 "relationships": self._validate_relationships(),
-                "required_fields": self._validate_required_fields()
+                "required_fields": self._validate_required_fields(),
             }
 
             all_valid = all(validations.values())
@@ -1419,7 +1428,7 @@ class DataLoader:
     def export_validated_data(self, output_path: str):
         """
         Exporta dados validados com relatório de qualidade.
-        
+
         Args:
             output_path (str): Caminho para salvar os dados exportados
         """
@@ -1429,18 +1438,24 @@ class DataLoader:
                 "dates": self._validate_dates(),
                 "priorities": self._validate_priorities(),
                 "relationships": self._validate_relationships(),
-                "required_fields": self._validate_required_fields()
+                "required_fields": self._validate_required_fields(),
             }
 
             # Prepara relatório de validação
-            validation_report = pd.DataFrame([{
-                "Data": datetime.now(),
-                "Total_SSAs": len(self.df),
-                "Datas_Válidas": validation_results["dates"],
-                "Prioridades_Válidas": validation_results["priorities"],
-                "Relacionamentos_Válidos": validation_results["relationships"],
-                "Campos_Obrigatórios_Válidos": validation_results["required_fields"]
-            }])
+            validation_report = pd.DataFrame(
+                [
+                    {
+                        "Data": datetime.now(),
+                        "Total_SSAs": len(self.df),
+                        "Datas_Válidas": validation_results["dates"],
+                        "Prioridades_Válidas": validation_results["priorities"],
+                        "Relacionamentos_Válidos": validation_results["relationships"],
+                        "Campos_Obrigatórios_Válidos": validation_results[
+                            "required_fields"
+                        ],
+                    }
+                ]
+            )
 
             # Cria arquivo Excel com múltiplas abas
             with pd.ExcelWriter(output_path, engine="xlsxwriter") as writer:
@@ -1571,11 +1586,11 @@ class DataLoader:
     def update_ssa_data(self, ssa_id: str, updates: Dict):
         """
         Atualiza dados de uma SSA específica.
-        
+
         Args:
             ssa_id (str): Número identificador da SSA
             updates (Dict): Dicionário com as atualizações a serem aplicadas
-            
+
         Returns:
             bool: True se a atualização foi bem sucedida
         """
@@ -1616,15 +1631,18 @@ class DataLoader:
     def _validate_updates(self, updates: Dict) -> bool:
         """
         Valida as atualizações propostas.
-        
+
         Args:
             updates (Dict): Dicionário com as atualizações
-            
+
         Returns:
             bool: True se as atualizações são válidas
         """
-        valid_fields = {field.lower() for field in dir(SSAColumns) 
-                       if not field.startswith('_') and field.isupper()}
+        valid_fields = {
+            field.lower()
+            for field in dir(SSAColumns)
+            if not field.startswith("_") and field.isupper()
+        }
 
         for field in updates:
             if field.lower() not in valid_fields:
@@ -1652,7 +1670,7 @@ class DataLoader:
     def _record_update_history(self, ssa_id: str, updates: Dict):
         """
         Registra histórico de atualizações.
-        
+
         Args:
             ssa_id (str): Número identificador da SSA
             updates (Dict): Dicionário com as atualizações
@@ -1660,7 +1678,7 @@ class DataLoader:
         history_record = {
             "ssa_id": ssa_id,
             "timestamp": datetime.now(),
-            "updates": updates
+            "updates": updates,
         }
 
         # TODO Aqui você pode implementar o armazenamento do histórico
@@ -1670,7 +1688,7 @@ class DataLoader:
     def _update_ssa_object(self, ssa_id: str, updates: Dict):
         """
         Atualiza o objeto SSAData correspondente.
-        
+
         Args:
             ssa_id (str): Número identificador da SSA
             updates (Dict): Dicionário com as atualizações
@@ -1682,13 +1700,14 @@ class DataLoader:
                         setattr(ssa, field.lower(), value)
                 break
 
+
 class KPICalculator:
     """Calcula indicadores chave de desempenho (KPIs) para SSAs."""
 
     def __init__(self, df: pd.DataFrame):
         """
         Inicializa o calculador de KPIs.
-        
+
         Args:
             df (pd.DataFrame): DataFrame com os dados das SSAs
         """
@@ -1696,7 +1715,7 @@ class KPICalculator:
         self.sla_limits = {
             "S3.7": 24,  # horas
             "S3.6": 48,  # horas
-            "S3.5": 72   # horas
+            "S3.5": 72,  # horas
         }
 
     # Métodos Implementados
@@ -1835,7 +1854,7 @@ class KPICalculator:
     def calculate_sector_performance(self) -> Dict:
         """
         Calcula KPIs por setor.
-        
+
         Returns:
             Dict: Métricas de performance setorial
         """
@@ -1844,7 +1863,7 @@ class KPICalculator:
             "tempo_medio_resposta": self._calculate_response_time_by_sector(),
             "volume_trabalho": self._calculate_workload_by_sector(),
             "eficiencia_setorial": self._calculate_sector_efficiency(),
-            "comparativo_setores": self._compare_sectors()
+            "comparativo_setores": self._compare_sectors(),
         }
 
     def _calculate_resolution_rate_by_sector(self) -> Dict:
@@ -2059,38 +2078,42 @@ class KPICalculator:
         escalations = {
             "total_escalonamentos": len(
                 self.df[
-                    self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_PLANEJAMENTO] != 
-                    self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
+                    self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_PLANEJAMENTO]
+                    != self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
                 ]
             ),
             "por_prioridade_origem": {},
             "por_setor": {},
-            "tendencia_temporal": {}
+            "tendencia_temporal": {},
         }
 
         # Análise por prioridade de origem
         for priority in ["S3.5", "S3.6", "S3.7"]:
             escalated = self.df[
-                (self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == priority) &
-                (self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_PLANEJAMENTO] != priority)
+                (self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == priority)
+                & (self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_PLANEJAMENTO] != priority)
             ]
             if not escalated.empty:
                 escalations["por_prioridade_origem"][priority] = {
                     "quantidade": len(escalated),
-                    "destinos": escalated.iloc[:, SSAColumns.GRAU_PRIORIDADE_PLANEJAMENTO].value_counts().to_dict()
+                    "destinos": escalated.iloc[
+                        :, SSAColumns.GRAU_PRIORIDADE_PLANEJAMENTO
+                    ]
+                    .value_counts()
+                    .to_dict(),
                 }
 
         # Análise por setor
         for setor in self.df.iloc[:, SSAColumns.SETOR_EXECUTOR].unique():
             setor_df = self.df[self.df.iloc[:, SSAColumns.SETOR_EXECUTOR] == setor]
             escalated = setor_df[
-                setor_df.iloc[:, SSAColumns.GRAU_PRIORIDADE_PLANEJAMENTO] != 
-                setor_df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
+                setor_df.iloc[:, SSAColumns.GRAU_PRIORIDADE_PLANEJAMENTO]
+                != setor_df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
             ]
             if not escalated.empty:
                 escalations["por_setor"][setor] = {
                     "quantidade": len(escalated),
-                    "taxa": len(escalated) / len(setor_df)
+                    "taxa": len(escalated) / len(setor_df),
                 }
 
         # Análise temporal
@@ -2388,30 +2411,46 @@ class KPICalculator:
     def _assess_workflow_compliance(self) -> float:
         """Avalia conformidade com fluxo de trabalho."""
         # Verifica sequência correta de estados
-        valid_sequence = len(self.df[
-            (self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO].notna()) &
-            (self.df.iloc[:, SSAColumns.SEMANA_PROGRAMADA].notna()) &
-            (
-                (self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO].notna()) |
-                (self.df.iloc[:, SSAColumns.SITUACAO].isin(["Concluída", "Fechada"]))
-            )
-        ]) / len(self.df)
+        valid_sequence = len(
+            self.df[
+                (self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO].notna())
+                & (self.df.iloc[:, SSAColumns.SEMANA_PROGRAMADA].notna())
+                & (
+                    (self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO].notna())
+                    | (
+                        self.df.iloc[:, SSAColumns.SITUACAO].isin(
+                            ["Concluída", "Fechada"]
+                        )
+                    )
+                )
+            ]
+        ) / len(self.df)
 
         return valid_sequence
 
     def _assess_responsibility_compliance(self) -> float:
         """
         Avalia conformidade com atribuição de responsabilidades.
-        
+
         Returns:
             float: Taxa de conformidade
         """
-        valid_resp = len(self.df[
-            ((self.df.iloc[:, SSAColumns.SITUACAO] != "Nova") &
-            (self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO].notna())) |
-            ((self.df.iloc[:, SSAColumns.SITUACAO].isin(["Em Execução", "Concluída"])) &
-            (self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO].notna()))
-        ]) / len(self.df)
+        valid_resp = len(
+            self.df[
+                (
+                    (self.df.iloc[:, SSAColumns.SITUACAO] != "Nova")
+                    & (self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO].notna())
+                )
+                | (
+                    (
+                        self.df.iloc[:, SSAColumns.SITUACAO].isin(
+                            ["Em Execução", "Concluída"]
+                        )
+                    )
+                    & (self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO].notna())
+                )
+            ]
+        ) / len(self.df)
 
         return valid_resp
 
@@ -2763,66 +2802,92 @@ class KPICalculator:
     def _identify_overload(self) -> List[Dict]:
         """
         Identifica situações de sobrecarga.
-        
+
         Returns:
             List[Dict]: Lista de situações de sobrecarga identificadas
         """
         overload = []
 
         # Calcula médias de referência
-        avg_load = len(self.df) / len(pd.concat([
-            self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO],
-            self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO]
-        ]).unique())
+        avg_load = len(self.df) / len(
+            pd.concat(
+                [
+                    self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO],
+                    self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO],
+                ]
+            ).unique()
+        )
 
         # Analisa carga por responsável
-        for resp in pd.concat([
-            self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO],
-            self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO]
-        ]).unique():
+        for resp in pd.concat(
+            [
+                self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO],
+                self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO],
+            ]
+        ).unique():
             if pd.notna(resp) and resp.strip() != "":
                 resp_ssas = self.df[
-                    (self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO] == resp) |
-                    (self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == resp)
+                    (self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO] == resp)
+                    | (self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == resp)
                 ]
 
                 if len(resp_ssas) > 1.5 * avg_load:  # 50% acima da média
-                    overload.append({
-                        "responsavel": resp,
-                        "total_ssas": len(resp_ssas),
-                        "percentual_acima_media": (len(resp_ssas) / avg_load - 1) * 100,
-                        "ssas_criticas": len(resp_ssas[
-                            resp_ssas.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == "S3.7"
-                        ]),
-                        "media_atraso": resp_ssas.apply(
-                            lambda row: (datetime.now() - row.iloc[SSAColumns.EMITIDA_EM]).total_seconds() / 3600,
-                            axis=1
-                        ).mean(),
-                        "recomendacao": self._generate_overload_recommendation(resp_ssas)
-                    })
+                    overload.append(
+                        {
+                            "responsavel": resp,
+                            "total_ssas": len(resp_ssas),
+                            "percentual_acima_media": (len(resp_ssas) / avg_load - 1)
+                            * 100,
+                            "ssas_criticas": len(
+                                resp_ssas[
+                                    resp_ssas.iloc[
+                                        :, SSAColumns.GRAU_PRIORIDADE_EMISSAO
+                                    ]
+                                    == "S3.7"
+                                ]
+                            ),
+                            "media_atraso": resp_ssas.apply(
+                                lambda row: (
+                                    datetime.now() - row.iloc[SSAColumns.EMITIDA_EM]
+                                ).total_seconds()
+                                / 3600,
+                                axis=1,
+                            ).mean(),
+                            "recomendacao": self._generate_overload_recommendation(
+                                resp_ssas
+                            ),
+                        }
+                    )
 
         return sorted(overload, key=lambda x: x["percentual_acima_media"], reverse=True)
 
     def _generate_overload_recommendation(self, resp_ssas: pd.DataFrame) -> str:
         """
         Gera recomendação para situação de sobrecarga.
-        
+
         Args:
             resp_ssas: DataFrame com SSAs do responsável
-            
+
         Returns:
             str: Recomendação gerada
         """
-        critical_count = len(resp_ssas[
-            resp_ssas.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == "S3.7"
-        ])
-        delayed_count = len(resp_ssas[
-            resp_ssas.apply(
-                lambda row: (datetime.now() - row.iloc[SSAColumns.EMITIDA_EM]).total_seconds() / 3600 > 
-                self.sla_limits.get(row.iloc[SSAColumns.GRAU_PRIORIDADE_EMISSAO], 72),
-                axis=1
-            )
-        ])
+        critical_count = len(
+            resp_ssas[resp_ssas.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == "S3.7"]
+        )
+        delayed_count = len(
+            resp_ssas[
+                resp_ssas.apply(
+                    lambda row: (
+                        datetime.now() - row.iloc[SSAColumns.EMITIDA_EM]
+                    ).total_seconds()
+                    / 3600
+                    > self.sla_limits.get(
+                        row.iloc[SSAColumns.GRAU_PRIORIDADE_EMISSAO], 72
+                    ),
+                    axis=1,
+                )
+            ]
+        )
 
         recommendations = []
         if critical_count > 0:
@@ -2830,14 +2895,16 @@ class KPICalculator:
         if delayed_count > 0:
             recommendations.append(f"Priorizar {delayed_count} SSAs em atraso")
         if len(resp_ssas) > 10:  # número arbitrário para exemplo
-            recommendations.append("Considerar divisão de carga com outros responsáveis")
+            recommendations.append(
+                "Considerar divisão de carga com outros responsáveis"
+            )
 
         return "; ".join(recommendations) if recommendations else "Monitorar situação"
 
     def calculate_trend_indicators(self) -> Dict:
         """
         Calcula indicadores de tendência.
-        
+
         Returns:
             Dict: Indicadores de tendência calculados
         """
@@ -2845,7 +2912,7 @@ class KPICalculator:
             "previsao_demanda": self._forecast_demand(),
             "analise_sazonalidade": self._analyze_seasonality(),
             "padroes": self._identify_patterns(),
-            "alertas": self._generate_trend_alerts()
+            "alertas": self._generate_trend_alerts(),
         }
 
     def _forecast_demand(self) -> Dict:
@@ -3086,13 +3153,15 @@ class KPICalculator:
         if self.df.empty:
             return {}
 
-        monthly_pattern = self.df.iloc[:, SSAColumns.EMITIDA_EM].dt.day.value_counts().sort_index()
+        monthly_pattern = (
+            self.df.iloc[:, SSAColumns.EMITIDA_EM].dt.day.value_counts().sort_index()
+        )
 
         return {
             "dia_pico": int(monthly_pattern.idxmax()),
             "dia_vale": int(monthly_pattern.idxmin()),
             "distribuicao": monthly_pattern.to_dict(),
-            "concentracao": float(monthly_pattern.max() / monthly_pattern.sum())
+            "concentracao": float(monthly_pattern.max() / monthly_pattern.sum()),
         }
 
     def _identify_patterns(self) -> Dict:
@@ -3154,7 +3223,7 @@ class KPICalculator:
     def get_overall_health_score(self) -> float:
         """
         Calcula score geral de saúde do sistema.
-        
+
         Returns:
             float: Score de 0 a 100
         """
@@ -3163,18 +3232,13 @@ class KPICalculator:
         responsiveness = self.calculate_responsiveness_metrics()
 
         # Pesos para diferentes aspectos
-        weights = {
-            "programacao": 0.2,
-            "execucao": 0.3,
-            "sla": 0.3,
-            "qualidade": 0.2
-        }
+        weights = {"programacao": 0.2, "execucao": 0.3, "sla": 0.3, "qualidade": 0.2}
 
         score = (
-            metrics["taxa_programacao"] * weights["programacao"] +
-            metrics["taxa_execucao_simples"] * weights["execucao"] +
-            self._calculate_sla_compliance(self.df) * weights["sla"] +
-            self._calculate_quality_score(quality) * weights["qualidade"]
+            metrics["taxa_programacao"] * weights["programacao"]
+            + metrics["taxa_execucao_simples"] * weights["execucao"]
+            + self._calculate_sla_compliance(self.df) * weights["sla"]
+            + self._calculate_quality_score(quality) * weights["qualidade"]
         )
 
         return round(score * 100, 2)
@@ -3432,7 +3496,7 @@ class KPICalculator:
     def _calculate_avg_response_time(self) -> float:
         """
         Calcula tempo médio de resposta global.
-        
+
         Returns:
             float: Tempo médio em horas
         """
@@ -3440,8 +3504,11 @@ class KPICalculator:
             return 0
 
         response_times = self.df.apply(
-            lambda row: (datetime.now() - row.iloc[SSAColumns.EMITIDA_EM]).total_seconds() / 3600,
-            axis=1
+            lambda row: (
+                datetime.now() - row.iloc[SSAColumns.EMITIDA_EM]
+            ).total_seconds()
+            / 3600,
+            axis=1,
         )
 
         return abs(response_times.mean())
@@ -3465,11 +3532,10 @@ class KPICalculator:
             "tendencias": self._get_trend_summary(),
         }
 
-
     def _analyze_score_trend(self) -> Dict:
         """
         Analisa tendência do score de saúde.
-        
+
         Returns:
             Dict: Análise da tendência do score
         """
@@ -3477,53 +3543,59 @@ class KPICalculator:
         dates = self.df.iloc[:, SSAColumns.EMITIDA_EM].sort_values()
         total_days = (dates.max() - dates.min()).days
         interval_days = max(1, total_days // 5)  # divide em até 5 períodos
-        
+
         scores = []
         periods = []
         current_date = dates.min()
-        
+
         while current_date <= dates.max():
             next_date = current_date + pd.Timedelta(days=interval_days)
             period_df = self.df[
-                (self.df.iloc[:, SSAColumns.EMITIDA_EM] >= current_date) &
-                (self.df.iloc[:, SSAColumns.EMITIDA_EM] < next_date)
+                (self.df.iloc[:, SSAColumns.EMITIDA_EM] >= current_date)
+                & (self.df.iloc[:, SSAColumns.EMITIDA_EM] < next_date)
             ]
-            
+
             if not period_df.empty:
                 # Calcula score para o período
                 period_score = self.kpi_calculator.get_overall_health_score(period_df)
                 scores.append(period_score)
                 periods.append(current_date)
-            
+
             current_date = next_date
-        
+
         if len(scores) < 2:
             return {
                 "direction": "estável",
                 "variation": 0,
-                "trend": "insufficient_data"
+                "trend": "insufficient_data",
             }
-        
+
         # Calcula tendência
         slope = np.polyfit(range(len(scores)), scores, 1)[0]
-        variation = ((scores[-1] - scores[0]) / scores[0]) * 100 if scores[0] != 0 else float('inf')
-        
+        variation = (
+            ((scores[-1] - scores[0]) / scores[0]) * 100
+            if scores[0] != 0
+            else float("inf")
+        )
+
         result = {
             "direction": "melhorando" if slope > 0 else "piorando",
             "variation": abs(variation),
             "trend": "consistent" if abs(variation) > 10 else "stable",
             "scores": list(zip(periods, scores)),
-            "slope": slope
+            "slope": slope,
         }
-        
+
         # Adiciona previsão
         if len(scores) >= 3:
             next_score = scores[-1] + slope
             result["forecast"] = {
                 "next_period": next_score,
-                "confidence": min(1.0, len(scores) / 10)  # maior confiança com mais dados
+                "confidence": min(
+                    1.0, len(scores) / 10
+                ),  # maior confiança com mais dados
             }
-        
+
         return result
 
     def _analyze_bottlenecks(self) -> Dict:
@@ -3582,7 +3654,9 @@ class KPICalculator:
                             "workload": len(resp_ssas),
                             "critical_ssas": len(
                                 resp_ssas[
-                                    resp_ssas.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
+                                    resp_ssas.iloc[
+                                        :, SSAColumns.GRAU_PRIORIDADE_EMISSAO
+                                    ]
                                     == "S3.7"
                                 ]
                             ),
@@ -3621,7 +3695,6 @@ class KPICalculator:
 
         return bottlenecks
 
-
     def _calculate_efficiency_by_type(self) -> Dict:
         """
         Calcula eficiência por tipo de SSA.
@@ -3629,7 +3702,11 @@ class KPICalculator:
         Returns:
             Dict: Métricas de eficiência por tipo
         """
-        efficiency_metrics = {"por_servico": {}, "por_categoria": {}, "comparativos": {}}
+        efficiency_metrics = {
+            "por_servico": {},
+            "por_categoria": {},
+            "comparativos": {},
+        }
 
         # Análise por serviço de origem
         for servico in self.df.iloc[:, SSAColumns.SERVICO_ORIGEM].unique():
@@ -3639,7 +3716,9 @@ class KPICalculator:
             total_ssas = len(servico_df)
             concluidas = len(
                 servico_df[
-                    servico_df.iloc[:, SSAColumns.SITUACAO].isin(["Concluída", "Fechada"])
+                    servico_df.iloc[:, SSAColumns.SITUACAO].isin(
+                        ["Concluída", "Fechada"]
+                    )
                 ]
             )
             tempo_medio = abs(
@@ -3655,7 +3734,9 @@ class KPICalculator:
                 "tempo_medio": tempo_medio,
                 "execucao_simples": (
                     len(
-                        servico_df[servico_df.iloc[:, SSAColumns.EXECUCAO_SIMPLES] == "Sim"]
+                        servico_df[
+                            servico_df.iloc[:, SSAColumns.EXECUCAO_SIMPLES] == "Sim"
+                        ]
                     )
                     / total_ssas
                     if total_ssas > 0
@@ -3690,7 +3771,9 @@ class KPICalculator:
                     / total,
                     "taxa_execucao": len(
                         categoria_df[
-                            categoria_df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO].notna()
+                            categoria_df.iloc[
+                                :, SSAColumns.RESPONSAVEL_EXECUCAO
+                            ].notna()
                         ]
                     )
                     / total,
@@ -3725,96 +3808,108 @@ class KPICalculator:
 
         return efficiency_metrics
 
-
     def _generate_performance_alerts(self) -> List[Dict]:
         """
         Gera alertas de performance.
-        
+
         Returns:
             List[Dict]: Lista de alertas gerados
         """
         alerts = []
-        
+
         # Define limiares
         thresholds = {
             "sla": 0.8,  # 80% de cumprimento
             "workload": 10,  # máximo de SSAs por responsável
             "delay": 48,  # máximo de horas de atraso
-            "critical": 0.2  # 20% de SSAs críticas
+            "critical": 0.2,  # 20% de SSAs críticas
         }
-        
+
         # Verifica SLA
         sla_compliance = self._calculate_sla_compliance(self.df)
         if sla_compliance < thresholds["sla"]:
-            alerts.append({
-                "type": "sla",
-                "severity": "high",
-                "metric": "Cumprimento de SLA",
-                "value": sla_compliance,
-                "threshold": thresholds["sla"],
-                "message": f"Taxa de cumprimento de SLA ({sla_compliance*100:.1f}%) abaixo do esperado",
-                "recommendation": "Revisar processos de atendimento e alocação de recursos"
-            })
-        
+            alerts.append(
+                {
+                    "type": "sla",
+                    "severity": "high",
+                    "metric": "Cumprimento de SLA",
+                    "value": sla_compliance,
+                    "threshold": thresholds["sla"],
+                    "message": f"Taxa de cumprimento de SLA ({sla_compliance*100:.1f}%) abaixo do esperado",
+                    "recommendation": "Revisar processos de atendimento e alocação de recursos",
+                }
+            )
+
         # Verifica carga de trabalho
         workload = {}
-        for resp in pd.concat([
-            self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO],
-            self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO]
-        ]).unique():
+        for resp in pd.concat(
+            [
+                self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO],
+                self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO],
+            ]
+        ).unique():
             if pd.notna(resp) and resp.strip() != "":
                 resp_ssas = self.df[
-                    (self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO] == resp) |
-                    (self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == resp)
+                    (self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO] == resp)
+                    | (self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == resp)
                 ]
                 workload[resp] = len(resp_ssas)
-                
+
                 if len(resp_ssas) > thresholds["workload"]:
-                    alerts.append({
-                        "type": "workload",
-                        "severity": "medium",
-                        "metric": "Carga de Trabalho",
-                        "resource": resp,
-                        "value": len(resp_ssas),
-                        "threshold": thresholds["workload"],
-                        "message": f"Sobrecarga detectada para {resp}",
-                        "recommendation": "Redistribuir SSAs entre responsáveis"
-                    })
-        
+                    alerts.append(
+                        {
+                            "type": "workload",
+                            "severity": "medium",
+                            "metric": "Carga de Trabalho",
+                            "resource": resp,
+                            "value": len(resp_ssas),
+                            "threshold": thresholds["workload"],
+                            "message": f"Sobrecarga detectada para {resp}",
+                            "recommendation": "Redistribuir SSAs entre responsáveis",
+                        }
+                    )
+
         # Verifica atrasos
         delays = self.df.apply(
-            lambda row: (datetime.now() - row.iloc[SSAColumns.EMITIDA_EM]).total_seconds() / 3600,
-            axis=1
+            lambda row: (
+                datetime.now() - row.iloc[SSAColumns.EMITIDA_EM]
+            ).total_seconds()
+            / 3600,
+            axis=1,
         )
         if delays.max() > thresholds["delay"]:
             delayed_ssas = self.df[delays > thresholds["delay"]]
-            alerts.append({
-                "type": "delay",
-                "severity": "high",
-                "metric": "Tempo de Atendimento",
-                "value": delays.max(),
-                "threshold": thresholds["delay"],
-                "affected_ssas": len(delayed_ssas),
-                "message": f"SSAs com atraso significativo detectadas",
-                "recommendation": "Priorizar SSAs mais antigas"
-            })
-        
+            alerts.append(
+                {
+                    "type": "delay",
+                    "severity": "high",
+                    "metric": "Tempo de Atendimento",
+                    "value": delays.max(),
+                    "threshold": thresholds["delay"],
+                    "affected_ssas": len(delayed_ssas),
+                    "message": f"SSAs com atraso significativo detectadas",
+                    "recommendation": "Priorizar SSAs mais antigas",
+                }
+            )
+
         # Verifica proporção de SSAs críticas
-        critical_ratio = len(self.df[
-            self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == "S3.7"
-        ]) / len(self.df)
-        
+        critical_ratio = len(
+            self.df[self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == "S3.7"]
+        ) / len(self.df)
+
         if critical_ratio > thresholds["critical"]:
-            alerts.append({
-                "type": "critical",
-                "severity": "high",
-                "metric": "SSAs Críticas",
-                "value": critical_ratio,
-                "threshold": thresholds["critical"],
-                "message": f"Alta proporção de SSAs críticas ({critical_ratio*100:.1f}%)",
-                "recommendation": "Investigar causa raiz do aumento de SSAs críticas"
-            })
-        
+            alerts.append(
+                {
+                    "type": "critical",
+                    "severity": "high",
+                    "metric": "SSAs Críticas",
+                    "value": critical_ratio,
+                    "threshold": thresholds["critical"],
+                    "message": f"Alta proporção de SSAs críticas ({critical_ratio*100:.1f}%)",
+                    "recommendation": "Investigar causa raiz do aumento de SSAs críticas",
+                }
+            )
+
         return alerts
 
 
@@ -3824,7 +3919,7 @@ class SSADashboard:
     def __init__(self, df: pd.DataFrame):
         """
         Inicializa o dashboard.
-        
+
         Args:
             df (pd.DataFrame): DataFrame com os dados das SSAs
         """
@@ -3832,7 +3927,7 @@ class SSADashboard:
         self.app = Dash(
             __name__,
             external_stylesheets=[dbc.themes.BOOTSTRAP],
-            suppress_callback_exceptions=True
+            suppress_callback_exceptions=True,
         )
 
         # Componentes
@@ -3918,10 +4013,10 @@ class SSADashboard:
     def _create_advanced_charts(self, df: pd.DataFrame) -> Dict[str, go.Figure]:
         """
         Cria visualizações avançadas e interativas.
-        
+
         Args:
             df: DataFrame filtrado para análise
-            
+
         Returns:
             Dict[str, go.Figure]: Dicionário de visualizações
         """
@@ -3930,7 +4025,7 @@ class SSADashboard:
             "network": self._create_network_visualization(df),
             "sankey": self._create_flow_visualization(df),
             "treemap": self._create_hierarchy_visualization(df),
-            "heatmap": self._create_correlation_heatmap(df)
+            "heatmap": self._create_correlation_heatmap(df),
         }
 
         return charts
@@ -3941,40 +4036,50 @@ class SSADashboard:
             return go.Figure()
 
         # Prepara dados
-        temporal_data = df.groupby([
-            df.iloc[:, SSAColumns.EMITIDA_EM].dt.date,
-            df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
-        ]).size().reset_index(name='count')
+        temporal_data = (
+            df.groupby(
+                [
+                    df.iloc[:, SSAColumns.EMITIDA_EM].dt.date,
+                    df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO],
+                ]
+            )
+            .size()
+            .reset_index(name="count")
+        )
 
         # Cria gráfico
         fig = go.Figure()
 
-        for priority in temporal_data.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].unique():
+        for priority in temporal_data.iloc[
+            :, SSAColumns.GRAU_PRIORIDADE_EMISSAO
+        ].unique():
             priority_data = temporal_data[
                 temporal_data.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == priority
             ]
 
-            fig.add_trace(go.Scatter(
-                x=priority_data.iloc[:, SSAColumns.EMITIDA_EM],
-                y=priority_data['count'],
-                name=priority,
-                mode='lines+markers',
-                line=dict(
-                    width=2,
-                    color=DashboardTheme.get_priority_color(priority)
-                ),
-                marker=dict(
-                    size=8,
-                    symbol='circle',
-                    color=DashboardTheme.get_priority_color(priority)
-                ),
-                hovertemplate=(
-                    "<b>Data:</b> %{x}<br>" +
-                    "<b>SSAs:</b> %{y}<br>" +
-                    "<b>Prioridade:</b> " + priority +
-                    "<extra></extra>"
+            fig.add_trace(
+                go.Scatter(
+                    x=priority_data.iloc[:, SSAColumns.EMITIDA_EM],
+                    y=priority_data["count"],
+                    name=priority,
+                    mode="lines+markers",
+                    line=dict(
+                        width=2, color=DashboardTheme.get_priority_color(priority)
+                    ),
+                    marker=dict(
+                        size=8,
+                        symbol="circle",
+                        color=DashboardTheme.get_priority_color(priority),
+                    ),
+                    hovertemplate=(
+                        "<b>Data:</b> %{x}<br>"
+                        + "<b>SSAs:</b> %{y}<br>"
+                        + "<b>Prioridade:</b> "
+                        + priority
+                        + "<extra></extra>"
+                    ),
                 )
-            ))
+            )
 
         # Configurações do layout
         fig.update_layout(
@@ -3982,13 +4087,9 @@ class SSADashboard:
             xaxis_title="Data",
             yaxis_title="Quantidade de SSAs",
             template="plotly_white",
-            hovermode='x unified',
+            hovermode="x unified",
             legend=dict(
-                orientation="h",
-                yanchor="bottom",
-                y=1.02,
-                xanchor="right",
-                x=1
+                orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1
             ),
             updatemenus=[
                 dict(
@@ -3996,24 +4097,29 @@ class SSADashboard:
                         dict(
                             args=[{"visible": [True] * len(fig.data)}],
                             label="Todas",
-                            method="update"
+                            method="update",
                         )
-                    ] + [
+                    ]
+                    + [
                         dict(
                             args=[{"visible": [i == j for i in range(len(fig.data))]}],
                             label=priority,
-                            method="update"
+                            method="update",
                         )
-                        for j, priority in enumerate(temporal_data.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].unique())
+                        for j, priority in enumerate(
+                            temporal_data.iloc[
+                                :, SSAColumns.GRAU_PRIORIDADE_EMISSAO
+                            ].unique()
+                        )
                     ],
                     direction="down",
                     showactive=True,
                     x=0.1,
                     xanchor="left",
                     y=1.1,
-                    yanchor="top"
+                    yanchor="top",
                 )
-            ]
+            ],
         )
 
         return fig
@@ -4028,7 +4134,9 @@ class SSADashboard:
         for setor in df.iloc[:, SSAColumns.SETOR_EMISSOR].unique():
             setor_df = df[df.iloc[:, SSAColumns.SETOR_EMISSOR] == setor]
             for executor in setor_df.iloc[:, SSAColumns.SETOR_EXECUTOR].unique():
-                count = len(setor_df[setor_df.iloc[:, SSAColumns.SETOR_EXECUTOR] == executor])
+                count = len(
+                    setor_df[setor_df.iloc[:, SSAColumns.SETOR_EXECUTOR] == executor]
+                )
                 relationships.append((setor, executor, count))
 
         # Cria nós únicos
@@ -4056,16 +4164,17 @@ class SSADashboard:
         fig = go.Figure()
 
         # Adiciona arestas
-        fig.add_trace(go.Scatter(
-            x=edge_x,
-            y=edge_y,
-            mode='lines',
-            line=dict(
-                width=np.array(edge_weights) / max(edge_weights) * 5,
-                color='#888'
-            ),
-            hoverinfo='none'
-        ))
+        fig.add_trace(
+            go.Scatter(
+                x=edge_x,
+                y=edge_y,
+                mode="lines",
+                line=dict(
+                    width=np.array(edge_weights) / max(edge_weights) * 5, color="#888"
+                ),
+                hoverinfo="none",
+            )
+        )
 
         # Adiciona nós
         node_x = []
@@ -4077,33 +4186,37 @@ class SSADashboard:
             x, y = self._get_node_position(node_indices[node], len(nodes))
             node_x.append(x)
             node_y.append(y)
-            node_text.append(f"Setor: {node}<br>Conexões: {len(node_adjacencies[node])}")
+            node_text.append(
+                f"Setor: {node}<br>Conexões: {len(node_adjacencies[node])}"
+            )
             node_sizes.append(len(node_adjacencies[node]) * 20)
 
-        fig.add_trace(go.Scatter(
-            x=node_x,
-            y=node_y,
-            mode='markers+text',
-            marker=dict(
-                size=node_sizes,
-                color=DashboardTheme.COLORS["primary"],
-                line=dict(width=2, color='white')
-            ),
-            text=nodes,
-            textposition="top center",
-            hovertext=node_text,
-            hoverinfo='text'
-        ))
+        fig.add_trace(
+            go.Scatter(
+                x=node_x,
+                y=node_y,
+                mode="markers+text",
+                marker=dict(
+                    size=node_sizes,
+                    color=DashboardTheme.COLORS["primary"],
+                    line=dict(width=2, color="white"),
+                ),
+                text=nodes,
+                textposition="top center",
+                hovertext=node_text,
+                hoverinfo="text",
+            )
+        )
 
         # Configuração do layout
         fig.update_layout(
             title="Rede de Relacionamentos entre Setores",
             showlegend=False,
-            hovermode='closest',
+            hovermode="closest",
             margin=dict(b=20, l=5, r=5, t=40),
             template="plotly_white",
             xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
-            yaxis=dict(showgrid=False, zeroline=False, showticklabels=False)
+            yaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
         )
 
         return fig
@@ -4111,11 +4224,11 @@ class SSADashboard:
     def _get_node_position(self, index: int, total_nodes: int) -> Tuple[float, float]:
         """
         Calcula posição do nó em círculo.
-        
+
         Args:
             index: Índice do nó
             total_nodes: Total de nós
-            
+
         Returns:
             Tuple[float, float]: Coordenadas x, y
         """
@@ -4131,54 +4244,61 @@ class SSADashboard:
         flow_data = []
         # Emissor -> Executor -> Estado
         for _, row in df.iterrows():
-            flow_data.append({
-                'source': row.iloc[SSAColumns.SETOR_EMISSOR],
-                'target': row.iloc[SSAColumns.SETOR_EXECUTOR],
-                'value': 1,
-                'priority': row.iloc[SSAColumns.GRAU_PRIORIDADE_EMISSAO]
-            })
-            flow_data.append({
-                'source': row.iloc[SSAColumns.SETOR_EXECUTOR],
-                'target': row.iloc[SSAColumns.SITUACAO],
-                'value': 1,
-                'priority': row.iloc[SSAColumns.GRAU_PRIORIDADE_EMISSAO]
-            })
+            flow_data.append(
+                {
+                    "source": row.iloc[SSAColumns.SETOR_EMISSOR],
+                    "target": row.iloc[SSAColumns.SETOR_EXECUTOR],
+                    "value": 1,
+                    "priority": row.iloc[SSAColumns.GRAU_PRIORIDADE_EMISSAO],
+                }
+            )
+            flow_data.append(
+                {
+                    "source": row.iloc[SSAColumns.SETOR_EXECUTOR],
+                    "target": row.iloc[SSAColumns.SITUACAO],
+                    "value": 1,
+                    "priority": row.iloc[SSAColumns.GRAU_PRIORIDADE_EMISSAO],
+                }
+            )
 
         # Cria listas únicas de nós
-        all_nodes = list(set(
-            [d['source'] for d in flow_data] +
-            [d['target'] for d in flow_data]
-        ))
+        all_nodes = list(
+            set([d["source"] for d in flow_data] + [d["target"] for d in flow_data])
+        )
         node_indices = {node: i for i, node in enumerate(all_nodes)}
 
         # Prepara dados para plotly
-        link_sources = [node_indices[d['source']] for d in flow_data]
-        link_targets = [node_indices[d['target']] for d in flow_data]
-        link_values = [d['value'] for d in flow_data]
-        link_colors = [DashboardTheme.get_priority_color(d['priority']) for d in flow_data]
+        link_sources = [node_indices[d["source"]] for d in flow_data]
+        link_targets = [node_indices[d["target"]] for d in flow_data]
+        link_values = [d["value"] for d in flow_data]
+        link_colors = [
+            DashboardTheme.get_priority_color(d["priority"]) for d in flow_data
+        ]
 
         # Cria figura
-        fig = go.Figure(data=[go.Sankey(
-            node=dict(
-                pad=15,
-                thickness=20,
-                line=dict(color="black", width=0.5),
-                label=all_nodes,
-                color=DashboardTheme.COLORS["light"]
-            ),
-            link=dict(
-                source=link_sources,
-                target=link_targets,
-                value=link_values,
-                color=link_colors
-            )
-        )])
+        fig = go.Figure(
+            data=[
+                go.Sankey(
+                    node=dict(
+                        pad=15,
+                        thickness=20,
+                        line=dict(color="black", width=0.5),
+                        label=all_nodes,
+                        color=DashboardTheme.COLORS["light"],
+                    ),
+                    link=dict(
+                        source=link_sources,
+                        target=link_targets,
+                        value=link_values,
+                        color=link_colors,
+                    ),
+                )
+            ]
+        )
 
         # Configuração do layout
         fig.update_layout(
-            title="Fluxo de SSAs no Sistema",
-            font_size=10,
-            template="plotly_white"
+            title="Fluxo de SSAs no Sistema", font_size=10, template="plotly_white"
         )
 
         return fig
@@ -4193,22 +4313,26 @@ class SSADashboard:
         for setor in df.iloc[:, SSAColumns.SETOR_EXECUTOR].unique():
             setor_df = df[df.iloc[:, SSAColumns.SETOR_EXECUTOR] == setor]
 
-            for priority in setor_df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].unique():
+            for priority in setor_df.iloc[
+                :, SSAColumns.GRAU_PRIORIDADE_EMISSAO
+            ].unique():
                 priority_df = setor_df[
                     setor_df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == priority
                 ]
 
                 for status in priority_df.iloc[:, SSAColumns.SITUACAO].unique():
-                    count = len(priority_df[
-                        priority_df.iloc[:, SSAColumns.SITUACAO] == status
-                    ])
+                    count = len(
+                        priority_df[priority_df.iloc[:, SSAColumns.SITUACAO] == status]
+                    )
 
-                    hierarchy_data.append({
-                        "setor": setor,
-                        "prioridade": priority,
-                        "status": status,
-                        "count": count
-                    })
+                    hierarchy_data.append(
+                        {
+                            "setor": setor,
+                            "prioridade": priority,
+                            "status": status,
+                            "count": count,
+                        }
+                    )
 
         # Cria listas para treemap
         labels = []
@@ -4228,40 +4352,47 @@ class SSADashboard:
             setor_priority = f"{item['setor']}_{item['prioridade']}"
             if setor_priority not in labels:
                 labels.append(setor_priority)
-                parents.append(item['setor'])
-                values.append(sum([
-                    i['count'] for i in hierarchy_data
-                    if i['setor'] == item['setor'] and i['prioridade'] == item['prioridade']
-                ]))
-                colors.append(DashboardTheme.get_priority_color(item['prioridade']))
+                parents.append(item["setor"])
+                values.append(
+                    sum(
+                        [
+                            i["count"]
+                            for i in hierarchy_data
+                            if i["setor"] == item["setor"]
+                            and i["prioridade"] == item["prioridade"]
+                        ]
+                    )
+                )
+                colors.append(DashboardTheme.get_priority_color(item["prioridade"]))
 
         # Nível 3: Status
         for item in hierarchy_data:
-            if item['count'] > 0:
+            if item["count"] > 0:
                 label = f"{item['setor']}_{item['prioridade']}_{item['status']}"
                 labels.append(label)
                 parents.append(f"{item['setor']}_{item['prioridade']}")
-                values.append(item['count'])
-                colors.append(DashboardTheme.get_state_color(item['status']))
+                values.append(item["count"])
+                colors.append(DashboardTheme.get_state_color(item["status"]))
 
         # Cria figura
-        fig = go.Figure(go.Treemap(
-            labels=labels,
-            parents=parents,
-            values=values,
-            marker=dict(colors=colors),
-            textinfo="label+value",
-            hovertemplate=(
-                "<b>%{label}</b><br>" +
-                "Quantidade: %{value}<br>" +
-                "<extra></extra>"
+        fig = go.Figure(
+            go.Treemap(
+                labels=labels,
+                parents=parents,
+                values=values,
+                marker=dict(colors=colors),
+                textinfo="label+value",
+                hovertemplate=(
+                    "<b>%{label}</b><br>"
+                    + "Quantidade: %{value}<br>"
+                    + "<extra></extra>"
+                ),
             )
-        ))
+        )
 
         # Configuração do layout
         fig.update_layout(
-            title="Distribuição Hierárquica de SSAs",
-            template="plotly_white"
+            title="Distribuição Hierárquica de SSAs", template="plotly_white"
         )
 
         return fig
@@ -4269,10 +4400,10 @@ class SSADashboard:
     def _create_correlation_heatmap(self, df: pd.DataFrame) -> go.Figure:
         """
         Cria mapa de calor de correlações.
-        
+
         Args:
             df: DataFrame para análise
-            
+
         Returns:
             go.Figure: Mapa de calor de correlações
         """
@@ -4280,59 +4411,69 @@ class SSADashboard:
             return go.Figure()
 
         # Prepara dados para correlação
-        correlation_data = pd.DataFrame({
-            'setor': df.iloc[:, SSAColumns.SETOR_EXECUTOR],
-            'prioridade': df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO],
-            'status': df.iloc[:, SSAColumns.SITUACAO],
-            'tempo_resposta': (datetime.now() - df.iloc[:, SSAColumns.EMITIDA_EM]).dt.total_seconds() / 3600,
-            'execucao_simples': df.iloc[:, SSAColumns.EXECUCAO_SIMPLES] == 'Sim',
-            'tem_programacao': df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO].notna(),
-            'tem_execucao': df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO].notna()
-        })
+        correlation_data = pd.DataFrame(
+            {
+                "setor": df.iloc[:, SSAColumns.SETOR_EXECUTOR],
+                "prioridade": df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO],
+                "status": df.iloc[:, SSAColumns.SITUACAO],
+                "tempo_resposta": (
+                    datetime.now() - df.iloc[:, SSAColumns.EMITIDA_EM]
+                ).dt.total_seconds()
+                / 3600,
+                "execucao_simples": df.iloc[:, SSAColumns.EXECUCAO_SIMPLES] == "Sim",
+                "tem_programacao": df.iloc[
+                    :, SSAColumns.RESPONSAVEL_PROGRAMACAO
+                ].notna(),
+                "tem_execucao": df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO].notna(),
+            }
+        )
 
         # Codifica variáveis categóricas
-        correlation_data = pd.get_dummies(correlation_data, columns=['setor', 'prioridade', 'status'])
+        correlation_data = pd.get_dummies(
+            correlation_data, columns=["setor", "prioridade", "status"]
+        )
 
         # Calcula correlações
         corr_matrix = correlation_data.corr()
 
         # Cria mapa de calor
-        fig = go.Figure(data=go.Heatmap(
-            z=corr_matrix.values,
-            x=corr_matrix.columns,
-            y=corr_matrix.columns,
-            colorscale='RdBu',
-            zmid=0,
-            colorbar=dict(
-                title='Correlação',
-                titleside='right'
-            ),
-            hoverongaps=False,
-            hovertemplate=(
-                "<b>X:</b> %{x}<br>" +
-                "<b>Y:</b> %{y}<br>" +
-                "<b>Correlação:</b> %{z:.2f}<br>" +
-                "<extra></extra>"
+        fig = go.Figure(
+            data=go.Heatmap(
+                z=corr_matrix.values,
+                x=corr_matrix.columns,
+                y=corr_matrix.columns,
+                colorscale="RdBu",
+                zmid=0,
+                colorbar=dict(title="Correlação", titleside="right"),
+                hoverongaps=False,
+                hovertemplate=(
+                    "<b>X:</b> %{x}<br>"
+                    + "<b>Y:</b> %{y}<br>"
+                    + "<b>Correlação:</b> %{z:.2f}<br>"
+                    + "<extra></extra>"
+                ),
             )
-        ))
+        )
 
         # Configuração do layout
         fig.update_layout(
             title="Mapa de Correlações entre Variáveis",
             template="plotly_white",
             xaxis=dict(tickangle=45),
-            yaxis=dict(tickangle=0)
+            yaxis=dict(tickangle=0),
         )
 
         return fig
 
-    def _create_predictive_visualizations(self, df: pd.DataFrame) -> Dict[str, go.Figure]:
+    def _create_predictive_visualizations(
+        self, df: pd.DataFrame
+    ) -> Dict[str, go.Figure]:
         """
         Cria visualizações preditivas.
-        
+
         Args:
             df: DataFrame para análise
-            
+
         Returns:
             Dict[str, go.Figure]: Visualizações preditivas
         """
@@ -4340,7 +4481,7 @@ class SSADashboard:
             "volume": self._create_volume_prediction(df),
             "sla": self._create_sla_prediction(df),
             "workload": self._create_workload_prediction(df),
-            "trends": self._create_trend_prediction(df)
+            "trends": self._create_trend_prediction(df),
         }
 
         return predictions
@@ -4351,14 +4492,14 @@ class SSADashboard:
             return go.Figure()
 
         # Agrupa por data
-        daily_volume = df.groupby(
-            df.iloc[:, SSAColumns.EMITIDA_EM].dt.date
-        ).size().reset_index()
-        daily_volume.columns = ['date', 'volume']
+        daily_volume = (
+            df.groupby(df.iloc[:, SSAColumns.EMITIDA_EM].dt.date).size().reset_index()
+        )
+        daily_volume.columns = ["date", "volume"]
 
         # Prepara dados para previsão
         X = np.arange(len(daily_volume)).reshape(-1, 1)
-        y = daily_volume['volume'].values
+        y = daily_volume["volume"].values
 
         # Ajusta modelo linear
         model = LinearRegression()
@@ -4366,8 +4507,7 @@ class SSADashboard:
 
         # Projeta próximos 7 dias
         future_dates = [
-            daily_volume['date'].iloc[-1] + pd.Timedelta(days=i)
-            for i in range(1, 8)
+            daily_volume["date"].iloc[-1] + pd.Timedelta(days=i) for i in range(1, 8)
         ]
         future_X = np.arange(len(X), len(X) + 7).reshape(-1, 1)
         predictions = model.predict(future_X)
@@ -4376,53 +4516,58 @@ class SSADashboard:
         fig = go.Figure()
 
         # Dados históricos
-        fig.add_trace(go.Scatter(
-            x=daily_volume['date'],
-            y=daily_volume['volume'],
-            mode='lines+markers',
-            name='Histórico',
-            line=dict(color=DashboardTheme.COLORS["primary"])
-        ))
+        fig.add_trace(
+            go.Scatter(
+                x=daily_volume["date"],
+                y=daily_volume["volume"],
+                mode="lines+markers",
+                name="Histórico",
+                line=dict(color=DashboardTheme.COLORS["primary"]),
+            )
+        )
 
         # Previsões
-        fig.add_trace(go.Scatter(
-            x=future_dates,
-            y=predictions,
-            mode='lines+markers',
-            name='Previsão',
-            line=dict(
-                color=DashboardTheme.COLORS["warning"],
-                dash='dash'
+        fig.add_trace(
+            go.Scatter(
+                x=future_dates,
+                y=predictions,
+                mode="lines+markers",
+                name="Previsão",
+                line=dict(color=DashboardTheme.COLORS["warning"], dash="dash"),
             )
-        ))
+        )
 
         # Intervalo de confiança
         confidence = np.std(y) * 1.96  # 95% de confiança
-        fig.add_trace(go.Scatter(
-            x=future_dates,
-            y=predictions + confidence,
-            mode='lines',
-            line=dict(width=0),
-            showlegend=False,
-            hoverinfo='skip'
-        ))
-        fig.add_trace(go.Scatter(
-            x=future_dates,
-            y=predictions - confidence,
-            mode='lines',
-            line=dict(width=0),
-            fillcolor='rgba(68, 68, 68, 0.2)',
-            fill='tonexty',
-            showlegend=False,
-            hoverinfo='skip'
-        ))
+        fig.add_trace(
+            go.Scatter(
+                x=future_dates,
+                y=predictions + confidence,
+                mode="lines",
+                line=dict(width=0),
+                showlegend=False,
+                hoverinfo="skip",
+            )
+        )
+        fig.add_trace(
+            go.Scatter(
+                x=future_dates,
+                y=predictions - confidence,
+                mode="lines",
+                line=dict(width=0),
+                fillcolor="rgba(68, 68, 68, 0.2)",
+                fill="tonexty",
+                showlegend=False,
+                hoverinfo="skip",
+            )
+        )
 
         fig.update_layout(
             title="Previsão de Volume de SSAs",
             xaxis_title="Data",
             yaxis_title="Quantidade de SSAs",
             template="plotly_white",
-            hovermode='x unified'
+            hovermode="x unified",
         )
 
         return fig
@@ -4437,16 +4582,13 @@ class SSADashboard:
         for date in df.iloc[:, SSAColumns.EMITIDA_EM].dt.date.unique():
             day_df = df[df.iloc[:, SSAColumns.EMITIDA_EM].dt.date == date]
             compliance = self.kpi_calculator._calculate_sla_compliance(day_df)
-            sla_compliance.append({
-                'date': date,
-                'compliance': compliance
-            })
+            sla_compliance.append({"date": date, "compliance": compliance})
 
         sla_df = pd.DataFrame(sla_compliance)
 
         # Prepara dados para previsão
         X = np.arange(len(sla_df)).reshape(-1, 1)
-        y = sla_df['compliance'].values
+        y = sla_df["compliance"].values
 
         # Ajusta modelo logístico
         model = LogisticRegression()
@@ -4454,8 +4596,7 @@ class SSADashboard:
 
         # Projeta próximos 7 dias
         future_dates = [
-            sla_df['date'].iloc[-1] + pd.Timedelta(days=i)
-            for i in range(1, 8)
+            sla_df["date"].iloc[-1] + pd.Timedelta(days=i) for i in range(1, 8)
         ]
         future_X = np.arange(len(X), len(X) + 7).reshape(-1, 1)
         predictions_prob = model.predict_proba(future_X)[:, 1]
@@ -4464,32 +4605,30 @@ class SSADashboard:
         fig = go.Figure()
 
         # Dados históricos
-        fig.add_trace(go.Scatter(
-            x=sla_df['date'],
-            y=sla_df['compliance'],
-            mode='lines+markers',
-            name='Histórico',
-            line=dict(color=DashboardTheme.COLORS["primary"])
-        ))
+        fig.add_trace(
+            go.Scatter(
+                x=sla_df["date"],
+                y=sla_df["compliance"],
+                mode="lines+markers",
+                name="Histórico",
+                line=dict(color=DashboardTheme.COLORS["primary"]),
+            )
+        )
 
         # Previsões
-        fig.add_trace(go.Scatter(
-            x=future_dates,
-            y=predictions_prob,
-            mode='lines+markers',
-            name='Probabilidade',
-            line=dict(
-                color=DashboardTheme.COLORS["warning"],
-                dash='dash'
+        fig.add_trace(
+            go.Scatter(
+                x=future_dates,
+                y=predictions_prob,
+                mode="lines+markers",
+                name="Probabilidade",
+                line=dict(color=DashboardTheme.COLORS["warning"], dash="dash"),
             )
-        ))
+        )
 
         # Linha de meta
         fig.add_hline(
-            y=0.8,
-            line_dash="dot",
-            line_color="red",
-            annotation_text="Meta (80%)"
+            y=0.8, line_dash="dot", line_color="red", annotation_text="Meta (80%)"
         )
 
         fig.update_layout(
@@ -4497,7 +4636,7 @@ class SSADashboard:
             xaxis_title="Data",
             yaxis_title="Taxa de Cumprimento",
             template="plotly_white",
-            hovermode='x unified'
+            hovermode="x unified",
         )
 
         return fig
@@ -4514,26 +4653,30 @@ class SSADashboard:
 
             # Conta SSAs ativas por responsável
             active_ssas = day_df[
-                ~day_df.iloc[:, SSAColumns.SITUACAO].isin(['Concluída', 'Fechada'])
+                ~day_df.iloc[:, SSAColumns.SITUACAO].isin(["Concluída", "Fechada"])
             ]
 
-            workload = len(active_ssas) / len(
-                pd.concat([
-                    active_ssas.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO],
-                    active_ssas.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO]
-                ]).unique()
-            ) if not active_ssas.empty else 0
+            workload = (
+                len(active_ssas)
+                / len(
+                    pd.concat(
+                        [
+                            active_ssas.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO],
+                            active_ssas.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO],
+                        ]
+                    ).unique()
+                )
+                if not active_ssas.empty
+                else 0
+            )
 
-            workload_data.append({
-                'date': date,
-                'workload': workload
-            })
+            workload_data.append({"date": date, "workload": workload})
 
         workload_df = pd.DataFrame(workload_data)
 
         # Prepara dados para previsão
         X = np.arange(len(workload_df)).reshape(-1, 1)
-        y = workload_df['workload'].values
+        y = workload_df["workload"].values
 
         # Ajusta modelo de regressão
         model = LinearRegression()
@@ -4541,8 +4684,7 @@ class SSADashboard:
 
         # Projeta próximos 7 dias
         future_dates = [
-            workload_df['date'].iloc[-1] + pd.Timedelta(days=i)
-            for i in range(1, 8)
+            workload_df["date"].iloc[-1] + pd.Timedelta(days=i) for i in range(1, 8)
         ]
         future_X = np.arange(len(X), len(X) + 7).reshape(-1, 1)
         predictions = model.predict(future_X)
@@ -4551,33 +4693,34 @@ class SSADashboard:
         fig = go.Figure()
 
         # Dados históricos
-        fig.add_trace(go.Scatter(
-            x=workload_df['date'],
-            y=workload_df['workload'],
-            mode='lines+markers',
-            name='Histórico',
-            line=dict(color=DashboardTheme.COLORS["primary"])
-        ))
+        fig.add_trace(
+            go.Scatter(
+                x=workload_df["date"],
+                y=workload_df["workload"],
+                mode="lines+markers",
+                name="Histórico",
+                line=dict(color=DashboardTheme.COLORS["primary"]),
+            )
+        )
 
         # Previsões
-        fig.add_trace(go.Scatter(
-            x=future_dates,
-            y=predictions,
-            mode='lines+markers',
-            name='Previsão',
-            line=dict(
-                color=DashboardTheme.COLORS["warning"],
-                dash='dash'
+        fig.add_trace(
+            go.Scatter(
+                x=future_dates,
+                y=predictions,
+                mode="lines+markers",
+                name="Previsão",
+                line=dict(color=DashboardTheme.COLORS["warning"], dash="dash"),
             )
-        ))
+        )
 
         # Linha de capacidade ideal
-        media_historica = workload_df['workload'].mean()
+        media_historica = workload_df["workload"].mean()
         fig.add_hline(
             y=media_historica,
             line_dash="dot",
             line_color="green",
-            annotation_text="Média Histórica"
+            annotation_text="Média Histórica",
         )
 
         fig.update_layout(
@@ -4585,7 +4728,7 @@ class SSADashboard:
             xaxis_title="Data",
             yaxis_title="SSAs/Responsável",
             template="plotly_white",
-            hovermode='x unified'
+            hovermode="x unified",
         )
 
         return fig
@@ -4598,43 +4741,50 @@ class SSADashboard:
         # Analisa tendências por tipo de SSA
         trends = []
         for col in [SSAColumns.GRAU_PRIORIDADE_EMISSAO, SSAColumns.SETOR_EXECUTOR]:
-            daily_counts = df.groupby([
-                df.iloc[:, SSAColumns.EMITIDA_EM].dt.date,
-                df.iloc[:, col]
-            ]).size().unstack(fill_value=0)
+            daily_counts = (
+                df.groupby([df.iloc[:, SSAColumns.EMITIDA_EM].dt.date, df.iloc[:, col]])
+                .size()
+                .unstack(fill_value=0)
+            )
 
             # Calcula tendência para cada categoria
             for category in daily_counts.columns:
                 slope, intercept = np.polyfit(
-                    range(len(daily_counts)), 
-                    daily_counts[category], 
-                    1
+                    range(len(daily_counts)), daily_counts[category], 1
                 )
-                trends.append({
-                    'categoria': f"{SSAColumns.get_name(col)}: {category}",
-                    'tendencia': slope,
-                    'media': daily_counts[category].mean()
-                })
+                trends.append(
+                    {
+                        "categoria": f"{SSAColumns.get_name(col)}: {category}",
+                        "tendencia": slope,
+                        "media": daily_counts[category].mean(),
+                    }
+                )
 
         # Ordena por magnitude da tendência
         trends_df = pd.DataFrame(trends)
-        trends_df['tendencia_abs'] = abs(trends_df['tendencia'])
-        trends_df = trends_df.sort_values('tendencia_abs', ascending=True)
+        trends_df["tendencia_abs"] = abs(trends_df["tendencia"])
+        trends_df = trends_df.sort_values("tendencia_abs", ascending=True)
 
         # Cria visualização
         fig = go.Figure()
 
         # Barras de tendência
-        fig.add_trace(go.Bar(
-            y=trends_df['categoria'],
-            x=trends_df['tendencia'],
-            orientation='h',
-            marker_color=[
-                DashboardTheme.COLORS["success"] if x > 0 else DashboardTheme.COLORS["danger"]
-                for x in trends_df['tendencia']
-            ],
-            name='Tendência'
-        ))
+        fig.add_trace(
+            go.Bar(
+                y=trends_df["categoria"],
+                x=trends_df["tendencia"],
+                orientation="h",
+                marker_color=[
+                    (
+                        DashboardTheme.COLORS["success"]
+                        if x > 0
+                        else DashboardTheme.COLORS["danger"]
+                    )
+                    for x in trends_df["tendencia"]
+                ],
+                name="Tendência",
+            )
+        )
 
         fig.update_layout(
             title="Análise de Tendências por Categoria",
@@ -4642,28 +4792,31 @@ class SSADashboard:
             yaxis_title="Categoria",
             template="plotly_white",
             showlegend=True,
-            height=max(400, len(trends_df) * 30)  # Ajusta altura baseado no número de categorias
+            height=max(
+                400, len(trends_df) * 30
+            ),  # Ajusta altura baseado no número de categorias
         )
 
         return fig
 
     def _setup_analysis_callbacks(self):
         """Configura callbacks para análises avançadas."""
+
         @self.app.callback(
             [
                 Output("analysis-content", "children"),
-                Output("analysis-title", "children")
+                Output("analysis-title", "children"),
             ],
             [
                 Input("analysis-type-select", "value"),
                 Input("date-range-filter", "start_date"),
-                Input("date-range-filter", "end_date")
-            ]
+                Input("date-range-filter", "end_date"),
+            ],
         )
         def update_analysis_content(analysis_type, start_date, end_date):
             """
             Atualiza conteúdo da análise baseado na seleção.
-            
+
             Args:
                 analysis_type: Tipo de análise selecionada
                 start_date: Data inicial do período
@@ -4686,13 +4839,15 @@ class SSADashboard:
             else:
                 return self._create_overview_analysis(df_filtered)
 
-    def _create_predictive_analysis(self, df: pd.DataFrame) -> Tuple[List[dbc.Card], str]:
+    def _create_predictive_analysis(
+        self, df: pd.DataFrame
+    ) -> Tuple[List[dbc.Card], str]:
         """
         Cria análise preditiva.
-        
+
         Args:
             df: DataFrame filtrado para análise
-            
+
         Returns:
             Tuple[List[dbc.Card], str]: Conteúdo e título da análise
         """
@@ -4700,51 +4855,71 @@ class SSADashboard:
 
         content = [
             # Card de Previsão de Volume
-            dbc.Card([
-                dbc.CardHeader(html.H5("Previsão de Volume")),
-                dbc.CardBody([
-                    dcc.Graph(figure=predictions["volume"]),
-                    html.P("Análise de tendências e projeção de volume de SSAs")
-                ])
-            ], className="mb-4"),
-            
+            dbc.Card(
+                [
+                    dbc.CardHeader(html.H5("Previsão de Volume")),
+                    dbc.CardBody(
+                        [
+                            dcc.Graph(figure=predictions["volume"]),
+                            html.P(
+                                "Análise de tendências e projeção de volume de SSAs"
+                            ),
+                        ]
+                    ),
+                ],
+                className="mb-4",
+            ),
             # Card de Previsão de SLA
-            dbc.Card([
-                dbc.CardHeader(html.H5("Previsão de SLA")),
-                dbc.CardBody([
-                    dcc.Graph(figure=predictions["sla"]),
-                    html.P("Projeção de cumprimento de SLA")
-                ])
-            ], className="mb-4"),
-            
+            dbc.Card(
+                [
+                    dbc.CardHeader(html.H5("Previsão de SLA")),
+                    dbc.CardBody(
+                        [
+                            dcc.Graph(figure=predictions["sla"]),
+                            html.P("Projeção de cumprimento de SLA"),
+                        ]
+                    ),
+                ],
+                className="mb-4",
+            ),
             # Card de Previsão de Carga
-            dbc.Card([
-                dbc.CardHeader(html.H5("Previsão de Carga")),
-                dbc.CardBody([
-                    dcc.Graph(figure=predictions["workload"]),
-                    html.P("Análise de tendências de carga de trabalho")
-                ])
-            ], className="mb-4"),
-            
+            dbc.Card(
+                [
+                    dbc.CardHeader(html.H5("Previsão de Carga")),
+                    dbc.CardBody(
+                        [
+                            dcc.Graph(figure=predictions["workload"]),
+                            html.P("Análise de tendências de carga de trabalho"),
+                        ]
+                    ),
+                ],
+                className="mb-4",
+            ),
             # Card de Tendências
-            dbc.Card([
-                dbc.CardHeader(html.H5("Análise de Tendências")),
-                dbc.CardBody([
-                    dcc.Graph(figure=predictions["trends"]),
-                    html.P("Identificação de padrões e tendências")
-                ])
-            ])
+            dbc.Card(
+                [
+                    dbc.CardHeader(html.H5("Análise de Tendências")),
+                    dbc.CardBody(
+                        [
+                            dcc.Graph(figure=predictions["trends"]),
+                            html.P("Identificação de padrões e tendências"),
+                        ]
+                    ),
+                ]
+            ),
         ]
 
         return content, "Análise Preditiva"
 
-    def _create_correlation_analysis(self, df: pd.DataFrame) -> Tuple[List[dbc.Card], str]:
+    def _create_correlation_analysis(
+        self, df: pd.DataFrame
+    ) -> Tuple[List[dbc.Card], str]:
         """
         Cria análise de correlações.
-        
+
         Args:
             df: DataFrame filtrado para análise
-            
+
         Returns:
             Tuple[List[dbc.Card], str]: Conteúdo e título da análise
         """
@@ -4756,28 +4931,43 @@ class SSADashboard:
 
         content = [
             # Card do Mapa de Calor
-            dbc.Card([
-                dbc.CardHeader(html.H5("Mapa de Correlações")),
-                dbc.CardBody([
-                    dcc.Graph(figure=heatmap),
-                    html.P("Visualização de correlações entre variáveis")
-                ])
-            ], className="mb-4"),
-            
+            dbc.Card(
+                [
+                    dbc.CardHeader(html.H5("Mapa de Correlações")),
+                    dbc.CardBody(
+                        [
+                            dcc.Graph(figure=heatmap),
+                            html.P("Visualização de correlações entre variáveis"),
+                        ]
+                    ),
+                ],
+                className="mb-4",
+            ),
             # Card de Correlações Significativas
-            dbc.Card([
-                dbc.CardHeader(html.H5("Correlações Significativas")),
-                dbc.CardBody([
-                    html.Div([
-                        dbc.Alert([
-                            html.H6(f"{corr['var1']} × {corr['var2']}"),
-                            html.P(f"Correlação: {corr['correlation']:.2f}"),
-                            html.P(corr['interpretation'])
-                        ], color=corr['color'])
-                        for corr in correlations
-                    ])
-                ])
-            ])
+            dbc.Card(
+                [
+                    dbc.CardHeader(html.H5("Correlações Significativas")),
+                    dbc.CardBody(
+                        [
+                            html.Div(
+                                [
+                                    dbc.Alert(
+                                        [
+                                            html.H6(f"{corr['var1']} × {corr['var2']}"),
+                                            html.P(
+                                                f"Correlação: {corr['correlation']:.2f}"
+                                            ),
+                                            html.P(corr["interpretation"]),
+                                        ],
+                                        color=corr["color"],
+                                    )
+                                    for corr in correlations
+                                ]
+                            )
+                        ]
+                    ),
+                ]
+            ),
         ]
 
         return content, "Análise de Correlações"
@@ -4785,23 +4975,30 @@ class SSADashboard:
     def _identify_significant_correlations(self, df: pd.DataFrame) -> List[Dict]:
         """
         Identifica correlações significativas nos dados.
-        
+
         Args:
             df: DataFrame para análise
-            
+
         Returns:
             List[Dict]: Lista de correlações significativas
         """
         correlations = []
 
         # Prepara dados para correlação
-        correlation_data = pd.DataFrame({
-            'tempo_resposta': (datetime.now() - df.iloc[:, SSAColumns.EMITIDA_EM]).dt.total_seconds() / 3600,
-            'tem_programacao': df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO].notna(),
-            'tem_execucao': df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO].notna(),
-            'is_critica': df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == 'S3.7',
-            'is_simples': df.iloc[:, SSAColumns.EXECUCAO_SIMPLES] == 'Sim'
-        })
+        correlation_data = pd.DataFrame(
+            {
+                "tempo_resposta": (
+                    datetime.now() - df.iloc[:, SSAColumns.EMITIDA_EM]
+                ).dt.total_seconds()
+                / 3600,
+                "tem_programacao": df.iloc[
+                    :, SSAColumns.RESPONSAVEL_PROGRAMACAO
+                ].notna(),
+                "tem_execucao": df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO].notna(),
+                "is_critica": df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == "S3.7",
+                "is_simples": df.iloc[:, SSAColumns.EXECUCAO_SIMPLES] == "Sim",
+            }
+        )
 
         # Calcula correlações
         corr_matrix = correlation_data.corr()
@@ -4811,57 +5008,59 @@ class SSADashboard:
             for j in range(i + 1, len(corr_matrix.columns)):
                 corr = corr_matrix.iloc[i, j]
                 if abs(corr) > 0.3:
-                    correlations.append({
-                        'var1': corr_matrix.columns[i],
-                        'var2': corr_matrix.columns[j],
-                        'correlation': corr,
-                        'color': 'success' if corr > 0 else 'danger',
-                        'interpretation': self._interpret_correlation(
-                            corr_matrix.columns[i],
-                            corr_matrix.columns[j],
-                            corr
-                        )
-                    })
+                    correlations.append(
+                        {
+                            "var1": corr_matrix.columns[i],
+                            "var2": corr_matrix.columns[j],
+                            "correlation": corr,
+                            "color": "success" if corr > 0 else "danger",
+                            "interpretation": self._interpret_correlation(
+                                corr_matrix.columns[i], corr_matrix.columns[j], corr
+                            ),
+                        }
+                    )
 
-        return sorted(correlations, key=lambda x: abs(x['correlation']), reverse=True)
+        return sorted(correlations, key=lambda x: abs(x["correlation"]), reverse=True)
 
     def _interpret_correlation(self, var1: str, var2: str, correlation: float) -> str:
         """
         Interpreta o significado de uma correlação.
-        
+
         Args:
             var1: Primeira variável
             var2: Segunda variável
             correlation: Valor da correlação
-            
+
         Returns:
             str: Interpretação da correlação
         """
         direction = "positiva" if correlation > 0 else "negativa"
         strength = (
-            "forte" if abs(correlation) > 0.7 else
-            "moderada" if abs(correlation) > 0.5 else
-            "fraca"
+            "forte"
+            if abs(correlation) > 0.7
+            else "moderada" if abs(correlation) > 0.5 else "fraca"
         )
 
         interpretations = {
-            ('tempo_resposta', 'tem_programacao'): {
-                'positive': 'SSAs programadas tendem a ter maior tempo de resposta',
-                'negative': 'SSAs programadas tendem a ter menor tempo de resposta'
+            ("tempo_resposta", "tem_programacao"): {
+                "positive": "SSAs programadas tendem a ter maior tempo de resposta",
+                "negative": "SSAs programadas tendem a ter menor tempo de resposta",
             },
-            ('tempo_resposta', 'is_critica'): {
-                'positive': 'SSAs críticas estão levando mais tempo',
-                'negative': 'SSAs críticas estão sendo tratadas mais rapidamente'
+            ("tempo_resposta", "is_critica"): {
+                "positive": "SSAs críticas estão levando mais tempo",
+                "negative": "SSAs críticas estão sendo tratadas mais rapidamente",
             },
-            ('is_simples', 'tem_execucao'): {
-                'positive': 'SSAs simples são executadas mais rapidamente',
-                'negative': 'SSAs simples estão demorando mais para execução'
-            }
+            ("is_simples", "tem_execucao"): {
+                "positive": "SSAs simples são executadas mais rapidamente",
+                "negative": "SSAs simples estão demorando mais para execução",
+            },
         }
 
         key = tuple(sorted([var1, var2]))
         if key in interpretations:
-            specific = interpretations[key]['positive' if correlation > 0 else 'negative']
+            specific = interpretations[key][
+                "positive" if correlation > 0 else "negative"
+            ]
             return f"Correlação {direction} {strength}: {specific}"
 
         return f"Correlação {direction} {strength} entre {var1} e {var2}"
@@ -4869,10 +5068,10 @@ class SSADashboard:
     def _create_flow_analysis(self, df: pd.DataFrame) -> Tuple[List[dbc.Card], str]:
         """
         Cria análise de fluxo.
-        
+
         Args:
             df: DataFrame filtrado para análise
-            
+
         Returns:
             Tuple[List[dbc.Card], str]: Conteúdo e título da análise
         """
@@ -4883,42 +5082,58 @@ class SSADashboard:
 
         content = [
             # Card do Diagrama Sankey
-            dbc.Card([
-                dbc.CardHeader(html.H5("Fluxo de SSAs")),
-                dbc.CardBody([
-                    dcc.Graph(figure=sankey),
-                    html.P("Visualização do fluxo de SSAs entre setores e estados")
-                ])
-            ], className="mb-4"),
-            
+            dbc.Card(
+                [
+                    dbc.CardHeader(html.H5("Fluxo de SSAs")),
+                    dbc.CardBody(
+                        [
+                            dcc.Graph(figure=sankey),
+                            html.P(
+                                "Visualização do fluxo de SSAs entre setores e estados"
+                            ),
+                        ]
+                    ),
+                ],
+                className="mb-4",
+            ),
             # Card da Rede de Relacionamentos
-            dbc.Card([
-                dbc.CardHeader(html.H5("Rede de Relacionamentos")),
-                dbc.CardBody([
-                    dcc.Graph(figure=network),
-                    html.P("Visualização das relações entre setores")
-                ])
-            ], className="mb-4"),
-            
+            dbc.Card(
+                [
+                    dbc.CardHeader(html.H5("Rede de Relacionamentos")),
+                    dbc.CardBody(
+                        [
+                            dcc.Graph(figure=network),
+                            html.P("Visualização das relações entre setores"),
+                        ]
+                    ),
+                ],
+                className="mb-4",
+            ),
             # Card da Hierarquia
-            dbc.Card([
-                dbc.CardHeader(html.H5("Estrutura Hierárquica")),
-                dbc.CardBody([
-                    dcc.Graph(figure=treemap),
-                    html.P("Visualização hierárquica da distribuição de SSAs")
-                ])
-            ])
+            dbc.Card(
+                [
+                    dbc.CardHeader(html.H5("Estrutura Hierárquica")),
+                    dbc.CardBody(
+                        [
+                            dcc.Graph(figure=treemap),
+                            html.P("Visualização hierárquica da distribuição de SSAs"),
+                        ]
+                    ),
+                ]
+            ),
         ]
 
         return content, "Análise de Fluxo"
 
-    def _create_performance_analysis(self, df: pd.DataFrame) -> Tuple[List[dbc.Card], str]:
+    def _create_performance_analysis(
+        self, df: pd.DataFrame
+    ) -> Tuple[List[dbc.Card], str]:
         """
         Cria análise de performance.
-        
+
         Args:
             df: DataFrame filtrado para análise
-            
+
         Returns:
             Tuple[List[dbc.Card], str]: Conteúdo e título da análise
         """
@@ -4932,49 +5147,88 @@ class SSADashboard:
 
         content = [
             # Card de KPIs
-            dbc.Card([
-                dbc.CardHeader(html.H5("Indicadores de Performance")),
-                dbc.CardBody([
-                    dbc.Row([
-                        dbc.Col([
-                            dbc.Card([
-                                dbc.CardBody([
-                                    html.H4(f"{kpis['taxa_programacao']*100:.1f}%"),
-                                    html.P("Taxa de Programação")
-                                ])
-                            ], className="text-center")
-                        ]),
-                        dbc.Col([
-                            dbc.Card([
-                                dbc.CardBody([
-                                    html.H4(f"{kpis['taxa_execucao_simples']*100:.1f}%"),
-                                    html.P("Taxa de Execução Simples")
-                                ])
-                            ], className="text-center")
-                        ]),
-                        dbc.Col([
-                            dbc.Card([
-                                dbc.CardBody([
-                                    html.H4(f"{responsiveness.get('taxa_sla', 0)*100:.1f}%"),
-                                    html.P("Cumprimento de SLA")
-                                ])
-                            ], className="text-center")
-                        ])
-                    ])
-                ])
-            ], className="mb-4"),
-            
+            dbc.Card(
+                [
+                    dbc.CardHeader(html.H5("Indicadores de Performance")),
+                    dbc.CardBody(
+                        [
+                            dbc.Row(
+                                [
+                                    dbc.Col(
+                                        [
+                                            dbc.Card(
+                                                [
+                                                    dbc.CardBody(
+                                                        [
+                                                            html.H4(
+                                                                f"{kpis['taxa_programacao']*100:.1f}%"
+                                                            ),
+                                                            html.P(
+                                                                "Taxa de Programação"
+                                                            ),
+                                                        ]
+                                                    )
+                                                ],
+                                                className="text-center",
+                                            )
+                                        ]
+                                    ),
+                                    dbc.Col(
+                                        [
+                                            dbc.Card(
+                                                [
+                                                    dbc.CardBody(
+                                                        [
+                                                            html.H4(
+                                                                f"{kpis['taxa_execucao_simples']*100:.1f}%"
+                                                            ),
+                                                            html.P(
+                                                                "Taxa de Execução Simples"
+                                                            ),
+                                                        ]
+                                                    )
+                                                ],
+                                                className="text-center",
+                                            )
+                                        ]
+                                    ),
+                                    dbc.Col(
+                                        [
+                                            dbc.Card(
+                                                [
+                                                    dbc.CardBody(
+                                                        [
+                                                            html.H4(
+                                                                f"{responsiveness.get('taxa_sla', 0)*100:.1f}%"
+                                                            ),
+                                                            html.P(
+                                                                "Cumprimento de SLA"
+                                                            ),
+                                                        ]
+                                                    )
+                                                ],
+                                                className="text-center",
+                                            )
+                                        ]
+                                    ),
+                                ]
+                            )
+                        ]
+                    ),
+                ],
+                className="mb-4",
+            ),
             # Cards de Gráficos de Performance
             *[
-                dbc.Card([
-                    dbc.CardHeader(html.H5(title)),
-                    dbc.CardBody([
-                        dcc.Graph(figure=fig),
-                        html.P(description)
-                    ])
-                ], className="mb-4")
+                dbc.Card(
+                    [
+                        dbc.CardHeader(html.H5(title)),
+                        dbc.CardBody([dcc.Graph(figure=fig), html.P(description)]),
+                    ],
+                    className="mb-4",
+                )
                 for title, fig, description in performance_charts
-            ]
+            ],
         ]
 
         return content, "Análise de Performance"
@@ -5108,128 +5362,150 @@ def main():
     finally:
         logger.info("Finalizando aplicação...")
 
-    def _create_performance_charts(self, df: pd.DataFrame) -> List[Tuple[str, go.Figure, str]]:
+    def _create_performance_charts(
+        self, df: pd.DataFrame
+    ) -> List[Tuple[str, go.Figure, str]]:
         """
         Cria gráficos para análise de performance.
-        
+
         Args:
             df: DataFrame para análise
-            
+
         Returns:
             List[Tuple[str, go.Figure, str]]: Lista de (título, figura, descrição)
         """
         charts = []
-        
+
         # Evolução temporal de performance (continuação)
         temporal_perf.update_layout(
             title="Evolução de Performance",
             xaxis_title="Data",
             yaxis_title="Score",
             template="plotly_white",
-            hovermode='x unified'
+            hovermode="x unified",
         )
-        
-        charts.append((
-            "Evolução Temporal",
-            temporal_perf,
-            "Evolução dos indicadores de performance ao longo do tempo"
-        ))
+
+        charts.append(
+            (
+                "Evolução Temporal",
+                temporal_perf,
+                "Evolução dos indicadores de performance ao longo do tempo",
+            )
+        )
 
         # Performance por setor
         sector_perf = go.Figure()
         sector_metrics = {}
-        
+
         for sector in df.iloc[:, SSAColumns.SETOR_EXECUTOR].unique():
             sector_df = df[df.iloc[:, SSAColumns.SETOR_EXECUTOR] == sector]
             sector_metrics[sector] = {
-                'sla': self.kpi_calculator._calculate_sla_compliance(sector_df),
-                'quality': self.kpi_calculator._calculate_quality_score(
+                "sla": self.kpi_calculator._calculate_sla_compliance(sector_df),
+                "quality": self.kpi_calculator._calculate_quality_score(
                     self.kpi_calculator.calculate_quality_metrics()
                 ),
-                'efficiency': self.kpi_calculator.calculate_efficiency_metrics()['taxa_execucao_simples']
+                "efficiency": self.kpi_calculator.calculate_efficiency_metrics()[
+                    "taxa_execucao_simples"
+                ],
             }
 
-        sector_perf.add_trace(go.Bar(
-            name='SLA',
-            x=list(sector_metrics.keys()),
-            y=[m['sla'] for m in sector_metrics.values()],
-            marker_color=DashboardTheme.COLORS["primary"]
-        ))
-        
-        sector_perf.add_trace(go.Bar(
-            name='Qualidade',
-            x=list(sector_metrics.keys()),
-            y=[m['quality'] for m in sector_metrics.values()],
-            marker_color=DashboardTheme.COLORS["success"]
-        ))
-        
-        sector_perf.add_trace(go.Bar(
-            name='Eficiência',
-            x=list(sector_metrics.keys()),
-            y=[m['efficiency'] for m in sector_metrics.values()],
-            marker_color=DashboardTheme.COLORS["info"]
-        ))
-        
+        sector_perf.add_trace(
+            go.Bar(
+                name="SLA",
+                x=list(sector_metrics.keys()),
+                y=[m["sla"] for m in sector_metrics.values()],
+                marker_color=DashboardTheme.COLORS["primary"],
+            )
+        )
+
+        sector_perf.add_trace(
+            go.Bar(
+                name="Qualidade",
+                x=list(sector_metrics.keys()),
+                y=[m["quality"] for m in sector_metrics.values()],
+                marker_color=DashboardTheme.COLORS["success"],
+            )
+        )
+
+        sector_perf.add_trace(
+            go.Bar(
+                name="Eficiência",
+                x=list(sector_metrics.keys()),
+                y=[m["efficiency"] for m in sector_metrics.values()],
+                marker_color=DashboardTheme.COLORS["info"],
+            )
+        )
+
         sector_perf.update_layout(
             title="Performance por Setor",
             xaxis_title="Setor",
             yaxis_title="Score",
             template="plotly_white",
-            barmode='group'
+            barmode="group",
         )
-        
-        charts.append((
-            "Performance Setorial",
-            sector_perf,
-            "Comparativo de performance entre setores"
-        ))
+
+        charts.append(
+            (
+                "Performance Setorial",
+                sector_perf,
+                "Comparativo de performance entre setores",
+            )
+        )
 
         # Distribuição de tempos de resposta
         response_times = df.apply(
-            lambda row: (datetime.now() - row.iloc[SSAColumns.EMITIDA_EM]).total_seconds() / 3600,
-            axis=1
+            lambda row: (
+                datetime.now() - row.iloc[SSAColumns.EMITIDA_EM]
+            ).total_seconds()
+            / 3600,
+            axis=1,
         )
-        
-        time_dist = go.Figure(data=[
-            go.Histogram(
-                x=response_times,
-                nbinsx=30,
-                marker_color=DashboardTheme.COLORS["primary"]
-            )
-        ])
-        
+
+        time_dist = go.Figure(
+            data=[
+                go.Histogram(
+                    x=response_times,
+                    nbinsx=30,
+                    marker_color=DashboardTheme.COLORS["primary"],
+                )
+            ]
+        )
+
         time_dist.add_vline(
             x=response_times.mean(),
             line_dash="dash",
             line_color="red",
-            annotation_text="Média"
+            annotation_text="Média",
         )
-        
+
         time_dist.update_layout(
             title="Distribuição de Tempos de Resposta",
             xaxis_title="Horas",
             yaxis_title="Frequência",
-            template="plotly_white"
+            template="plotly_white",
         )
-        
-        charts.append((
-            "Tempos de Resposta",
-            time_dist,
-            "Análise da distribuição dos tempos de resposta"
-        ))
+
+        charts.append(
+            (
+                "Tempos de Resposta",
+                time_dist,
+                "Análise da distribuição dos tempos de resposta",
+            )
+        )
 
         return charts
 
     def _setup_alert_system(self):
         """Configura sistema de alertas."""
+
         @self.app.callback(
             Output("alert-container", "children"),
-            [Input("interval-component", "n_intervals")]
+            [Input("interval-component", "n_intervals")],
         )
         def update_alerts(n):
             """Atualiza alertas baseado nas condições atuais."""
             alerts = []
-            
+
             # Verifica SLA
             sla_compliance = self.kpi_calculator._calculate_sla_compliance(self.df)
             if sla_compliance < 0.8:
@@ -5237,15 +5513,17 @@ def main():
                     dbc.Alert(
                         [
                             html.H4("Alerta de SLA", className="alert-heading"),
-                            html.P(f"Taxa de cumprimento de SLA está em {sla_compliance*100:.1f}%"),
+                            html.P(
+                                f"Taxa de cumprimento de SLA está em {sla_compliance*100:.1f}%"
+                            ),
                             html.Hr(),
                             html.P(
                                 "Recomendação: Revisar priorização e alocação de recursos",
-                                className="mb-0"
-                            )
+                                className="mb-0",
+                            ),
                         ],
                         color="danger",
-                        dismissable=True
+                        dismissable=True,
                     )
                 )
 
@@ -5260,11 +5538,11 @@ def main():
                             html.Hr(),
                             html.P(
                                 "Recomendação: Redistribuir carga de trabalho",
-                                className="mb-0"
-                            )
+                                className="mb-0",
+                            ),
                         ],
                         color="warning",
-                        dismissable=True
+                        dismissable=True,
                     )
                 )
 
@@ -5275,15 +5553,14 @@ def main():
                     dbc.Alert(
                         [
                             html.H4("Alerta de Tendência", className="alert-heading"),
-                            html.P(f"Detectadas {len(trends['alertas'])} tendências significativas"),
-                            html.Hr(),
                             html.P(
-                                trends["alertas"][0]["mensagem"],
-                                className="mb-0"
-                            )
+                                f"Detectadas {len(trends['alertas'])} tendências significativas"
+                            ),
+                            html.Hr(),
+                            html.P(trends["alertas"][0]["mensagem"], className="mb-0"),
                         ],
                         color="info",
-                        dismissable=True
+                        dismissable=True,
                     )
                 )
 
@@ -5291,9 +5568,9 @@ def main():
 
     def _setup_customization_options(self):
         """Configura opções de customização."""
+
         @self.app.callback(
-            Output("dashboard-container", "style"),
-            [Input("theme-selector", "value")]
+            Output("dashboard-container", "style"), [Input("theme-selector", "value")]
         )
         def update_theme(theme):
             """Atualiza tema do dashboard."""
@@ -5301,17 +5578,17 @@ def main():
                 return {
                     "backgroundColor": DashboardTheme.COLORS["dark"],
                     "color": "white",
-                    "minHeight": "100vh"
+                    "minHeight": "100vh",
                 }
             return {
                 "backgroundColor": DashboardTheme.COLORS["light"],
                 "color": "black",
-                "minHeight": "100vh"
+                "minHeight": "100vh",
             }
 
         @self.app.callback(
             [Output(f"chart-{i}", "style") for i in range(6)],
-            [Input("layout-selector", "value")]
+            [Input("layout-selector", "value")],
         )
         def update_layout(layout):
             """Atualiza layout dos gráficos."""
@@ -5321,11 +5598,14 @@ def main():
 
     def _setup_export_functionality(self):
         """Configura funcionalidades de exportação."""
+
         @self.app.callback(
             Output("download-dataframe-xlsx", "data"),
             [Input("btn-export-excel", "n_clicks")],
-            [State("date-range-filter", "start_date"),
-             State("date-range-filter", "end_date")]
+            [
+                State("date-range-filter", "start_date"),
+                State("date-range-filter", "end_date"),
+            ],
         )
         def export_excel(n_clicks, start_date, end_date):
             """Exporta dados para Excel."""
@@ -5340,13 +5620,13 @@ def main():
 
             # Prepara arquivo
             output = BytesIO()
-            with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+            with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
                 # Dados principais
-                df_filtered.to_excel(writer, sheet_name='Dados', index=False)
-                
+                df_filtered.to_excel(writer, sheet_name="Dados", index=False)
+
                 # Análises
                 self._export_analysis_sheets(writer, df_filtered)
-                
+
                 # Métricas
                 self._export_metrics_sheet(writer, df_filtered)
 
@@ -5356,46 +5636,47 @@ def main():
     def _export_analysis_sheets(self, writer: pd.ExcelWriter, df: pd.DataFrame):
         """Exporta abas de análise."""
         # Performance
-        performance = pd.DataFrame([
-            self.kpi_calculator.calculate_efficiency_metrics()
-        ])
-        performance.to_excel(writer, sheet_name='Performance', index=False)
+        performance = pd.DataFrame([self.kpi_calculator.calculate_efficiency_metrics()])
+        performance.to_excel(writer, sheet_name="Performance", index=False)
 
         # Tendências
-        trends = pd.DataFrame([
-            self.kpi_calculator.calculate_trend_indicators()
-        ])
-        trends.to_excel(writer, sheet_name='Tendências', index=False)
+        trends = pd.DataFrame([self.kpi_calculator.calculate_trend_indicators()])
+        trends.to_excel(writer, sheet_name="Tendências", index=False)
 
         # Correlações
-        correlations = pd.DataFrame(
-            self._identify_significant_correlations(df)
-        )
-        correlations.to_excel(writer, sheet_name='Correlações', index=False)
+        correlations = pd.DataFrame(self._identify_significant_correlations(df))
+        correlations.to_excel(writer, sheet_name="Correlações", index=False)
 
     def _export_metrics_sheet(self, writer: pd.ExcelWriter, df: pd.DataFrame):
         """Exporta aba de métricas."""
         metrics = []
-        
+
         # Métricas por setor
         for setor in df.iloc[:, SSAColumns.SETOR_EXECUTOR].unique():
             setor_df = df[df.iloc[:, SSAColumns.SETOR_EXECUTOR] == setor]
-            metrics.append({
-                'setor': setor,
-                'total_ssas': len(setor_df),
-                'sla': self.kpi_calculator._calculate_sla_compliance(setor_df),
-                'tempo_medio': setor_df.apply(
-                    lambda row: (datetime.now() - row.iloc[SSAColumns.EMITIDA_EM]).total_seconds() / 3600,
-                    axis=1
-                ).mean()
-            })
+            metrics.append(
+                {
+                    "setor": setor,
+                    "total_ssas": len(setor_df),
+                    "sla": self.kpi_calculator._calculate_sla_compliance(setor_df),
+                    "tempo_medio": setor_df.apply(
+                        lambda row: (
+                            datetime.now() - row.iloc[SSAColumns.EMITIDA_EM]
+                        ).total_seconds()
+                        / 3600,
+                        axis=1,
+                    ).mean(),
+                }
+            )
 
-        pd.DataFrame(metrics).to_excel(writer, sheet_name='Métricas', index=False)
+        pd.DataFrame(metrics).to_excel(writer, sheet_name="Métricas", index=False)
 
-    def run_server(self, debug: bool = True, host: str = DEFAULT_HOST, port: int = DEFAULT_PORT):
+    def run_server(
+        self, debug: bool = True, host: str = DEFAULT_HOST, port: int = DEFAULT_PORT
+    ):
         """
         Inicia o servidor do dashboard.
-        
+
         Args:
             debug: Modo debug
             host: Host do servidor
@@ -5415,10 +5696,11 @@ def main():
 def setup_error_handling():
     """
     Configura sistema avançado de tratamento de erros.
-    
+
     Returns:
         Dict: Configurações de tratamento de erros
     """
+
     def error_handler(error: Exception, context: str = None) -> Dict:
         """Handler personalizado de erros."""
         error_info = {
@@ -5426,7 +5708,7 @@ def setup_error_handling():
             "type": type(error).__name__,
             "message": str(error),
             "traceback": traceback.format_exc(),
-            "context": context
+            "context": context,
         }
 
         # Log do erro
@@ -5453,7 +5735,7 @@ def setup_error_handling():
     return {
         "handler": error_handler,
         "log_dir": "logs/errors",
-        "notification_enabled": True
+        "notification_enabled": True,
     }
 
 
@@ -5928,10 +6210,11 @@ class ConfigurationManager:
 def setup_security():
     """
     Configura sistema de segurança.
-    
+
     Returns:
         Dict: Configurações de segurança
     """
+
     class SecurityManager:
         def __init__(self):
             self.active_sessions = {}
@@ -5955,7 +6238,9 @@ def setup_security():
 
             if not is_valid:
                 self.attempt_counts[ip] = self.attempt_counts.get(ip, 0) + 1
-                logger.warning(f"Tentativa de login inválida de {ip} para usuário {username}")
+                logger.warning(
+                    f"Tentativa de login inválida de {ip} para usuário {username}"
+                )
                 return False
 
             # Limpa tentativas após sucesso
@@ -5966,7 +6251,7 @@ def setup_security():
             self.active_sessions[session_id] = {
                 "username": username,
                 "ip": ip,
-                "created_at": datetime.now()
+                "created_at": datetime.now(),
             }
 
             return True
@@ -5979,6 +6264,7 @@ def setup_security():
         def _generate_session_id(self) -> str:
             """Gera ID de sessão único."""
             import uuid
+
             return str(uuid.uuid4())
 
         def validate_session(self, session_id: str, ip: str) -> bool:
@@ -5988,11 +6274,15 @@ def setup_security():
 
             session = self.active_sessions[session_id]
             if session["ip"] != ip:
-                logger.warning(f"IP diferente para sessão {session_id}: esperado {session['ip']}, recebido {ip}")
+                logger.warning(
+                    f"IP diferente para sessão {session_id}: esperado {session['ip']}, recebido {ip}"
+                )
                 return False
 
             # Verifica expiração
-            if (datetime.now() - session["created_at"]).total_seconds() > 3600:  # 1 hora
+            if (
+                datetime.now() - session["created_at"]
+            ).total_seconds() > 3600:  # 1 hora
                 self.active_sessions.pop(session_id)
                 return False
 
@@ -6004,7 +6294,7 @@ def setup_security():
                 "timestamp": datetime.now().isoformat(),
                 "action": action,
                 "user": user,
-                "details": details
+                "details": details,
             }
 
             logger.info(f"Audit: {audit_entry}")
@@ -6228,72 +6518,74 @@ class MaintenanceManager:
 
 class BackupManager:
     """Gerenciador de backup do sistema."""
-    
+
     def __init__(self):
         """Inicializa o gerenciador de backup."""
         self.backup_dir = "backups"
         self.max_backups = 10
         os.makedirs(self.backup_dir, exist_ok=True)
-    
+
     def create_backup(self, data: pd.DataFrame) -> str:
         """
         Cria backup dos dados.
-        
+
         Args:
             data: DataFrame para backup
-            
+
         Returns:
             str: Caminho do arquivo de backup
         """
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"backup_{timestamp}.pkl"
         filepath = os.path.join(self.backup_dir, filename)
-        
+
         # Salva dados
         data.to_pickle(filepath)
-        
+
         # Mantém limite de backups
         self._cleanup_old_backups()
-        
+
         logger.info(f"Backup criado: {filepath}")
         return filepath
-    
+
     def _cleanup_old_backups(self):
         """Remove backups antigos."""
-        backups = sorted([
-            os.path.join(self.backup_dir, f)
-            for f in os.listdir(self.backup_dir)
-            if f.startswith("backup_") and f.endswith(".pkl")
-        ])
-        
+        backups = sorted(
+            [
+                os.path.join(self.backup_dir, f)
+                for f in os.listdir(self.backup_dir)
+                if f.startswith("backup_") and f.endswith(".pkl")
+            ]
+        )
+
         while len(backups) > self.max_backups:
             oldest = backups.pop(0)
             os.remove(oldest)
             logger.info(f"Backup removido: {oldest}")
-    
+
     def restore_backup(self, filepath: str) -> pd.DataFrame:
         """
         Restaura backup.
-        
+
         Args:
             filepath: Caminho do arquivo de backup
-            
+
         Returns:
             pd.DataFrame: Dados restaurados
         """
         if not os.path.exists(filepath):
             raise FileNotFoundError(f"Backup não encontrado: {filepath}")
-        
+
         # Carrega dados
         data = pd.read_pickle(filepath)
         logger.info(f"Backup restaurado: {filepath}")
-        
+
         return data
-    
+
     def list_backups(self) -> List[Dict]:
         """
         Lista backups disponíveis.
-        
+
         Returns:
             List[Dict]: Lista de backups com metadados
         """
@@ -6302,15 +6594,17 @@ class BackupManager:
             if filename.startswith("backup_") and filename.endswith(".pkl"):
                 filepath = os.path.join(self.backup_dir, filename)
                 stat = os.stat(filepath)
-                backups.append({
-                    "filename": filename,
-                    "filepath": filepath,
-                    "size": stat.st_size,
-                    "created_at": datetime.fromtimestamp(stat.st_ctime)
-                })
-        
+                backups.append(
+                    {
+                        "filename": filename,
+                        "filepath": filepath,
+                        "size": stat.st_size,
+                        "created_at": datetime.fromtimestamp(stat.st_ctime),
+                    }
+                )
+
         return sorted(backups, key=lambda x: x["created_at"], reverse=True)
-    
+
     def cleanup(self):
         """Limpa recursos do gerenciador de backup."""
         try:
@@ -6322,10 +6616,10 @@ class BackupManager:
 def setup_backup() -> BackupManager:
     """
     Configura sistema de backup.
-    
+
     Returns:
         BackupManager: Instância configurada do gerenciador de backup
-        
+
     Raises:
         Exception: Se houver erro na configuração
     """
@@ -6341,10 +6635,10 @@ def setup_backup() -> BackupManager:
 def setup_maintenance() -> MaintenanceManager:
     """
     Configura e retorna uma instância do gerenciador de manutenção.
-    
+
     Returns:
         MaintenanceManager: Instância configurada do gerenciador
-    
+
     Raises:
         Exception: Se houver erro na configuração
     """
@@ -6355,6 +6649,7 @@ def setup_maintenance() -> MaintenanceManager:
     except Exception as e:
         logger.error(f"Erro ao configurar sistema de manutenção: {e}")
         raise
+
 
 class ResourceManager:
     """Gerenciador de recursos do sistema."""
@@ -6565,6 +6860,7 @@ class ResourceManager:
         threading.Thread(target=monitor, daemon=True).start()
         logger.info(f"Monitoramento iniciado com intervalo de {interval}s")
 
+
 class AdvancedLogger:
     """Sistema avançado de logging."""
 
@@ -6583,45 +6879,43 @@ class AdvancedLogger:
         # Configuração base
         logging.basicConfig(
             level=logging.INFO,
-            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+            format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
         )
 
         # Handler para arquivo com rotação
         file_handler = logging.handlers.RotatingFileHandler(
-            filename=os.path.join(self.log_dir, 'app.log'),
-            maxBytes=10*1024*1024,  # 10MB
+            filename=os.path.join(self.log_dir, "app.log"),
+            maxBytes=10 * 1024 * 1024,  # 10MB
             backupCount=5,
-            encoding='utf-8'
+            encoding="utf-8",
         )
         file_handler.setLevel(logging.INFO)
 
         # Handler para erros
         error_handler = logging.handlers.RotatingFileHandler(
-            filename=os.path.join(self.log_dir, 'error.log'),
-            maxBytes=10*1024*1024,
+            filename=os.path.join(self.log_dir, "error.log"),
+            maxBytes=10 * 1024 * 1024,
             backupCount=5,
-            encoding='utf-8'
+            encoding="utf-8",
         )
         error_handler.setLevel(logging.ERROR)
 
         # Handler para auditoria
         audit_handler = logging.handlers.RotatingFileHandler(
-            filename=os.path.join(self.log_dir, 'audit.log'),
-            maxBytes=10*1024*1024,
+            filename=os.path.join(self.log_dir, "audit.log"),
+            maxBytes=10 * 1024 * 1024,
             backupCount=5,
-            encoding='utf-8'
+            encoding="utf-8",
         )
 
         # Formatadores
         standard_formatter = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         )
         detailed_formatter = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(pathname)s:%(lineno)d - %(message)s'
+            "%(asctime)s - %(name)s - %(levelname)s - %(pathname)s:%(lineno)d - %(message)s"
         )
-        audit_formatter = logging.Formatter(
-            '%(asctime)s - AUDIT - %(message)s'
-        )
+        audit_formatter = logging.Formatter("%(asctime)s - AUDIT - %(message)s")
 
         # Aplica formatadores
         file_handler.setFormatter(standard_formatter)
@@ -6630,104 +6924,108 @@ class AdvancedLogger:
 
         # Registra handlers
         self.handlers = {
-            'file': file_handler,
-            'error': error_handler,
-            'audit': audit_handler
+            "file": file_handler,
+            "error": error_handler,
+            "audit": audit_handler,
         }
 
         # Adiciona handlers ao logger root
         for handler in self.handlers.values():
-            logging.getLogger('').addHandler(handler)
+            logging.getLogger("").addHandler(handler)
 
     def audit_log(self, action: str, user: str, details: Dict):
         """
         Registra log de auditoria.
-        
+
         Args:
             action: Ação realizada
             user: Usuário responsável
             details: Detalhes da ação
         """
-        audit_message = f"USER: {user} - ACTION: {action} - DETAILS: {json.dumps(details)}"
-        logging.getLogger('audit').info(audit_message)
+        audit_message = (
+            f"USER: {user} - ACTION: {action} - DETAILS: {json.dumps(details)}"
+        )
+        logging.getLogger("audit").info(audit_message)
 
-    def get_logs(self, level: str = None, start_date: datetime = None, end_date: datetime = None) -> List[Dict]:
+    def get_logs(
+        self, level: str = None, start_date: datetime = None, end_date: datetime = None
+    ) -> List[Dict]:
         """
         Recupera logs filtrados.
-        
+
         Args:
             level: Nível de log
             start_date: Data inicial
             end_date: Data final
-            
+
         Returns:
             List[Dict]: Logs filtrados
         """
         logs = []
-        log_files = {
-            'INFO': 'app.log',
-            'ERROR': 'error.log',
-            'AUDIT': 'audit.log'
-        }
+        log_files = {"INFO": "app.log", "ERROR": "error.log", "AUDIT": "audit.log"}
 
         files_to_check = [log_files[level]] if level else log_files.values()
 
         for filename in files_to_check:
             filepath = os.path.join(self.log_dir, filename)
             if os.path.exists(filepath):
-                with open(filepath, 'r', encoding='utf-8') as f:
+                with open(filepath, "r", encoding="utf-8") as f:
                     for line in f:
                         log_entry = self._parse_log_line(line)
-                        if log_entry and self._filter_log_entry(log_entry, level, start_date, end_date):
+                        if log_entry and self._filter_log_entry(
+                            log_entry, level, start_date, end_date
+                        ):
                             logs.append(log_entry)
 
-        return sorted(logs, key=lambda x: x['timestamp'])
+        return sorted(logs, key=lambda x: x["timestamp"])
 
     def _parse_log_line(self, line: str) -> Optional[Dict]:
         """
         Converte linha de log em dicionário.
-        
+
         Args:
             line: Linha do log
-            
+
         Returns:
             Optional[Dict]: Entrada de log parseada
         """
         try:
             # Formato: timestamp - name - level - message
-            parts = line.strip().split(' - ', 3)
+            parts = line.strip().split(" - ", 3)
             if len(parts) < 4:
                 return None
 
             return {
-                'timestamp': datetime.strptime(parts[0], '%Y-%m-%d %H:%M:%S,%f'),
-                'name': parts[1],
-                'level': parts[2],
-                'message': parts[3]
+                "timestamp": datetime.strptime(parts[0], "%Y-%m-%d %H:%M:%S,%f"),
+                "name": parts[1],
+                "level": parts[2],
+                "message": parts[3],
             }
         except Exception:
             return None
 
-    def _filter_log_entry(self, entry: Dict, level: str, start_date: datetime, end_date: datetime) -> bool:
+    def _filter_log_entry(
+        self, entry: Dict, level: str, start_date: datetime, end_date: datetime
+    ) -> bool:
         """
         Filtra entrada de log.
-        
+
         Args:
             entry: Entrada de log
             level: Nível desejado
             start_date: Data inicial
             end_date: Data final
-            
+
         Returns:
             bool: True se entrada atende filtros
         """
-        if level and entry['level'] != level:
+        if level and entry["level"] != level:
             return False
 
-        if start_date and entry['timestamp'] < start_date:
+        if start_date and entry["timestamp"] < start_date:
             return False
 
-        if end_date and entry['timestamp'] > end_date:
+        if end_date and entry["timestamp"] > end_date:
             return False
 
         return True
@@ -6741,50 +7039,50 @@ def main():
     try:
         # Inicialização básica
         logger.info("Iniciando aplicação...")
-        
+
         # Carrega configuração
         config = Config()
-        excel_path = config.get('data', {}).get('excel_path')
-        
+        excel_path = config.get("data", {}).get("excel_path")
+
         if not excel_path:
             raise ValueError("Caminho do arquivo Excel não definido na configuração")
 
         # Sistema de logging
         logging.basicConfig(
-            level=config.get('logging', {}).get('level', 'INFO'),
-            format=config.get('logging', {}).get('format', '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+            level=config.get("logging", {}).get("level", "INFO"),
+            format=config.get("logging", {}).get(
+                "format", "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+            ),
         )
 
         # Gerenciador de recursos
         resource_manager = ResourceManager()
         resource_manager.start_monitoring()
-        resources_to_cleanup.append(('resource_manager', resource_manager))
+        resources_to_cleanup.append(("resource_manager", resource_manager))
 
         # Monitor de performance
         performance_monitor = setup_performance_monitoring()
-        resources_to_cleanup.append(('performance_monitor', performance_monitor))
+        resources_to_cleanup.append(("performance_monitor", performance_monitor))
 
         # Sistema de backup
         backup_manager = setup_backup()
-        resources_to_cleanup.append(('backup_manager', backup_manager))
+        resources_to_cleanup.append(("backup_manager", backup_manager))
         logger.info("Sistema de backup configurado com sucesso")
 
         # Sistema de manutenção
         maintenance_manager = setup_maintenance()
-        resources_to_cleanup.append(('maintenance_manager', maintenance_manager))
+        resources_to_cleanup.append(("maintenance_manager", maintenance_manager))
         logger.info("Sistema de manutenção configurado com sucesso")
 
         # Inicia thread de monitoramento de manutenção
         maintenance_thread = threading.Thread(
-            target=run_maintenance_loop,
-            args=(maintenance_manager,),
-            daemon=True
+            target=run_maintenance_loop, args=(maintenance_manager,), daemon=True
         )
         maintenance_thread.start()
 
         # Sistema de segurança
         security_manager = setup_security()
-        resources_to_cleanup.append(('security_manager', security_manager))
+        resources_to_cleanup.append(("security_manager", security_manager))
 
         # Carregamento e processamento de dados
         logger.info("Iniciando carregamento dos dados...")
@@ -6804,7 +7102,9 @@ def main():
 
             # Análise inicial
             ssas_alta_prioridade = loader.filter_ssas(prioridade="S3.7")
-            logger.info(f"Total de SSAs com alta prioridade: {len(ssas_alta_prioridade)}")
+            logger.info(
+                f"Total de SSAs com alta prioridade: {len(ssas_alta_prioridade)}"
+            )
 
             # Gera relatório inicial
             logger.info("Gerando relatório inicial...")
@@ -6815,7 +7115,9 @@ def main():
             # Verifica recursos
             resource_alerts = resource_manager.check_resources()
             if resource_alerts:
-                logger.warning(f"Alertas de recursos detectados: {len(resource_alerts)}")
+                logger.warning(
+                    f"Alertas de recursos detectados: {len(resource_alerts)}"
+                )
                 for alert in resource_alerts:
                     logger.warning(f"Alerta: {alert['message']}")
 
@@ -6824,9 +7126,9 @@ def main():
             app = SSADashboard(df)
 
             # Configurações do servidor
-            host = config.get('server', {}).get('host', '0.0.0.0')
-            port = config.get('server', {}).get('port', 8050)
-            debug = config.get('server', {}).get('debug', False)
+            host = config.get("server", {}).get("host", "0.0.0.0")
+            port = config.get("server", {}).get("port", 8050)
+            debug = config.get("server", {}).get("debug", False)
 
             logger.info(f"Iniciando servidor em {host}:{port}")
             app.run_server(debug=debug, host=host, port=port)

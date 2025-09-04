@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-from dash import Dash, dcc, html, Input, Output,State, MATCH, ALL, dash_table  
+from dash import Dash, dcc, html, Input, Output, State, MATCH, ALL, dash_table
 import dash_bootstrap_components as dbc
 import logging
 from dash import dash_table
@@ -27,9 +27,11 @@ warnings.filterwarnings("ignore")
 # Configuração do caminho do arquivo no início do script
 DATA_FILE_PATH = r"C:\Users\menon\git\trabalho\SCRAP-SAM\DashboardSM\Downloads\SSAs Pendentes Geral - 11-11-2024_0904AM.xlsx"
 
+
 @dataclass
 class SSAData:
     """Estrutura de dados para uma SSA."""
+
     numero: str
     situacao: str
     derivada: Optional[str]
@@ -60,7 +62,11 @@ class SSAData:
             "situacao": self.situacao,
             "setor_executor": self.setor_executor,
             "prioridade": self.prioridade_emissao,
-            "emitida_em": self.emitida_em.strftime("%Y-%m-%d %H:%M:%S") if self.emitida_em else None,
+            "emitida_em": (
+                self.emitida_em.strftime("%Y-%m-%d %H:%M:%S")
+                if self.emitida_em
+                else None
+            ),
         }
 
 
@@ -109,12 +115,13 @@ class DataLoader:
             log_issue(f"Erro ao processar data: {str(e)}")
             return None
 
-
     def _convert_dates(self):
         """Converte e valida datas mantendo o tipo apropriado."""
         try:
             # Se a coluna já for datetime, não precisa converter
-            if pd.api.types.is_datetime64_any_dtype(self.df.iloc[:, SSAColumns.EMITIDA_EM]):
+            if pd.api.types.is_datetime64_any_dtype(
+                self.df.iloc[:, SSAColumns.EMITIDA_EM]
+            ):
                 logging.info("Coluna já está em formato datetime")
                 return
 
@@ -151,16 +158,16 @@ class DataLoader:
 
             # NOVO: Diagnóstico de datas antes da conversão
             date_diagnosis = diagnose_dates(self.df, SSAColumns.EMITIDA_EM)
-            if date_diagnosis['error_count'] > 0:
+            if date_diagnosis["error_count"] > 0:
                 logging.info("=== Diagnóstico de Datas ===")
                 logging.info(f"Total de linhas: {date_diagnosis['total_rows']}")
                 logging.info(f"Problemas encontrados: {date_diagnosis['error_count']}")
-                for prob in date_diagnosis['problematic_rows']:
+                for prob in date_diagnosis["problematic_rows"]:
                     logging.info(f"\nLinha {prob['index'] + 1}:")
                     logging.info(f"  Valor encontrado: {prob['value']}")
                     logging.info(f"  Motivo: {prob['reason']}")
                     logging.info("  Dados da linha:")
-                    for key, value in prob['row_data'].items():
+                    for key, value in prob["row_data"].items():
                         logging.info(f"    {key}: {value}")
 
             # Converte as datas usando o novo método
@@ -196,7 +203,9 @@ class DataLoader:
 
             # Padroniza prioridades para maiúsculas
             self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] = (
-                self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].str.upper().str.strip()
+                self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
+                .str.upper()
+                .str.strip()
             )
 
             # Converte colunas opcionais
@@ -421,6 +430,7 @@ class DataLoader:
 
 class SSAColumns:
     """Mantém os índices e nomes das colunas."""
+
     # Índices
     NUMERO_SSA = 0
     SITUACAO = 1
@@ -515,7 +525,7 @@ class WeekInfo:
 
 class WeekCalculator:
     """Handles ISO week-based calculations with year transition awareness."""
-    
+
     @staticmethod
     def get_iso_calendar(dt: Union[date, datetime]) -> Tuple[int, int, int]:
         """
@@ -540,10 +550,10 @@ class WeekCalculator:
     def get_last_week_of_year(year: int) -> int:
         """
         Determines if a year has 52 or 53 ISO weeks.
-        
+
         Args:
             year: The year to check
-            
+
         Returns:
             Number of weeks (52 or 53)
         """
@@ -554,38 +564,37 @@ class WeekCalculator:
 
     @classmethod
     def calculate_week_difference(
-        cls,
-        week1: Optional[WeekInfo],
-        week2: Optional[WeekInfo]
+        cls, week1: Optional[WeekInfo], week2: Optional[WeekInfo]
     ) -> Optional[int]:
         """
         Calculates the difference between two ISO weeks, handling year transitions.
-        
+
         Args:
             week1: First WeekInfo object
             week2: Second WeekInfo object
-            
+
         Returns:
             Number of weeks difference or None if invalid input
         """
         if not week1 or not week2:
             return None
-            
+
         if week1.year == week2.year:
             return week2.week - week1.week
-            
+
         # Handle year transitions
         total_weeks = 0
-        
+
         # Add weeks for complete years between
         for year in range(week1.year, week2.year):
             total_weeks += cls.get_last_week_of_year(year)
-            
+
         # Adjust for partial weeks in start and end year
         total_weeks -= week1.week
         total_weeks += week2.week
-        
+
         return total_weeks
+
 
 class SSAWeekAnalyzer:
     """Analyzes SSA data with respect to weeks, following ISO standard."""
@@ -1204,22 +1213,22 @@ class SSAVisualizer:
 
         if valid_weeks.empty:
             return go.Figure().update_layout(
-                    self._get_standard_layout(
-                        title="Distribuição de SSAs por Tempo no Estado Atual",
-                        xaxis_title="Semanas no Estado",
-                        yaxis_title="Quantidade de SSAs",
-                        chart_type="bar",
-                        annotations=[
-                            {
-                                "text": "Não há dados válidos disponíveis",
-                                "xref": "paper",
-                                "yref": "paper",
-                                "showarrow": False,
-                                "font": {"size": 14},
-                            }
-                        ],
-                    )
+                self._get_standard_layout(
+                    title="Distribuição de SSAs por Tempo no Estado Atual",
+                    xaxis_title="Semanas no Estado",
+                    yaxis_title="Quantidade de SSAs",
+                    chart_type="bar",
+                    annotations=[
+                        {
+                            "text": "Não há dados válidos disponíveis",
+                            "xref": "paper",
+                            "yref": "paper",
+                            "showarrow": False,
+                            "font": {"size": 14},
+                        }
+                    ],
                 )
+            )
 
         # Agrupa em intervalos de semanas
         value_counts = valid_weeks.value_counts().sort_index()
@@ -1229,8 +1238,8 @@ class SSAVisualizer:
             bins = list(range(0, int(max_weeks) + 10, 10))
             labels = [f"{bins[i]}-{bins[i+1]-1}" for i in range(len(bins) - 1)]
             binned_data = pd.cut(
-                    value_counts.index, bins=bins, labels=labels, right=False
-                )
+                value_counts.index, bins=bins, labels=labels, right=False
+            )
             value_counts = value_counts.groupby(binned_data).sum()
 
         # Criar dicionário para armazenar SSAs por intervalo
@@ -1254,12 +1263,13 @@ class SSAVisualizer:
                 ssa_preview += f"<br>... (+{len(ssas_in_interval)-5} SSAs)"
 
             hover_text.append(
-                    f"<b>Intervalo:</b> {interval}<br>"
-                    f"<b>Total SSAs:</b> {len(ssas_in_interval)}<br>"
-                    f"<b>Primeiras SSAs:</b><br>{ssa_preview}"
-                )
+                f"<b>Intervalo:</b> {interval}<br>"
+                f"<b>Total SSAs:</b> {len(ssas_in_interval)}<br>"
+                f"<b>Primeiras SSAs:</b><br>{ssa_preview}"
+            )
 
-        fig = go.Figure([
+        fig = go.Figure(
+            [
                 go.Bar(
                     x=value_counts.index,
                     y=value_counts.values,
@@ -1269,44 +1279,43 @@ class SSAVisualizer:
                     marker_color="rgb(64, 83, 177)",
                     hovertext=hover_text,
                     hoverinfo="text",
-                    customdata=[ssas_by_interval[str(interval)] for interval in value_counts.index],
-                    hoverlabel=dict(
-                        bgcolor="white",
-                        font_size=12,
-                        font_family="Arial"
-                    ),
+                    customdata=[
+                        ssas_by_interval[str(interval)]
+                        for interval in value_counts.index
+                    ],
+                    hoverlabel=dict(bgcolor="white", font_size=12, font_family="Arial"),
                 )
-            ])
+            ]
+        )
 
         invalid_count = weeks_in_state.isna().sum()
         total_count = len(weeks_in_state)
 
         fig.update_layout(
-                self._get_standard_layout(
-                    title=f"Distribuição de SSAs por Tempo no Estado Atual<br><sub>({invalid_count}/{total_count} registros inválidos)</sub>",
-                    xaxis_title="Intervalo de Semanas no Estado",
-                    yaxis_title="Quantidade de SSAs",
-                    chart_type="bar",
-                    annotations=[
-                        {
-                            "text": "Clique nas barras para ver detalhes das SSAs",
-                            "xref": "paper",
-                            "yref": "paper",
-                            "x": 0.98,
-                            "y": 0.02,
-                            "showarrow": False,
-                            "font": {"size": 10, "color": "gray"},
-                            "xanchor": "right",
-                        }
-                    ],
-                )
+            self._get_standard_layout(
+                title=f"Distribuição de SSAs por Tempo no Estado Atual<br><sub>({invalid_count}/{total_count} registros inválidos)</sub>",
+                xaxis_title="Intervalo de Semanas no Estado",
+                yaxis_title="Quantidade de SSAs",
+                chart_type="bar",
+                annotations=[
+                    {
+                        "text": "Clique nas barras para ver detalhes das SSAs",
+                        "xref": "paper",
+                        "yref": "paper",
+                        "x": 0.98,
+                        "y": 0.02,
+                        "showarrow": False,
+                        "font": {"size": 10, "color": "gray"},
+                        "xanchor": "right",
+                    }
+                ],
             )
+        )
 
         # Configurações adicionais para melhorar a aparência
         fig.update_traces(
-                hovertemplate=None,  # Usar o hover_text customizado
-                hoverlabel_align="left"
-            )
+            hovertemplate=None, hoverlabel_align="left"  # Usar o hover_text customizado
+        )
 
         return fig
 
@@ -1366,7 +1375,7 @@ class SSAReporter:
                     body {{ font-family: Arial, sans-serif; margin: 20px; }}
                     .header {{ background-color: #f8f9fa; padding: 20px; }}
                     .summary {{ display: flex; flex-wrap: wrap; gap: 20px; }}
-                    .metric {{ 
+                    .metric {{
                         background-color: white;
                         padding: 15px;
                         border-radius: 8px;
@@ -1387,7 +1396,7 @@ class SSAReporter:
                     <h1>Relatório de Análise de SSAs</h1>
                     <p>Gerado em: {datetime.now().strftime('%d/%m/%Y %H:%M')}</p>
                 </div>
-                
+
                 <div class="summary">
                     <div class="metric">
                         <h3>Total de SSAs</h3>
@@ -1398,7 +1407,7 @@ class SSAReporter:
                         <p>{stats['tempo_medio_emissao']:.2f if stats['tempo_medio_emissao'] else 'N/A'}</p>
                     </div>
                 </div>
-                
+
                 <div class="priority-stats">
                     <h3>Distribuição por Prioridade</h3>
                     <table>
@@ -1409,19 +1418,19 @@ class SSAReporter:
                         {self._generate_priority_table_rows(stats['por_prioridade'])}
                     </table>
                 </div>
-                
+
                 <div class="chart-container">
                     {self.visualizer.create_priority_chart().to_html()}
                 </div>
-                
+
                 <div class="chart-container">
                     {self.visualizer.create_sector_heatmap().to_html()}
                 </div>
-                
+
                 <div class="chart-container">
                     {self.visualizer.create_equipment_chart().to_html()}
                 </div>
-                
+
                 <div class="chart-container">
                     {self.visualizer.create_priority_timeline().to_html()}
                 </div>
@@ -1653,7 +1662,7 @@ Tempo Médio de Emissão (hora): {stats['tempo_medio_emissao']:.2f if stats['tem
 
 class KPICalculator:
     """Calcula KPIs e métricas de performance das SSAs."""
-    
+
     def __init__(self, df: pd.DataFrame):
         self.df = df
 
@@ -1662,10 +1671,12 @@ class KPICalculator:
         return {
             "taxa_programacao": len(
                 self.df[self.df.iloc[:, SSAColumns.SEMANA_PROGRAMADA].notna()]
-            ) / len(self.df),
+            )
+            / len(self.df),
             "taxa_execucao_simples": len(
                 self.df[self.df.iloc[:, SSAColumns.EXECUCAO_SIMPLES] == "Sim"]
-            ) / len(self.df),
+            )
+            / len(self.df),
             "distribuicao_prioridade": self.df.iloc[
                 :, SSAColumns.GRAU_PRIORIDADE_EMISSAO
             ]
@@ -1684,33 +1695,29 @@ class KPICalculator:
     def calculate_response_times(self) -> Dict[str, float]:
         """Calcula tempos de resposta médios por prioridade."""
         response_times = {}
-        
+
         for priority in self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].unique():
-            mask = (
-                self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == priority
-            )
+            mask = self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == priority
             priority_data = self.df[mask]
-            
+
             if len(priority_data) > 0:
                 # Calcula tempo médio desde emissão até programação
                 mean_time = (
-                    priority_data.iloc[:, SSAColumns.SEMANA_PROGRAMADA].astype(float) -
-                    priority_data.iloc[:, SSAColumns.SEMANA_CADASTRO].astype(float)
+                    priority_data.iloc[:, SSAColumns.SEMANA_PROGRAMADA].astype(float)
+                    - priority_data.iloc[:, SSAColumns.SEMANA_CADASTRO].astype(float)
                 ).mean()
-                
+
                 response_times[priority] = mean_time if not pd.isna(mean_time) else None
-                
+
         return response_times
 
     def calculate_sector_performance(self) -> pd.DataFrame:
         """Calcula performance por setor."""
         sector_metrics = []
-        
+
         for sector in self.df.iloc[:, SSAColumns.SETOR_EXECUTOR].unique():
-            sector_data = self.df[
-                self.df.iloc[:, SSAColumns.SETOR_EXECUTOR] == sector
-            ]
-            
+            sector_data = self.df[self.df.iloc[:, SSAColumns.SETOR_EXECUTOR] == sector]
+
             total_ssas = len(sector_data)
             programmed_ssas = len(
                 sector_data[sector_data.iloc[:, SSAColumns.SEMANA_PROGRAMADA].notna()]
@@ -1720,26 +1727,30 @@ class KPICalculator:
                     sector_data.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == "S3.7"
                 ]
             )
-            
-            sector_metrics.append({
-                "setor": sector,
-                "total_ssas": total_ssas,
-                "taxa_programacao": (programmed_ssas / total_ssas) if total_ssas > 0 else 0,
-                "ssas_criticas": critical_ssas,
-                "percentual_criticas": (critical_ssas / total_ssas * 100) if total_ssas > 0 else 0
-            })
-        
+
+            sector_metrics.append(
+                {
+                    "setor": sector,
+                    "total_ssas": total_ssas,
+                    "taxa_programacao": (
+                        (programmed_ssas / total_ssas) if total_ssas > 0 else 0
+                    ),
+                    "ssas_criticas": critical_ssas,
+                    "percentual_criticas": (
+                        (critical_ssas / total_ssas * 100) if total_ssas > 0 else 0
+                    ),
+                }
+            )
+
         return pd.DataFrame(sector_metrics)
 
     def calculate_weekly_trends(self) -> pd.DataFrame:
         """Calcula tendências semanais de SSAs."""
         weekly_data = []
-        
+
         for week in sorted(self.df.iloc[:, SSAColumns.SEMANA_CADASTRO].unique()):
-            week_data = self.df[
-                self.df.iloc[:, SSAColumns.SEMANA_CADASTRO] == week
-            ]
-            
+            week_data = self.df[self.df.iloc[:, SSAColumns.SEMANA_CADASTRO] == week]
+
             total_ssas = len(week_data)
             programmed = len(
                 week_data[week_data.iloc[:, SSAColumns.SEMANA_PROGRAMADA].notna()]
@@ -1749,15 +1760,19 @@ class KPICalculator:
                     week_data.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == "S3.7"
                 ]
             )
-            
-            weekly_data.append({
-                "semana": week,
-                "total_ssas": total_ssas,
-                "programadas": programmed,
-                "criticas": critical,
-                "taxa_programacao": (programmed / total_ssas) if total_ssas > 0 else 0
-            })
-        
+
+            weekly_data.append(
+                {
+                    "semana": week,
+                    "total_ssas": total_ssas,
+                    "programadas": programmed,
+                    "criticas": critical,
+                    "taxa_programacao": (
+                        (programmed / total_ssas) if total_ssas > 0 else 0
+                    ),
+                }
+            )
+
         return pd.DataFrame(weekly_data)
 
     def get_key_metrics_summary(self) -> Dict:
@@ -1765,26 +1780,30 @@ class KPICalculator:
         total_ssas = len(self.df)
         metrics = self.calculate_efficiency_metrics()
         health_score = self.get_overall_health_score()
-        
+
         # Calcula média de tempo de resposta para SSAs críticas
         response_times = self.calculate_response_times()
         critical_response = response_times.get("S3.7")
-        
+
         return {
             "total_ssas": total_ssas,
             "health_score": health_score,
             "taxa_programacao": metrics["taxa_programacao"] * 100,
             "taxa_execucao_simples": metrics["taxa_execucao_simples"] * 100,
             "tempo_resposta_criticas": critical_response,
-            "distribuicao_prioridade": metrics["distribuicao_prioridade"]
+            "distribuicao_prioridade": metrics["distribuicao_prioridade"],
         }
 
     def calculate_backlog_metrics(self) -> Dict:
         """Calcula métricas relacionadas ao backlog de SSAs."""
         total_backlog = len(self.df)
-        backlog_by_priority = self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].value_counts().to_dict()
-        backlog_by_sector = self.df.iloc[:, SSAColumns.SETOR_EXECUTOR].value_counts().to_dict()
-        
+        backlog_by_priority = (
+            self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].value_counts().to_dict()
+        )
+        backlog_by_sector = (
+            self.df.iloc[:, SSAColumns.SETOR_EXECUTOR].value_counts().to_dict()
+        )
+
         # Calcula idade média do backlog
         backlog_age = None
         emitida_em = self.df.iloc[:, SSAColumns.EMITIDA_EM]
@@ -1793,39 +1812,44 @@ class KPICalculator:
             if not valid_dates.empty:
                 current_date = pd.Timestamp.now()
                 backlog_age = (current_date - valid_dates).mean().days
-        
+
         return {
             "total_backlog": total_backlog,
             "by_priority": backlog_by_priority,
             "by_sector": backlog_by_sector,
-            "average_age_days": backlog_age
+            "average_age_days": backlog_age,
         }
 
     def calculate_risk_metrics(self) -> Dict:
         """Calcula métricas de risco baseadas em prioridade e tempo de espera."""
         risk_metrics = {
-            "high_risk": 0,    # SSAs críticas com mais de 2 semanas
+            "high_risk": 0,  # SSAs críticas com mais de 2 semanas
             "medium_risk": 0,  # SSAs críticas com 1-2 semanas ou normais com >4 semanas
-            "low_risk": 0      # Demais SSAs
+            "low_risk": 0,  # Demais SSAs
         }
-        
+
         weeks_in_state = pd.to_numeric(
-            self.df.iloc[:, SSAColumns.SEMANA_CADASTRO],
-            errors='coerce'
+            self.df.iloc[:, SSAColumns.SEMANA_CADASTRO], errors="coerce"
         )
         current_week = int(date.today().strftime("%Y%W"))
-        
+
         for idx, row in self.df.iterrows():
-            weeks_waiting = current_week - weeks_in_state[idx] if pd.notna(weeks_in_state[idx]) else 0
+            weeks_waiting = (
+                current_week - weeks_in_state[idx]
+                if pd.notna(weeks_in_state[idx])
+                else 0
+            )
             is_critical = row.iloc[SSAColumns.GRAU_PRIORIDADE_EMISSAO] == "S3.7"
-            
+
             if is_critical and weeks_waiting > 2:
                 risk_metrics["high_risk"] += 1
-            elif (is_critical and weeks_waiting > 1) or (not is_critical and weeks_waiting > 4):
+            elif (is_critical and weeks_waiting > 1) or (
+                not is_critical and weeks_waiting > 4
+            ):
                 risk_metrics["medium_risk"] += 1
             else:
                 risk_metrics["low_risk"] += 1
-        
+
         return risk_metrics
 
 
@@ -1874,7 +1898,9 @@ class SSADashboard:
         def update_all_charts(resp_prog, resp_exec):
             """Update all charts with filter data."""
             if resp_prog or resp_exec:
-                self.logger.log_with_ip('INFO', f'Filtros aplicados - Prog: {resp_prog}, Exec: {resp_exec}')
+                self.logger.log_with_ip(
+                    "INFO", f"Filtros aplicados - Prog: {resp_prog}, Exec: {resp_exec}"
+                )
 
             df_filtered = self.df.copy()
             if resp_prog:
@@ -1896,37 +1922,37 @@ class SSADashboard:
             fig_prog = self._enhance_bar_chart(
                 self._create_resp_prog_chart(df_filtered),
                 "resp_prog",
-                "SSAs por Programador"
+                "SSAs por Programador",
             )
             fig_exec = self._enhance_bar_chart(
                 self._create_resp_exec_chart(df_filtered),
                 "resp_exec",
-                "SSAs por Executor"
+                "SSAs por Executor",
             )
 
             # Gráficos de semana com hover e click
             fig_programmed_week = self._enhance_bar_chart(
                 filtered_visualizer.create_week_chart(use_programmed=True),
                 "week_programmed",
-                "SSAs Programadas"
+                "SSAs Programadas",
             )
             fig_registration_week = self._enhance_bar_chart(
                 filtered_visualizer.create_week_chart(use_programmed=False),
                 "week_registration",
-                "SSAs Cadastradas"
+                "SSAs Cadastradas",
             )
 
-            detail_style = {"display": "block"} if resp_prog or resp_exec else {"display": "none"}
+            detail_style = (
+                {"display": "block"} if resp_prog or resp_exec else {"display": "none"}
+            )
 
             fig_detail_state = self._enhance_bar_chart(
-                self._create_detail_state_chart(df_filtered),
-                "state",
-                "SSAs por Estado"
+                self._create_detail_state_chart(df_filtered), "state", "SSAs por Estado"
             )
             fig_detail_week = self._enhance_bar_chart(
                 filtered_visualizer.create_week_chart(),
                 "week_detail",
-                "SSAs por Semana"
+                "SSAs por Semana",
             )
 
             table_data = self._prepare_table_data(df_filtered)
@@ -1988,10 +2014,16 @@ class SSADashboard:
                 "weeks-in-state-chart": (weeks_click, "SSAs no intervalo"),
                 "resp-prog-chart": (prog_click, "SSAs do programador"),
                 "resp-exec-chart": (exec_click, "SSAs do executor"),
-                "programmed-week-chart": (prog_week_click, "SSAs programadas na semana"),
-                "registration-week-chart": (reg_week_click, "SSAs cadastradas na semana"),
+                "programmed-week-chart": (
+                    prog_week_click,
+                    "SSAs programadas na semana",
+                ),
+                "registration-week-chart": (
+                    reg_week_click,
+                    "SSAs cadastradas na semana",
+                ),
                 "detail-state-chart": (detail_state_click, "SSAs no estado"),
-                "detail-week-chart": (detail_week_click, "SSAs na semana (detalhe)")
+                "detail-week-chart": (detail_week_click, "SSAs na semana (detalhe)"),
             }
 
             if trigger_id in click_mapping:
@@ -2004,7 +2036,9 @@ class SSADashboard:
                 ssas = point_data.get("customdata", [])
 
                 if ssas:
-                    self.logger.log_with_ip("INFO", f"Visualização de SSAs: {title_prefix} {label}")
+                    self.logger.log_with_ip(
+                        "INFO", f"Visualização de SSAs: {title_prefix} {label}"
+                    )
 
                 ssa_list = self._create_ssa_list(ssas)
                 title = f"{title_prefix} {label} ({len(ssas)} SSAs)"
@@ -2018,10 +2052,10 @@ class SSADashboard:
             """
             function(n_clicks, value) {
                 if (!n_clicks) return null;
-                
+
                 const textToCopy = value;
                 if (!textToCopy) return null;
-                
+
                 navigator.clipboard.writeText(textToCopy).then(function() {
                     // Visual feedback
                     const el = document.querySelector(`[data-value="${textToCopy}"]`);
@@ -2034,7 +2068,7 @@ class SSADashboard:
                 }).catch(function(err) {
                     console.error('Erro ao copiar:', err);
                 });
-                
+
                 return true;
             }
             """,
@@ -2045,8 +2079,7 @@ class SSADashboard:
 
         # Callback para atualização automática (a cada 5 minutos)
         @self.app.callback(
-            Output("state-data", "data"),
-            Input("interval-component", "n_intervals")
+            Output("state-data", "data"), Input("interval-component", "n_intervals")
         )
         def update_data(n):
             """Update data periodically."""
@@ -2201,12 +2234,16 @@ class SSADashboard:
                     [
                         dbc.Col(
                             [
-                                html.Label("Responsável Programação:", className="fw-bold"),
+                                html.Label(
+                                    "Responsável Programação:", className="fw-bold"
+                                ),
                                 dcc.Dropdown(
                                     id="resp-prog-filter",
                                     options=[
                                         {"label": resp, "value": resp}
-                                        for resp in self._get_responsaveis()["programacao"]
+                                        for resp in self._get_responsaveis()[
+                                            "programacao"
+                                        ]
                                     ],
                                     placeholder="Selecione um responsável...",
                                     className="mb-2",
@@ -2217,7 +2254,9 @@ class SSADashboard:
                         ),
                         dbc.Col(
                             [
-                                html.Label("Responsável Execução:", className="fw-bold"),
+                                html.Label(
+                                    "Responsável Execução:", className="fw-bold"
+                                ),
                                 dcc.Dropdown(
                                     id="resp-exec-filter",
                                     options=[
@@ -2542,8 +2581,14 @@ class SSADashboard:
                                                 dash_table.DataTable(
                                                     id="ssa-table",
                                                     columns=[
-                                                        {"name": "Número", "id": "numero"},
-                                                        {"name": "Estado", "id": "estado"},
+                                                        {
+                                                            "name": "Número",
+                                                            "id": "numero",
+                                                        },
+                                                        {
+                                                            "name": "Estado",
+                                                            "id": "estado",
+                                                        },
                                                         {
                                                             "name": "Resp. Prog.",
                                                             "id": "resp_prog",
@@ -2654,10 +2699,7 @@ class SSADashboard:
         """Cria cards para cada estado de SSA."""
         cards = [
             # Label "Setor:"
-            dbc.Col(
-                html.H6("Setor:", className="mt-3 me-2"),
-                width="auto"
-            )
+            dbc.Col(html.H6("Setor:", className="mt-3 me-2"), width="auto")
         ]
 
         # Calcula o total e adiciona como primeiro card
@@ -2668,29 +2710,45 @@ class SSADashboard:
                     [
                         dbc.CardBody(
                             [
-                                html.H6("TOTAL", className="card-title text-center mb-0 small"),
+                                html.H6(
+                                    "TOTAL",
+                                    className="card-title text-center mb-0 small",
+                                ),
                                 html.H3(
-                                    str(total_ssas), 
+                                    str(total_ssas),
                                     className="text-center text-danger fw-bold mb-0",
-                                    style={"fontSize": "1.8rem"}  # Texto um pouco maior
+                                    style={
+                                        "fontSize": "1.8rem"
+                                    },  # Texto um pouco maior
                                 ),
                             ],
-                            className="p-2"  # Menos padding
+                            className="p-2",  # Menos padding
                         )
                     ],
                     className="mb-3",
                     style={
                         "height": "80px",
                         "border-left": "4px solid red",
-                        "width": "150px"  # Largura um pouco maior
+                        "width": "150px",  # Largura um pouco maior
                     },
                 ),
-                width="auto"
+                width="auto",
             )
         )
 
         # Lista ordenada de estados
-        state_list = ['AAD', 'ADM', 'AAT', 'SPG', 'AIM', 'APV', 'APG', 'SCD', 'ADI', 'APL']
+        state_list = [
+            "AAD",
+            "ADM",
+            "AAT",
+            "SPG",
+            "AIM",
+            "APV",
+            "APG",
+            "SCD",
+            "ADI",
+            "APL",
+        ]
 
         # Adiciona os cards de estado na ordem definida
         for state in state_list:
@@ -2701,29 +2759,34 @@ class SSADashboard:
                         [
                             dbc.CardBody(
                                 [
-                                    html.H6(state, className="card-title text-center mb-0 small"),
+                                    html.H6(
+                                        state,
+                                        className="card-title text-center mb-0 small",
+                                    ),
                                     html.H3(
-                                        str(count), 
+                                        str(count),
                                         className="text-center text-primary mb-0",
-                                        style={"fontSize": "1.8rem"}  # Texto um pouco maior
+                                        style={
+                                            "fontSize": "1.8rem"
+                                        },  # Texto um pouco maior
                                     ),
                                 ],
-                                className="p-2"  # Menos padding
+                                className="p-2",  # Menos padding
                             )
                         ],
                         className="mb-3",
                         style={
                             "height": "80px",
-                            "width": "150px"  # Largura um pouco maior
+                            "width": "150px",  # Largura um pouco maior
                         },
                     ),
-                    width="auto"
+                    width="auto",
                 )
             )
 
         return dbc.Row(
             cards,
-            className="g-2 flex-nowrap align-items-center"  # Alinhamento vertical centralizado
+            className="g-2 flex-nowrap align-items-center",  # Alinhamento vertical centralizado
         )
 
     def _create_resp_summary_cards(self, df_filtered):
@@ -2804,7 +2867,11 @@ class SSADashboard:
                         )
                     ],
                     className="mb-0 border-danger",
-                    style={"width": "120px", "height": "65px", "borderLeft": "4px solid"},
+                    style={
+                        "width": "120px",
+                        "height": "65px",
+                        "borderLeft": "4px solid",
+                    },
                 ),
                 width="auto",
             ),
@@ -3005,21 +3072,23 @@ class SSADashboard:
         """Cria o gráfico de responsáveis na execução."""
         resp_exec_counts = df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO].value_counts()
 
-        fig = go.Figure(data=[
-            go.Bar(
-                x=resp_exec_counts.index,
-                y=resp_exec_counts.values,
-                text=resp_exec_counts.values,
-                textposition="auto"
-            )
-        ])
+        fig = go.Figure(
+            data=[
+                go.Bar(
+                    x=resp_exec_counts.index,
+                    y=resp_exec_counts.values,
+                    text=resp_exec_counts.values,
+                    textposition="auto",
+                )
+            ]
+        )
 
         fig.update_layout(
             self.visualizer._get_standard_layout(  # Use o visualizer aqui
                 title="SSAs por Responsável na Execução",
                 xaxis_title="Responsável",
                 yaxis_title="Quantidade",
-                chart_type="bar"
+                chart_type="bar",
             )
         )
 
@@ -3118,29 +3187,29 @@ class SSADashboard:
         """Cria o gráfico de detalhamento por semana usando o visualizador."""
         # Aqui já estamos usando o visualizador corretamente
         filtered_visualizer = SSAVisualizer(df)
-        return filtered_visualizer.create_week_chart(
-            use_programmed=True
-        )
+        return filtered_visualizer.create_week_chart(use_programmed=True)
 
     def _create_detail_state_chart(self, df):
         """Cria o gráfico de detalhamento por estado."""
         state_counts = df.iloc[:, SSAColumns.SITUACAO].value_counts()
 
-        fig = go.Figure(data=[
-            go.Bar(
-                x=state_counts.index,
-                y=state_counts.values,
-                text=state_counts.values,
-                textposition="auto"
-            )
-        ])
+        fig = go.Figure(
+            data=[
+                go.Bar(
+                    x=state_counts.index,
+                    y=state_counts.values,
+                    text=state_counts.values,
+                    textposition="auto",
+                )
+            ]
+        )
 
         fig.update_layout(
             self.visualizer._get_standard_layout(  # Use o visualizer aqui
                 title="SSAs Pendentes por Estado",
                 xaxis_title="Estado",
                 yaxis_title="Quantidade",
-                chart_type="bar"
+                chart_type="bar",
             )
         )
 
@@ -3177,14 +3246,18 @@ class SSADashboard:
             total_ssas = len(self.df)
 
             # Estatísticas de prioridade
-            prioridades = self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].value_counts()
+            prioridades = self.df.iloc[
+                :, SSAColumns.GRAU_PRIORIDADE_EMISSAO
+            ].value_counts()
             ssas_criticas = len(
                 self.df[
                     self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO].str.upper()
                     == "S3.7"
                 ]
             )
-            taxa_criticidade = (ssas_criticas / total_ssas * 100) if total_ssas > 0 else 0
+            taxa_criticidade = (
+                (ssas_criticas / total_ssas * 100) if total_ssas > 0 else 0
+            )
 
             # Estatísticas de setor e estado
             setores = self.df.iloc[:, SSAColumns.SETOR_EXECUTOR].value_counts()
@@ -3274,33 +3347,40 @@ class SSADashboard:
         if not ssas or len(ssas) == 0:
             return html.Div("Nenhuma SSA encontrada para este período/categoria.")
 
-        return html.Div([
-            html.Div([
-                html.Span(
-                    str(ssa),  # Garante que é string
+        return html.Div(
+            [
+                html.Div(
+                    [
+                        html.Span(
+                            str(ssa),  # Garante que é string
+                            style={
+                                "cursor": "pointer",
+                                "padding": "5px",
+                                "margin": "2px",
+                                "background": "#f8f9fa",
+                                "border-radius": "3px",
+                                "display": "inline-block",
+                                "transition": "background-color 0.2s",
+                                "user-select": "all",  # Permite selecionar todo o texto
+                            },
+                            className="ssa-chip",
+                            id={"type": "ssa-number", "index": i},
+                            title="Clique para copiar",
+                        )
+                        for i, ssa in enumerate(ssas)
+                        if ssa
+                    ],
                     style={
-                        "cursor": "pointer",
-                        "padding": "5px",
-                        "margin": "2px",
-                        "background": "#f8f9fa",
-                        "border-radius": "3px",
-                        "display": "inline-block",
-                        "transition": "background-color 0.2s",
-                        "user-select": "all",  # Permite selecionar todo o texto
+                        "max-height": "400px",
+                        "overflow-y": "auto",
+                        "padding": "10px",
+                        "display": "flex",
+                        "flex-wrap": "wrap",
+                        "gap": "5px",
                     },
-                    className="ssa-chip",
-                    id={"type": "ssa-number", "index": i},
-                    title="Clique para copiar"
-                ) for i, ssa in enumerate(ssas) if ssa
-            ], style={
-                "max-height": "400px",
-                "overflow-y": "auto",
-                "padding": "10px",
-                "display": "flex",
-                "flex-wrap": "wrap",
-                "gap": "5px",
-            })
-        ])
+                )
+            ]
+        )
 
     def _enhance_bar_chart(self, fig, chart_type, title):
         """Enhances bar chart with hover info and clickable data."""
@@ -3316,14 +3396,27 @@ class SSADashboard:
                         for i, cat in enumerate(trace.x):
                             week_mask = None
                             if chart_type == "week_programmed":
-                                week_mask = self.df.iloc[:, SSAColumns.SEMANA_PROGRAMADA] == str(cat)
+                                week_mask = self.df.iloc[
+                                    :, SSAColumns.SEMANA_PROGRAMADA
+                                ] == str(cat)
                             else:
-                                week_mask = self.df.iloc[:, SSAColumns.SEMANA_CADASTRO] == str(cat)
+                                week_mask = self.df.iloc[
+                                    :, SSAColumns.SEMANA_CADASTRO
+                                ] == str(cat)
 
-                            if trace.name:  # Se tem nome, é um gráfico empilhado por prioridade
-                                week_mask = week_mask & (self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO] == trace.name)
+                            if (
+                                trace.name
+                            ):  # Se tem nome, é um gráfico empilhado por prioridade
+                                week_mask = week_mask & (
+                                    self.df.iloc[:, SSAColumns.GRAU_PRIORIDADE_EMISSAO]
+                                    == trace.name
+                                )
 
-                            week_ssas = self.df[week_mask].iloc[:, SSAColumns.NUMERO_SSA].tolist()
+                            week_ssas = (
+                                self.df[week_mask]
+                                .iloc[:, SSAColumns.NUMERO_SSA]
+                                .tolist()
+                            )
 
                             # Texto do hover
                             ssa_preview = "<br>".join(week_ssas[:5])
@@ -3346,15 +3439,25 @@ class SSADashboard:
                         for cat in trace.x:
                             mask = None
                             if chart_type == "resp_prog":
-                                mask = self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO] == cat
+                                mask = (
+                                    self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO]
+                                    == cat
+                                )
                             elif chart_type == "resp_exec":
-                                mask = self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == cat
+                                mask = (
+                                    self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO]
+                                    == cat
+                                )
                             elif chart_type == "state":
                                 mask = self.df.iloc[:, SSAColumns.SITUACAO] == cat
 
                             ssas = []
                             if mask is not None:
-                                ssas = self.df[mask].iloc[:, SSAColumns.NUMERO_SSA].tolist()
+                                ssas = (
+                                    self.df[mask]
+                                    .iloc[:, SSAColumns.NUMERO_SSA]
+                                    .tolist()
+                                )
 
                             ssa_preview = "<br>".join(ssas[:5])
                             if len(ssas) > 5:
@@ -3372,30 +3475,24 @@ class SSADashboard:
                         hoverinfo="text",
                         customdata=customdata,
                         hoverlabel=dict(
-                            bgcolor="white",
-                            font_size=12,
-                            font_family="Arial"
-                        )
+                            bgcolor="white", font_size=12, font_family="Arial"
+                        ),
                     )
 
                     # Desabilita zoom com scroll do mouse
                     fig.update_layout(
-                        dragmode='pan',
+                        dragmode="pan",
                         showlegend=True,
                         legend=dict(
                             orientation="h",
                             yanchor="bottom",
                             y=1.02,
                             xanchor="right",
-                            x=1
-                        )
+                            x=1,
+                        ),
                     )
 
-                    fig.update_layout(
-                        modebar=dict(
-                            remove=['scrollZoom']
-                        )
-                    )
+                    fig.update_layout(modebar=dict(remove=["scrollZoom"]))
 
         except Exception as e:
             logging.error(f"Erro ao melhorar gráfico: {str(e)}")
@@ -3448,6 +3545,7 @@ class LogManager:
         try:
             # Tenta obter o IP do request do Flask
             from flask import request
+
             try:
                 ip = request.remote_addr
             except RuntimeError:
@@ -3458,12 +3556,12 @@ class LogManager:
         # Controle de frequência de logs
         current_time = datetime.now()
         log_key = f"{ip}_{message}"
-        
+
         if log_key in self._last_log:
             # Só loga novamente após 5 minutos para a mesma mensagem do mesmo IP
             if (current_time - self._last_log[log_key]).total_seconds() < 300:
                 return
-            
+
         self._last_log[log_key] = current_time
 
         try:
@@ -3519,33 +3617,33 @@ class LogManager:
             log_file = "dashboard_activity.log"
             if not os.path.exists(log_file):
                 return
-            
+
             # Lê todas as linhas do arquivo
-            with open(log_file, 'r', encoding='utf-8') as f:
+            with open(log_file, "r", encoding="utf-8") as f:
                 lines = f.readlines()
-            
+
             # Filtra apenas logs recentes
             cutoff_date = datetime.now() - timedelta(days=days)
             recent_logs = []
-            
+
             for line in lines:
                 try:
                     # Extrai a data do log (assume formato padrão no início da linha)
-                    log_date_str = line.split('-')[0].strip()
+                    log_date_str = line.split("-")[0].strip()
                     log_date = datetime.strptime(log_date_str, "%Y-%m-%d %H:%M:%S,%f")
-                    
+
                     if log_date >= cutoff_date:
                         recent_logs.append(line)
                 except (ValueError, IndexError):
                     # Se não conseguir extrair a data, mantém o log
                     recent_logs.append(line)
-            
+
             # Reescreve o arquivo apenas com logs recentes
-            with open(log_file, 'w', encoding='utf-8') as f:
+            with open(log_file, "w", encoding="utf-8") as f:
                 f.writelines(recent_logs)
-                
+
             self.logger.info(f"Logs mais antigos que {days} dias foram removidos")
-            
+
         except Exception as e:
             self.logger.error(f"Erro ao limpar logs antigos: {str(e)}")
 
@@ -3554,22 +3652,26 @@ class LogManager:
         try:
             if not os.path.exists(backup_dir):
                 os.makedirs(backup_dir)
-            
+
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            backup_file = os.path.join(backup_dir, f"dashboard_activity_{timestamp}.log")
-            
+            backup_file = os.path.join(
+                backup_dir, f"dashboard_activity_{timestamp}.log"
+            )
+
             # Copia o arquivo de log atual
             shutil.copy2("dashboard_activity.log", backup_file)
-            
+
             # Compacta o backup
-            with zipfile.ZipFile(f"{backup_file}.zip", 'w', zipfile.ZIP_DEFLATED) as zipf:
+            with zipfile.ZipFile(
+                f"{backup_file}.zip", "w", zipfile.ZIP_DEFLATED
+            ) as zipf:
                 zipf.write(backup_file, os.path.basename(backup_file))
-            
+
             # Remove o arquivo não compactado
             os.remove(backup_file)
-            
+
             self.logger.info(f"Backup dos logs criado: {backup_file}.zip")
-            
+
         except Exception as e:
             self.logger.error(f"Erro ao criar backup dos logs: {str(e)}")
 
@@ -3578,27 +3680,37 @@ class LogManager:
         stats = {
             "total_users": len(self.active_users),
             "total_connections": len(self.connected_ips),
-            "active_users": len([u for u, info in self.active_users.items() 
-                               if (datetime.now() - info["last_activity"]).seconds < 3600]),
-            "total_actions": sum(info["action_count"] for info in self.active_users.values()),
+            "active_users": len(
+                [
+                    u
+                    for u, info in self.active_users.items()
+                    if (datetime.now() - info["last_activity"]).seconds < 3600
+                ]
+            ),
+            "total_actions": sum(
+                info["action_count"] for info in self.active_users.values()
+            ),
             "last_connection": None,
             "most_active_ip": None,
-            "most_actions": 0
+            "most_actions": 0,
         }
-        
+
         if self.active_users:
             # Encontra o usuário mais recente
-            latest_user = max(self.active_users.items(), 
-                            key=lambda x: x[1]["last_activity"])
+            latest_user = max(
+                self.active_users.items(), key=lambda x: x[1]["last_activity"]
+            )
             stats["last_connection"] = latest_user[1]["last_activity"]
-            
+
             # Encontra o usuário mais ativo
-            most_active = max(self.active_users.items(), 
-                            key=lambda x: x[1]["action_count"])
+            most_active = max(
+                self.active_users.items(), key=lambda x: x[1]["action_count"]
+            )
             stats["most_active_ip"] = most_active[0]
             stats["most_actions"] = most_active[1]["action_count"]
-        
+
         return stats
+
 
 def check_dependencies():
     """Verifica e instala dependências necessárias."""
@@ -3675,10 +3787,10 @@ if __name__ == "__main__":
         logger.info("Iniciando carregamento dos dados...")
         # Lugar do carregamento do arquivo .xlsx com os dados do scrP
         loader = DataLoader(DATA_FILE_PATH)
-        
-        # metodo antigo abaixo com caminho direto 
+
+        # metodo antigo abaixo com caminho direto
         # loader = DataLoader(r"C:\Users\menon\git\trabalho\SCRAP-SAM\Downloads\SSAs Pendentes Geral - 28-10-2024_1221PM.xlsx")
-        
+
         df = loader.load_data()
         logger.info(f"Dados carregados com sucesso. Total de SSAs: {len(df)}")
 

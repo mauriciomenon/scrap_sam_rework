@@ -3,6 +3,7 @@ from typing import Dict, Any
 import pandas as pd
 from datetime import datetime
 
+
 class SSAColumns:
     """Mantém os índices e nomes das colunas."""
 
@@ -91,7 +92,7 @@ class SSAColumns:
         DESC_LOCALIZACAO: str,
         EQUIPAMENTO: str,
         SEMANA_CADASTRO: str,
-        EMITIDA_EM: 'datetime64[ns]',
+        EMITIDA_EM: "datetime64[ns]",
         DESC_SSA: str,
         SETOR_EMISSOR: str,
         SETOR_EXECUTOR: str,
@@ -138,10 +139,10 @@ class SSAColumns:
         expected_type = cls.COLUMN_TYPES.get(index)
         if not expected_type:
             return True  # Se não tiver tipo definido, considera válido
-        
-        if expected_type == 'datetime64[ns]':
+
+        if expected_type == "datetime64[ns]":
             return isinstance(value, (datetime, pd.Timestamp)) or pd.isna(value)
-        
+
         return isinstance(value, expected_type) or pd.isna(value)
 
     @classmethod
@@ -159,11 +160,19 @@ class SSAColumns:
         """Retorna configurações de exibição para as colunas."""
         return {
             cls.get_name(idx): {
-                "width": "150px" if idx not in [cls.DESC_SSA, cls.DESC_LOCALIZACAO] else "300px",
+                "width": (
+                    "150px"
+                    if idx not in [cls.DESC_SSA, cls.DESC_LOCALIZACAO]
+                    else "300px"
+                ),
                 "textAlign": "left",
                 "overflow": "hidden",
                 "textOverflow": "ellipsis",
-                "whiteSpace": "normal" if idx in [cls.DESC_SSA, cls.DESC_LOCALIZACAO] else "nowrap",
+                "whiteSpace": (
+                    "normal"
+                    if idx in [cls.DESC_SSA, cls.DESC_LOCALIZACAO]
+                    else "nowrap"
+                ),
             }
             for idx in cls.COLUMN_NAMES.keys()
         }

@@ -124,11 +124,11 @@ class SAMNavigator:
             "Execução": "input[id*='ctl06'][id*='wtContent']",
             "Derivadas": "input[id*='ctl10'][id*='wtContent']"
         }
-        
+
         try:
             # Selecionar "Relatório com Detalhes"
             self.page.click("text=Relatório com Detalhes")
-            
+
             # Selecionar cada checkbox
             for name, selector in checkboxes.items():
                 try:
@@ -138,21 +138,20 @@ class SAMNavigator:
                 except Exception as e:
                     print(f"Erro ao selecionar '{name}': {e}")
                     raise
-            
+
             # Garantir que APR está desmarcado
             apr_selector = "input[id*='ctl12'][id*='wtContent']"
             self.page.uncheck(apr_selector)
-            
+
             # Verificar seleções
             self.verify_selections(checkboxes)
             print("Todas as opções do relatório foram configuradas corretamente.")
-            
+
         except Exception as e:
             print(f"Erro ao configurar opções do relatório: {e}")
             self.page.screenshot(path="report_options_error.png")
-            raise       
+            raise
     '''
-
 
     def select_report_options(self):
         """Seleciona opções do relatório usando JavaScript e força uma atualização final."""
@@ -173,7 +172,7 @@ class SAMNavigator:
                 try {
                     const checkboxesToCheck = ['ctl00', 'ctl04', 'ctl08', 'ctl02', 'ctl06', 'ctl10'];
                     const checkboxesToUncheck = ['ctl12'];
-                    
+
                     const triggerEvents = (element) => {
                         // Eventos que o sistema espera quando um checkbox é alterado
                         const events = ['change', 'click', 'input'];
@@ -182,7 +181,7 @@ class SAMNavigator:
                             element.dispatchEvent(event);
                         });
                     };
-                    
+
                     const handleCheckboxes = (idList, checked) => {
                         idList.forEach(id => {
                             const checkbox = document.querySelector(`input[id*='${id}'][id*='wtContent']`);
@@ -190,7 +189,7 @@ class SAMNavigator:
                                 // Primeiro garantir que está desmarcado
                                 checkbox.checked = false;
                                 triggerEvents(checkbox);
-                                
+
                                 // Se devemos marcar, fazemos após um pequeno delay
                                 if (checked) {
                                     setTimeout(() => {
@@ -201,15 +200,15 @@ class SAMNavigator:
                             }
                         });
                     };
-                    
+
                     // Desmarcar todos primeiro
                     handleCheckboxes([...checkboxesToCheck, ...checkboxesToUncheck], false);
-                    
+
                     // Marcar os que devem ser marcados
                     setTimeout(() => {
                         handleCheckboxes(checkboxesToCheck, true);
                     }, 200);
-                    
+
                     return true;
                 } catch (error) {
                     console.error('Erro ao selecionar checkboxes:', error);
@@ -249,17 +248,22 @@ class SAMNavigator:
         for name, selector in checkboxes.items():
             try:
                 # Usar evaluate para verificar o estado do checkbox
-                is_checked = self.page.evaluate("""(selector) => {
+                is_checked = self.page.evaluate(
+                    """(selector) => {
                     const element = document.querySelector(selector);
                     return element ? element.checked : false;
-                }""", selector)
+                }""",
+                    selector,
+                )
 
                 if not is_checked:
-                    raise ValueError(f"Checkbox '{name}' não está selecionado como esperado")
+                    raise ValueError(
+                        f"Checkbox '{name}' não está selecionado como esperado"
+                    )
 
             except Exception as e:
                 print(f"Erro ao verificar seleção de '{name}': {e}")
-                raise   
+                raise
 
     def wait_for_loading_complete(self):
         """Aguarda a barra de progresso aparecer e depois desaparecer."""
@@ -318,7 +322,9 @@ class SAMNavigator:
                     print("Clicado no botão de três pontos.")
 
                     # Aguardar o menu aparecer
-                    self.page.wait_for_selector("text=Exportar para Excel", state="visible")
+                    self.page.wait_for_selector(
+                        "text=Exportar para Excel", state="visible"
+                    )
                     print("Opção 'Exportar para Excel' visível.")
 
                     # Clicar na opção de exportar
@@ -358,14 +364,14 @@ class SAMNavigator:
                                 if (dropdown) {
                                     dropdown.classList.add('show', 'open');
                                 }
-                                
+
                                 // Encontrar e clicar no botão de exportação
                                 const links = Array.from(document.querySelectorAll('a'));
-                                const exportButton = links.find(link => 
-                                    link.textContent.includes('Exportar para Excel') || 
+                                const exportButton = links.find(link =>
+                                    link.textContent.includes('Exportar para Excel') ||
                                     link.innerText.includes('Exportar para Excel')
                                 );
-                                
+
                                 if (exportButton) {
                                     console.log('Botão de exportação encontrado');
                                     exportButton.click();
@@ -434,7 +440,7 @@ def run(playwright):
     navigator.click_search()
 
     # Aguardar para garantir que o relatório seja gerado
-    page.wait_for_load_state('networkidle')
+    page.wait_for_load_state("networkidle")
 
     # Após select_report_options, adicionar uma espera extra
     navigator.select_report_options()

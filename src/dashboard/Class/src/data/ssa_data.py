@@ -4,9 +4,11 @@ from datetime import datetime
 from typing import Dict, Optional
 import pandas as pd
 
+
 @dataclass
 class SSAData:
     """Estrutura de dados para uma SSA."""
+
     numero: str
     situacao: str
     derivada: Optional[str]
@@ -14,7 +16,7 @@ class SSAData:
     desc_localizacao: str
     equipamento: str
     semana_cadastro: str
-    emitida_em: datetime
+    emitida_em: Optional[datetime]
     descricao: str
     setor_emissor: str
     setor_executor: str
@@ -66,7 +68,11 @@ class SSAData:
             "desc_localizacao": self.desc_localizacao,
             "equipamento": self.equipamento,
             "semana_cadastro": self.semana_cadastro,
-            "emitida_em": self.emitida_em.strftime("%Y-%m-%d %H:%M:%S") if self.emitida_em else None,
+            "emitida_em": (
+                self.emitida_em.strftime("%Y-%m-%d %H:%M:%S")
+                if self.emitida_em
+                else None
+            ),
             "descricao": self.descricao,
             "setor_emissor": self.setor_emissor,
             "setor_executor": self.setor_executor,
@@ -93,7 +99,9 @@ class SSAData:
             "Desc. Localização": self.desc_localizacao,
             "Equipamento": self.equipamento,
             "Semana Cadastro": self.semana_cadastro,
-            "Emitida em": self.emitida_em.strftime("%d/%m/%Y %H:%M") if self.emitida_em else "-",
+            "Emitida em": (
+                self.emitida_em.strftime("%d/%m/%Y %H:%M") if self.emitida_em else "-"
+            ),
             "Descrição": self.descricao,
             "Setor Emissor": self.setor_emissor,
             "Setor Executor": self.setor_executor,

@@ -6,6 +6,7 @@ import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
 import logging
+from typing import Any, cast
 from datetime import datetime
 from flask import request
 from .ssa_visualizer import SSAVisualizer
@@ -19,8 +20,11 @@ class SSADashboard:
 
     def __init__(self, df: pd.DataFrame):
         self.df = df
-        self.app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-        suppress_callback_exceptions = True  # Evita erros de callback
+        self.app = Dash(
+            __name__,
+            external_stylesheets=[dbc.themes.BOOTSTRAP],
+            suppress_callback_exceptions=True,
+        )
 
         # Configurar logger
         self.logger = LogManager()
@@ -93,11 +97,11 @@ class SSADashboard:
             # Estatísticas de responsáveis
             responsaveis = {
                 "programacao": self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO]
-                .replace([None, ""], np.nan)
+                .replace("", np.nan)
                 .dropna()
                 .nunique(),
                 "execucao": self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO]
-                .replace([None, ""], np.nan)
+                .replace("", np.nan)
                 .dropna()
                 .nunique(),
             }
@@ -120,9 +124,9 @@ class SSADashboard:
                 "total": 0,
                 "criticas": 0,
                 "taxa_criticidade": 0,
-                "por_prioridade": pd.Series(),
-                "por_setor": pd.Series(),
-                "por_estado": pd.Series(),
+                "por_prioridade": pd.Series(dtype="object"),
+                "por_setor": pd.Series(dtype="object"),
+                "por_estado": pd.Series(dtype="object"),
                 "periodo": {"inicio": "N/A", "fim": "N/A"},
                 "responsaveis": {"programacao": 0, "execucao": 0},
             }
@@ -133,10 +137,10 @@ class SSADashboard:
 
     def _get_programmed_by_week(self):
         """Obtém SSAs programadas por semana."""
-        week_info = self.week_analyzer.analyze_week_distribution()
-        if not week_info.empty and "week_count" in week_info:
+        week_info = getattr(self.week_analyzer, "analyze_week_distribution", lambda: pd.DataFrame())()
+        if isinstance(week_info, pd.DataFrame) and not week_info.empty and "week_count" in week_info:
             return week_info["week_count"]
-        return pd.Series()  # Retorna série vazia se não houver dados
+        return pd.Series(dtype="int64")  # Retorna série vazia se não houver dados
 
     def _get_responsaveis(self):
         """Obtém lista de responsáveis únicos."""
@@ -185,11 +189,20 @@ class SSADashboard:
             },
         }
 
-    def run_server(self, debug=True, port=8080):
-        """Inicia o servidor do dashboard com logging apropriado."""
+    def _chart_config(self) -> Any:
+        """Return Plotly config typed as Any to satisfy Dash component typing."""
+        return cast(Any, self._get_chart_config())
+
+    def run_server(self, debug: bool = True, port: int = 8080, host: str = "0.0.0.0"):
+        """Inicia o servidor do dashboard com compatibilidade entre versões do Dash."""
         self.logger.log_with_ip("INFO", "Iniciando servidor do dashboard")
         try:
-            self.app.run_server(debug=debug, port=port, host="0.0.0.0")
+            run = getattr(self.app, "run", None)
+            if callable(run):
+                self.app.run(debug=debug, port=port, host=host)
+            else:
+                # Fallback para versões antigas
+                self.app.run_server(debug=debug, port=port, host=host)
         except Exception as e:
             self.logger.log_with_ip("ERROR", f"Erro ao iniciar servidor: {str(e)}")
 
@@ -251,7 +264,7 @@ class SSADashboard:
                                 html.Button(
                                     "📋",
                                     id={"type": "copy-button", "index": i},
-                                    **{"data-clipboard": str(ssa)},
+                                    title=str(ssa),
                                     style={
                                         "cursor": "pointer",
                                         "border": "none",
@@ -295,8 +308,21 @@ class SSADashboard:
                 if isinstance(trace, go.Bar):
                     hover_text = []
                     customdata = []
+                    new_y = []
 
-                    for i, cat in enumerate(trace.x):
+                    # Safely obtain x values without relying on truthiness of numpy arrays
+                    x_vals = getattr(trace, "x", None)
+                    if x_vals is None:
+                        categories = []
+                    elif isinstance(x_vals, (list, tuple, pd.Index)):
+                        categories = list(x_vals)
+                    else:
+                        try:
+                            categories = list(x_vals)
+                        except Exception:
+                            categories = []
+
+                    for cat in categories:
                         mask = None
                         if chart_type == "resp_prog":
                             mask = (
@@ -314,39 +340,38 @@ class SSADashboard:
                             mask = df_to_use.iloc[
                                 :, SSAColumns.SEMANA_PROGRAMADA
                             ] == str(cat)
-                            if (
-                                trace.name
-                            ):  # Se tem nome, é um gráfico empilhado por prioridade
+                            if getattr(trace, "name", None):
                                 mask = mask & (
                                     df_to_use.iloc[
                                         :, SSAColumns.GRAU_PRIORIDADE_EMISSAO
                                     ]
-                                    == trace.name
+                                    == getattr(trace, "name", None)
                                 )
                         elif chart_type == "week_registration":
                             mask = df_to_use.iloc[:, SSAColumns.SEMANA_CADASTRO] == str(
                                 cat
                             )
-                            if trace.name:
+                            if getattr(trace, "name", None):
                                 mask = mask & (
                                     df_to_use.iloc[
                                         :, SSAColumns.GRAU_PRIORIDADE_EMISSAO
                                     ]
-                                    == trace.name
+                                    == getattr(trace, "name", None)
                                 )
                         else:
                             continue
 
                         if mask is not None:
                             ssas = (
-                                df_to_use[mask].iloc[:, SSAColumns.NUMERO_SSA].tolist()
+                                df_to_use[mask]
+                                .iloc[:, SSAColumns.NUMERO_SSA]
+                                .astype(str)
+                                .tolist()
                             )
                         else:
                             ssas = []
 
-                        # Atualiza o valor da barra para refletir os dados filtrados
-                        if i < len(trace.y):
-                            trace.y[i] = len(ssas)
+                        new_y.append(len(ssas))
 
                         # Texto do hover
                         ssa_preview = "<br>".join(ssas[:5])
@@ -354,8 +379,8 @@ class SSADashboard:
                             ssa_preview += f"<br>... (+{len(ssas)-5} SSAs)"
 
                         title_text = str(cat)
-                        if trace.name:
-                            title_text += f" - {trace.name}"
+                        if getattr(trace, "name", None):
+                            title_text += f" - {getattr(trace, 'name', None)}"
 
                         hover_text.append(
                             f"<b>{title_text}</b><br>"
@@ -365,7 +390,8 @@ class SSADashboard:
                         customdata.append(ssas)
 
                     trace.update(
-                        text=trace.y,  # Atualiza os rótulos das barras
+                        y=new_y,
+                        text=new_y,  # Atualiza os rótulos das barras
                         hovertext=hover_text,
                         hoverinfo="text",
                         customdata=customdata,
@@ -381,7 +407,6 @@ class SSADashboard:
                 legend=dict(
                     orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1
                 ),
-                modebar=dict(remove=["scrollZoom", "autoScale2d"]),
                 xaxis=dict(fixedrange=True),
                 yaxis=dict(fixedrange=True),
             )
@@ -763,14 +788,36 @@ class SSADashboard:
             """
             function(n_clicks) {
                 if (!n_clicks) return null;
-                
-                const allSSAs = document.getElementById('all-ssas-data').textContent;
-                navigator.clipboard.writeText(allSSAs).then(function() {
+
+                function copy(text) {
+                    if (navigator.clipboard && window.isSecureContext) {
+                        return navigator.clipboard.writeText(text);
+                    } else {
+                        const ta = document.createElement('textarea');
+                        ta.value = text;
+                        ta.setAttribute('readonly', '');
+                        ta.style.position = 'fixed';
+                        ta.style.left = '-9999px';
+                        document.body.appendChild(ta);
+                        ta.focus();
+                        ta.select();
+                        try { document.execCommand('copy'); } catch (e) {}
+                        document.body.removeChild(ta);
+                        return Promise.resolve();
+                    }
+                }
+
+                const el = document.getElementById('all-ssas-data');
+                if (!el) return null;
+                const allSSAs = (el.textContent || '').trim();
+                copy(allSSAs).then(function() {
                     const btn = document.getElementById('copy-all-ssas');
-                    btn.textContent = "Copiado!";
+                    if (!btn) return;
+                    btn.textContent = 'Copiado!';
                     btn.style.backgroundColor = '#d4edda';
                     setTimeout(() => {
-                        btn.textContent = `Copiar todas (${allSSAs.split(',').length})`;
+                        const count = allSSAs ? allSSAs.split(',').length : 0;
+                        btn.textContent = `Copiar todas (${count})`;
                         btn.style.backgroundColor = '#f8f9fa';
                     }, 1500);
                 });
@@ -785,20 +832,40 @@ class SSADashboard:
             """
             function(n_clicks, id) {
                 if (!n_clicks) return null;
-                
-                const button = document.getElementById(id);
-                const ssa = button.getAttribute('data-clipboard');
-                
-                navigator.clipboard.writeText(ssa).then(function() {
+
+                function copy(text) {
+                    if (navigator.clipboard && window.isSecureContext) {
+                        return navigator.clipboard.writeText(text);
+                    } else {
+                        const ta = document.createElement('textarea');
+                        ta.value = text;
+                        ta.setAttribute('readonly', '');
+                        ta.style.position = 'fixed';
+                        ta.style.left = '-9999px';
+                        document.body.appendChild(ta);
+                        ta.focus();
+                        ta.select();
+                        try { document.execCommand('copy'); } catch (e) {}
+                        document.body.removeChild(ta);
+                        return Promise.resolve();
+                    }
+                }
+
+                const domId = (typeof id === 'string') ? id : JSON.stringify(id);
+                const button = document.getElementById(domId);
+                if (!button) return null;
+
+                const ssa = button.title || button.getAttribute('title') || '';
+                copy(ssa).then(function() {
                     const originalText = button.textContent;
-                    button.textContent = "✓";
+                    button.textContent = '✓';
                     button.style.backgroundColor = '#d4edda';
                     setTimeout(() => {
                         button.textContent = originalText;
                         button.style.backgroundColor = 'transparent';
                     }, 1500);
                 });
-                
+
                 return true;
             }
             """,
@@ -986,33 +1053,7 @@ class SSADashboard:
 
         return state_cards
 
-    def _get_chart_config(self):
-        """
-        Returns chart configuration settings.
-
-        Returns:
-            dict: Configuration settings for Plotly charts
-        """
-        return {
-            "displayModeBar": True,
-            "scrollZoom": False,
-            "modeBarButtonsToRemove": [
-                "pan2d",
-                "select2d",
-                "lasso2d",
-                "autoScale2d",
-                "zoom2d",
-            ],
-            "displaylogo": False,
-            "responsive": True,
-            "toImageButtonOptions": {
-                "format": "png",
-                "filename": "chart",
-                "height": 500,
-                "width": 700,
-                "scale": 2,
-            },
-        }
+    # Duplicate _get_chart_config removed (kept single definition above)
 
     def setup_layout(self):
         """
@@ -1159,7 +1200,7 @@ class SSADashboard:
                                                 dbc.Spinner(
                                                     dcc.Graph(
                                                         id="resp-prog-chart",
-                                                        config=self._get_chart_config(),
+                                                        config=self._chart_config(),
                                                     ),
                                                     color="primary",
                                                 )
@@ -1184,7 +1225,7 @@ class SSADashboard:
                                                 dbc.Spinner(
                                                     dcc.Graph(
                                                         id="resp-exec-chart",
-                                                        config=self._get_chart_config(),
+                                                        config=self._chart_config(),
                                                     ),
                                                     color="primary",
                                                 )
@@ -1215,7 +1256,7 @@ class SSADashboard:
                                                 dbc.Spinner(
                                                     dcc.Graph(
                                                         id="programmed-week-chart",
-                                                        config=self._get_chart_config(),
+                                                        config=self._chart_config(),
                                                     ),
                                                     color="primary",
                                                 )
@@ -1245,7 +1286,7 @@ class SSADashboard:
                                                 dbc.Spinner(
                                                     dcc.Graph(
                                                         id="registration-week-chart",
-                                                        config=self._get_chart_config(),
+                                                        config=self._chart_config(),
                                                     ),
                                                     color="primary",
                                                 )
@@ -1276,7 +1317,7 @@ class SSADashboard:
                                                 dbc.Spinner(
                                                     dcc.Graph(
                                                         id="weeks-in-state-chart",
-                                                        config=self._get_chart_config(),
+                                                        config=self._chart_config(),
                                                     ),
                                                     color="primary",
                                                 )
@@ -1322,7 +1363,7 @@ class SSADashboard:
                                                         dbc.Spinner(
                                                             dcc.Graph(
                                                                 id="detail-state-chart",
-                                                                config=self._get_chart_config(),
+                                                                config=self._chart_config(),
                                                             ),
                                                             color="primary",
                                                         )
@@ -1347,7 +1388,7 @@ class SSADashboard:
                                                         dbc.Spinner(
                                                             dcc.Graph(
                                                                 id="detail-week-chart",
-                                                                config=self._get_chart_config(),
+                                                                config=self._chart_config(),
                                                             ),
                                                             color="primary",
                                                         )
@@ -1453,7 +1494,7 @@ class SSADashboard:
                                                         "minWidth": "0px",
                                                         "maxWidth": "500px",
                                                     },
-                                                    style_cell_conditional=[
+                                                    style_cell_conditional=cast(Any, [
                                                         {
                                                             "if": {
                                                                 "column_id": "numero"
@@ -1463,7 +1504,7 @@ class SSADashboard:
                                                             "minWidth": "70px",
                                                         },
                                                         # ... (rest of style_cell_conditional remains the same)
-                                                    ],
+                                                    ]),
                                                     style_header={
                                                         "backgroundColor": "rgb(230, 230, 230)",
                                                         "fontWeight": "bold",
@@ -1554,301 +1595,6 @@ class SSADashboard:
             fluid=True,
             className="p-4",
         )
-
-
-    def setup_callbacks(self):
-        """
-        Configure todos os callbacks do dashboard com recursos aprimorados.
-        Gerencia atualizações de gráficos, interações modais e atualização de dados.
-        """
-
-        @self.app.callback(
-            [
-                Output("resp-summary-cards", "children"),
-                Output("resp-prog-chart", "figure"),
-                Output("resp-exec-chart", "figure"),
-                Output("programmed-week-chart", "figure"),
-                Output("registration-week-chart", "figure"),
-                Output("detail-section", "style"),
-                Output("detail-state-chart", "figure"),
-                Output("detail-week-chart", "figure"),
-                Output("ssa-table", "data"),
-                Output("weeks-in-state-chart", "figure"),
-            ],
-            [
-                Input("resp-prog-filter", "value"),
-                Input("resp-exec-filter", "value"),
-                Input("setor-emissor-filter", "value"),
-                Input("setor-executor-filter", "value"),
-            ],
-        )
-        def update_all_charts(resp_prog, resp_exec, setor_emissor, setor_executor):
-            """
-            Updates all dashboard components based on filter selections.
-            
-            Args:
-                resp_prog (str): Selected programming responsible
-                resp_exec (str): Selected execution responsible
-                setor_emissor (str): Selected issuing sector
-                setor_executor (str): Selected executing sector
-            
-            Returns:
-                tuple: Updated values for all dashboard components
-            """
-            try:
-                # Log filter applications
-                if any([resp_prog, resp_exec, setor_emissor, setor_executor]):
-                    self.logger.log_with_ip(
-                        "INFO",
-                        f"Filters applied - Prog: {resp_prog}, Exec: {resp_exec}, "
-                        f"Issuer: {setor_emissor}, Executor: {setor_executor}",
-                    )
-
-                # Create filtered DataFrame
-                df_filtered = self.df.copy()
-
-                # Apply filters safely with proper error handling
-                if resp_prog:
-                    df_filtered = df_filtered[
-                        df_filtered.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO] == resp_prog
-                    ]
-                if resp_exec:
-                    df_filtered = df_filtered[
-                        df_filtered.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO] == resp_exec
-                    ]
-                if setor_emissor:
-                    df_filtered = df_filtered[
-                        df_filtered.iloc[:, SSAColumns.SETOR_EMISSOR] == setor_emissor
-                    ]
-                if setor_executor:
-                    df_filtered = df_filtered[
-                        df_filtered.iloc[:, SSAColumns.SETOR_EXECUTOR] == setor_executor
-                    ]
-
-                # Create filtered visualizer
-                filtered_visualizer = SSAVisualizer(df_filtered)
-
-                # Generate summary cards with filtered data
-                resp_cards = self._create_resp_summary_cards(df_filtered)
-
-                # Create main charts with hover and click info
-                fig_prog = self._create_resp_prog_chart(df_filtered)
-                fig_exec = self._create_resp_exec_chart(df_filtered)
-
-                # Ensure charts are properly enhanced with interactive features
-                fig_prog = self._enhance_bar_chart(
-                    fig_prog, "resp_prog", "SSAs por Programador", df_filtered
-                )
-                fig_exec = self._enhance_bar_chart(
-                    fig_exec, "resp_exec", "SSAs por Executor", df_filtered
-                )
-
-                # Create week charts with proper data handling
-                fig_programmed_week = filtered_visualizer.create_week_chart(use_programmed=True)
-                fig_registration_week = filtered_visualizer.create_week_chart(use_programmed=False)
-
-                # Enhance week charts with interactive features
-                fig_programmed_week = self._enhance_bar_chart(
-                    fig_programmed_week,
-                    "week_programmed",
-                    "SSAs Programadas",
-                    df_filtered,
-                )
-                fig_registration_week = self._enhance_bar_chart(
-                    fig_registration_week,
-                    "week_registration",
-                    "SSAs Cadastradas",
-                    df_filtered,
-                )
-
-                # Update detail section visibility
-                detail_style = {"display": "block"}  # Always show details after filter application
-
-                # Create and enhance detail charts
-                fig_detail_state = self._enhance_bar_chart(
-                    self._create_detail_state_chart(df_filtered),
-                    "state",
-                    "SSAs por Estado",
-                    df_filtered,
-                )
-                fig_detail_week = self._enhance_bar_chart(
-                    filtered_visualizer.create_week_chart(),
-                    "week_detail",
-                    "SSAs por Semana",
-                    df_filtered,
-                )
-
-                # Prepare table data
-                table_data = self._prepare_table_data(df_filtered)
-
-                # Create weeks in state chart
-                weeks_fig = filtered_visualizer.add_weeks_in_state_chart()
-
-                # Update all chart layouts to ensure visibility
-                charts = [
-                    fig_prog,
-                    fig_exec,
-                    fig_programmed_week,
-                    fig_registration_week,
-                    fig_detail_state,
-                    fig_detail_week,
-                    weeks_fig,
-                ]
-
-                for fig in charts:
-                    if fig:
-                        fig.update_layout(
-                            showlegend=True,
-                            height=400,  # Ensure minimum height
-                            margin=dict(l=50, r=20, t=50, b=100),
-                            xaxis_visible=True,
-                            yaxis_visible=True,
-                        )
-
-                return (
-                    resp_cards,
-                    fig_prog,
-                    fig_exec,
-                    fig_programmed_week,
-                    fig_registration_week,
-                    detail_style,
-                    fig_detail_state,
-                    fig_detail_week,
-                    table_data,
-                    weeks_fig,
-                )
-
-            except Exception as e:
-                # Log error and return empty charts
-                self.logger.log_with_ip("ERROR", f"Error updating charts: {str(e)}")
-                empty_fig = self._create_empty_chart("Error loading data")
-                return (
-                    self._create_resp_summary_cards(self.df),
-                    empty_fig,
-                    empty_fig,
-                    empty_fig,
-                    empty_fig,
-                    {"display": "none"},
-                    empty_fig,
-                    empty_fig,
-                    [],
-                    empty_fig,
-                )
-        @self.app.callback(
-            [
-                Output("ssa-modal", "is_open"),
-                Output("ssa-modal-body", "children"),
-                Output("ssa-modal-title", "children"),
-            ],
-            [
-                Input("weeks-in-state-chart", "clickData"),
-                Input("resp-prog-chart", "clickData"),
-                Input("resp-exec-chart", "clickData"),
-                Input("programmed-week-chart", "clickData"),
-                Input("registration-week-chart", "clickData"),
-                Input("detail-state-chart", "clickData"),
-                Input("detail-week-chart", "clickData"),
-                Input("close-modal", "n_clicks"),
-            ],
-            [State("ssa-modal", "is_open")],
-        )
-        def toggle_modal(
-            weeks_click,
-            prog_click,
-            exec_click,
-            prog_week_click,
-            reg_week_click,
-            detail_state_click,
-            detail_week_click,
-            close_clicks,
-            is_open,
-        ):
-            """Handle modal opening/closing and content."""
-            ctx = dash.callback_context
-            if not ctx.triggered:
-                return False, "", ""
-
-            trigger_id = ctx.triggered[0]["prop_id"].split(".")[0]
-
-            if trigger_id == "close-modal":
-                return False, "", ""
-
-            click_mapping = {
-                "weeks-in-state-chart": (weeks_click, "SSAs no intervalo"),
-                "resp-prog-chart": (prog_click, "SSAs do programador"),
-                "resp-exec-chart": (exec_click, "SSAs do executor"),
-                "programmed-week-chart": (
-                    prog_week_click,
-                    "SSAs programadas na semana",
-                ),
-                "registration-week-chart": (
-                    reg_week_click,
-                    "SSAs cadastradas na semana",
-                ),
-                "detail-state-chart": (detail_state_click, "SSAs no estado"),
-                "detail-week-chart": (detail_week_click, "SSAs na semana (detalhe)"),
-            }
-
-            if trigger_id in click_mapping:
-                click_data, title_prefix = click_mapping[trigger_id]
-                if click_data is None:
-                    return False, "", ""
-
-                point_data = click_data["points"][0]
-                label = point_data["x"]
-                ssas = point_data.get("customdata", [])
-
-                if ssas:
-                    self.logger.log_with_ip(
-                        "INFO", f"Visualização de SSAs: {title_prefix} {label}"
-                    )
-
-                ssa_list = self._create_ssa_list(ssas)
-                title = f"{title_prefix} {label} ({len(ssas)} SSAs)"
-
-                return True, ssa_list, title
-
-            return False, "", ""
-
-        # Callback para copiar SSAs
-        self.app.clientside_callback(
-            """
-                function(n_clicks, value) {
-                    if (!n_clicks) return null;
-                    
-                    const textToCopy = value;
-                    if (!textToCopy) return null;
-                    
-                    navigator.clipboard.writeText(textToCopy).then(function() {
-                        // Visual feedback
-                        const el = document.querySelector(`[data-value="${textToCopy}"]`);
-                        if (el) {
-                            el.style.backgroundColor = '#d4edda';
-                            setTimeout(() => {
-                                el.style.backgroundColor = '#f8f9fa';
-                            }, 500);
-                        }
-                    }).catch(function(err) {
-                        console.error('Erro ao copiar:', err);
-                    });
-                    
-                    return true;
-                }
-                """,
-            Output({"type": "ssa-number", "index": MATCH}, "data-copied"),
-            Input({"type": "ssa-number", "index": MATCH}, "n_clicks"),
-            State({"type": "ssa-number", "index": MATCH, "value": ALL}, "value"),
-        )
-
-        # Callback para atualização automática
-        @self.app.callback(
-            Output("state-data", "data"), Input("interval-component", "n_intervals")
-        )
-        def update_data(n):
-            """Update data periodically."""
-            if n:  # Só atualiza após o primeiro intervalo
-                self.logger.log_with_ip("INFO", "Atualização automática dos dados")
-            return {}
 
     def _create_empty_chart(self, title: str) -> go.Figure:
         """

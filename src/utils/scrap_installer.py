@@ -17,12 +17,14 @@ gecko_driver_path = os.path.join(drivers_path, "geckodriver")
 os.makedirs(firefox_path, exist_ok=True)
 os.makedirs(gecko_driver_path, exist_ok=True)
 
+
 # Função para baixar um arquivo
 def download_file(url, dest):
     response = requests.get(url, stream=True)
-    with open(dest, 'wb') as f:
+    with open(dest, "wb") as f:
         for chunk in response.iter_content(chunk_size=8192):
             f.write(chunk)
+
 
 # Baixar o instalador do Firefox
 firefox_installer_path = os.path.join(firefox_path, "firefox_installer.exe")
@@ -34,7 +36,7 @@ subprocess.run([firefox_installer_path, "/S"], check=True)
 # Baixar e extrair GeckoDriver
 gecko_driver_zip_path = os.path.join(gecko_driver_path, "geckodriver.zip")
 download_file(gecko_driver_url, gecko_driver_zip_path)
-with zipfile.ZipFile(gecko_driver_zip_path, 'r') as zip_ref:
+with zipfile.ZipFile(gecko_driver_zip_path, "r") as zip_ref:
     zip_ref.extractall(gecko_driver_path)
 os.remove(gecko_driver_zip_path)
 
