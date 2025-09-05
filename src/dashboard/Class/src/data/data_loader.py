@@ -272,6 +272,55 @@ class DataLoader:
             logging.error(f"Erro no processamento de datas: {str(e)}")
             raise
 
+    def _to_canonical_dataframe(self):
+        """Reorganiza o DataFrame para a ordem canônica de colunas baseada em SSAColumns.
+
+        - Garante que df tenha todas as colunas esperadas nas posições corretas
+        - Preenche colunas ausentes com valores padrão seguros
+        - Mantém os tipos básicos (datetime para EMITIDA_EM, strings para demais)
+        """
+        if self.df is None:
+            return
+
+        n = len(self.df)
+        canonical_cols = []
+        data = {}
+
+        # Helpers de defaults por tipo esperado
+        def default_series(idx: int):
+            expected = SSAColumns.COLUMN_TYPES.get(idx)
+            if expected == "datetime64[ns]":
+                return pd.Series([pd.NaT] * n, dtype="datetime64[ns]")
+            # default string
+            return pd.Series([""] * n, dtype="object")
+
+        # Ordem canônica: pelos índices definidos
+        for idx in sorted(SSAColumns.COLUMN_NAMES.keys()):
+            lbl = self._get_label(idx)
+            if lbl is not None and lbl in self.df.columns:
+                s = self.df[lbl]
+            else:
+                s = default_series(idx)
+
+            # Ajuste de dtype mínimo
+            expected = SSAColumns.COLUMN_TYPES.get(idx)
+            if expected == "datetime64[ns]":
+                try:
+                    s = pd.to_datetime(s, errors="coerce")
+                except Exception:
+                    s = default_series(idx)
+            else:
+                # força para string segura
+                s = s.astype("string").fillna("").astype("object")
+
+            data[idx] = s
+            canonical_cols.append(idx)
+
+        # Cria novo DF com as colunas na ordem desejada
+        new_df = pd.DataFrame({i: data[i] for i in canonical_cols})
+        # Substitui
+        self.df = new_df
+
     def load_data(self) -> pd.DataFrame:
         """Carrega dados do Excel com as configurações corretas."""
         try:
@@ -479,6 +528,12 @@ class DataLoader:
             # Verifica a qualidade dos dados após todas as conversões
             self._validate_data_quality()
 
+            # Reorganiza para formato canônico esperado pelo dashboard (posicional)
+            # Observação: fazer isso após todas as validações e conversões internas,
+            # pois a partir daqui a ordem das colunas será a canônica (por índice SSAColumns)
+            self._to_canonical_dataframe()
+
+            # Verifica a qualidade dos dados após todas as conversões
             return self.df
 
         except Exception as e:
