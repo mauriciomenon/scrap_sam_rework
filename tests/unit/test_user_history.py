@@ -19,8 +19,8 @@ def test_user_history_feature_exists():
     assert "_get_recent_history_html" in content, "Get recent history HTML method not found"
     
     # Verify specific responses to "what I just said"
-    assert "O que você acabou de fazer" in content or "Últimas Ações" in content, "User feedback section not found"
-    assert "Você disse:" in content, "User input tracking not found"
+    assert "O que voce acabou de fazer" in content or "Ultimas Acoes" in content, "User feedback section not found"
+    assert "Voce disse:" in content, "User input tracking not found"
     
     # Verify the UI components for history are present
     assert "user-history-display" in content, "History display component not found"
@@ -36,16 +36,16 @@ def test_user_history_feature_exists():
     # Verify enhanced visual features
     assert "action_icons" in content, "Action icons not found"
     assert "action_colors" in content, "Action colors not found"
-    assert "💬" in content, "User input icon not found"
-    assert "🔍" in content, "Filter icon not found"
-    assert "🔗" in content, "Navigation icon not found"
-    assert "📊" in content, "Data filter icon not found"
+    assert "[CHAT]" in content, "User input icon not found"
+    assert "[FILTER]" in content, "Filter icon not found"
+    assert "[NAV]" in content, "Navigation icon not found"
+    assert "[DATA]" in content, "Data filter icon not found"
     
-    print("✓ User history feature successfully implemented!")
-    print("✓ Addresses 'o que acabei de falar' (what I just said) requirement")
-    print("✓ Includes UI for tracking and displaying user actions")
-    print("✓ Allows users to add their own notes/commands")
-    print("✓ Enhanced with visual icons and color coding")
-    print("✓ Includes export and clear functionality")
-    print("✓ Professional modal interface for history export")
-    print("✓ Comprehensive chart interaction tracking")
+    print("OK User history feature successfully implemented!")
+    print("OK Addresses 'o que acabei de falar' (what I just said) requirement")
+    print("OK Includes UI for tracking and displaying user actions")
+    print("OK Allows users to add their own notes/commands")
+    print("OK Enhanced with visual icons and color coding")
+    print("OK Includes export and clear functionality")
+    print("OK Professional modal interface for history export")
+    print("OK Comprehensive chart interaction tracking")

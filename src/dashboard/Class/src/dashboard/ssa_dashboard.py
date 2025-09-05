@@ -16,7 +16,7 @@ from ..utils.log_manager import LogManager
 
 
 class SSADashboard:
-    """Dashboard interativo para análise de SSAs."""
+    """Dashboard interativo para analise de SSAs."""
 
     def __init__(self, df: pd.DataFrame):
         self.df = df
@@ -38,7 +38,7 @@ class SSADashboard:
         # Adicionar middleware para logging
         @server.before_request
         def log_request_info():
-            self.logger.log_with_ip("INFO", f"Acesso à rota: {request.path}")
+            self.logger.log_with_ip("INFO", f"Acesso a rota: {request.path}")
             # Log user interactions to history
             if request.path != '/favicon.ico' and request.path != '/_dash-dependencies':
                 self._add_to_history(f"Acessou: {request.path}", "navigation")
@@ -65,31 +65,31 @@ class SSADashboard:
     def _clear_history(self):
         """Clear user history."""
         self.user_history.clear()
-        self._add_to_history("Histórico limpo pelo usuário", "action")
+        self._add_to_history("Historico limpo pelo usuario", "action")
     
     def _export_history(self):
         """Export user history as text for copying."""
         if not self.user_history:
-            return "Nenhuma ação registrada no histórico."
+            return "Nenhuma acao registrada no historico."
         
         export_lines = []
-        export_lines.append("=== HISTÓRICO DE AÇÕES DO USUÁRIO ===")
+        export_lines.append("=== HISTORICO DE ACOES DO USUARIO ===")
         export_lines.append(f"Exportado em: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
         export_lines.append("")
         
         for item in self.user_history:
             icon_map = {
-                'user_input': '💬',
-                'filter': '🔍', 
-                'navigation': '🔗',
-                'data_filter': '📊',
-                'action': '⚡'
+                'user_input': '[CHAT]',
+                'filter': '[FILTER]', 
+                'navigation': '[NAV]',
+                'data_filter': '[DATA]',
+                'action': '[ACTION]'
             }
-            icon = icon_map.get(item['type'], '📝')
+            icon = icon_map.get(item['type'], '[NOTE]')
             export_lines.append(f"{icon} {item['time']} - {item['action']}")
         
         export_lines.append("")
-        export_lines.append(f"Total de ações: {len(self.user_history)}")
+        export_lines.append(f"Total de acoes: {len(self.user_history)}")
         
         return "\n".join(export_lines)
     
@@ -97,19 +97,19 @@ class SSADashboard:
         """Get recent user history as HTML - shows 'what I just said/did'."""
         if not self.user_history:
             return html.P(
-                "Nenhuma ação recente", 
+                "Nenhuma acao recente", 
                 className="text-muted text-center py-2"
             )
         
         history_items = []
         # Icon mapping for different action types
         action_icons = {
-            'user_input': '💬',
-            'filter': '🔍', 
-            'navigation': '🔗',
-            'data_filter': '📊',
-            'action': '⚡',
-            'test': '🧪'
+            'user_input': '[CHAT]',
+            'filter': '[FILTER]', 
+            'navigation': '[NAV]',
+            'data_filter': '[DATA]',
+            'action': '[ACTION]',
+            'test': '[TEST]'
         }
         
         # Color mapping for different action types
@@ -123,7 +123,7 @@ class SSADashboard:
         }
         
         for item in reversed(self.user_history[-5:]):  # Show last 5 items
-            icon = action_icons.get(item['type'], '📝')
+            icon = action_icons.get(item['type'], '[NOTE]')
             color = action_colors.get(item['type'], 'text-dark')
             
             history_items.append(
@@ -147,18 +147,18 @@ class SSADashboard:
             html.Ul(history_items, className="list-unstyled mb-0"),
             html.Hr(className="my-2"),
             html.Small(
-                f"Total de ações hoje: {len(self.user_history)}", 
+                f"Total de acoes hoje: {len(self.user_history)}", 
                 className="text-muted"
             )
         ])
 
     def _get_initial_stats(self):
-        """Calcula estatísticas iniciais para o dashboard."""
+        """Calcula estatisticas iniciais para o dashboard."""
         try:
-            # Estatísticas básicas
+            # Estatisticas basicas
             total_ssas = len(self.df)
 
-            # Estatísticas de prioridade
+            # Estatisticas de prioridade
             prioridades = self.df.iloc[
                 :, SSAColumns.GRAU_PRIORIDADE_EMISSAO
             ].value_counts()
@@ -172,7 +172,7 @@ class SSADashboard:
                 (ssas_criticas / total_ssas * 100) if total_ssas > 0 else 0
             )
 
-            # Estatísticas de setor e estado
+            # Estatisticas de setor e estado
             setores = self.df.iloc[:, SSAColumns.SETOR_EXECUTOR].value_counts()
             estados = self.df.iloc[:, SSAColumns.SITUACAO].value_counts()
 
@@ -198,12 +198,12 @@ class SSADashboard:
                         ),
                     }
                 except Exception as e:
-                    logging.error(f"Erro ao processar datas para período: {str(e)}")
+                    logging.error(f"Erro ao processar datas para periodo: {str(e)}")
                     periodo = {"inicio": "N/A", "fim": "N/A"}
             else:
                 periodo = {"inicio": "N/A", "fim": "N/A"}
 
-            # Estatísticas de responsáveis
+            # Estatisticas de responsaveis
             responsaveis = {
                 "programacao": self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO]
                 .replace("", np.nan)
@@ -227,8 +227,8 @@ class SSADashboard:
             }
 
         except Exception as e:
-            logging.error(f"Erro ao calcular estatísticas iniciais: {str(e)}")
-            # Retorna estatísticas vazias em caso de erro
+            logging.error(f"Erro ao calcular estatisticas iniciais: {str(e)}")
+            # Retorna estatisticas vazias em caso de erro
             return {
                 "total": 0,
                 "criticas": 0,
@@ -241,18 +241,18 @@ class SSADashboard:
             }
 
     def _get_state_counts(self):
-        """Obtém contagem de SSAs por estado."""
+        """Obtem contagem de SSAs por estado."""
         return self.df.iloc[:, SSAColumns.SITUACAO].value_counts().to_dict()
 
     def _get_programmed_by_week(self):
-        """Obtém SSAs programadas por semana."""
+        """Obtem SSAs programadas por semana."""
         week_info = getattr(self.week_analyzer, "analyze_week_distribution", lambda: pd.DataFrame())()
         if isinstance(week_info, pd.DataFrame) and not week_info.empty and "week_count" in week_info:
             return week_info["week_count"]
-        return pd.Series(dtype="int64")  # Retorna série vazia se não houver dados
+        return pd.Series(dtype="int64")  # Retorna serie vazia se nao houver dados
 
     def _get_responsaveis(self):
-        """Obtém lista de responsáveis únicos."""
+        """Obtem lista de responsaveis unicos."""
         prog = self.df.iloc[:, SSAColumns.RESPONSAVEL_PROGRAMACAO].unique()
         exec_ = self.df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO].unique()
         return {
@@ -303,14 +303,14 @@ class SSADashboard:
         return cast(Any, self._get_chart_config())
 
     def run_server(self, debug: bool = True, port: int = 8080, host: str = "0.0.0.0"):
-        """Inicia o servidor do dashboard com compatibilidade entre versões do Dash."""
+        """Inicia o servidor do dashboard com compatibilidade entre versoes do Dash."""
         self.logger.log_with_ip("INFO", "Iniciando servidor do dashboard")
         try:
             run = getattr(self.app, "run", None)
             if callable(run):
                 self.app.run(debug=debug, port=port, host=host)
             else:
-                # Fallback para versões antigas
+                # Fallback para versoes antigas
                 self.app.run_server(debug=debug, port=port, host=host)
         except Exception as e:
             self.logger.log_with_ip("ERROR", f"Erro ao iniciar servidor: {str(e)}")
@@ -371,7 +371,7 @@ class SSADashboard:
                                     },
                                 ),
                                 html.Button(
-                                    "📋",
+                                    "COPY",
                                     id={"type": "copy-button", "index": i},
                                     title=str(ssa),
                                     style={
@@ -379,6 +379,7 @@ class SSADashboard:
                                         "border": "none",
                                         "background": "none",
                                         "padding": "0 5px",
+                                        "fontSize": "10px"
                                     },
                                 ),
                             ],
@@ -521,7 +522,7 @@ class SSADashboard:
             )
 
         except Exception as e:
-            logging.error(f"Erro ao melhorar gráfico: {str(e)}")
+            logging.error(f"Erro ao melhorar grafico: {str(e)}")
             return fig
 
         return fig
@@ -543,7 +544,7 @@ class SSADashboard:
             ].value_counts()
 
             if resp_prog_counts.empty:
-                return self._create_empty_chart("SSAs por Responsável na Programação")
+                return self._create_empty_chart("SSAs por Responsavel na Programacao")
 
             fig = go.Figure(
                 data=[
@@ -561,8 +562,8 @@ class SSADashboard:
             )
 
             fig.update_layout(
-                title="SSAs por Responsável na Programação",
-                xaxis_title="Responsável",
+                title="SSAs por Responsavel na Programacao",
+                xaxis_title="Responsavel",
                 yaxis_title="Quantidade",
                 template="plotly_white",
                 showlegend=False,
@@ -575,12 +576,12 @@ class SSADashboard:
             return fig
         except Exception as e:
             logging.error(
-                f"Erro ao criar gráfico de responsáveis na programação: {str(e)}"
+                f"Erro ao criar grafico de responsaveis na programacao: {str(e)}"
             )
-            return self._create_empty_chart("SSAs por Responsável na Programação")
+            return self._create_empty_chart("SSAs por Responsavel na Programacao")
 
     def _create_resp_exec_chart(self, df):
-        """Cria o gráfico de responsáveis na execução."""
+        """Cria o grafico de responsaveis na execucao."""
         resp_exec_counts = df.iloc[:, SSAColumns.RESPONSAVEL_EXECUCAO].value_counts()
 
         fig = go.Figure(
@@ -595,8 +596,8 @@ class SSADashboard:
         )
 
         fig.update_layout(
-            title="SSAs por Responsável na Execução",
-            xaxis_title="Responsável",
+            title="SSAs por Responsavel na Execucao",
+            xaxis_title="Responsavel",
             yaxis_title="Quantidade",
             template="plotly_white",
             showlegend=False,
@@ -607,7 +608,7 @@ class SSADashboard:
         return fig
 
     def _create_detail_state_chart(self, df):
-        """Cria o gráfico de detalhamento por estado."""
+        """Cria o grafico de detalhamento por estado."""
         state_counts = df.iloc[:, SSAColumns.SITUACAO].value_counts()
 
         # Cores específicas para cada estado
@@ -649,12 +650,12 @@ class SSADashboard:
         return fig
 
     def _create_detail_week_chart(self, df):
-        """Cria o gráfico de detalhamento por semana."""
+        """Cria o grafico de detalhamento por semana."""
         filtered_visualizer = SSAVisualizer(df)
         return filtered_visualizer.create_week_chart(use_programmed=True)
 
     def _prepare_table_data(self, df):
-        """Prepara dados para a tabela com informações adicionais."""
+        """Prepara dados para a tabela com informacoes adicionais."""
         return [
             {
                 "numero": f"[{row.iloc[SSAColumns.NUMERO_SSA]}](https://osprd.itaipu/SAM_SMA/SSAPublicView.aspx?SerialNumber={row.iloc[SSAColumns.NUMERO_SSA]}&language=pt)",
@@ -692,7 +693,7 @@ class SSADashboard:
             """Handle user-entered notes - directly answers 'what I said'."""
             if n_clicks and note_text and note_text.strip():
                 # Add user's own words to history
-                self._add_to_history(f"Você disse: '{note_text.strip()}'", "user_input")
+                self._add_to_history(f"Voce disse: '{note_text.strip()}'", "user_input")
                 return "", self._get_recent_history_html()
             return note_text or "", self._get_recent_history_html()
 
@@ -726,7 +727,7 @@ class SSADashboard:
             """Export user history when button is clicked."""
             if n_clicks:
                 export_text = self._export_history()
-                self._add_to_history("📄 Exportou histórico de ações", "action")
+                self._add_to_history("Exportou historico de acoes", "action")
                 return True, dcc.Textarea(
                     value=export_text,
                     style={"width": "100%", "height": "300px", "fontFamily": "monospace"},
@@ -761,9 +762,9 @@ class SSADashboard:
             # Log filter changes to history
             filters_applied = []
             if resp_prog:
-                filters_applied.append(f"Responsável Prog.: {resp_prog}")
+                filters_applied.append(f"Responsavel Prog.: {resp_prog}")
             if resp_exec:
-                filters_applied.append(f"Responsável Exec.: {resp_exec}")
+                filters_applied.append(f"Responsavel Exec.: {resp_exec}")
             if setor_emissor:
                 filters_applied.append(f"Setor Emissor: {setor_emissor}")
             if setor_executor:
@@ -815,11 +816,11 @@ class SSADashboard:
                     filters_applied.append(f"Setor Executor: {setor_executor}")
                 
                 if filters_applied:
-                    self._add_to_history(f"📊 Filtrou dados: {', '.join(filters_applied)}", "data_filter")
+                    self._add_to_history(f"Filtrou dados: {', '.join(filters_applied)}", "data_filter")
             else:
                 # Track when user clears filters
                 if dash.callback_context.triggered:
-                    self._add_to_history("🔄 Visualizou todos os dados (sem filtros)", "data_filter")
+                    self._add_to_history("Visualizou todos os dados (sem filtros)", "data_filter")
 
             df_filtered = self.df.copy()
 
@@ -847,7 +848,7 @@ class SSADashboard:
             # Criar os cards de resumo
             resp_cards = self._create_resp_summary_cards(df_filtered)
 
-            # Gerar gráficos com informações de hover e click
+            # Gerar graficos com informacoes de hover e click
             fig_prog = self._enhance_bar_chart(
                 self._create_resp_prog_chart(df_filtered),
                 "resp_prog",
@@ -992,10 +993,10 @@ class SSADashboard:
 
                     if ssas:
                         self.logger.log_with_ip(
-                            "INFO", f"Visualização de SSAs: {title_prefix} {label}"
+                            "INFO", f"Visualizacao de SSAs: {title_prefix} {label}"
                         )
                         # Add to user history when user views SSA details
-                        self._add_to_history(f"🔍 Visualizou detalhes: {title_prefix} {label} ({len(ssas)} SSAs)", "action")
+                        self._add_to_history(f"Visualizou detalhes: {title_prefix} {label} ({len(ssas)} SSAs)", "action")
 
                     ssa_list = self._create_ssa_list(ssas)
                     title = f"{title_prefix} {label} ({len(ssas)} SSAs)"
@@ -1091,7 +1092,7 @@ class SSADashboard:
                 const ssa = button.title || button.getAttribute('title') || '';
                 return copy(ssa).then(function() {
                     const originalText = button.textContent;
-                    button.textContent = '✓';
+                    button.textContent = 'OK';
                     button.style.backgroundColor = '#d4edda';
                     setTimeout(() => {
                         button.textContent = originalText;
@@ -1106,14 +1107,14 @@ class SSADashboard:
             State({"type": "copy-button", "index": MATCH}, "id"),
         )
 
-        # Callback para atualização automática
+        # Callback para atualizacao automatica
         @self.app.callback(
             Output("state-data", "data"), Input("interval-component", "n_intervals")
         )
         def update_data(n):
             """Update data periodically."""
             if n:  # Só atualiza após o primeiro intervalo
-                self.logger.log_with_ip("INFO", "Atualização automática dos dados")
+                self.logger.log_with_ip("INFO", "Atualizacao automatica dos dados")
             return {}
 
     def _create_resp_summary_cards(self, df_filtered):
@@ -1291,7 +1292,7 @@ class SSADashboard:
         """
         Define o layout completo do dashboard.
         Remove o ribbon de estatísticas inicial e mantém apenas o ribbon de estados.
-        Inclui todos os gráficos, tabelas e funcionalidades adicionais.
+        Inclui todos os graficos, tabelas e funcionalidades adicionais.
         """
         stats = self._get_initial_stats()
         state_counts = self._get_state_counts()
@@ -1323,8 +1324,8 @@ class SSADashboard:
                                 dbc.Card(
                                     [
                                         dbc.CardHeader([
-                                            html.H6("Últimas Ações", className="mb-0"),
-                                            html.Small("(O que você acabou de fazer)", className="text-muted")
+                                            html.H6("Ultimas Acoes", className="mb-0"),
+                                            html.Small("(O que voce acabou de fazer)", className="text-muted")
                                         ]),
                                         dbc.CardBody([
                                             html.Div(id="user-history-display"),
@@ -1333,7 +1334,7 @@ class SSADashboard:
                                             dbc.InputGroup([
                                                 dbc.Input(
                                                     id="user-note-input",
-                                                    placeholder="Digite sua ação/nota...",
+                                                    placeholder="Digite sua acao/nota...",
                                                     size="sm"
                                                 ),
                                                 dbc.Button(
@@ -1346,14 +1347,14 @@ class SSADashboard:
                                             html.Div([
                                                 dbc.ButtonGroup([
                                                     dbc.Button(
-                                                        "📄 Exportar",
+                                                        "Exportar",
                                                         id="export-history-btn",
                                                         size="sm",
                                                         color="outline-info",
                                                         className="flex-fill"
                                                     ),
                                                     dbc.Button(
-                                                        "🗑️ Limpar",
+                                                        "Limpar",
                                                         id="clear-history-btn",
                                                         size="sm",
                                                         color="outline-secondary",
@@ -1377,7 +1378,7 @@ class SSADashboard:
                         dbc.Col(
                             [
                                 html.Label(
-                                    "Responsável Programação:", className="fw-bold"
+                                    "Responsavel Programacao:", className="fw-bold"
                                 ),
                                 dcc.Dropdown(
                                     id="resp-prog-filter",
@@ -1397,7 +1398,7 @@ class SSADashboard:
                         dbc.Col(
                             [
                                 html.Label(
-                                    "Responsável Execução:", className="fw-bold"
+                                    "Responsavel Execucao:", className="fw-bold"
                                 ),
                                 dcc.Dropdown(
                                     id="resp-exec-filter",
@@ -1474,7 +1475,7 @@ class SSADashboard:
                                 dbc.Card(
                                     [
                                         dbc.CardHeader(
-                                            "SSAs por Responsável na Programação",
+                                            "SSAs por Responsavel na Programacao",
                                             className="fw-bold bg-light",
                                         ),
                                         dbc.CardBody(
@@ -1499,7 +1500,7 @@ class SSADashboard:
                                 dbc.Card(
                                     [
                                         dbc.CardHeader(
-                                            "SSAs por Responsável na Execução",
+                                            "SSAs por Responsavel na Execucao",
                                             className="fw-bold bg-light",
                                         ),
                                         dbc.CardBody(
@@ -1614,7 +1615,7 @@ class SSADashboard:
                     ],
                     className="mb-4",
                 ),
-                # Seção de detalhamento
+                # Secao de detalhamento
                 html.Div(
                     [
                         dbc.Row(
@@ -1756,7 +1757,7 @@ class SSADashboard:
                                                             "id": "data_emissao",
                                                         },
                                                         {
-                                                            "name": "Descrição",
+                                                            "name": "Descricao",
                                                             "id": "descricao",
                                                         },
                                                     ],
@@ -1822,7 +1823,7 @@ class SSADashboard:
                         )
                     ]
                 ),
-                # Modal para exibição
+                # Modal para exibicao
                 dbc.Modal(
                     [
                         dbc.ModalHeader(
@@ -1853,7 +1854,7 @@ class SSADashboard:
                 dbc.Modal(
                     [
                         dbc.ModalHeader(
-                            [dbc.ModalTitle("📄 Histórico de Ações")],
+                            [dbc.ModalTitle("Historico de Acoes")],
                             close_button=True,
                         ),
                         dbc.ModalBody([
@@ -1874,7 +1875,7 @@ class SSADashboard:
                 ),
                 # Store para dados de estado
                 dcc.Store(id="state-data"),
-                # Intervalo para atualização automática
+                # Intervalo para atualizacao automatica
                 dcc.Interval(
                     id="interval-component",
                     interval=5 * 60 * 1000,  # 5 minutos em milissegundos
