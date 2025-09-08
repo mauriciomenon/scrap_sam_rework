@@ -83,3 +83,36 @@ Para questões técnicas, consulte:
 ---
 
 **Importante**: Sempre consulte o plano de reorganização antes de fazer alterações!
+
+## Executar o Dashboard SSA (guia rápido)
+
+- Coloque novas planilhas Excel em `downloads/`. O runner escolhe automaticamente o arquivo mais recente que comece com “SSAs Pendentes Geral - …”.
+- Você pode especificar um arquivo manualmente com `--file`.
+- A porta é escolhida automaticamente a partir de 8080 (se ocupada, tenta a próxima livre), ou defina com `--port`.
+
+Exemplos:
+
+```bash
+# Seleção automática de arquivo/porta
+/Users/menon/git/scrap_sam_rework/.venv/bin/python src/dashboard/Class/run.py
+
+# Forçando porta e arquivo
+/Users/menon/git/scrap_sam_rework/.venv/bin/python src/dashboard/Class/run.py --port 8050 --file downloads/"SSAs Pendentes Geral - 05-11-2024_0753AM.xlsx"
+```
+
+Validação de planilhas (opcional):
+
+```bash
+/Users/menon/git/scrap_sam_rework/.venv/bin/python scripts/validate_excels.py
+```
+
+O validador varre `downloads/*.xlsx` e gera um relatório em `docs/VALIDATION_REPORT.md`.
+
+## Troubleshooting (Dashboard SSA)
+
+- Ausência de planilhas: adicione um `.xlsx` em `downloads/` ou especifique com `--file`.
+- Porta ocupada: use `--port` ou deixe o runner escolher a próxima livre.
+- Import/Path em ambientes interativos: rode a partir da raiz do repo; prefira o Python do venv.
+- `pytest` fora do venv: use `/.venv/bin/python -m pytest` do repositório.
+- Playwright sem binários: `python -m playwright install` (Linux: `--with-deps`).
+- Datas inconsistentes: utilize `scripts/validate_excels.py` para diagnosticar e o relatório em `docs/VALIDATION_REPORT.md`.

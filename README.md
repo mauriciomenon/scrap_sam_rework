@@ -58,6 +58,40 @@ Notas:
 - Teste rápido: `pytest -q`.
 - Lints: `flake8` e `black --check .`; tipos: `mypy`.
 
+### Dashboard SSA (Quickstart)
+
+- Onde colocar as planilhas novas:
+  - Coloque os arquivos Excel em `downloads/`. O runner tenta usar automaticamente o arquivo mais recente cujo nome começa com “SSAs Pendentes Geral - …”.
+  - Você pode forçar um arquivo específico com `--file`.
+
+- Executar o dashboard:
+  - Porta automática (pega uma livre a partir de 8080) e seleção automática de arquivo:
+    ```bash
+    /Users/menon/git/scrap_sam_rework/.venv/bin/python src/dashboard/Class/run.py
+    ```
+  - Forçar porta e arquivo:
+    ```bash
+    /Users/menon/git/scrap_sam_rework/.venv/bin/python src/dashboard/Class/run.py --port 8050 --file downloads/"SSAs Pendentes Geral - 05-11-2024_0753AM.xlsx"
+    ```
+
+- Validação de planilhas (opcional):
+  - Há um validador em `scripts/validate_excels.py` que varre `downloads/*.xlsx` e gera um relatório em `docs/VALIDATION_REPORT.md`.
+  - Uso básico:
+    ```bash
+    /Users/menon/git/scrap_sam_rework/.venv/bin/python scripts/validate_excels.py
+    ```
+
+### Troubleshooting (Dashboard SSA)
+
+- “Nenhum arquivo .xlsx encontrado em downloads/”: coloque uma planilha válida em `downloads/` (preferencialmente começando com “SSAs Pendentes Geral - …”) ou use `--file`.
+- Porta em uso: o runner tenta automaticamente a próxima porta livre; opcionalmente force com `--port 8050`.
+- Import/Path estranho depois de rodar o runner nos testes: o `run.py` restaura `sys.path` e módulos após execução; se estiver rodando manualmente dentro de um REPL, reinicie a sessão.
+- `pytest` do Homebrew quebrado: use o venv do repo — `/Users/menon/git/scrap_sam_rework/.venv/bin/python -m pytest -q`.
+- Playwright não abre navegador: instale binários com `python -m playwright install` (Linux: `--with-deps`).
+- Navegador bloqueado por firewall/proxy: teste em `http://localhost:<porta>` e verifique regras locais.
+- Erros de import do pacote `src.dashboard.Class...`: garanta que está rodando a partir da raiz do repo e usando o Python do venv.
+- Datas inválidas no Excel: o carregador tenta converter formatos comuns e reporta linhas problemáticas; use o validador para identificar colunas inconsistentes.
+
 ## Diferenças em relação ao SCRAP_SAM (original)
 
 Arquivos (rework vs original): adicionados=2531, removidos=117, modificados=8, comuns=61

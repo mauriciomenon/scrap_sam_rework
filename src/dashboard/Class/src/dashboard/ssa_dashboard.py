@@ -27,7 +27,7 @@ class SSADashboard:
         )
 
         # Configurar logger
-        self.logger = LogManager()
+        self.logger: Any = LogManager()
         
         # User interaction history - addresses "o que acabei de falar" request
         self.user_history = []
@@ -302,18 +302,35 @@ class SSADashboard:
         """Return Plotly config typed as Any to satisfy Dash component typing."""
         return cast(Any, self._get_chart_config())
 
-    def run_server(self, debug: bool = True, port: int = 8080, host: str = "0.0.0.0"):
-        """Inicia o servidor do dashboard com compatibilidade entre versoes do Dash."""
-        self.logger.log_with_ip("INFO", "Iniciando servidor do dashboard")
+    def run_server(self, debug: bool = True, port: int = 8080, host: str = "0.0.0.0", **kwargs):
+        """Inicia o servidor do dashboard (Dash 2 e 3), propagando kwargs extras (ex.: use_reloader)."""
+        # Use logger only if it has the expected method (helps type checkers)
         try:
-            run = getattr(self.app, "run", None)
-            if callable(run):
-                self.app.run(debug=debug, port=port, host=host)
+            self.logger.log_with_ip("INFO", "Iniciando servidor do dashboard")
+        except Exception:
+            logging.getLogger("DashboardLogger").info("Iniciando servidor do dashboard")
+
+        # Garanta que o Flask subjacente respeite o modo debug desejado
+        try:
+            self.app.server.debug = bool(debug)
+        except Exception:
+            pass
+
+        try:
+            run_method = getattr(self.app, "run", None)
+            if callable(run_method):
+                # Dash 3+ usa app.run
+                self.app.run(debug=debug, port=port, host=host, **kwargs)
             else:
-                # Fallback para versoes antigas
-                self.app.run_server(debug=debug, port=port, host=host)
+                # Dash 2.x
+                self.app.run_server(debug=debug, port=port, host=host, **kwargs)
         except Exception as e:
-            self.logger.log_with_ip("ERROR", f"Erro ao iniciar servidor: {str(e)}")
+            try:
+                self.logger.log_with_ip("ERROR", f"Erro ao iniciar servidor: {str(e)}")
+            except Exception:
+                logging.getLogger("DashboardLogger").error(f"Erro ao iniciar servidor: {str(e)}")
+            logging.getLogger("DashboardLogger").error(f"Erro ao iniciar servidor: {str(e)}")
+            raise
 
     def _create_hover_text(self, ssas, title):
         """Creates hover text for charts."""

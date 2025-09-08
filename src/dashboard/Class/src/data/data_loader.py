@@ -1,5 +1,6 @@
 # src/data/data_loader.py
 import pandas as pd
+import warnings
 import logging
 import traceback
 from typing import List, Optional, Dict, Tuple
@@ -144,7 +145,10 @@ class DataLoader:
 
         def is_datetime_like(series: pd.Series):
             try:
-                parsed = pd.to_datetime(series, errors="coerce", dayfirst=True)
+                # Silence pandas format inference warnings during heuristic probing
+                with warnings.catch_warnings():
+                    warnings.simplefilter("ignore", category=UserWarning)
+                    parsed = pd.to_datetime(series, errors="coerce", dayfirst=True)
                 return parsed.notna()
             except Exception:
                 return pd.Series([False] * len(series))

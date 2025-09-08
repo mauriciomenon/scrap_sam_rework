@@ -14,24 +14,46 @@ class LogManager:
     def __init__(self):
         self.logger = logging.getLogger("DashboardLogger")
         self.logger.setLevel(logging.INFO)
+        # Evita logs duplicados para o root logger
+        self.logger.propagate = False
 
-        # File handler
-        fh = logging.FileHandler("dashboard_activity.log")
-        fh.setLevel(logging.INFO)
+        # Filtro que garante que sempre exista o campo 'ip' no LogRecord
+        class _EnsureIPFilter(logging.Filter):
+            def filter(self, record: logging.LogRecord) -> bool:
+                if not hasattr(record, "ip"):
+                    record.ip = "system"
+                return True
 
-        # Console handler
-        ch = logging.StreamHandler()
-        ch.setLevel(logging.INFO)
+        ip_filter = _EnsureIPFilter()
 
-        # Formatter
-        formatter = logging.Formatter(
-            "%(asctime)s - %(name)s - %(levelname)s - IP: %(ip)s - %(message)s"
-        )
-        fh.setFormatter(formatter)
-        ch.setFormatter(formatter)
+        # Configure handlers apenas uma vez (evita duplicar em recargas)
+        if not self.logger.handlers:
+            # File handler
+            fh = logging.FileHandler("dashboard_activity.log")
+            fh.setLevel(logging.INFO)
 
-        self.logger.addHandler(fh)
-        self.logger.addHandler(ch)
+            # Console handler
+            ch = logging.StreamHandler()
+            ch.setLevel(logging.INFO)
+
+            # Formatter com campo de IP
+            formatter = logging.Formatter(
+                "%(asctime)s - %(name)s - %(levelname)s - IP: %(ip)s - %(message)s"
+            )
+            fh.setFormatter(formatter)
+            ch.setFormatter(formatter)
+
+            # Garante que todos os logs tenham o campo 'ip'
+            fh.addFilter(ip_filter)
+            ch.addFilter(ip_filter)
+
+            self.logger.addHandler(fh)
+            self.logger.addHandler(ch)
+        else:
+            # Mesmo se já houver handlers (ex.: em debug), assegura o filtro
+            for h in self.logger.handlers:
+                h.addFilter(ip_filter)
+
         self.active_users = {}
         self.connected_ips = set()
         self._last_log = {}  # Para controlar frequência de logs
